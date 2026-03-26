@@ -1,14 +1,21 @@
 import { motion } from 'framer-motion';
-import { Upload, MessageSquare, CheckCircle, Clock, Palette, Shield } from 'lucide-react';
 import { StaggerContainer, StaggerItem } from '@/components/motion/Animations';
+import {
+  UploadIllustration,
+  FeedbackIllustration,
+  ApprovalIllustration,
+  TimelineIllustration,
+  BrandingIllustration,
+  AuditIllustration,
+} from './FeatureIllustrations';
 
 const features = [
-  { icon: Upload, title: 'Upload deliverables', description: 'Share files, designs, and documents with clients in one organized space.' },
-  { icon: MessageSquare, title: 'Threaded feedback', description: 'Clients leave contextual comments directly on each deliverable.' },
-  { icon: CheckCircle, title: 'One-click approval', description: 'Clients approve or request changes with a single action. No more email chains.' },
-  { icon: Clock, title: 'Activity timeline', description: 'Every comment, approval, and status change is logged automatically.' },
-  { icon: Palette, title: 'Branded portal', description: 'Add your logo and accent color so the portal feels like your own.' },
-  { icon: Shield, title: 'Audit trail', description: 'Every decision is timestamped and attributed. Built for accountability.' },
+  { illustration: UploadIllustration, title: 'Upload deliverables', description: 'Share files, designs, and documents with clients in one organized space.' },
+  { illustration: FeedbackIllustration, title: 'Threaded feedback', description: 'Clients leave contextual comments directly on each deliverable.' },
+  { illustration: ApprovalIllustration, title: 'One-click approval', description: 'Clients approve or request changes with a single action. No more email chains.' },
+  { illustration: TimelineIllustration, title: 'Activity timeline', description: 'Every comment, approval, and status change is logged automatically.' },
+  { illustration: BrandingIllustration, title: 'Branded portal', description: 'Add your logo and accent color so the portal feels like your own.' },
+  { illustration: AuditIllustration, title: 'Audit trail', description: 'Every decision is timestamped and attributed. Built for accountability.' },
 ];
 
 const Features = () => (
@@ -32,8 +39,8 @@ const Features = () => (
               transition={{ type: 'spring', stiffness: 300, damping: 20 }}
               className="group rounded-2xl border bg-card p-6 h-full"
             >
-              <div className="h-10 w-10 rounded-xl bg-primary/[0.08] flex items-center justify-center mb-4 group-hover:bg-primary/[0.12] transition-colors duration-300">
-                <f.icon className="h-5 w-5 text-primary" />
+              <div className="h-20 mb-5 rounded-xl bg-muted/30 border border-border/50 flex items-center justify-center overflow-hidden">
+                <f.illustration />
               </div>
               <h3 className="font-semibold text-base mb-2">{f.title}</h3>
               <p className="text-muted-foreground text-sm leading-relaxed">{f.description}</p>
