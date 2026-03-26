@@ -75,19 +75,19 @@ const HowItWorks = () => {
                 <div key={step.number} className="flex items-center gap-3 md:gap-4">
                   <button
                     onClick={() => handleStepClick(i)}
-                    className={`relative flex items-center gap-2.5 rounded-full px-4 py-2 text-[13px] font-medium transition-all duration-300 ${active ? `${c.bg} ${c.text} ring-1 ${c.ring} shadow-lg ${c.glow}` : completed ? `${c.bg} ${c.text}` : 'bg-muted/50 text-muted-foreground hover:bg-muted'}`}
+                    className={`relative overflow-hidden flex items-center gap-2.5 rounded-full px-4 py-2 text-[13px] font-medium transition-all duration-300 ${active ? `${c.bg} ${c.text} ring-1 ${c.ring} shadow-lg ${c.glow}` : completed ? `${c.bg} ${c.text}` : 'bg-muted/50 text-muted-foreground hover:bg-muted'}`}
                   >
                     <span className={`h-6 w-6 rounded-full flex items-center justify-center text-[10px] font-bold ${active ? `${c.bg} ${c.text}` : completed ? `${c.bg} ${c.text}` : 'bg-muted text-muted-foreground'}`}>
                       {completed ? <CheckCircle2 className="h-3.5 w-3.5" /> : step.number}
                     </span>
                     <span className="hidden sm:inline">{step.title}</span>
 
-                    {/* Progress bar inside active step */}
+                    {/* Progress scrub inside active step */}
                     {active && (
                       <motion.div
-                        className="absolute bottom-0 left-0 h-0.5 rounded-full bg-current opacity-30"
-                        initial={{ width: '0%' }}
-                        animate={{ width: '100%' }}
+                        className={`absolute inset-0 rounded-full opacity-[0.08] ${c.text.replace('text-', 'bg-')}`}
+                        initial={{ clipPath: 'inset(0 100% 0 0 round 9999px)' }}
+                        animate={{ clipPath: 'inset(0 0% 0 0 round 9999px)' }}
                         transition={{ duration: 4, ease: 'linear' }}
                         key={`progress-${i}-${activeStep}`}
                       />
