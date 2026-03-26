@@ -1,66 +1,22 @@
 
 
-## Features Section Redesign: Pinned Scrollytelling
+## Elevate Demo Panel with Glassmorphic + Green Gradient Styling
 
-### The Problem
-Six feature cards in a 3×2 grid is generic and forgettable. For a premium SaaS, the features section should command attention and create a cinematic scroll experience.
+The demo container (right panel in Features section) currently has a flat `bg-card` with a barely-visible gradient overlay. We'll make it visually striking with glassmorphism and subtle green gradients.
 
-### The Approach: Pinned Scroll + Stacked Reveals
+### Changes to `src/components/landing/Features.tsx`
 
-A **pinned scrollytelling layout** where:
+**Demo container (line 125):** Replace the plain `bg-card` with glassmorphic styling:
+- `bg-card/60 backdrop-blur-2xl` for the frosted glass effect
+- `border-primary/10` for a subtle green-tinted border
+- `shadow-[0_8px_32px_-8px_hsl(160_84%_39%/0.08)]` for a green-tinted ambient shadow
 
-1. The viewport pins the features section as you scroll
-2. Left side: a large interactive demo panel that transitions between demos
-3. Right side: feature text (title + description) that fades/slides in sync with scroll progress
-4. Each feature gets ~100vh of scroll distance, so 6 features = ~600vh of scroll height
-5. As you scroll through each "chapter," the demo crossfades and the text swaps with a smooth animation
+**Gradient overlay (line 126):** Strengthen the background gradient:
+- Replace `from-primary/[0.02]` with a multi-stop gradient: `bg-[radial-gradient(ellipse_at_top_left,hsl(160_84%_39%/0.06),transparent_60%),radial-gradient(ellipse_at_bottom_right,hsl(160_84%_39%/0.04),transparent_60%)]`
+- Add a second decorative layer with a soft green glow dot in one corner
 
-```text
-┌─────────────────────────────────────────┐
-│           Section heading               │
-│  "Everything you need. Nothing you      │
-│   don't."                               │
-├────────────────────┬────────────────────┤
-│                    │                    │
-│   Interactive      │   Feature title    │
-│   Demo (large,     │   Description      │
-│   pinned)          │   (fades in/out    │
-│                    │    per scroll)     │
-│                    │                    │
-│                    │   ● ● ● ○ ○ ○     │
-│                    │   progress dots    │
-├────────────────────┴────────────────────┤
-│  (scrolls through 6 features while     │
-│   this panel stays pinned)             │
-└─────────────────────────────────────────┘
-```
+**Inner content area:** Add a subtle inner border/ring using `ring-1 ring-primary/5` for extra glass depth.
 
-### Technical Details
-
-**File changes:**
-
-1. **`src/components/landing/Features.tsx`** — Complete rewrite:
-   - Use GSAP `ScrollTrigger` with `pin: true` to pin the section
-   - Create a tall scroll container (`height: 600vh`) with the pinned inner panel
-   - Use ScrollTrigger's `progress` (0→1) to determine which feature (0–5) is active
-   - Left panel: `AnimatePresence` crossfade between the 6 demo components (rendered larger, ~400px tall)
-   - Right panel: text slides up/fades with each feature transition
-   - Progress dots at the bottom show current position
-   - On mobile: stack vertically with the demo on top and text below, still pinned
-
-2. **`src/hooks/use-smooth-scroll.ts`** — No changes needed (existing GSAP+Lenis setup handles pinning natively)
-
-3. **`src/components/landing/FeatureInteractiveDemos.tsx`** — Minor tweaks:
-   - Scale up the demos slightly since they'll render in a larger container
-   - Each demo stays the same logic, just displayed bigger
-
-**Key implementation details:**
-- GSAP ScrollTrigger `pin` with `scrub: true` for buttery scroll-linked progress
-- `useRef` to track the pinned container, calculate active index from scroll progress
-- `useState` for `activeIndex`, updated via ScrollTrigger's `onUpdate` callback
-- Framer Motion `AnimatePresence` for crossfade transitions between demos
-- Feature number indicator (e.g., "01 / 06") for editorial polish
-- Subtle parallax offset on the demo panel as features transition
-
-**Mobile behavior:** Falls back to a simpler stacked layout where each feature is a full-width card that animates in on scroll (no pinning, since pinned scroll on mobile touch can feel janky).
+### Summary
+Two lines of styling changes in `Features.tsx` to transform the demo panel from flat white to a premium glassmorphic container with green-tinted gradients and ambient shadows.
 
