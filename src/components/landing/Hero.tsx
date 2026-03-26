@@ -9,9 +9,9 @@ const Hero = () => (
     <div className="absolute inset-0 surface-sunken" />
     <HeroBackground />
 
-    {/* Gradient orbs */}
-    <div className="absolute top-[20%] left-[15%] w-[500px] h-[500px] rounded-full opacity-[0.05] blur-3xl" style={{ background: 'radial-gradient(circle, hsl(160, 84%, 39%), transparent 60%)' }} />
-    <div className="absolute bottom-[10%] right-[10%] w-[400px] h-[400px] rounded-full opacity-[0.04] blur-3xl" style={{ background: 'radial-gradient(circle, hsl(190, 80%, 42%), transparent 60%)' }} />
+    {/* Gradient orbs with parallax */}
+    <div data-speed="0.3" className="absolute top-[20%] left-[15%] w-[500px] h-[500px] rounded-full opacity-[0.05] blur-3xl" style={{ background: 'radial-gradient(circle, hsl(160, 84%, 39%), transparent 60%)' }} />
+    <div data-speed="0.6" className="absolute bottom-[10%] right-[10%] w-[400px] h-[400px] rounded-full opacity-[0.04] blur-3xl" style={{ background: 'radial-gradient(circle, hsl(190, 80%, 42%), transparent 60%)' }} />
 
     <div className="container relative">
       <motion.div
@@ -69,6 +69,7 @@ const Hero = () => (
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
         className="mt-16 md:mt-24 max-w-5xl mx-auto"
+        data-gsap="mockup"
       >
         <div className="rounded-2xl border bg-card overflow-hidden glow-primary" style={{ boxShadow: '0 25px 80px -15px hsl(160 84% 39% / 0.08), 0 8px 24px -8px hsl(220 20% 10% / 0.06)' }}>
           <div className="flex items-center gap-2 px-5 py-3.5 border-b bg-muted/30">
