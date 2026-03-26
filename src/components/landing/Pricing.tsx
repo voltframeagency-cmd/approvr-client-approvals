@@ -82,12 +82,14 @@ const Pricing = () => (
               )}
 
               <div
-                className={`relative rounded-2xl bg-card flex flex-col h-full overflow-hidden ${
+                className={`relative rounded-2xl bg-card/60 backdrop-blur-2xl flex flex-col h-full overflow-hidden ring-1 ring-primary/5 shadow-[0_8px_32px_-8px_hsl(160_84%_39%/0.08)] ${
                   plan.popular
                     ? 'border-2 border-primary/30'
-                    : 'border border-border'
+                    : 'border border-primary/10'
                 }`}
               >
+                {/* Glassmorphic gradient overlay */}
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,hsl(160_84%_39%/0.05),transparent_60%),radial-gradient(ellipse_at_bottom_right,hsl(160_84%_39%/0.03),transparent_60%)] pointer-events-none" />
                 {/* Top accent strip for popular */}
                 {plan.popular && (
                   <div className="h-1 w-full bg-gradient-to-r from-primary/40 via-primary to-primary/40" />
