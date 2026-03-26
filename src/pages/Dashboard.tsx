@@ -3,7 +3,7 @@ import { mockProjects, mockActivity, mockDeliverables } from '@/lib/mock-data';
 import { Link } from 'react-router-dom';
 import {
   FolderKanban, Clock, CheckCircle, AlertTriangle, ArrowRight,
-  FileText, MessageSquare, Upload, UserPlus, Eye, AlertCircle, ExternalLink
+  FileText, MessageSquare, Upload, UserPlus, Eye, AlertCircle, ExternalLink, Bell
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
@@ -21,10 +21,11 @@ const attentionItems = [
   ...pendingReview.filter(p => !p.isOverdue).map(p => ({ ...p, urgency: 'pending' as const, urgencyLabel: 'Awaiting client', urgencyColor: 'text-info bg-info/[0.08]' })),
 ];
 
+// Reordered: urgency-first
 const statCards = [
   { label: 'Needs attention', value: attentionItems.length, icon: AlertCircle, accent: 'destructive' },
-  { label: 'Pending reviews', value: pendingReview.length, icon: Clock, accent: 'info' },
   { label: 'Changes requested', value: changesRequested.length, icon: AlertTriangle, accent: 'warning' },
+  { label: 'Pending reviews', value: pendingReview.length, icon: Clock, accent: 'info' },
   { label: 'Approved', value: recentApprovals.length, icon: CheckCircle, accent: 'success' },
 ];
 
@@ -35,6 +36,13 @@ const accentColors: Record<string, string> = {
   success: 'text-success bg-success/[0.08]',
 };
 
+const accentBorders: Record<string, string> = {
+  destructive: 'border-l-destructive',
+  info: 'border-l-info',
+  warning: 'border-l-warning',
+  success: 'border-l-success',
+};
+
 const activityIcons: Record<string, typeof FileText> = {
   approval: CheckCircle,
   comment: MessageSquare,
@@ -43,6 +51,14 @@ const activityIcons: Record<string, typeof FileText> = {
   invite: UserPlus,
   view: Eye,
 };
+
+// Filter to approval-relevant activity only
+const approvalActivity = mockActivity.filter(a =>
+  ['approval', 'comment', 'status_change', 'view'].includes(a.type)
+);
+
+// Active approvals: non-draft, non-approved
+const activeApprovals = mockProjects.filter(p => p.status !== 'draft' && p.status !== 'approved');
 
 function timeAgo(dateStr: string) {
   const diff = Date.now() - new Date(dateStr).getTime();
@@ -63,8 +79,8 @@ const Dashboard = () => (
       className="flex items-center justify-between"
     >
       <div>
-        <h1 className="text-2xl font-bold">Welcome back, Alex</h1>
-        <p className="text-muted-foreground mt-1 text-sm">Here's what needs your attention.</p>
+        <h1 className="text-2xl font-bold">Approval overview</h1>
+        <p className="text-muted-foreground mt-1 text-sm">Here's what's blocked, waiting, or ready.</p>
       </div>
       <Link to="/dashboard/projects">
         <Button className="gap-2">
@@ -81,7 +97,7 @@ const Dashboard = () => (
           <motion.div
             whileHover={{ y: -2 }}
             transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-            className="card-elevated p-5"
+            className={`card-elevated p-5 border-l-2 ${accentBorders[card.accent]}`}
           >
             <div className={`h-9 w-9 rounded-xl flex items-center justify-center mb-3 ${accentColors[card.accent]}`}>
               <card.icon className="h-4 w-4" />
@@ -94,7 +110,7 @@ const Dashboard = () => (
     </StaggerContainer>
 
     {/* Attention queue */}
-    {attentionItems.length > 0 && (
+    {attentionItems.length > 0 ? (
       <div className="space-y-3">
         <div className="flex items-center gap-2">
           <AlertCircle className="h-4 w-4 text-destructive" />
@@ -119,6 +135,12 @@ const Dashboard = () => (
                   </div>
                   <div className="hidden sm:flex items-center gap-4 text-[12px] text-muted-foreground">
                     <span className="font-mono">{item.approvedCount}/{item.deliverableCount} approved</span>
+                    {item.isOverdue && (
+                      <span className="flex items-center gap-1 text-warning">
+                        <Bell className="h-3 w-3" />
+                        Reminder sent 2d ago
+                      </span>
+                    )}
                     {item.lastViewedByClient && (
                       <span className="flex items-center gap-1">
                         <Eye className="h-3 w-3" />
@@ -134,63 +156,80 @@ const Dashboard = () => (
           ))}
         </StaggerContainer>
       </div>
+    ) : (
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="card-elevated p-8 text-center"
+      >
+        <CheckCircle className="h-8 w-8 mx-auto mb-3 text-success/40" />
+        <p className="font-medium text-[15px]">All caught up</p>
+        <p className="text-[13px] text-muted-foreground mt-1">No blocked approvals right now.</p>
+      </motion.div>
     )}
 
     <div className="grid lg:grid-cols-5 gap-6">
-      {/* All projects summary */}
+      {/* Active approvals */}
       <div className="lg:col-span-3 space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-base font-semibold">All projects</h2>
+          <h2 className="text-base font-semibold">Active approvals</h2>
           <Link to="/dashboard/projects" className="text-[13px] text-primary hover:underline flex items-center gap-1">
             View all <ArrowRight className="h-3 w-3" />
           </Link>
         </div>
-        <StaggerContainer className="space-y-2.5" staggerDelay={0.05}>
-          {mockProjects.slice(0, 5).map(project => (
-            <StaggerItem key={project.id}>
-              <Link to={`/dashboard/projects/${project.id}`}>
-                <motion.div
-                  whileHover={{ y: -1, boxShadow: '0 4px 20px -4px hsl(160 84% 39% / 0.06)' }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                  className="card-elevated p-4"
-                >
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="min-w-0">
-                      <p className="font-medium text-[14px] truncate">{project.name}</p>
-                      <p className="text-[13px] text-muted-foreground">{project.clientName}</p>
+        {activeApprovals.length > 0 ? (
+          <StaggerContainer className="space-y-2.5" staggerDelay={0.05}>
+            {activeApprovals.slice(0, 5).map(project => (
+              <StaggerItem key={project.id}>
+                <Link to={`/dashboard/projects/${project.id}`}>
+                  <motion.div
+                    whileHover={{ y: -1, boxShadow: '0 4px 20px -4px hsl(160 84% 39% / 0.06)' }}
+                    transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                    className="card-elevated p-5"
+                  >
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="min-w-0">
+                        <p className="font-medium text-[14px] truncate">{project.name}</p>
+                        <p className="text-[13px] text-muted-foreground">{project.clientName}</p>
+                      </div>
+                      <StatusBadge status={project.status} />
                     </div>
-                    <StatusBadge status={project.status} />
-                  </div>
-                  <div className="flex items-center gap-4 mt-3 text-xs text-muted-foreground">
-                    <span className="font-mono">{project.approvedCount}/{project.deliverableCount} approved</span>
-                    <span>Due {new Date(project.deadline).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
-                    {project.lastViewedByClient && (
-                      <span className="flex items-center gap-1 ml-auto">
-                        <Eye className="h-3 w-3" />
-                        Client viewed {timeAgo(project.lastViewedByClient)}
-                      </span>
-                    )}
-                  </div>
-                  <div className="mt-3 h-1 rounded-full bg-muted overflow-hidden">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: `${(project.approvedCount / project.deliverableCount) * 100}%` }}
-                      transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
-                      className="h-full rounded-full bg-primary"
-                    />
-                  </div>
-                </motion.div>
-              </Link>
-            </StaggerItem>
-          ))}
-        </StaggerContainer>
+                    <div className="flex items-center gap-4 mt-3 text-xs text-muted-foreground">
+                      <span className="font-mono">{project.approvedCount}/{project.deliverableCount} approved</span>
+                      <span>Due {new Date(project.deadline).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+                      {project.lastViewedByClient && (
+                        <span className="flex items-center gap-1 ml-auto">
+                          <Eye className="h-3 w-3" />
+                          Client viewed {timeAgo(project.lastViewedByClient)}
+                        </span>
+                      )}
+                    </div>
+                    <div className="mt-3 h-1 rounded-full bg-muted overflow-hidden">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        animate={{ width: `${(project.approvedCount / project.deliverableCount) * 100}%` }}
+                        transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
+                        className="h-full rounded-full bg-primary"
+                      />
+                    </div>
+                  </motion.div>
+                </Link>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+        ) : (
+          <div className="card-elevated p-8 text-center">
+            <FolderKanban className="h-6 w-6 mx-auto mb-2 text-muted-foreground/30" />
+            <p className="text-[13px] text-muted-foreground">No active approvals. Create a project to get started.</p>
+          </div>
+        )}
       </div>
 
       {/* Activity feed */}
       <div className="lg:col-span-2 space-y-4">
-        <h2 className="text-base font-semibold">Recent activity</h2>
-        <div className="space-y-0.5">
-          {mockActivity.map((item, i) => {
+        <h2 className="text-base font-semibold">Approval activity</h2>
+        <div className="divide-y divide-border/50">
+          {approvalActivity.map((item, i) => {
             const Icon = activityIcons[item.type] || FileText;
             return (
               <motion.div
@@ -198,7 +237,7 @@ const Dashboard = () => (
                 initial={{ opacity: 0, x: -8 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.15 + i * 0.05, duration: 0.3 }}
-                className="flex items-start gap-3 p-3 rounded-lg hover:bg-muted/40 transition-colors"
+                className="flex items-start gap-3 py-3 first:pt-0"
               >
                 <div className="h-7 w-7 rounded-full bg-muted/80 flex items-center justify-center flex-shrink-0 mt-0.5">
                   <Icon className="h-3 w-3 text-muted-foreground" />
