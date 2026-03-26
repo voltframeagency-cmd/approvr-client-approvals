@@ -1,5 +1,3 @@
-import { motion } from 'framer-motion';
-import { StaggerContainer, StaggerItem } from '@/components/motion/Animations';
 import {
   UploadIllustration,
   FeedbackIllustration,
@@ -21,33 +19,38 @@ const features = [
 const Features = () => (
   <section id="features" className="py-20 md:py-32 section-glow">
     <div className="container">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="text-center max-w-2xl mx-auto mb-16"
-      >
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">Everything you need. Nothing you don't.</h2>
-        <p className="text-muted-foreground text-lg">Approvr replaces scattered approval conversations with a single source of truth.</p>
-      </motion.div>
-      <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-3 gap-5" staggerDelay={0.08}>
-        {features.map((f) => (
-          <StaggerItem key={f.title}>
-            <motion.div
-              whileHover={{ y: -2, boxShadow: '0 8px 30px -8px hsl(160 84% 39% / 0.08)' }}
-              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-              className="group rounded-2xl border bg-card p-6 h-full"
-            >
-              <div className="h-20 mb-5 rounded-xl bg-muted/30 border border-border/50 flex items-center justify-center overflow-hidden">
-                <f.illustration />
-              </div>
-              <h3 className="font-semibold text-base mb-2">{f.title}</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">{f.description}</p>
-            </motion.div>
-          </StaggerItem>
+      <div className="text-center max-w-2xl mx-auto mb-16">
+        <h2 data-gsap="heading" className="text-3xl md:text-4xl font-bold mb-4">Everything you need. Nothing you don't.</h2>
+        <p data-gsap="fade-up" className="text-muted-foreground text-lg">Approvr replaces scattered approval conversations with a single source of truth.</p>
+      </div>
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {features.map((f, i) => (
+          <div
+            key={f.title}
+            data-gsap="card"
+            data-delay={String(i * 0.07)}
+            className="group rounded-2xl border bg-card p-6 h-full transition-all duration-300 hover:-translate-y-0.5"
+            style={{ boxShadow: '0 1px 3px -1px hsla(160, 30%, 50%, 0.04)' }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.boxShadow = '0 8px 30px -8px hsl(160 84% 39% / 0.08)';
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.boxShadow = '0 1px 3px -1px hsla(160, 30%, 50%, 0.04)';
+            }}
+          >
+            <div className="h-20 mb-5 rounded-xl bg-muted/30 border border-border/50 flex items-center justify-center overflow-hidden">
+              <f.illustration />
+            </div>
+            <h3 className="font-semibold text-base mb-2">{f.title}</h3>
+            <p className="text-muted-foreground text-sm leading-relaxed">{f.description}</p>
+          </div>
         ))}
-      </StaggerContainer>
+      </div>
+    </div>
+
+    {/* Decorative divider line */}
+    <div className="container mt-20">
+      <div data-gsap="line" className="h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
     </div>
   </section>
 );
