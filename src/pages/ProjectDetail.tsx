@@ -193,7 +193,7 @@ const ProjectDetail = () => {
               >
                 {/* Tab navigation */}
                 <div className="flex items-center gap-1 border-b">
-                  {(['preview', 'versions', 'timeline'] as const).map(tab => (
+                  {(['preview', 'versions', 'timeline', 'next_steps'] as const).map(tab => (
                     <button
                       key={tab}
                       onClick={() => setActiveTab(tab)}
@@ -204,7 +204,7 @@ const ProjectDetail = () => {
                           : 'border-transparent text-muted-foreground hover:text-foreground'
                       )}
                     >
-                      {tab === 'versions' ? `Versions (${selectedDel.versions?.length || 1})` : tab}
+                      {tab === 'versions' ? `Versions (${selectedDel.versions?.length || 1})` : tab === 'next_steps' ? 'Next Steps' : tab}
                     </button>
                   ))}
                 </div>
