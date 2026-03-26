@@ -109,13 +109,21 @@ const Pricing = () => (
                       <Icon className={`h-5 w-5 ${plan.popular ? 'text-primary' : 'text-muted-foreground'}`} />
                     </div>
                     <h3 className="font-semibold text-lg">{plan.name}</h3>
+                    {'badge' in plan && plan.badge && (
+                      <span className="text-[10px] font-semibold uppercase tracking-wider text-warning bg-warning/10 px-2 py-0.5 rounded-full">{plan.badge}</span>
+                    )}
                   </div>
 
                   {/* Price */}
                   <div className="mb-1">
                     <span className="text-5xl font-bold tracking-tight">{plan.price}</span>
-                    <span className="text-muted-foreground text-base ml-1">{plan.period}</span>
+                    {plan.period && <span className="text-muted-foreground text-base ml-1">{plan.period}</span>}
                   </div>
+                  <p className="text-sm text-muted-foreground mb-2">{plan.description}</p>
+                  {!plan.period && (
+                    <p className="text-[11px] text-muted-foreground/70 mb-6 italic">During beta · usage limits apply</p>
+                  )}
+                  {plan.period && <div className="mb-6" />}
                   <p className="text-sm text-muted-foreground mb-8">{plan.description}</p>
 
                   {/* Divider */}
