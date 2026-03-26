@@ -29,12 +29,61 @@ const comments = [
   { author: 'AR', name: 'Alex Rivera', text: 'Updated — v3 ready for your review.', time: 'just now', color: 'bg-primary/10 text-primary ring-primary/10' },
 ];
 
+// Cursor keyframes: [x%, y%, duration, isClick]
+const cursorKeyframes: [number, number, number, boolean][] = [
+  [75, 20, 0, false],     // start: top-right area (idle)
+  [60, 55, 1.5, false],   // drift toward comment area
+  [45, 70, 1.5, false],   // hover over discussion
+  [30, 40, 1.5, false],   // move to sidebar area (Typography Guide)
+  [20, 58, 1, false],     // hover sidebar item
+  [70, 85, 1.5, false],   // move toward Approve button
+  [70, 85, 0.3, true],    // click Approve
+  [55, 30, 2, false],     // drift up to status badge
+  [75, 20, 1.5, false],   // return to idle
+];
+
 const HeroDemoMockup = () => {
   const [deliverables, setDeliverables] = useState(initialDeliverables);
   const [activeTab, setActiveTab] = useState(2);
   const [showApproveAnim, setShowApproveAnim] = useState(false);
   const [commentIndex, setCommentIndex] = useState(0);
   const [showTyping, setShowTyping] = useState(false);
+  const [cursorPos, setCursorPos] = useState({ x: 75, y: 20 });
+  const [cursorClick, setCursorClick] = useState(false);
+  const [cursorVisible, setCursorVisible] = useState(true);
+
+  // Cursor animation loop
+  useEffect(() => {
+    const timers: ReturnType<typeof setTimeout>[] = [];
+    let elapsed = 0;
+
+    cursorKeyframes.forEach(([x, y, dur, isClick], i) => {
+      if (i === 0) {
+        setCursorPos({ x, y });
+        return;
+      }
+      elapsed += cursorKeyframes[i - 1][2] * 1000;
+      timers.push(setTimeout(() => {
+        setCursorPos({ x, y });
+        if (isClick) {
+          setCursorClick(true);
+          setTimeout(() => setCursorClick(false), 200);
+        }
+      }, elapsed));
+    });
+
+    // Hide cursor briefly on reset
+    const totalDur = cursorKeyframes.reduce((s, k) => s + k[2] * 1000, 0);
+    timers.push(setTimeout(() => {
+      setCursorVisible(false);
+      setTimeout(() => {
+        setCursorPos({ x: 75, y: 20 });
+        setCursorVisible(true);
+      }, 300);
+    }, totalDur));
+
+    return () => timers.forEach(clearTimeout);
+  }, [deliverables[1].status]);
 
   // Auto-cycle: simulate live activity
   useEffect(() => {
@@ -71,7 +120,50 @@ const HeroDemoMockup = () => {
   const st = statusStyles[activeDeliverable.status];
 
   return (
-    <div className="rounded-2xl border bg-card overflow-hidden" style={{ boxShadow: '0 25px 80px -15px hsl(160 84% 39% / 0.08), 0 8px 24px -8px hsl(220 20% 10% / 0.06)' }}>
+    <div className="rounded-2xl border bg-card overflow-hidden relative" style={{ boxShadow: '0 25px 80px -15px hsl(160 84% 39% / 0.08), 0 8px 24px -8px hsl(220 20% 10% / 0.06)' }}>
+      {/* Animated cursor */}
+      <motion.div
+        className="absolute z-50 pointer-events-none"
+        animate={{
+          left: `${cursorPos.x}%`,
+          top: `${cursorPos.y}%`,
+          opacity: cursorVisible ? 1 : 0,
+          scale: cursorClick ? 0.85 : 1,
+        }}
+        transition={{
+          left: { duration: 1.2, ease: [0.22, 1, 0.36, 1] },
+          top: { duration: 1.2, ease: [0.22, 1, 0.36, 1] },
+          scale: { duration: 0.15 },
+          opacity: { duration: 0.2 },
+        }}
+        style={{ marginLeft: -2, marginTop: -2 }}
+      >
+        {/* Cursor SVG */}
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="drop-shadow-md">
+          <path d="M5 3l14 8.5L12 14l-2.5 7.5L5 3z" fill="hsl(var(--foreground))" stroke="hsl(var(--background))" strokeWidth="1.5" strokeLinejoin="round" />
+        </svg>
+        {/* Click ripple */}
+        <AnimatePresence>
+          {cursorClick && (
+            <motion.div
+              initial={{ scale: 0, opacity: 0.5 }}
+              animate={{ scale: 2.5, opacity: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4 }}
+              className="absolute top-1 left-1 w-3 h-3 rounded-full bg-primary/30"
+            />
+          )}
+        </AnimatePresence>
+        {/* Cursor label */}
+        <motion.div
+          className="absolute left-5 top-3 bg-foreground text-background text-[9px] font-medium px-1.5 py-0.5 rounded whitespace-nowrap"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+        >
+          Sarah C.
+        </motion.div>
+      </motion.div>
       {/* Browser chrome */}
       <div className="flex items-center gap-2 px-5 py-3 border-b bg-muted/20">
         <div className="flex gap-1.5">
