@@ -56,7 +56,8 @@ const AppLayout = () => {
             );
           })}
         </nav>
-        <div className="px-3 py-4 border-t">
+        <div className="absolute bottom-[72px] left-0 right-0 h-8 bg-gradient-to-t from-card to-transparent pointer-events-none" />
+        <div className="px-3 py-4 border-t relative">
           <div className="flex items-center gap-3 px-3 py-2">
             <div className="h-8 w-8 rounded-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center text-xs font-semibold text-primary ring-1 ring-primary/10">AR</div>
             <div className="flex-1 min-w-0">
