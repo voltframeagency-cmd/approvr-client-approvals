@@ -13,9 +13,9 @@ const SocialProof = () => (
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-14">
         {[
-          { value: '2,400+', label: 'Projects approved' },
+          { value: '2,400+', label: 'Approval cycles completed' },
           { value: '380+', label: 'Agencies & studios' },
-          { value: '12k+', label: 'Deliverables reviewed' },
+          { value: '12k+', label: 'Deliverables signed off' },
           { value: '4.9/5', label: 'Average rating' },
         ].map((stat, i) => (
           <div key={stat.label} data-gsap="fade-up" data-delay={String(i * 0.1)} className="text-center">

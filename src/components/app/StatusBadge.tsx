@@ -11,7 +11,7 @@ export const StatusBadge = ({ status, animated = false }: { status: string; anim
       initial={animated ? { opacity: 0, scale: 0.8 } : false}
       animate={{ opacity: 1, scale: 1 }}
       className={cn(
-        'inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full transition-colors',
+        'inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full transition-colors ring-1 ring-current/10',
         config.className
       )}
     >
