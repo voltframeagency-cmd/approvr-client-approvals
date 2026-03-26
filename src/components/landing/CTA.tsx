@@ -12,8 +12,8 @@ const CTA = () => (
         className="max-w-2xl mx-auto text-center"
       >
         <p className="text-[12px] font-semibold text-primary uppercase tracking-[0.15em] mb-3">Early access</p>
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">Your first approval is five minutes away</h2>
-        <p className="text-lg text-muted-foreground mb-8 max-w-lg mx-auto">Create a workspace, upload your first deliverable, and send it for review. Help shape the product as a founding user.</p>
+        <h2 className="text-3xl md:text-4xl font-bold mb-4">Your first client approval is five minutes away</h2>
+        <p className="text-lg text-muted-foreground mb-8 max-w-lg mx-auto">Upload a deliverable, send it for review, and get your first signoff today. Join as a founding user and help shape the product.</p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
           <Link to="/signup">
             <Button size="lg" className="h-12 px-8 text-[15px] gap-2 glow-primary font-medium">

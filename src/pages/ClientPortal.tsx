@@ -1,6 +1,6 @@
 import { mockProjects, mockDeliverables, mockComments, mockNextStepActions } from '@/lib/mock-data';
 import { StatusBadge } from '@/components/app/StatusBadge';
-import { CheckCircle2, FileText, MessageSquare, Send, Clock, ThumbsUp, ArrowRight, ExternalLink, Sparkles } from 'lucide-react';
+import { CheckCircle2, FileText, MessageSquare, Send, Clock, ThumbsUp, ArrowRight, ExternalLink, Sparkles, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { useState } from 'react';
@@ -106,7 +106,7 @@ const ClientPortal = () => {
         >
           <p className="font-medium text-foreground mb-1">Welcome!</p>
           <p className="text-muted-foreground leading-relaxed">
-            Review the deliverables below and leave your feedback. When everything looks good, hit <span className="font-medium text-primary">Approve</span>. Need changes? Just let us know.
+            Review each deliverable below. Approve what looks good, request changes on what doesn't. Your agency will be notified instantly.
           </p>
         </motion.div>
 
@@ -118,6 +118,11 @@ const ClientPortal = () => {
             transition={{ delay: 0.2 }}
             className="space-y-2"
           >
+            {/* Deliverable count summary */}
+            <p className="text-[12px] text-muted-foreground font-medium px-1 mb-1">
+              {deliverables.length} deliverables · {approvedCount} approved
+            </p>
+
             {deliverables.map((d, i) => (
               <motion.button
                 key={d.id}
@@ -141,7 +146,7 @@ const ClientPortal = () => {
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="font-medium text-[13px] truncate">{d.title}</p>
-                    <p className="text-[11px] text-muted-foreground">v{d.version}</p>
+                    <p className="text-[11px] text-muted-foreground">v{d.version} · {new Date(d.submittedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</p>
                   </div>
                   {d.status === 'approved' && (
                     <CheckCircle2 className="h-4 w-4 text-success flex-shrink-0" />
@@ -233,8 +238,22 @@ const ClientPortal = () => {
                               <span className="text-[11px] text-muted-foreground">
                                 {new Date(c.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                               </span>
+                              {c.resolved && (
+                                <span className="text-[10px] font-medium text-success bg-success/10 px-2 py-0.5 rounded-full flex items-center gap-1">
+                                  <Check className="h-2.5 w-2.5" />
+                                  Resolved
+                                </span>
+                              )}
                             </div>
-                            <p className="text-[13px] text-muted-foreground mt-1 leading-relaxed">{c.body}</p>
+                            <p className={cn(
+                              "text-[13px] mt-1 leading-relaxed",
+                              c.resolved ? "text-muted-foreground/60 line-through" : "text-muted-foreground"
+                            )}>{c.body}</p>
+                            {!c.resolved && (
+                              <button className="text-[11px] text-muted-foreground hover:text-primary mt-1 transition-colors">
+                                Mark as resolved
+                              </button>
+                            )}
                           </div>
                         </motion.div>
                       ))}
@@ -264,19 +283,35 @@ const ClientPortal = () => {
           </div>
         </div>
 
-        {/* What's next — post-approval actions */}
+        {/* What's next — post-approval actions with celebration */}
         {allApproved && (() => {
           const actions = mockNextStepActions.filter(
             a => a.scope === 'workspace' || (a.scope === 'project' && a.projectId === project.id)
           );
-          if (actions.length === 0) return null;
           return (
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.5 }}
-              className="card-elevated p-6 mt-8"
+              className="card-elevated p-6 mt-8 relative overflow-hidden"
             >
+              {/* Celebration particles */}
+              {[...Array(8)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute h-1.5 w-1.5 rounded-full"
+                  style={{ backgroundColor: i % 2 === 0 ? 'hsl(var(--success))' : 'hsl(var(--primary))' }}
+                  initial={{ opacity: 0, scale: 0, x: '50%', y: '30%' }}
+                  animate={{
+                    opacity: [0, 0.6, 0],
+                    scale: [0, 1, 0],
+                    x: `${20 + Math.cos((i / 8) * Math.PI * 2) * 40}%`,
+                    y: `${20 + Math.sin((i / 8) * Math.PI * 2) * 30}%`,
+                  }}
+                  transition={{ delay: 0.5 + i * 0.06, duration: 1.2 }}
+                />
+              ))}
+
               <div className="flex items-center gap-2.5 mb-1">
                 <div className="h-8 w-8 rounded-lg bg-success/[0.08] flex items-center justify-center">
                   <Sparkles className="h-4 w-4 text-success" />
@@ -286,29 +321,31 @@ const ClientPortal = () => {
               <p className="text-[13px] text-muted-foreground mb-5 ml-[42px]">
                 Your review is complete. Here are your next steps.
               </p>
-              <div className="grid sm:grid-cols-2 gap-3">
-                {actions.map((action, i) => {
-                  const Icon = providerIcons[action.providerType];
-                  return (
-                    <motion.a
-                      key={action.id}
-                      href={action.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.4 + i * 0.08 }}
-                      className="flex items-center gap-3 rounded-xl border p-4 hover:bg-muted/30 hover:border-primary/20 transition-all duration-200 group"
-                    >
-                      <div className="h-10 w-10 rounded-lg bg-primary/[0.06] flex items-center justify-center flex-shrink-0 group-hover:bg-primary/[0.1] transition-colors">
-                        <Icon className="h-4.5 w-4.5 text-primary" />
-                      </div>
-                      <span className="text-[13px] font-medium flex-1">{action.label}</span>
-                      <ExternalLink className="h-3.5 w-3.5 text-muted-foreground group-hover:text-primary transition-colors" />
-                    </motion.a>
-                  );
-                })}
-              </div>
+              {actions.length > 0 && (
+                <div className="grid sm:grid-cols-2 gap-3">
+                  {actions.map((action, i) => {
+                    const Icon = providerIcons[action.providerType];
+                    return (
+                      <motion.a
+                        key={action.id}
+                        href={action.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.4 + i * 0.08 }}
+                        className="flex items-center gap-3 rounded-xl border p-4 hover:bg-muted/30 hover:border-primary/20 transition-all duration-200 group"
+                      >
+                        <div className="h-10 w-10 rounded-lg bg-primary/[0.06] flex items-center justify-center flex-shrink-0 group-hover:bg-primary/[0.1] transition-colors">
+                          <Icon className="h-4.5 w-4.5 text-primary" />
+                        </div>
+                        <span className="text-[13px] font-medium flex-1">{action.label}</span>
+                        <ExternalLink className="h-3.5 w-3.5 text-muted-foreground group-hover:text-primary transition-colors" />
+                      </motion.a>
+                    );
+                  })}
+                </div>
+              )}
             </motion.div>
           );
         })()}

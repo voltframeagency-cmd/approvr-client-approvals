@@ -35,8 +35,8 @@ const Hero = () => (
         </motion.div>
 
         <h1 className="text-4xl md:text-[3.5rem] lg:text-[4.25rem] font-bold tracking-tight leading-[1.06] mb-6">
-          Get client approvals{' '}
-          <span className="gradient-text">out of email</span>
+          Stop chasing approvals across{' '}
+          <span className="gradient-text">email, Slack, and WhatsApp</span>
         </h1>
         <motion.p
           initial={{ opacity: 0 }}
@@ -44,7 +44,7 @@ const Hero = () => (
           transition={{ duration: 0.6, delay: 0.3 }}
           className="text-lg md:text-xl text-muted-foreground max-w-[560px] mx-auto mb-10 leading-relaxed"
         >
-          One branded portal for deliverable reviews, client feedback, and final signoff. Replace the chaos.
+          One branded portal where clients review deliverables, leave feedback, and sign off. Built for agencies.
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 12 }}
@@ -54,7 +54,7 @@ const Hero = () => (
         >
           <Link to="/signup">
             <Button size="lg" className="h-12 px-8 text-[15px] gap-2 glow-primary font-medium">
-              Start free trial
+              Join Founder Beta
               <ArrowRight className="h-4 w-4" />
             </Button>
           </Link>

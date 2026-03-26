@@ -32,13 +32,13 @@ const Footer = () => (
             Approvr
           </Link>
           <p className="text-[13px] text-muted-foreground leading-relaxed max-w-[260px] mb-6">
-            The client approval portal for agencies, freelancers, and creative teams. Replace email chaos with clarity.
+            The client approval portal for web design agencies, branding studios, and creative teams.
           </p>
           <Link
             to="/signup"
             className="inline-flex items-center gap-1.5 text-[13px] font-medium text-primary hover:underline"
           >
-            Start free trial <ArrowRight className="h-3 w-3" />
+            Join Founder Beta <ArrowRight className="h-3 w-3" />
           </Link>
         </div>
 

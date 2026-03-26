@@ -35,10 +35,10 @@ const Features = () => {
         {/* Header */}
         <div className="mb-12 max-w-xl">
           <h2 data-gsap="heading" className="text-3xl md:text-4xl font-bold mb-3">
-            Everything you need. Nothing you don't.
+            Purpose-built for client approvals
           </h2>
           <p data-gsap="fade-up" className="text-muted-foreground text-lg">
-            Approvr replaces scattered approval conversations with a single source of truth.
+            Upload. Review. Approve. That's it. No project management, no invoicing, no feature bloat.
           </p>
         </div>
 

@@ -74,7 +74,7 @@ const Navbar = () => {
             <Button variant="ghost" size="sm" className="text-[13px] h-9">Log in</Button>
           </Link>
           <Link to="/signup">
-            <Button size="sm" className="text-[13px] h-9">Start free trial</Button>
+            <Button size="sm" className="text-[13px] h-9">Join Founder Beta</Button>
           </Link>
         </div>
       </div>
