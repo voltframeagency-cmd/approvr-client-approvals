@@ -1,15 +1,18 @@
 import { useParams, Link } from 'react-router-dom';
-import { mockProjects, mockDeliverables, mockComments, mockActivity } from '@/lib/mock-data';
+import { mockProjects, mockDeliverables, mockComments, mockActivity, mockNextStepActions, providerTypeLabels, type NextStepProviderType } from '@/lib/mock-data';
 import { StatusBadge } from '@/components/app/StatusBadge';
 import {
   ArrowLeft, FileText, MessageSquare, Upload, Clock, Send, CheckCircle2,
-  Eye, History, ExternalLink, AlertCircle
+  Eye, History, ExternalLink, AlertCircle, Zap, Plus, Trash2, Building2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { providerIcons } from '@/lib/provider-icons';
 
 const fileTypeColors: Record<string, string> = {
   svg: 'bg-primary/10 text-primary',
@@ -44,7 +47,11 @@ const ProjectDetail = () => {
   const [selectedDeliverable, setSelectedDeliverable] = useState(deliverables[0]?.id);
   const comments = mockComments.filter(c => c.deliverableId === selectedDeliverable);
   const [newComment, setNewComment] = useState('');
-  const [activeTab, setActiveTab] = useState<'preview' | 'versions' | 'timeline'>('preview');
+  const [activeTab, setActiveTab] = useState<'preview' | 'versions' | 'timeline' | 'next_steps'>('preview');
+  const [showAddAction, setShowAddAction] = useState(false);
+
+  const projectActions = mockNextStepActions.filter(a => a.scope === 'project' && a.projectId === id);
+  const workspaceActions = mockNextStepActions.filter(a => a.scope === 'workspace');
 
   if (!project) return (
     <div className="text-center py-20">
@@ -186,7 +193,7 @@ const ProjectDetail = () => {
               >
                 {/* Tab navigation */}
                 <div className="flex items-center gap-1 border-b">
-                  {(['preview', 'versions', 'timeline'] as const).map(tab => (
+                  {(['preview', 'versions', 'timeline', 'next_steps'] as const).map(tab => (
                     <button
                       key={tab}
                       onClick={() => setActiveTab(tab)}
@@ -197,7 +204,7 @@ const ProjectDetail = () => {
                           : 'border-transparent text-muted-foreground hover:text-foreground'
                       )}
                     >
-                      {tab === 'versions' ? `Versions (${selectedDel.versions?.length || 1})` : tab}
+                      {tab === 'versions' ? `Versions (${selectedDel.versions?.length || 1})` : tab === 'next_steps' ? 'Next Steps' : tab}
                     </button>
                   ))}
                 </div>
@@ -373,6 +380,121 @@ const ProjectDetail = () => {
                       <div className="text-center py-8">
                         <Clock className="h-6 w-6 mx-auto mb-2 text-muted-foreground/20" />
                         <p className="text-[13px] text-muted-foreground">No activity yet</p>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Next Steps tab */}
+                {activeTab === 'next_steps' && (
+                  <div className="card-elevated p-6">
+                    <div className="flex items-center justify-between mb-5">
+                      <h3 className="font-semibold text-[14px] flex items-center gap-2">
+                        <Zap className="h-4 w-4" /> Next step actions
+                      </h3>
+                      <Button variant="outline" size="sm" className="gap-1 text-xs" onClick={() => setShowAddAction(!showAddAction)}>
+                        <Plus className="h-3 w-3" /> Add action
+                      </Button>
+                    </div>
+
+                    {showAddAction && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        className="border rounded-xl p-4 mb-5 space-y-3 bg-muted/20"
+                      >
+                        <div className="grid sm:grid-cols-2 gap-3">
+                          <div className="space-y-1.5">
+                            <Label className="text-[12px]">Label</Label>
+                            <Input placeholder="e.g. Pay now" className="text-[13px]" />
+                          </div>
+                          <div className="space-y-1.5">
+                            <Label className="text-[12px]">Destination URL</Label>
+                            <Input placeholder="https://..." className="text-[13px]" />
+                          </div>
+                        </div>
+                        <div className="grid sm:grid-cols-2 gap-3">
+                          <div className="space-y-1.5">
+                            <Label className="text-[12px]">Provider type</Label>
+                            <select className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-[13px] ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                              {Object.entries(providerTypeLabels).map(([key, label]) => (
+                                <option key={key} value={key}>{label}</option>
+                              ))}
+                            </select>
+                          </div>
+                          <div className="space-y-1.5">
+                            <Label className="text-[12px]">Show when</Label>
+                            <select className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-[13px] ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                              <option value="on_approval">After approval</option>
+                              <option value="always">Always</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div className="flex gap-2 justify-end">
+                          <Button variant="outline" size="sm" onClick={() => setShowAddAction(false)}>Cancel</Button>
+                          <Button size="sm" onClick={() => setShowAddAction(false)}>Add action</Button>
+                        </div>
+                      </motion.div>
+                    )}
+
+                    {/* Project-level actions */}
+                    {projectActions.length > 0 && (
+                      <div className="mb-5">
+                        <p className="text-[11px] font-medium text-muted-foreground uppercase tracking-wider mb-2">Project actions</p>
+                        <div className="space-y-2">
+                          {projectActions.map(action => {
+                            const Icon = providerIcons[action.providerType];
+                            return (
+                              <div key={action.id} className="flex items-center gap-3 rounded-xl border p-3.5 bg-card">
+                                <div className="h-9 w-9 rounded-lg bg-primary/[0.06] flex items-center justify-center flex-shrink-0">
+                                  <Icon className="h-4 w-4 text-primary" />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <p className="text-[13px] font-medium">{action.label}</p>
+                                  <p className="text-[11px] text-muted-foreground truncate">{action.url}</p>
+                                </div>
+                                <span className="text-[10px] font-medium text-muted-foreground bg-muted px-2 py-0.5 rounded-full">{providerTypeLabels[action.providerType]}</span>
+                                <button className="p-1.5 rounded-md hover:bg-destructive/10 text-muted-foreground hover:text-destructive transition-colors">
+                                  <Trash2 className="h-3.5 w-3.5" />
+                                </button>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Workspace-level (inherited) actions */}
+                    {workspaceActions.length > 0 && (
+                      <div>
+                        <p className="text-[11px] font-medium text-muted-foreground uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                          <Building2 className="h-3 w-3" /> Inherited from workspace
+                        </p>
+                        <div className="space-y-2">
+                          {workspaceActions.map(action => {
+                            const Icon = providerIcons[action.providerType];
+                            return (
+                              <div key={action.id} className="flex items-center gap-3 rounded-xl border border-dashed p-3.5 opacity-75">
+                                <div className="h-9 w-9 rounded-lg bg-muted flex items-center justify-center flex-shrink-0">
+                                  <Icon className="h-4 w-4 text-muted-foreground" />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <p className="text-[13px] font-medium">{action.label}</p>
+                                  <p className="text-[11px] text-muted-foreground truncate">{action.url}</p>
+                                </div>
+                                <span className="text-[10px] font-medium text-muted-foreground bg-muted px-2 py-0.5 rounded-full">{providerTypeLabels[action.providerType]}</span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+
+                    {projectActions.length === 0 && workspaceActions.length === 0 && (
+                      <div className="text-center py-10">
+                        <Zap className="h-6 w-6 mx-auto mb-2 text-muted-foreground/20" />
+                        <p className="text-[13px] text-muted-foreground">No next step actions configured</p>
+                        <p className="text-[12px] text-muted-foreground mt-1">Add actions that appear after client approval</p>
                       </div>
                     )}
                   </div>
