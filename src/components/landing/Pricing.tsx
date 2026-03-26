@@ -5,15 +5,14 @@ import { motion } from 'framer-motion';
 
 const plans = [
   {
-    name: 'Founder Beta',
-    price: 'Free',
-    period: '',
-    description: 'Limited early access for founding members.',
-    features: ['3 projects (lifetime)', '10 approval events', '1 workspace', 'Basic branding', '30-day beta window'],
-    cta: 'Request early access',
+    name: 'Starter',
+    price: '$0',
+    period: '/mo',
+    description: 'For freelancers just getting started.',
+    features: ['3 active projects', '1 workspace', 'Basic branding', 'Email notifications', '1 GB storage'],
+    cta: 'Get started free',
     popular: false,
     icon: Zap,
-    badge: 'Limited spots',
   },
   {
     name: 'Pro',
@@ -46,7 +45,7 @@ const Pricing = () => (
     <div className="container relative">
       <div className="text-center max-w-2xl mx-auto mb-16">
         <h2 data-gsap="heading" className="text-3xl md:text-4xl font-bold mb-4">Simple, transparent pricing</h2>
-        <p data-gsap="fade-up" className="text-muted-foreground text-lg">Premium client approval workflows — with early access for founding teams.</p>
+        <p data-gsap="fade-up" className="text-muted-foreground text-lg">Start free. Upgrade when you need more.</p>
       </div>
 
       <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto items-start">
@@ -109,21 +108,13 @@ const Pricing = () => (
                       <Icon className={`h-5 w-5 ${plan.popular ? 'text-primary' : 'text-muted-foreground'}`} />
                     </div>
                     <h3 className="font-semibold text-lg">{plan.name}</h3>
-                    {'badge' in plan && plan.badge && (
-                      <span className="text-[10px] font-semibold uppercase tracking-wider text-warning bg-warning/10 px-2 py-0.5 rounded-full">{plan.badge}</span>
-                    )}
                   </div>
 
                   {/* Price */}
                   <div className="mb-1">
                     <span className="text-5xl font-bold tracking-tight">{plan.price}</span>
-                    {plan.period && <span className="text-muted-foreground text-base ml-1">{plan.period}</span>}
+                    <span className="text-muted-foreground text-base ml-1">{plan.period}</span>
                   </div>
-                  <p className="text-sm text-muted-foreground mb-2">{plan.description}</p>
-                  {!plan.period && (
-                    <p className="text-[11px] text-muted-foreground/70 mb-6 italic">During beta · usage limits apply</p>
-                  )}
-                  {plan.period && <div className="mb-6" />}
                   <p className="text-sm text-muted-foreground mb-8">{plan.description}</p>
 
                   {/* Divider */}
