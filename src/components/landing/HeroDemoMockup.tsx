@@ -29,12 +29,61 @@ const comments = [
   { author: 'AR', name: 'Alex Rivera', text: 'Updated — v3 ready for your review.', time: 'just now', color: 'bg-primary/10 text-primary ring-primary/10' },
 ];
 
+// Cursor keyframes: [x%, y%, duration, isClick]
+const cursorKeyframes: [number, number, number, boolean][] = [
+  [75, 20, 0, false],     // start: top-right area (idle)
+  [60, 55, 1.5, false],   // drift toward comment area
+  [45, 70, 1.5, false],   // hover over discussion
+  [30, 40, 1.5, false],   // move to sidebar area (Typography Guide)
+  [20, 58, 1, false],     // hover sidebar item
+  [70, 85, 1.5, false],   // move toward Approve button
+  [70, 85, 0.3, true],    // click Approve
+  [55, 30, 2, false],     // drift up to status badge
+  [75, 20, 1.5, false],   // return to idle
+];
+
 const HeroDemoMockup = () => {
   const [deliverables, setDeliverables] = useState(initialDeliverables);
   const [activeTab, setActiveTab] = useState(2);
   const [showApproveAnim, setShowApproveAnim] = useState(false);
   const [commentIndex, setCommentIndex] = useState(0);
   const [showTyping, setShowTyping] = useState(false);
+  const [cursorPos, setCursorPos] = useState({ x: 75, y: 20 });
+  const [cursorClick, setCursorClick] = useState(false);
+  const [cursorVisible, setCursorVisible] = useState(true);
+
+  // Cursor animation loop
+  useEffect(() => {
+    const timers: ReturnType<typeof setTimeout>[] = [];
+    let elapsed = 0;
+
+    cursorKeyframes.forEach(([x, y, dur, isClick], i) => {
+      if (i === 0) {
+        setCursorPos({ x, y });
+        return;
+      }
+      elapsed += cursorKeyframes[i - 1][2] * 1000;
+      timers.push(setTimeout(() => {
+        setCursorPos({ x, y });
+        if (isClick) {
+          setCursorClick(true);
+          setTimeout(() => setCursorClick(false), 200);
+        }
+      }, elapsed));
+    });
+
+    // Hide cursor briefly on reset
+    const totalDur = cursorKeyframes.reduce((s, k) => s + k[2] * 1000, 0);
+    timers.push(setTimeout(() => {
+      setCursorVisible(false);
+      setTimeout(() => {
+        setCursorPos({ x: 75, y: 20 });
+        setCursorVisible(true);
+      }, 300);
+    }, totalDur));
+
+    return () => timers.forEach(clearTimeout);
+  }, [deliverables[1].status]);
 
   // Auto-cycle: simulate live activity
   useEffect(() => {
