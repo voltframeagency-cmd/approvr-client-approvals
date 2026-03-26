@@ -224,24 +224,24 @@ export const TimelineDemo = () => {
   }, [cycle]);
 
   return (
-    <div className="w-full h-full flex flex-col justify-center gap-0 px-8 py-4">
+    <div className="w-full h-full flex flex-col justify-center gap-1 px-8 py-4">
       {timelineEvents.map((ev, i) => (
-        <div key={i} className="flex items-center gap-3 relative">
+        <div key={i} className="flex items-center gap-4 relative">
           {/* Vertical line */}
-          {i < 2 && <div className="absolute left-[9px] top-9 w-px h-4 bg-border/50" />}
+          {i < 2 && <div className="absolute left-[13px] top-11 w-px h-5 bg-border/50" />}
           <AnimatePresence>
             {i < visibleCount && (
               <motion.div
                 initial={{ scale: 0, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ type: 'spring', damping: 12 }}
-                className="flex items-center gap-3 py-2"
+                className="flex items-center gap-4 py-2.5"
               >
-                <div className={`h-5 w-5 rounded-full flex items-center justify-center ${ev.color} bg-current/10`}>
-                  <ev.icon className={`h-3 w-3 ${ev.color}`} />
+                <div className={`h-7 w-7 rounded-full flex items-center justify-center ${ev.color} bg-current/10`}>
+                  <ev.icon className={`h-4 w-4 ${ev.color}`} />
                 </div>
-                <span className="text-sm text-muted-foreground">{ev.label}</span>
-                <span className="text-xs text-muted-foreground/50">just now</span>
+                <span className="text-base text-muted-foreground">{ev.label}</span>
+                <span className="text-sm text-muted-foreground/50">just now</span>
               </motion.div>
             )}
           </AnimatePresence>
