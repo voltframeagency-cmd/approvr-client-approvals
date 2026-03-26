@@ -14,12 +14,12 @@ import {
 gsap.registerPlugin(ScrollTrigger);
 
 const features = [
-  { demo: UploadDemo, title: 'Upload deliverables', description: 'Share files, designs, and documents with clients in one organized space. Drag and drop or bulk-upload — everything stays versioned and accessible.' },
-  { demo: FeedbackDemo, title: 'Threaded feedback', description: 'Clients leave contextual comments directly on each deliverable. No more copy-pasting screenshots into email threads.' },
-  { demo: ApprovalDemo, title: 'One-click approval', description: 'Clients approve or request changes with a single action. Every decision is captured instantly — no more email chains.' },
-  { demo: TimelineDemo, title: 'Activity timeline', description: 'Every comment, approval, and status change is logged automatically. See exactly what happened and when, at a glance.' },
-  { demo: BrandingDemo, title: 'Branded portal', description: 'Add your logo and accent color so the portal feels like your own. White-label the entire experience for your clients.' },
-  { demo: AuditDemo, title: 'Audit trail', description: 'Every decision is timestamped and attributed. Built for accountability, compliance, and peace of mind.' },
+  { demo: UploadDemo, title: 'Upload deliverables', description: 'Share files, designs, and documents with clients in one organized space. Drag and drop or bulk-upload — everything stays versioned.' },
+  { demo: FeedbackDemo, title: 'Threaded feedback', description: 'Clients leave contextual comments directly on each deliverable. No more copy-pasting screenshots into emails.' },
+  { demo: ApprovalDemo, title: 'One-click approval', description: 'Clients approve or request changes with a single action. Every decision is captured instantly.' },
+  { demo: TimelineDemo, title: 'Activity timeline', description: 'Every comment, approval, and status change is logged automatically. See what happened and when.' },
+  { demo: BrandingDemo, title: 'Branded portal', description: 'Add your logo and accent color so the portal feels like your own. White-label the entire experience.' },
+  { demo: AuditDemo, title: 'Audit trail', description: 'Every decision is timestamped and attributed. Built for accountability and compliance.' },
 ];
 
 const Features = () => {
@@ -42,7 +42,7 @@ const Features = () => {
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: 'top top',
-        end: `+=${features.length * 100}%`,
+        end: `+=${features.length * 80}%`,
         pin: pinRef.current,
         scrub: 0.3,
         onUpdate: (self) => {
@@ -93,52 +93,110 @@ const Features = () => {
     <section
       id="features"
       ref={sectionRef}
-      className="section-glow"
-      style={{ height: `${features.length * 100}vh` }}
+      className="section-glow relative"
+      style={{ height: `${features.length * 80}vh` }}
     >
-      <div ref={pinRef} className="h-screen flex flex-col justify-center">
+      <div ref={pinRef} className="h-screen flex flex-col justify-center py-10">
         {/* Header */}
-        <div className="container mb-10">
-          <div className="flex items-end justify-between">
-            <div className="max-w-xl">
-              <h2 data-gsap="heading" className="text-3xl md:text-4xl font-bold mb-3">
-                Everything you need. Nothing you don't.
-              </h2>
-              <p className="text-muted-foreground text-lg">
-                Approvr replaces scattered approval conversations with a single source of truth.
-              </p>
-            </div>
-            {/* Feature counter */}
-            <div className="hidden lg:flex items-baseline gap-1 text-muted-foreground/60 font-mono text-sm tabular-nums">
-              <motion.span
-                key={activeIndex}
-                initial={{ y: 8, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                className="text-foreground font-semibold text-lg"
-              >
-                {String(activeIndex + 1).padStart(2, '0')}
-              </motion.span>
-              <span>/</span>
-              <span>{String(features.length).padStart(2, '0')}</span>
-            </div>
-          </div>
+        <div className="container mb-8">
+          <h2 data-gsap="heading" className="text-3xl md:text-4xl font-bold mb-3 max-w-xl">
+            Everything you need. Nothing you don't.
+          </h2>
+          <p className="text-muted-foreground text-lg max-w-lg">
+            Approvr replaces scattered approval conversations with a single source of truth.
+          </p>
         </div>
 
-        {/* Main content */}
-        <div className="container flex-1 max-h-[60vh]">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-14 h-full items-center">
-            {/* Left: Interactive Demo */}
-            <div className="relative h-full max-h-[420px] rounded-2xl border bg-card overflow-hidden">
-              {/* Subtle accent glow behind demo */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.03] to-transparent pointer-events-none" />
+        {/* Two-column layout: feature list left, demo right */}
+        <div className="container flex-1 min-h-0">
+          <div className="grid lg:grid-cols-[1fr,1.4fr] gap-6 lg:gap-10 h-full items-stretch">
+
+            {/* Left: Feature list as accordion-style nav */}
+            <div className="flex flex-col justify-center gap-0 overflow-hidden">
+              {features.map((f, i) => {
+                const isActive = activeIndex === i;
+                return (
+                  <motion.div
+                    key={f.title}
+                    className="relative border-l-2 transition-colors duration-300"
+                    animate={{
+                      borderColor: isActive
+                        ? 'hsl(160, 84%, 39%)'
+                        : 'hsl(220, 13%, 91%)',
+                    }}
+                  >
+                    <div className="pl-5 py-3">
+                      <div className="flex items-baseline gap-3">
+                        <span
+                          className="font-mono text-xs tabular-nums transition-colors duration-300"
+                          style={{
+                            color: isActive
+                              ? 'hsl(160, 84%, 39%)'
+                              : 'hsl(220, 10%, 62%)',
+                          }}
+                        >
+                          {String(i + 1).padStart(2, '0')}
+                        </span>
+                        <h3
+                          className="font-semibold text-base transition-colors duration-300"
+                          style={{
+                            color: isActive
+                              ? 'hsl(220, 20%, 10%)'
+                              : 'hsl(220, 10%, 62%)',
+                          }}
+                        >
+                          {f.title}
+                        </h3>
+                      </div>
+                      <AnimatePresence initial={false}>
+                        {isActive && (
+                          <motion.p
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3, ease: 'easeOut' }}
+                            className="text-muted-foreground text-sm leading-relaxed pl-8 pr-2 overflow-hidden"
+                          >
+                            {f.description}
+                          </motion.p>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  </motion.div>
+                );
+              })}
+
+              {/* Progress bar */}
+              <div className="mt-4 ml-5">
+                <div className="flex gap-1.5">
+                  {features.map((_, i) => (
+                    <motion.div
+                      key={i}
+                      className="h-1 rounded-full"
+                      animate={{
+                        width: activeIndex === i ? 28 : 6,
+                        backgroundColor: activeIndex === i
+                          ? 'hsl(160, 84%, 39%)'
+                          : 'hsl(220, 13%, 91%)',
+                      }}
+                      transition={{ duration: 0.3, ease: 'easeOut' }}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Interactive Demo */}
+            <div className="relative rounded-2xl border bg-card overflow-hidden min-h-[340px]">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.02] to-transparent pointer-events-none" />
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeIndex}
-                  initial={{ opacity: 0, scale: 0.97 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 1.02 }}
-                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                  className="w-full h-full flex items-center justify-center p-8"
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -12 }}
+                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                  className="w-full h-full flex items-center justify-center p-6"
                 >
                   {(() => {
                     const Demo = features[activeIndex].demo;
@@ -147,53 +205,8 @@ const Features = () => {
                 </motion.div>
               </AnimatePresence>
             </div>
-
-            {/* Right: Text content */}
-            <div className="flex flex-col justify-center h-full">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeIndex}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.35, ease: 'easeOut' }}
-                >
-                  <span className="text-xs font-mono text-primary/60 uppercase tracking-widest mb-3 block">
-                    Feature {String(activeIndex + 1).padStart(2, '0')}
-                  </span>
-                  <h3 className="text-2xl lg:text-3xl font-bold mb-4 text-foreground">
-                    {features[activeIndex].title}
-                  </h3>
-                  <p className="text-muted-foreground text-base lg:text-lg leading-relaxed max-w-md">
-                    {features[activeIndex].description}
-                  </p>
-                </motion.div>
-              </AnimatePresence>
-
-              {/* Progress dots */}
-              <div className="flex gap-2 mt-10">
-                {features.map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className="h-1.5 rounded-full bg-border"
-                    animate={{
-                      width: activeIndex === i ? 32 : 8,
-                      backgroundColor: activeIndex === i
-                        ? 'hsl(var(--primary))'
-                        : 'hsl(var(--border))',
-                    }}
-                    transition={{ duration: 0.35, ease: 'easeOut' }}
-                  />
-                ))}
-              </div>
-            </div>
           </div>
         </div>
-      </div>
-
-      {/* Decorative divider */}
-      <div className="container" style={{ position: 'absolute', bottom: 0, left: '50%', transform: 'translateX(-50%)' }}>
-        <div data-gsap="line" className="h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
       </div>
     </section>
   );
