@@ -263,6 +263,55 @@ const ClientPortal = () => {
             </AnimatePresence>
           </div>
         </div>
+
+        {/* What's next — post-approval actions */}
+        {allApproved && (() => {
+          const actions = mockNextStepActions.filter(
+            a => a.scope === 'workspace' || (a.scope === 'project' && a.projectId === project.id)
+          );
+          if (actions.length === 0) return null;
+          return (
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
+              className="card-elevated p-6 mt-8"
+            >
+              <div className="flex items-center gap-2.5 mb-1">
+                <div className="h-8 w-8 rounded-lg bg-success/[0.08] flex items-center justify-center">
+                  <Sparkles className="h-4 w-4 text-success" />
+                </div>
+                <h3 className="font-semibold text-[15px]">All approved — here's what's next</h3>
+              </div>
+              <p className="text-[13px] text-muted-foreground mb-5 ml-[42px]">
+                Your review is complete. Here are your next steps.
+              </p>
+              <div className="grid sm:grid-cols-2 gap-3">
+                {actions.map((action, i) => {
+                  const Icon = providerIcons[action.providerType];
+                  return (
+                    <motion.a
+                      key={action.id}
+                      href={action.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.4 + i * 0.08 }}
+                      className="flex items-center gap-3 rounded-xl border p-4 hover:bg-muted/30 hover:border-primary/20 transition-all duration-200 group"
+                    >
+                      <div className="h-10 w-10 rounded-lg bg-primary/[0.06] flex items-center justify-center flex-shrink-0 group-hover:bg-primary/[0.1] transition-colors">
+                        <Icon className="h-4.5 w-4.5 text-primary" />
+                      </div>
+                      <span className="text-[13px] font-medium flex-1">{action.label}</span>
+                      <ExternalLink className="h-3.5 w-3.5 text-muted-foreground group-hover:text-primary transition-colors" />
+                    </motion.a>
+                  );
+                })}
+              </div>
+            </motion.div>
+          );
+        })()}
       </main>
 
       {/* Minimal footer */}

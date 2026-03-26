@@ -47,7 +47,11 @@ const ProjectDetail = () => {
   const [selectedDeliverable, setSelectedDeliverable] = useState(deliverables[0]?.id);
   const comments = mockComments.filter(c => c.deliverableId === selectedDeliverable);
   const [newComment, setNewComment] = useState('');
-  const [activeTab, setActiveTab] = useState<'preview' | 'versions' | 'timeline'>('preview');
+  const [activeTab, setActiveTab] = useState<'preview' | 'versions' | 'timeline' | 'next_steps'>('preview');
+  const [showAddAction, setShowAddAction] = useState(false);
+
+  const projectActions = mockNextStepActions.filter(a => a.scope === 'project' && a.projectId === id);
+  const workspaceActions = mockNextStepActions.filter(a => a.scope === 'workspace');
 
   if (!project) return (
     <div className="text-center py-20">
