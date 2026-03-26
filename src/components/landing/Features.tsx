@@ -51,11 +51,14 @@ const Features = () => {
                 <button
                   key={f.title}
                   onClick={() => setActiveIndex(i)}
-                  className="relative border-l-2 text-left transition-colors duration-300 cursor-pointer"
+                  className="relative border-l-2 text-left transition-all duration-300 cursor-pointer rounded-r-xl"
                   style={{
                     borderColor: isActive
                       ? 'hsl(var(--primary))'
                       : 'hsl(var(--border))',
+                    backgroundColor: isActive
+                      ? 'hsl(var(--primary) / 0.06)'
+                      : 'transparent',
                   }}
                 >
                   <div className="pl-5 py-3">
