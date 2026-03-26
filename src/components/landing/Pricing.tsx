@@ -46,7 +46,7 @@ const Pricing = () => (
     <div className="container relative">
       <div className="text-center max-w-2xl mx-auto mb-16">
         <h2 data-gsap="heading" className="text-3xl md:text-4xl font-bold mb-4">Simple, transparent pricing</h2>
-        <p data-gsap="fade-up" className="text-muted-foreground text-lg">Start free. Upgrade when you need more.</p>
+        <p data-gsap="fade-up" className="text-muted-foreground text-lg">Premium client approval workflows — with early access for founding teams.</p>
       </div>
 
       <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto items-start">
