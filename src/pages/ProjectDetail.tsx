@@ -1,15 +1,18 @@
 import { useParams, Link } from 'react-router-dom';
-import { mockProjects, mockDeliverables, mockComments, mockActivity } from '@/lib/mock-data';
+import { mockProjects, mockDeliverables, mockComments, mockActivity, mockNextStepActions, providerTypeLabels, type NextStepProviderType } from '@/lib/mock-data';
 import { StatusBadge } from '@/components/app/StatusBadge';
 import {
   ArrowLeft, FileText, MessageSquare, Upload, Clock, Send, CheckCircle2,
-  Eye, History, ExternalLink, AlertCircle
+  Eye, History, ExternalLink, AlertCircle, Zap, Plus, Trash2, Building2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { providerIcons } from '@/lib/provider-icons';
 
 const fileTypeColors: Record<string, string> = {
   svg: 'bg-primary/10 text-primary',
