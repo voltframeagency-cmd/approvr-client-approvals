@@ -29,92 +29,79 @@ const comments = [
   { author: 'AR', name: 'Alex Rivera', text: 'Updated — v3 ready for your review.', time: 'just now', color: 'bg-primary/10 text-primary ring-primary/10' },
 ];
 
-// Cursor keyframes: [x%, y%, duration, isClick]
-const cursorKeyframes: [number, number, number, boolean][] = [
-  [75, 20, 0, false],     // start: top-right area (idle)
-  [60, 55, 1.5, false],   // drift toward comment area
-  [45, 70, 1.5, false],   // hover over discussion
-  [30, 40, 1.5, false],   // move to sidebar area (Typography Guide)
-  [20, 58, 1, false],     // hover sidebar item
-  [70, 85, 1.5, false],   // move toward Approve button
-  [70, 85, 0.3, true],    // click Approve
-  [55, 30, 2, false],     // drift up to status badge
-  [75, 20, 1.5, false],   // return to idle
-];
-
 const HeroDemoMockup = () => {
   const [deliverables, setDeliverables] = useState(initialDeliverables);
   const [activeTab, setActiveTab] = useState(2);
   const [showApproveAnim, setShowApproveAnim] = useState(false);
   const [commentIndex, setCommentIndex] = useState(0);
   const [showTyping, setShowTyping] = useState(false);
-  const [cursorPos, setCursorPos] = useState({ x: 75, y: 20 });
+  const [cursorPos, setCursorPos] = useState({ x: 55, y: 35 });
   const [cursorClick, setCursorClick] = useState(false);
   const [cursorVisible, setCursorVisible] = useState(true);
 
-  // Cursor animation loop
+  // Single unified timeline — cursor + demo events in sync
   useEffect(() => {
     const timers: ReturnType<typeof setTimeout>[] = [];
-    let elapsed = 0;
+    const at = (ms: number, fn: () => void) => timers.push(setTimeout(fn, ms));
+    const moveTo = (x: number, y: number) => setCursorPos({ x, y });
+    const click = () => { setCursorClick(true); setTimeout(() => setCursorClick(false), 200); };
 
-    cursorKeyframes.forEach(([x, y, dur, isClick], i) => {
-      if (i === 0) {
-        setCursorPos({ x, y });
-        return;
-      }
-      elapsed += cursorKeyframes[i - 1][2] * 1000;
-      timers.push(setTimeout(() => {
-        setCursorPos({ x, y });
-        if (isClick) {
-          setCursorClick(true);
-          setTimeout(() => setCursorClick(false), 200);
-        }
-      }, elapsed));
+    // 0s — cursor starts near the comment area, reading discussion
+    moveTo(55, 52);
+
+    // 1.5s — cursor drifts over the first comment
+    at(1500, () => moveTo(65, 58));
+
+    // 3s — typing indicator appears, cursor watches
+    at(3000, () => {
+      setShowTyping(true);
+      moveTo(55, 68);
     });
 
-    // Hide cursor briefly on reset
-    const totalDur = cursorKeyframes.reduce((s, k) => s + k[2] * 1000, 0);
-    timers.push(setTimeout(() => {
-      setCursorVisible(false);
-      setTimeout(() => {
-        setCursorPos({ x: 75, y: 20 });
-        setCursorVisible(true);
-      }, 300);
-    }, totalDur));
-
-    return () => timers.forEach(clearTimeout);
-  }, [deliverables[1].status]);
-
-  // Auto-cycle: simulate live activity
-  useEffect(() => {
-    const timers: ReturnType<typeof setTimeout>[] = [];
-
-    // Show typing indicator after 3s
-    timers.push(setTimeout(() => setShowTyping(true), 3000));
-    // Show next comment after 4.5s
-    timers.push(setTimeout(() => {
+    // 4.5s — new comment appears, cursor reads it
+    at(4500, () => {
       setShowTyping(false);
       setCommentIndex(1);
-    }, 4500));
+      moveTo(60, 65);
+    });
 
-    // Approve animation after 7s
-    timers.push(setTimeout(() => {
-      setActiveTab(2);
+    // 5.5s — cursor moves toward the Approve button
+    at(5500, () => moveTo(72, 88));
+
+    // 6.5s — cursor hovers right on the Approve button
+    at(6500, () => moveTo(72, 90));
+
+    // 7s — cursor clicks Approve → approval fires
+    at(7000, () => {
+      click();
       setShowApproveAnim(true);
       setDeliverables(prev => prev.map(d => d.id === 2 ? { ...d, status: 'approved' as Status } : d));
-    }, 7000));
+    });
 
-    // Reset cycle after 11s
-    timers.push(setTimeout(() => {
+    // 8s — cursor drifts up to the status badge to admire the result
+    at(8000, () => moveTo(80, 22));
+
+    // 9.5s — cursor moves to sidebar progress bar
+    at(9500, () => moveTo(18, 82));
+
+    // 11s — reset everything
+    at(11000, () => {
+      setCursorVisible(false);
       setDeliverables(initialDeliverables);
       setActiveTab(2);
       setShowApproveAnim(false);
       setCommentIndex(0);
       setShowTyping(false);
-    }, 11000));
+    });
+
+    // 11.3s — reappear cursor at starting position
+    at(11300, () => {
+      moveTo(55, 35);
+      setCursorVisible(true);
+    });
 
     return () => timers.forEach(clearTimeout);
-  }, [deliverables[1].status]); // re-trigger on reset
+  }, [deliverables[1].status]);
 
   const activeDeliverable = deliverables.find(d => d.id === activeTab)!;
   const st = statusStyles[activeDeliverable.status];
