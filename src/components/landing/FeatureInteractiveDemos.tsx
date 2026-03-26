@@ -23,33 +23,33 @@ export const UploadDemo = () => {
   }, [cycle]);
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center gap-1.5 px-3">
+    <div className="w-full h-full flex flex-col items-center justify-center gap-4 px-6">
       <motion.div
-        className="flex items-center gap-1 text-[9px] text-muted-foreground"
-        animate={{ y: [0, -2, 0] }}
+        className="flex items-center gap-2 text-sm text-muted-foreground"
+        animate={{ y: [0, -4, 0] }}
         transition={{ duration: 1.5, repeat: Infinity }}
       >
-        <Upload className="h-2.5 w-2.5" />
+        <Upload className="h-5 w-5" />
         <span>Uploading…</span>
       </motion.div>
-      <div className="w-full space-y-1">
+      <div className="w-full max-w-xs space-y-2.5">
         <AnimatePresence mode="popLayout">
           {files.map(f => (
             <motion.div
               key={f.name}
-              initial={{ opacity: 0, y: 6, scale: 0.95 }}
+              initial={{ opacity: 0, y: 10, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="flex items-center gap-1.5 bg-muted/30 rounded px-1.5 py-1"
+              className="flex items-center gap-3 bg-muted/30 rounded-lg px-4 py-2.5"
             >
-              <FileText className="h-2.5 w-2.5 text-muted-foreground/50 flex-shrink-0" />
-              <span className="text-[8px] flex-1 truncate">{f.name}</span>
+              <FileText className="h-5 w-5 text-muted-foreground/50 flex-shrink-0" />
+              <span className="text-sm flex-1 truncate">{f.name}</span>
               {f.done ? (
                 <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
-                  <Check className="h-2.5 w-2.5 text-success" />
+                  <Check className="h-5 w-5 text-success" />
                 </motion.div>
               ) : (
-                <div className="w-8 h-1 rounded-full bg-muted overflow-hidden">
+                <div className="w-16 h-2 rounded-full bg-muted overflow-hidden">
                   <motion.div
                     className="h-full bg-primary rounded-full"
                     animate={{ width: `${f.progress}%` }}
@@ -92,19 +92,19 @@ export const FeedbackDemo = () => {
   }, [cycle]);
 
   return (
-    <div className="w-full h-full flex flex-col justify-center gap-1 px-3 py-1.5">
+    <div className="w-full h-full flex flex-col justify-center gap-3 px-6 py-4">
       <AnimatePresence mode="popLayout">
         {feedbackMessages.slice(0, visibleCount).map((m, i) => (
           <motion.div
             key={`${cycle}-${i}`}
-            initial={{ opacity: 0, x: m.side === 'left' ? -8 : 8, scale: 0.95 }}
+            initial={{ opacity: 0, x: m.side === 'left' ? -12 : 12, scale: 0.95 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
-            className={`flex items-start gap-1 ${m.side === 'right' ? 'flex-row-reverse' : ''}`}
+            className={`flex items-start gap-2.5 ${m.side === 'right' ? 'flex-row-reverse' : ''}`}
           >
-            <div className={`h-4 w-4 rounded-full flex items-center justify-center text-[6px] font-bold flex-shrink-0 ${m.side === 'left' ? 'bg-info/10 text-info' : 'bg-primary/10 text-primary'}`}>
+            <div className={`h-8 w-8 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 ${m.side === 'left' ? 'bg-info/10 text-info' : 'bg-primary/10 text-primary'}`}>
               {m.author}
             </div>
-            <div className={`rounded-lg px-1.5 py-0.5 text-[8px] max-w-[70%] ${m.side === 'left' ? 'bg-muted/40' : 'bg-primary/[0.06]'}`}>
+            <div className={`rounded-xl px-4 py-2 text-sm max-w-[70%] ${m.side === 'left' ? 'bg-muted/40' : 'bg-primary/[0.06]'}`}>
               {m.text}
             </div>
           </motion.div>
@@ -116,14 +116,14 @@ export const FeedbackDemo = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="flex items-center gap-1 pl-5"
+            className="flex items-center gap-2 pl-10"
           >
-            <div className="flex gap-0.5">
+            <div className="flex gap-1">
               {[0, 1, 2].map(i => (
                 <motion.div
                   key={i}
-                  className="h-0.5 w-0.5 rounded-full bg-muted-foreground/40"
-                  animate={{ y: [0, -2, 0] }}
+                  className="h-1.5 w-1.5 rounded-full bg-muted-foreground/40"
+                  animate={{ y: [0, -4, 0] }}
                   transition={{ duration: 0.5, repeat: Infinity, delay: i * 0.12 }}
                 />
               ))}
@@ -149,25 +149,25 @@ export const ApprovalDemo = () => {
   }, [cycle]);
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center gap-2 px-4">
+    <div className="w-full h-full flex flex-col items-center justify-center gap-4 px-8">
       <AnimatePresence mode="wait">
         {!approved ? (
           <motion.div
             key="buttons"
-            initial={{ opacity: 0, y: 4 }}
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -4 }}
-            className="flex gap-1.5 w-full"
+            exit={{ opacity: 0, y: -8 }}
+            className="flex gap-3 w-full max-w-xs"
           >
-            <div className="flex-1 h-5 rounded border border-border/60 flex items-center justify-center text-[7px] text-muted-foreground">
+            <div className="flex-1 h-10 rounded-lg border border-border/60 flex items-center justify-center text-sm text-muted-foreground">
               Request changes
             </div>
             <motion.div
-              className="flex-1 h-5 rounded bg-primary flex items-center justify-center text-[7px] text-primary-foreground gap-0.5 cursor-default"
+              className="flex-1 h-10 rounded-lg bg-primary flex items-center justify-center text-sm text-primary-foreground gap-1.5 cursor-default"
               animate={{ scale: [1, 1.03, 1] }}
               transition={{ duration: 1.2, repeat: Infinity }}
             >
-              <Check className="h-2 w-2" />
+              <Check className="h-4 w-4" />
               Approve
             </motion.div>
           </motion.div>
@@ -177,20 +177,20 @@ export const ApprovalDemo = () => {
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
-            className="flex flex-col items-center gap-1"
+            className="flex flex-col items-center gap-2"
           >
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ type: 'spring', damping: 10, stiffness: 200 }}
-              className="h-7 w-7 rounded-full bg-success/10 flex items-center justify-center"
+              className="h-14 w-14 rounded-full bg-success/10 flex items-center justify-center"
             >
-              <Check className="h-3.5 w-3.5 text-success" />
+              <Check className="h-7 w-7 text-success" />
             </motion.div>
-            <span className="text-[8px] text-success font-medium">Approved</span>
+            <span className="text-sm text-success font-medium">Approved</span>
             {/* Ripple */}
             <motion.div
-              className="absolute h-7 w-7 rounded-full border border-success/20"
+              className="absolute h-14 w-14 rounded-full border-2 border-success/20"
               initial={{ scale: 1, opacity: 0.5 }}
               animate={{ scale: 2.5, opacity: 0 }}
               transition={{ duration: 0.8 }}
@@ -224,24 +224,24 @@ export const TimelineDemo = () => {
   }, [cycle]);
 
   return (
-    <div className="w-full h-full flex flex-col justify-center gap-0 px-4 py-1">
+    <div className="w-full h-full flex flex-col justify-center gap-0 px-8 py-4">
       {timelineEvents.map((ev, i) => (
-        <div key={i} className="flex items-center gap-1.5 relative">
+        <div key={i} className="flex items-center gap-3 relative">
           {/* Vertical line */}
-          {i < 2 && <div className="absolute left-[5px] top-4 w-px h-3 bg-border/50" />}
+          {i < 2 && <div className="absolute left-[9px] top-9 w-px h-4 bg-border/50" />}
           <AnimatePresence>
             {i < visibleCount && (
               <motion.div
                 initial={{ scale: 0, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ type: 'spring', damping: 12 }}
-                className="flex items-center gap-1.5 py-1"
+                className="flex items-center gap-3 py-2"
               >
-                <div className={`h-2.5 w-2.5 rounded-full flex items-center justify-center ${ev.color} bg-current/10`}>
-                  <ev.icon className={`h-1.5 w-1.5 ${ev.color}`} />
+                <div className={`h-5 w-5 rounded-full flex items-center justify-center ${ev.color} bg-current/10`}>
+                  <ev.icon className={`h-3 w-3 ${ev.color}`} />
                 </div>
-                <span className="text-[8px] text-muted-foreground">{ev.label}</span>
-                <span className="text-[7px] text-muted-foreground/50">just now</span>
+                <span className="text-sm text-muted-foreground">{ev.label}</span>
+                <span className="text-xs text-muted-foreground/50">just now</span>
               </motion.div>
             )}
           </AnimatePresence>
@@ -269,38 +269,38 @@ export const BrandingDemo = () => {
   }, [cycle]);
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center gap-2 px-4">
+    <div className="w-full h-full flex flex-col items-center justify-center gap-5 px-8">
       {/* Mini portal preview */}
       <motion.div
-        className="w-full rounded border border-border/40 overflow-hidden"
+        className="w-full max-w-xs rounded-xl border border-border/40 overflow-hidden"
         animate={{ borderColor: colors[activeColor] + '33' }}
         transition={{ duration: 0.4 }}
       >
         <motion.div
-          className="h-2 w-full"
+          className="h-5 w-full"
           animate={{ backgroundColor: colors[activeColor] }}
           transition={{ duration: 0.4 }}
           style={{ opacity: 0.15 }}
         />
-        <div className="px-1.5 py-1 flex items-center gap-1">
+        <div className="px-4 py-3 flex items-center gap-3">
           <motion.div
-            className="h-3 w-3 rounded"
+            className="h-8 w-8 rounded-lg"
             animate={{ backgroundColor: colors[activeColor] }}
             transition={{ duration: 0.4 }}
             style={{ opacity: 0.2 }}
           />
-          <div className="flex-1 space-y-0.5">
-            <div className="h-0.5 w-8 rounded-full bg-muted-foreground/10" />
-            <div className="h-0.5 w-5 rounded-full bg-muted-foreground/5" />
+          <div className="flex-1 space-y-1.5">
+            <div className="h-1.5 w-20 rounded-full bg-muted-foreground/10" />
+            <div className="h-1.5 w-14 rounded-full bg-muted-foreground/5" />
           </div>
         </div>
       </motion.div>
       {/* Color swatches */}
-      <div className="flex gap-1.5">
+      <div className="flex gap-3">
         {colors.map((c, i) => (
           <motion.div
             key={i}
-            className="h-3.5 w-3.5 rounded-full cursor-default"
+            className="h-7 w-7 rounded-full cursor-default"
             style={{ backgroundColor: c }}
             animate={{
               scale: activeColor === i ? 1.25 : 1,
@@ -336,22 +336,22 @@ export const AuditDemo = () => {
   }, [cycle]);
 
   return (
-    <div className="w-full h-full flex flex-col justify-center gap-1 px-3 py-1">
-      <div className="flex items-center gap-1 mb-0.5">
-        <Shield className="h-2.5 w-2.5 text-primary/40" />
-        <span className="text-[7px] text-muted-foreground uppercase tracking-wider font-semibold">Audit log</span>
+    <div className="w-full h-full flex flex-col justify-center gap-2.5 px-6 py-4">
+      <div className="flex items-center gap-2 mb-1">
+        <Shield className="h-4 w-4 text-primary/40" />
+        <span className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">Audit log</span>
       </div>
       <AnimatePresence mode="popLayout">
         {auditEntries.slice(0, visibleCount).map((entry, i) => (
           <motion.div
             key={`${cycle}-${i}`}
-            initial={{ opacity: 0, x: -6 }}
+            initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
-            className="flex items-center gap-1 bg-muted/20 rounded px-1.5 py-0.5"
+            className="flex items-center gap-3 bg-muted/20 rounded-lg px-4 py-2"
           >
-            <entry.icon className="h-2 w-2 text-muted-foreground/40 flex-shrink-0" />
-            <span className="text-[7px] flex-1 truncate">{entry.action}</span>
-            <span className="text-[6px] text-muted-foreground/50">{entry.user}</span>
+            <entry.icon className="h-4 w-4 text-muted-foreground/40 flex-shrink-0" />
+            <span className="text-sm flex-1 truncate">{entry.action}</span>
+            <span className="text-xs text-muted-foreground/50">{entry.user}</span>
           </motion.div>
         ))}
       </AnimatePresence>
