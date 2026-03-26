@@ -1,19 +1,17 @@
 import Navbar from '@/components/landing/Navbar';
-import Hero from '@/components/landing/Hero';
-import Features from '@/components/landing/Features';
 import Pricing from '@/components/landing/Pricing';
 import CTA from '@/components/landing/CTA';
 import Footer from '@/components/landing/Footer';
 
-const Index = () => (
+const PricingPage = () => (
   <div className="min-h-screen">
     <Navbar />
-    <Hero />
-    <Features />
-    <Pricing />
+    <div className="pt-24">
+      <Pricing />
+    </div>
     <CTA />
     <Footer />
   </div>
 );
 
-export default Index;
+export default PricingPage;
