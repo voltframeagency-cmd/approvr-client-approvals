@@ -1,11 +1,12 @@
-import { mockProjects, mockDeliverables, mockComments } from '@/lib/mock-data';
+import { mockProjects, mockDeliverables, mockComments, mockNextStepActions } from '@/lib/mock-data';
 import { StatusBadge } from '@/components/app/StatusBadge';
-import { CheckCircle2, FileText, MessageSquare, Send, Clock, ThumbsUp, ArrowRight } from 'lucide-react';
+import { CheckCircle2, FileText, MessageSquare, Send, Clock, ThumbsUp, ArrowRight, ExternalLink, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { providerIcons } from '@/lib/provider-icons';
 
 const fileTypeColors: Record<string, string> = {
   svg: 'bg-primary/10 text-primary',
