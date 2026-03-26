@@ -103,6 +103,35 @@ export const mockNotifications: Notification[] = [
   { id: 'n5', title: 'Review overdue', body: 'Website Redesign is past its deadline with pending changes', read: false, createdAt: '2026-03-26T08:00:00', type: 'reminder' },
 ];
 
+export type NextStepProviderType = 'contract_link' | 'invoice_link' | 'payment_link' | 'booking_link' | 'file_delivery_link' | 'onboarding_link' | 'custom_url';
+
+export interface NextStepAction {
+  id: string;
+  label: string;
+  url: string;
+  providerType: NextStepProviderType;
+  displayCondition: 'on_approval' | 'always';
+  scope: 'workspace' | 'project';
+  projectId?: string;
+}
+
+export const mockNextStepActions: NextStepAction[] = [
+  { id: 'ns1', label: 'Open contract link', url: 'https://docusign.com/sign/abc123', providerType: 'contract_link', displayCondition: 'on_approval', scope: 'workspace' },
+  { id: 'ns2', label: 'Pay now', url: 'https://invoice.stripe.com/i/acct_123', providerType: 'payment_link', displayCondition: 'on_approval', scope: 'workspace' },
+  { id: 'ns3', label: 'Book next call', url: 'https://calendly.com/rivera-design/30min', providerType: 'booking_link', displayCondition: 'on_approval', scope: 'workspace' },
+  { id: 'ns4', label: 'Download final files', url: 'https://drive.google.com/drive/folders/abc', providerType: 'file_delivery_link', displayCondition: 'on_approval', scope: 'project', projectId: '1' },
+];
+
+export const providerTypeLabels: Record<NextStepProviderType, string> = {
+  contract_link: 'Contract',
+  invoice_link: 'Invoice',
+  payment_link: 'Payment',
+  booking_link: 'Booking',
+  file_delivery_link: 'File delivery',
+  onboarding_link: 'Onboarding',
+  custom_url: 'Custom link',
+};
+
 export const statusConfig: Record<string, { label: string; className: string }> = {
   draft: { label: 'Draft', className: 'bg-muted text-muted-foreground' },
   in_review: { label: 'In Review', className: 'bg-info/10 text-info' },
