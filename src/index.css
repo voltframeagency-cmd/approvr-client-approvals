@@ -8,37 +8,26 @@
   :root {
     --background: 0 0% 99%;
     --foreground: 220 20% 10%;
-
     --card: 0 0% 100%;
     --card-foreground: 220 20% 10%;
-
     --popover: 0 0% 100%;
     --popover-foreground: 220 20% 10%;
-
     --primary: 160 84% 39%;
     --primary-foreground: 0 0% 100%;
-
     --secondary: 220 14% 96%;
     --secondary-foreground: 220 20% 10%;
-
     --muted: 220 14% 96%;
     --muted-foreground: 220 10% 46%;
-
     --accent: 160 84% 39%;
     --accent-foreground: 0 0% 100%;
-
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
-
     --border: 220 13% 91%;
     --input: 220 13% 91%;
     --ring: 160 84% 39%;
-
     --radius: 0.625rem;
-
-    /* Custom tokens */
     --surface-elevated: 0 0% 100%;
-    --surface-sunken: 220 20% 97%;
+    --surface-sunken: 220 20% 97.5%;
     --text-tertiary: 220 10% 62%;
     --success: 142 71% 45%;
     --success-foreground: 0 0% 100%;
@@ -46,7 +35,7 @@
     --warning-foreground: 0 0% 100%;
     --info: 210 100% 52%;
     --info-foreground: 0 0% 100%;
-
+    --shadow-color: 160 30% 50%;
     --sidebar-background: 0 0% 100%;
     --sidebar-foreground: 220 20% 10%;
     --sidebar-primary: 160 84% 39%;
@@ -77,6 +66,7 @@
     --border: 220 20% 18%;
     --input: 220 20% 18%;
     --ring: 160 84% 39%;
+    --shadow-color: 160 30% 20%;
     --sidebar-background: 220 20% 7%;
     --sidebar-foreground: 220 14% 96%;
     --sidebar-primary: 160 84% 39%;
@@ -95,9 +85,11 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-feature-settings: 'cv11', 'ss01', 'ss03';
   }
   h1, h2, h3, h4, h5, h6 {
     @apply tracking-tight font-semibold;
+    letter-spacing: -0.025em;
   }
 }
 
@@ -107,15 +99,48 @@
   }
   .gradient-text {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(160, 84%, 39%), hsl(180, 70%, 35%));
+    background-image: linear-gradient(135deg, hsl(160, 84%, 39%), hsl(175, 70%, 41%), hsl(190, 80%, 42%));
   }
   .glass-panel {
-    @apply bg-card/80 backdrop-blur-xl border border-border/50 shadow-sm;
+    @apply bg-card/80 backdrop-blur-2xl border border-border/60;
+    box-shadow: 0 1px 3px -1px hsla(var(--shadow-color), 0.04), 0 1px 2px -1px hsla(var(--shadow-color), 0.02);
   }
   .surface-elevated {
     background-color: hsl(var(--surface-elevated));
+    box-shadow: 0 1px 3px -1px hsla(var(--shadow-color), 0.06), 0 2px 8px -2px hsla(var(--shadow-color), 0.04);
   }
   .surface-sunken {
     background-color: hsl(var(--surface-sunken));
+  }
+  .card-elevated {
+    @apply bg-card border rounded-xl;
+    box-shadow: 0 1px 3px -1px hsla(var(--shadow-color), 0.05), 0 4px 16px -4px hsla(var(--shadow-color), 0.03);
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+  }
+  .card-elevated:hover {
+    box-shadow: 0 2px 8px -2px hsla(var(--shadow-color), 0.08), 0 8px 32px -8px hsla(var(--shadow-color), 0.06);
+  }
+  .card-interactive {
+    @apply card-elevated cursor-pointer;
+  }
+  .card-interactive:hover {
+    transform: translateY(-1px);
+  }
+  .glow-primary {
+    box-shadow: 0 0 20px -4px hsl(160 84% 39% / 0.15), 0 0 60px -12px hsl(160 84% 39% / 0.1);
+  }
+  .section-glow {
+    position: relative;
+  }
+  .section-glow::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 50%;
+    background: radial-gradient(ellipse, hsl(160 84% 39% / 0.04), transparent 70%);
+    pointer-events: none;
   }
 }
