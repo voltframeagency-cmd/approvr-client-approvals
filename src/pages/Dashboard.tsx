@@ -1,20 +1,35 @@
 import { StatusBadge } from '@/components/app/StatusBadge';
-import { mockProjects, mockActivity } from '@/lib/mock-data';
+import { mockProjects, mockActivity, mockDeliverables } from '@/lib/mock-data';
 import { Link } from 'react-router-dom';
-import { FolderKanban, Clock, CheckCircle, AlertTriangle, ArrowRight, FileText, MessageSquare, Upload, UserPlus } from 'lucide-react';
+import {
+  FolderKanban, Clock, CheckCircle, AlertTriangle, ArrowRight,
+  FileText, MessageSquare, Upload, UserPlus, Eye, AlertCircle, ExternalLink
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import { StaggerContainer, StaggerItem } from '@/components/motion/Animations';
 
+// Derive attention items
+const overdueProjects = mockProjects.filter(p => p.isOverdue && p.status !== 'approved');
+const changesRequested = mockProjects.filter(p => p.status === 'changes_requested');
+const pendingReview = mockProjects.filter(p => p.status === 'in_review');
+const recentApprovals = mockProjects.filter(p => p.status === 'approved');
+
+const attentionItems = [
+  ...overdueProjects.map(p => ({ ...p, urgency: 'overdue' as const, urgencyLabel: 'Overdue', urgencyColor: 'text-destructive bg-destructive/[0.08]' })),
+  ...changesRequested.filter(p => !p.isOverdue).map(p => ({ ...p, urgency: 'changes' as const, urgencyLabel: 'Changes requested', urgencyColor: 'text-warning bg-warning/[0.08]' })),
+  ...pendingReview.filter(p => !p.isOverdue).map(p => ({ ...p, urgency: 'pending' as const, urgencyLabel: 'Awaiting client', urgencyColor: 'text-info bg-info/[0.08]' })),
+];
+
 const statCards = [
-  { label: 'Active projects', value: mockProjects.filter(p => p.status !== 'approved').length, icon: FolderKanban, accent: 'primary' },
-  { label: 'Pending reviews', value: mockProjects.filter(p => p.status === 'in_review').length, icon: Clock, accent: 'info' },
-  { label: 'Changes requested', value: mockProjects.filter(p => p.status === 'changes_requested').length, icon: AlertTriangle, accent: 'warning' },
-  { label: 'Approved', value: mockProjects.filter(p => p.status === 'approved').length, icon: CheckCircle, accent: 'success' },
+  { label: 'Needs attention', value: attentionItems.length, icon: AlertCircle, accent: 'destructive' },
+  { label: 'Pending reviews', value: pendingReview.length, icon: Clock, accent: 'info' },
+  { label: 'Changes requested', value: changesRequested.length, icon: AlertTriangle, accent: 'warning' },
+  { label: 'Approved', value: recentApprovals.length, icon: CheckCircle, accent: 'success' },
 ];
 
 const accentColors: Record<string, string> = {
-  primary: 'text-primary bg-primary/[0.08]',
+  destructive: 'text-destructive bg-destructive/[0.08]',
   info: 'text-info bg-info/[0.08]',
   warning: 'text-warning bg-warning/[0.08]',
   success: 'text-success bg-success/[0.08]',
@@ -26,7 +41,18 @@ const activityIcons: Record<string, typeof FileText> = {
   upload: Upload,
   status_change: AlertTriangle,
   invite: UserPlus,
+  view: Eye,
 };
+
+function timeAgo(dateStr: string) {
+  const diff = Date.now() - new Date(dateStr).getTime();
+  const hours = Math.floor(diff / 3600000);
+  if (hours < 1) return 'Just now';
+  if (hours < 24) return `${hours}h ago`;
+  const days = Math.floor(hours / 24);
+  if (days === 1) return 'Yesterday';
+  return `${days}d ago`;
+}
 
 const Dashboard = () => (
   <div className="space-y-8">
@@ -38,7 +64,7 @@ const Dashboard = () => (
     >
       <div>
         <h1 className="text-2xl font-bold">Welcome back, Alex</h1>
-        <p className="text-muted-foreground mt-1 text-sm">Here's what's happening across your projects.</p>
+        <p className="text-muted-foreground mt-1 text-sm">Here's what needs your attention.</p>
       </div>
       <Link to="/dashboard/projects">
         <Button className="gap-2">
@@ -48,6 +74,7 @@ const Dashboard = () => (
       </Link>
     </motion.div>
 
+    {/* Stat cards */}
     <StaggerContainer className="grid grid-cols-2 lg:grid-cols-4 gap-4" staggerDelay={0.06}>
       {statCards.map(card => (
         <StaggerItem key={card.label}>
@@ -66,16 +93,60 @@ const Dashboard = () => (
       ))}
     </StaggerContainer>
 
+    {/* Attention queue */}
+    {attentionItems.length > 0 && (
+      <div className="space-y-3">
+        <div className="flex items-center gap-2">
+          <AlertCircle className="h-4 w-4 text-destructive" />
+          <h2 className="text-base font-semibold">Needs attention</h2>
+          <span className="text-[11px] font-medium text-muted-foreground bg-muted px-2 py-0.5 rounded-full">{attentionItems.length}</span>
+        </div>
+        <StaggerContainer className="space-y-2" staggerDelay={0.04}>
+          {attentionItems.map(item => (
+            <StaggerItem key={item.id}>
+              <Link to={`/dashboard/projects/${item.id}`}>
+                <motion.div
+                  whileHover={{ y: -1 }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                  className="card-elevated p-4 flex items-center gap-4"
+                >
+                  <div className={`px-2.5 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap ${item.urgencyColor}`}>
+                    {item.urgencyLabel}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-medium text-[14px] truncate">{item.name}</p>
+                    <p className="text-[12px] text-muted-foreground">{item.clientName}</p>
+                  </div>
+                  <div className="hidden sm:flex items-center gap-4 text-[12px] text-muted-foreground">
+                    <span className="font-mono">{item.approvedCount}/{item.deliverableCount} approved</span>
+                    {item.lastViewedByClient && (
+                      <span className="flex items-center gap-1">
+                        <Eye className="h-3 w-3" />
+                        {timeAgo(item.lastViewedByClient)}
+                      </span>
+                    )}
+                    <span>Due {new Date(item.deadline).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+                  </div>
+                  <ArrowRight className="h-4 w-4 text-muted-foreground/40 flex-shrink-0" />
+                </motion.div>
+              </Link>
+            </StaggerItem>
+          ))}
+        </StaggerContainer>
+      </div>
+    )}
+
     <div className="grid lg:grid-cols-5 gap-6">
+      {/* All projects summary */}
       <div className="lg:col-span-3 space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-base font-semibold">Projects</h2>
+          <h2 className="text-base font-semibold">All projects</h2>
           <Link to="/dashboard/projects" className="text-[13px] text-primary hover:underline flex items-center gap-1">
             View all <ArrowRight className="h-3 w-3" />
           </Link>
         </div>
         <StaggerContainer className="space-y-2.5" staggerDelay={0.05}>
-          {mockProjects.slice(0, 4).map(project => (
+          {mockProjects.slice(0, 5).map(project => (
             <StaggerItem key={project.id}>
               <Link to={`/dashboard/projects/${project.id}`}>
                 <motion.div
@@ -91,8 +162,14 @@ const Dashboard = () => (
                     <StatusBadge status={project.status} />
                   </div>
                   <div className="flex items-center gap-4 mt-3 text-xs text-muted-foreground">
-                    <span>{project.approvedCount}/{project.deliverableCount} approved</span>
+                    <span className="font-mono">{project.approvedCount}/{project.deliverableCount} approved</span>
                     <span>Due {new Date(project.deadline).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+                    {project.lastViewedByClient && (
+                      <span className="flex items-center gap-1 ml-auto">
+                        <Eye className="h-3 w-3" />
+                        Client viewed {timeAgo(project.lastViewedByClient)}
+                      </span>
+                    )}
                   </div>
                   <div className="mt-3 h-1 rounded-full bg-muted overflow-hidden">
                     <motion.div
@@ -109,6 +186,7 @@ const Dashboard = () => (
         </StaggerContainer>
       </div>
 
+      {/* Activity feed */}
       <div className="lg:col-span-2 space-y-4">
         <h2 className="text-base font-semibold">Recent activity</h2>
         <div className="space-y-0.5">
@@ -125,12 +203,16 @@ const Dashboard = () => (
                 <div className="h-7 w-7 rounded-full bg-muted/80 flex items-center justify-center flex-shrink-0 mt-0.5">
                   <Icon className="h-3 w-3 text-muted-foreground" />
                 </div>
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                   <p className="text-[13px] leading-snug">
                     <span className="font-medium">{item.actor}</span>{' '}
                     <span className="text-muted-foreground">{item.action}</span>
                   </p>
-                  <p className="text-[11px] text-muted-foreground mt-0.5">{item.projectName}</p>
+                  <p className="text-[11px] text-muted-foreground mt-0.5 flex items-center gap-2">
+                    <span>{item.projectName}</span>
+                    <span>·</span>
+                    <span>{timeAgo(item.createdAt)}</span>
+                  </p>
                 </div>
               </motion.div>
             );
