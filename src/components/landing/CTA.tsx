@@ -11,13 +11,13 @@ const CTA = () => (
         data-gsap="cta"
         className="max-w-2xl mx-auto text-center"
       >
-        <p className="text-[12px] font-semibold text-primary uppercase tracking-[0.15em] mb-3">Get started today</p>
+        <p className="text-[12px] font-semibold text-primary uppercase tracking-[0.15em] mb-3">Early access</p>
         <h2 className="text-3xl md:text-4xl font-bold mb-4">Your first approval is five minutes away</h2>
-        <p className="text-lg text-muted-foreground mb-8 max-w-lg mx-auto">Create a workspace, upload your first deliverable, and send it for review. No credit card required.</p>
+        <p className="text-lg text-muted-foreground mb-8 max-w-lg mx-auto">Create a workspace, upload your first deliverable, and send it for review. Help shape the product as a founding user.</p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
           <Link to="/signup">
             <Button size="lg" className="h-12 px-8 text-[15px] gap-2 glow-primary font-medium">
-              Start your free trial
+              Join Founder Beta
               <ArrowRight className="h-4 w-4" />
             </Button>
           </Link>
@@ -27,7 +27,7 @@ const CTA = () => (
             </Button>
           </Link>
         </div>
-        <p className="text-[12px] text-muted-foreground mt-5">Free plan available · No credit card required · Setup in 2 minutes</p>
+        <p className="text-[12px] text-muted-foreground mt-5">Limited beta spots · No credit card required · Setup in 2 minutes</p>
       </motion.div>
     </div>
 

@@ -1,38 +1,64 @@
 import { Button } from '@/components/ui/button';
-import { Check, Sparkles, Zap, Building2 } from 'lucide-react';
+import { Check, Sparkles, Zap, Building2, Lock } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 const plans = [
   {
-    name: 'Starter',
+    name: 'Founder Beta',
     price: '$0',
     period: '/mo',
-    description: 'For freelancers just getting started.',
-    features: ['3 active projects', '1 workspace', 'Basic branding', 'Email notifications', '1 GB storage'],
-    cta: 'Get started free',
+    description: 'Limited early access for founding users.',
+    features: [
+      '3 projects (lifetime)',
+      '10 approval events',
+      '1 workspace',
+      'Basic branding',
+      '30-day beta access',
+    ],
+    cta: 'Join Founder Beta',
     popular: false,
-    icon: Zap,
+    icon: Lock,
+    badge: 'Limited spots',
+    note: 'Free during beta · Read-only after expiry',
   },
   {
     name: 'Pro',
     price: '$29',
     period: '/mo',
     description: 'For growing agencies and studios.',
-    features: ['Unlimited projects', '3 workspaces', 'Custom branding', 'Priority support', '25 GB storage', 'Activity audit log'],
+    features: [
+      'Unlimited projects',
+      'Unlimited approvals',
+      '3 workspaces',
+      'Custom branding',
+      'Priority support',
+      '25 GB storage',
+    ],
     cta: 'Start free trial',
     popular: true,
     icon: Sparkles,
+    badge: null,
+    note: '14-day free trial · No credit card required',
   },
   {
     name: 'Agency',
     price: '$79',
     period: '/mo',
     description: 'For teams managing multiple clients.',
-    features: ['Everything in Pro', 'Unlimited workspaces', 'White-label portal', 'API access', '100 GB storage', 'Dedicated support'],
+    features: [
+      'Everything in Pro',
+      'Unlimited workspaces',
+      'White-label portal',
+      'API access',
+      '100 GB storage',
+      'Dedicated support',
+    ],
     cta: 'Contact sales',
     popular: false,
     icon: Building2,
+    badge: null,
+    note: 'Custom onboarding included',
   },
 ];
 
@@ -45,7 +71,7 @@ const Pricing = () => (
     <div className="container relative">
       <div className="text-center max-w-2xl mx-auto mb-16">
         <h2 data-gsap="heading" className="text-3xl md:text-4xl font-bold mb-4">Simple, transparent pricing</h2>
-        <p data-gsap="fade-up" className="text-muted-foreground text-lg">Start free. Upgrade when you need more.</p>
+        <p data-gsap="fade-up" className="text-muted-foreground text-lg">Early access for founding users. Upgrade when you're ready to scale.</p>
       </div>
 
       <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto items-start">
@@ -66,19 +92,25 @@ const Pricing = () => (
               {/* Card border + glow wrapper for popular */}
               {plan.popular && (
                 <>
-                  {/* Animated glow behind card */}
                   <div
                     className="absolute -inset-px rounded-2xl opacity-60 blur-sm"
                     style={{
                       background: 'linear-gradient(135deg, hsl(var(--primary) / 0.3), hsl(var(--primary) / 0.05), hsl(var(--primary) / 0.3))',
                     }}
                   />
-                  {/* Badge */}
                   <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10 bg-primary text-primary-foreground text-xs font-semibold px-4 py-1.5 rounded-full shadow-lg shadow-primary/20 flex items-center gap-1.5">
                     <Sparkles className="h-3 w-3" />
                     Most popular
                   </span>
                 </>
+              )}
+
+              {/* Founder Beta badge */}
+              {plan.badge && !plan.popular && (
+                <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10 bg-muted text-foreground text-xs font-semibold px-4 py-1.5 rounded-full shadow-sm border flex items-center gap-1.5">
+                  <Lock className="h-3 w-3" />
+                  {plan.badge}
+                </span>
               )}
 
               <div
@@ -90,7 +122,6 @@ const Pricing = () => (
               >
                 {/* Glassmorphic gradient overlay */}
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,hsl(160_84%_39%/0.05),transparent_60%),radial-gradient(ellipse_at_bottom_right,hsl(160_84%_39%/0.03),transparent_60%)] pointer-events-none" />
-                {/* Top accent strip for popular */}
                 {plan.popular && (
                   <div className="h-1 w-full bg-gradient-to-r from-primary/40 via-primary to-primary/40" />
                 )}
@@ -151,6 +182,11 @@ const Pricing = () => (
                       {plan.cta}
                     </Button>
                   </Link>
+
+                  {/* Note */}
+                  {plan.note && (
+                    <p className="text-[11px] text-muted-foreground text-center mt-3">{plan.note}</p>
+                  )}
                 </div>
               </div>
             </motion.div>

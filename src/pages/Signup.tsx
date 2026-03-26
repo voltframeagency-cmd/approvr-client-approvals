@@ -12,9 +12,9 @@ const Signup = () => (
           <CheckCircle2 className="h-7 w-7 text-primary" />
           Approvr
         </Link>
-        <h2 className="text-2xl font-bold mb-3">Start your 14-day free trial</h2>
+        <h2 className="text-2xl font-bold mb-3">Join the Founder Beta</h2>
         <p className="text-muted-foreground leading-relaxed">
-          Create your workspace, invite your first client, and get your first approval — all in under 5 minutes.
+          Get early access, help shape the product, and lock in founding-member pricing when we launch.
         </p>
       </div>
     </div>
