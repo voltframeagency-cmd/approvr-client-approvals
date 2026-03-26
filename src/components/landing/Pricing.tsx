@@ -5,14 +5,15 @@ import { motion } from 'framer-motion';
 
 const plans = [
   {
-    name: 'Starter',
-    price: '$0',
-    period: '/mo',
-    description: 'For freelancers just getting started.',
-    features: ['3 active projects', '1 workspace', 'Basic branding', 'Email notifications', '1 GB storage'],
-    cta: 'Get started free',
+    name: 'Founder Beta',
+    price: 'Free',
+    period: '',
+    description: 'Limited early access for founding members.',
+    features: ['3 projects (lifetime)', '10 approval events', '1 workspace', 'Basic branding', '30-day beta window'],
+    cta: 'Request early access',
     popular: false,
     icon: Zap,
+    badge: 'Limited spots',
   },
   {
     name: 'Pro',
