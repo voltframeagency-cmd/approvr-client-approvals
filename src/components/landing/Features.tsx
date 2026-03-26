@@ -122,8 +122,9 @@ const Features = () => {
           </div>
 
           {/* Right: Interactive Demo */}
-          <div className="relative rounded-2xl border bg-card overflow-hidden min-h-[340px] md:min-h-[400px]">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.02] to-transparent pointer-events-none" />
+          <div className="relative rounded-2xl border border-primary/10 bg-card/60 backdrop-blur-2xl overflow-hidden min-h-[340px] md:min-h-[400px] shadow-[0_8px_32px_-8px_hsl(160_84%_39%/0.08)] ring-1 ring-primary/5">
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,hsl(160_84%_39%/0.06),transparent_60%),radial-gradient(ellipse_at_bottom_right,hsl(160_84%_39%/0.04),transparent_60%)] pointer-events-none" />
+            <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-primary/[0.04] blur-3xl pointer-events-none" />
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeIndex}
