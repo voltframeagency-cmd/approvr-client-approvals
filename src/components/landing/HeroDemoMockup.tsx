@@ -120,7 +120,50 @@ const HeroDemoMockup = () => {
   const st = statusStyles[activeDeliverable.status];
 
   return (
-    <div className="rounded-2xl border bg-card overflow-hidden" style={{ boxShadow: '0 25px 80px -15px hsl(160 84% 39% / 0.08), 0 8px 24px -8px hsl(220 20% 10% / 0.06)' }}>
+    <div className="rounded-2xl border bg-card overflow-hidden relative" style={{ boxShadow: '0 25px 80px -15px hsl(160 84% 39% / 0.08), 0 8px 24px -8px hsl(220 20% 10% / 0.06)' }}>
+      {/* Animated cursor */}
+      <motion.div
+        className="absolute z-50 pointer-events-none"
+        animate={{
+          left: `${cursorPos.x}%`,
+          top: `${cursorPos.y}%`,
+          opacity: cursorVisible ? 1 : 0,
+          scale: cursorClick ? 0.85 : 1,
+        }}
+        transition={{
+          left: { duration: 1.2, ease: [0.22, 1, 0.36, 1] },
+          top: { duration: 1.2, ease: [0.22, 1, 0.36, 1] },
+          scale: { duration: 0.15 },
+          opacity: { duration: 0.2 },
+        }}
+        style={{ marginLeft: -2, marginTop: -2 }}
+      >
+        {/* Cursor SVG */}
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="drop-shadow-md">
+          <path d="M5 3l14 8.5L12 14l-2.5 7.5L5 3z" fill="hsl(var(--foreground))" stroke="hsl(var(--background))" strokeWidth="1.5" strokeLinejoin="round" />
+        </svg>
+        {/* Click ripple */}
+        <AnimatePresence>
+          {cursorClick && (
+            <motion.div
+              initial={{ scale: 0, opacity: 0.5 }}
+              animate={{ scale: 2.5, opacity: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4 }}
+              className="absolute top-1 left-1 w-3 h-3 rounded-full bg-primary/30"
+            />
+          )}
+        </AnimatePresence>
+        {/* Cursor label */}
+        <motion.div
+          className="absolute left-5 top-3 bg-foreground text-background text-[9px] font-medium px-1.5 py-0.5 rounded whitespace-nowrap"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+        >
+          Sarah C.
+        </motion.div>
+      </motion.div>
       {/* Browser chrome */}
       <div className="flex items-center gap-2 px-5 py-3 border-b bg-muted/20">
         <div className="flex gap-1.5">
