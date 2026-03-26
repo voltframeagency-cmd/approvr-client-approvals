@@ -54,7 +54,7 @@ const Hero = () => (
         >
           <Link to="/signup">
             <Button size="lg" className="h-12 px-8 text-[15px] gap-2 glow-primary font-medium">
-              Start free trial
+              Join Founder Beta
               <ArrowRight className="h-4 w-4" />
             </Button>
           </Link>

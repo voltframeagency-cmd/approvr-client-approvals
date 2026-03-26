@@ -4,7 +4,7 @@ import { Quote } from 'lucide-react';
 
 const testimonials = [
   {
-    quote: "We went from 47 email threads per project to zero. Clients just open the portal, review, and approve. It's changed how we operate.",
+    quote: "We used to chase clients across email, Slack, and WhatsApp for weeks. Now they open the branded portal and approve in minutes. We've eliminated 47 email threads per project.",
     author: 'Jessica Hart',
     role: 'Creative Director',
     company: 'Wildframe Studio',
@@ -12,7 +12,7 @@ const testimonials = [
     color: 'bg-primary/10 text-primary ring-primary/10',
   },
   {
-    quote: "The approval audit trail alone saved us from two scope disputes last quarter. Every decision is timestamped and attributed.",
+    quote: "As a web design agency, scope disputes were killing us. Approvr's audit trail saved us from two disputes last quarter — every approval is timestamped and attributed. No more he-said-she-said.",
     author: 'Marcus Cole',
     role: 'Agency Partner',
     company: 'Cole & Partners',
@@ -20,7 +20,7 @@ const testimonials = [
     color: 'bg-info/10 text-info ring-info/10',
   },
   {
-    quote: "Our clients love it. They told us it feels more professional than any other tool we've used. The branded portal is a game-changer.",
+    quote: "Our branding clients told us the portal feels more professional than anything they've used. It's like having a white-label review tool built just for our studio. No more chasing feedback.",
     author: 'Priya Sharma',
     role: 'Founder',
     company: 'Luma Design Co',

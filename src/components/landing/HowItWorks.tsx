@@ -60,7 +60,7 @@ const HowItWorks = () => {
       <div className="container">
         <div className="text-center max-w-2xl mx-auto mb-16">
           <p data-gsap="fade-up" className="text-[12px] font-semibold text-primary uppercase tracking-[0.15em] mb-3">How it works</p>
-          <h2 data-gsap="heading" className="text-3xl md:text-4xl font-bold mb-4">Three steps to your first approval</h2>
+          <h2 data-gsap="heading" className="text-3xl md:text-4xl font-bold mb-4">From deliverable to signoff in three steps</h2>
           <p data-gsap="fade-up" className="text-muted-foreground text-lg">Replace your scattered approval workflow in under five minutes.</p>
         </div>
 
