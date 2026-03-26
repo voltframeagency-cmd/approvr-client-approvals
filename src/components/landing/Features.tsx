@@ -1,19 +1,19 @@
 import {
-  UploadIllustration,
-  FeedbackIllustration,
-  ApprovalIllustration,
-  TimelineIllustration,
-  BrandingIllustration,
-  AuditIllustration,
-} from './FeatureIllustrations';
+  UploadDemo,
+  FeedbackDemo,
+  ApprovalDemo,
+  TimelineDemo,
+  BrandingDemo,
+  AuditDemo,
+} from './FeatureInteractiveDemos';
 
 const features = [
-  { illustration: UploadIllustration, title: 'Upload deliverables', description: 'Share files, designs, and documents with clients in one organized space.' },
-  { illustration: FeedbackIllustration, title: 'Threaded feedback', description: 'Clients leave contextual comments directly on each deliverable.' },
-  { illustration: ApprovalIllustration, title: 'One-click approval', description: 'Clients approve or request changes with a single action. No more email chains.' },
-  { illustration: TimelineIllustration, title: 'Activity timeline', description: 'Every comment, approval, and status change is logged automatically.' },
-  { illustration: BrandingIllustration, title: 'Branded portal', description: 'Add your logo and accent color so the portal feels like your own.' },
-  { illustration: AuditIllustration, title: 'Audit trail', description: 'Every decision is timestamped and attributed. Built for accountability.' },
+  { demo: UploadDemo, title: 'Upload deliverables', description: 'Share files, designs, and documents with clients in one organized space.' },
+  { demo: FeedbackDemo, title: 'Threaded feedback', description: 'Clients leave contextual comments directly on each deliverable.' },
+  { demo: ApprovalDemo, title: 'One-click approval', description: 'Clients approve or request changes with a single action. No more email chains.' },
+  { demo: TimelineDemo, title: 'Activity timeline', description: 'Every comment, approval, and status change is logged automatically.' },
+  { demo: BrandingDemo, title: 'Branded portal', description: 'Add your logo and accent color so the portal feels like your own.' },
+  { demo: AuditDemo, title: 'Audit trail', description: 'Every decision is timestamped and attributed. Built for accountability.' },
 ];
 
 const Features = () => (
@@ -38,8 +38,8 @@ const Features = () => (
               (e.currentTarget as HTMLElement).style.boxShadow = '0 1px 3px -1px hsla(160, 30%, 50%, 0.04)';
             }}
           >
-            <div className="h-20 mb-5 rounded-xl bg-muted/30 border border-border/50 flex items-center justify-center overflow-hidden">
-              <f.illustration />
+            <div className="h-20 mb-5 rounded-xl bg-muted/30 border border-border/50 flex items-center justify-center overflow-hidden relative">
+              <f.demo />
             </div>
             <h3 className="font-semibold text-base mb-2">{f.title}</h3>
             <p className="text-muted-foreground text-sm leading-relaxed">{f.description}</p>
