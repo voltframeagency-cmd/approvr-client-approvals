@@ -262,9 +262,9 @@ export const useGsapScrollTrigger = () => {
       el.style.position = 'relative';
       el.style.zIndex = '2';
       gsap.fromTo(el,
-        { y: 120, boxShadow: '0 -20px 60px -15px hsl(var(--primary) / 0.15)' },
+        { y: 120, boxShadow: '0 -20px 60px -15px rgba(0,0,0,0.15)' },
         {
-          y: 0, boxShadow: '0 0px 0px 0px hsl(var(--primary) / 0)',
+          y: 0, boxShadow: '0 0px 0px 0px rgba(0,0,0,0)',
           ease: 'none',
           scrollTrigger: {
             trigger: el,
@@ -306,12 +306,12 @@ export const useGsapScrollTrigger = () => {
         {
           scale: 0.96,
           opacity: 0,
-          boxShadow: '0 0 0px 0px hsl(var(--primary) / 0)',
+          boxShadow: '0 0 0px 0px rgba(34,197,94,0)',
         },
         {
           scale: 1,
           opacity: 1,
-          boxShadow: '0 0 80px 20px hsl(var(--primary) / 0.08)',
+          boxShadow: '0 0 80px 20px rgba(34,197,94,0.08)',
           ease: 'none',
           scrollTrigger: {
             trigger: el,
@@ -319,7 +319,7 @@ export const useGsapScrollTrigger = () => {
             end: 'top 45%',
             scrub: 0.8,
             onLeave: () => {
-              gsap.to(el, { boxShadow: '0 0 0px 0px hsl(var(--primary) / 0)', duration: 1 });
+              gsap.to(el, { boxShadow: '0 0 0px 0px rgba(34,197,94,0)', duration: 1 });
             },
           },
         }
