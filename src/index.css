@@ -165,7 +165,7 @@ html.lenis, html.lenis body {
     transform: translateY(-1px);
   }
   .glow-primary {
-    box-shadow: 0 0 20px -4px hsl(160 84% 39% / 0.15), 0 0 60px -12px hsl(160 84% 39% / 0.1);
+    box-shadow: 0 0 20px -4px hsl(169 76% 48% / 0.15), 0 0 60px -12px hsl(169 76% 48% / 0.1);
   }
   .section-glow {
     position: relative;
