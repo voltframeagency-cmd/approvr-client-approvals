@@ -1,40 +1,101 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Sparkles, Zap, ShieldCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-const CTA = () => (
-  <section className="py-20 md:py-32 relative overflow-hidden">
-    <div className="absolute inset-0 opacity-[0.03]" style={{ background: 'radial-gradient(ellipse at center, hsl(160, 84%, 39%), transparent 70%)' }} />
-    <div className="container relative">
-      <motion.div
-        data-gsap="cta"
-        className="max-w-2xl mx-auto text-center"
-      >
-        <p className="text-[12px] font-semibold text-primary uppercase tracking-[0.15em] mb-3">Early access</p>
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">Your first client approval is five minutes away</h2>
-        <p className="text-lg text-muted-foreground mb-8 max-w-lg mx-auto">Upload a deliverable, send it for review, and get your first signoff today. Join as a founding user and help shape the product.</p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-          <Link to="/signup">
-            <Button size="lg" className="h-12 px-8 text-[15px] gap-2 glow-primary font-medium">
-              Join Founder Beta
-              <ArrowRight className="h-4 w-4" />
-            </Button>
-          </Link>
-          <Link to="/pricing">
-            <Button variant="outline" size="lg" className="h-12 px-8 text-[15px] font-medium">
-              View pricing
-            </Button>
-          </Link>
-        </div>
-        <p className="text-[12px] text-muted-foreground mt-5">Limited beta spots · No credit card required · Setup in 2 minutes</p>
-      </motion.div>
-    </div>
+const CTA = () => {
+  const containerVariants = {
+    hidden: { opacity: 0, scale: 0.95, y: 40 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: {
+        duration: 1,
+        ease: [0.22, 1, 0.36, 1],
+        staggerChildren: 0.2,
+        delayChildren: 0.3
+      }
+    }
+  };
 
-    <div className="container absolute top-0 left-1/2 -translate-x-1/2">
-      <div data-gsap="line" className="h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-    </div>
-  </section>
-);
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: "easeOut" }
+    }
+  };
+
+  return (
+    <section id="cta" className="py-32 relative overflow-hidden">
+      {/* Background Decorative Elements */}
+      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] pointer-events-none animate-pulse" />
+      <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
+
+      <div className="container px-4 mx-auto relative">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="max-w-5xl mx-auto relative rounded-[3rem] border border-primary/20 bg-card/40 backdrop-blur-3xl p-12 md:p-24 overflow-hidden shadow-2xl"
+        >
+          {/* Internal Glow */}
+          <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/20 rounded-full blur-[80px]" />
+          
+          <div className="relative z-10 text-center max-w-3xl mx-auto">
+            <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-black tracking-widest uppercase mb-8 border border-primary/20">
+              <Sparkles className="h-4 w-4" />
+              <span>Limited Founder Beta</span>
+            </motion.div>
+            
+            <motion.h2 variants={itemVariants} className="text-4xl md:text-7xl font-black mb-8 tracking-tighter leading-[1.05]">
+              Stop chasing. <br />
+              <span className="text-primary italic">Start approving.</span>
+            </h2>
+            
+            <motion.p variants={itemVariants} className="text-xl text-muted-foreground mb-12 max-w-xl mx-auto leading-relaxed">
+              Your first client sign-off is five minutes away. Join the specialized groups of agencies already winning with Approvr.
+            </motion.p>
+            
+            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center justify-center gap-6">
+              <Link to="/signup" className="w-full sm:w-auto">
+                <Button size="lg" className="h-16 px-10 text-lg rounded-2xl gap-3 bg-primary text-primary-foreground hover:scale-105 active:scale-95 transition-all shadow-xl shadow-primary/20 font-black relative overflow-hidden group">
+                  <span className="relative z-10 flex items-center gap-2">
+                    Claim Your Spot
+                    <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                </Button>
+              </Link>
+              <Link to="/pricing" className="w-full sm:w-auto">
+                <Button variant="outline" size="lg" className="h-16 px-10 text-lg rounded-2xl font-bold bg-muted/50 border-primary/10 hover:border-primary/30 transition-all">
+                  View Pricing
+                </Button>
+              </Link>
+            </motion.div>
+            
+            <motion.div variants={itemVariants} className="mt-12 flex flex-wrap justify-center items-center gap-8 text-muted-foreground/60">
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest">
+                <Zap className="h-4 w-4 text-primary" />
+                2 Min Setup
+              </div>
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest">
+                <ShieldCheck className="h-4 w-4 text-primary" />
+                No Card Required
+              </div>
+            </motion.div>
+          </div>
+        </motion.div>
+      </div>
+
+      <div className="container mt-20">
+        <div className="h-px bg-gradient-to-r from-transparent via-border/50 to-transparent" />
+      </div>
+    </section>
+  );
+};
 
 export default CTA;

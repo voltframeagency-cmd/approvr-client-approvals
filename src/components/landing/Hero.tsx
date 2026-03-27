@@ -44,7 +44,7 @@ const Hero = () => (
           transition={{ duration: 0.6, delay: 0.3 }}
           className="text-lg md:text-xl text-muted-foreground max-w-[560px] mx-auto mb-10 leading-relaxed"
         >
-          One branded portal where clients review deliverables, leave feedback, and sign off. Built for agencies.
+          Email is for talking. It's not for version control or hunting down signatures. Approvr gives you a single, branded portal where clients review, comment, and sign off in seconds. Just work that gets done.
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 12 }}

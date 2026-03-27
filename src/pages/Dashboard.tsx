@@ -3,11 +3,13 @@ import { mockProjects, mockActivity, mockDeliverables } from '@/lib/mock-data';
 import { Link } from 'react-router-dom';
 import {
   FolderKanban, Clock, CheckCircle, AlertTriangle, ArrowRight,
-  FileText, MessageSquare, Upload, UserPlus, Eye, AlertCircle, ExternalLink, Bell
+  FileText, MessageSquare, Upload, UserPlus, Eye, AlertCircle, ExternalLink, Bell, Sparkles
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import { StaggerContainer, StaggerItem } from '@/components/motion/Animations';
+import { useFounderBeta } from '@/hooks/use-founder-beta';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 // Derive attention items
 const overdueProjects = mockProjects.filter(p => p.isOverdue && p.status !== 'approved');
@@ -25,8 +27,8 @@ const attentionItems = [
 const statCards = [
   { label: 'Needs attention', value: attentionItems.length, icon: AlertCircle, accent: 'destructive' },
   { label: 'Changes requested', value: changesRequested.length, icon: AlertTriangle, accent: 'warning' },
-  { label: 'Pending reviews', value: pendingReview.length, icon: Clock, accent: 'info' },
-  { label: 'Approved', value: recentApprovals.length, icon: CheckCircle, accent: 'success' },
+  { label: 'Awaiting client', value: pendingReview.length, icon: Clock, accent: 'info' },
+  { label: 'Approved this week', value: recentApprovals.length, icon: CheckCircle, accent: 'success' },
 ];
 
 const accentColors: Record<string, string> = {
@@ -70,9 +72,43 @@ function timeAgo(dateStr: string) {
   return `${days}d ago`;
 }
 
-const Dashboard = () => (
-  <div className="space-y-8">
-    <motion.div
+const Dashboard = () => {
+  const beta = useFounderBeta();
+
+  return (
+    <div className="space-y-8">
+      {/* Beta Usage Banner */}
+      {(beta.isProjectLimitReached || beta.isEventLimitReached || beta.daysRemaining < 7) && (
+        <motion.div
+           initial={{ opacity: 0, y: -10 }}
+           animate={{ opacity: 1, y: 0 }}
+           className="mb-6"
+        >
+          <Alert variant={beta.isExpired || beta.isProjectLimitReached ? "destructive" : "default"} className="bg-primary/5 border-primary/20 backdrop-blur-sm">
+            <Sparkles className="h-4 w-4 text-primary" />
+            <AlertTitle className="text-sm font-bold">
+              {beta.isExpired ? "Founder Beta Expired" : "Founder Beta Early Access"}
+            </AlertTitle>
+            <AlertDescription className="text-xs text-muted-foreground mt-1 flex items-center justify-between">
+              <span>
+                {beta.isProjectLimitReached 
+                  ? `You've reached your ${beta.projectLimit} project limit. ` 
+                  : beta.isEventLimitReached 
+                    ? `You've reached your ${beta.eventLimit} approval event limit. `
+                    : `Your early access expires in ${beta.daysRemaining} days. `}
+                Upgrade to Pro to continue scaling your agency.
+              </span>
+              <Link to="/pricing">
+                <Button size="sm" variant="link" className="h-auto p-0 text-primary font-bold">
+                  View plans <ArrowRight className="h-3 w-3 ml-1" />
+                </Button>
+              </Link>
+            </AlertDescription>
+          </Alert>
+        </motion.div>
+      )}
+
+      <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
@@ -135,16 +171,10 @@ const Dashboard = () => (
                   </div>
                   <div className="hidden sm:flex items-center gap-4 text-[12px] text-muted-foreground">
                     <span className="font-mono">{item.approvedCount}/{item.deliverableCount} approved</span>
-                    {item.isOverdue && (
-                      <span className="flex items-center gap-1 text-warning">
-                        <Bell className="h-3 w-3" />
-                        Reminder sent 2d ago
-                      </span>
-                    )}
                     {item.lastViewedByClient && (
-                      <span className="flex items-center gap-1">
-                        <Eye className="h-3 w-3" />
-                        {timeAgo(item.lastViewedByClient)}
+                      <span className="flex items-center gap-1 text-primary">
+                        <Eye className="h-3.5 w-3.5" />
+                        Client viewed {timeAgo(item.lastViewedByClient)}
                       </span>
                     )}
                     <span>Due {new Date(item.deadline).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
@@ -259,7 +289,8 @@ const Dashboard = () => (
         </div>
       </div>
     </div>
-  </div>
-);
+    </div>
+  );
+};
 
 export default Dashboard;

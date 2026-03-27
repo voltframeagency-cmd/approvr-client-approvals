@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { Sparkles, ArrowRight } from 'lucide-react';
 import {
   UploadDemo,
   FeedbackDemo,
@@ -10,143 +11,188 @@ import {
 } from './FeatureInteractiveDemos';
 
 const features = [
-  { demo: UploadDemo, title: 'Upload deliverables', description: 'Share files, designs, and documents with clients in one organized space. Drag and drop or bulk-upload — everything stays versioned.' },
-  { demo: FeedbackDemo, title: 'Threaded feedback', description: 'Clients leave contextual comments directly on each deliverable. No more copy-pasting screenshots into emails.' },
-  { demo: ApprovalDemo, title: 'One-click approval', description: 'Clients approve or request changes with a single action. Every decision is captured instantly.' },
-  { demo: TimelineDemo, title: 'Activity timeline', description: 'Every comment, approval, and status change is logged automatically. See what happened and when.' },
-  { demo: BrandingDemo, title: 'Branded portal', description: 'Add your logo and accent color so the portal feels like your own. White-label the entire experience.' },
-  { demo: AuditDemo, title: 'Audit trail', description: 'Every decision is timestamped and attributed. Built for accountability and compliance.' },
+  { 
+    id: 1,
+    demo: UploadDemo, 
+    title: 'Centralize your work', 
+    description: 'Share files, designs, and documents in one organized space. It\'s version-controlled from day one.',
+    tag: 'Organization'
+  },
+  { 
+    id: 2,
+    demo: FeedbackDemo, 
+    title: 'Context is king', 
+    description: 'Clients leave comments exactly where they\'re needed. No more guessing which "v3_final_final.pdf" they\'re talking about.',
+    tag: 'Collaboration'
+  },
+  { 
+    id: 3,
+    demo: ApprovalDemo, 
+    title: 'Frictionless sign-offs', 
+    description: 'Give your clients a simple path to "Yes". Every decision is logged and instantly captured.',
+    tag: 'Efficiency'
+  },
+  { 
+    id: 4,
+    demo: TimelineDemo, 
+    title: 'Never lose a status', 
+    description: 'See every comment and approval in real-time. Accountability is built-in, not an afterthought.',
+    tag: 'Real-time'
+  },
+  { 
+    id: 5,
+    demo: BrandingDemo, 
+    title: 'Your brand, first', 
+    description: 'It feels like a custom-built solution for your clients. Professionalism at every touchpoint.',
+    tag: 'White-label'
+  },
+  { 
+    id: 6,
+    demo: AuditDemo, 
+    title: 'Complete peace of mind', 
+    description: 'Every decision is timestamped and attributed. Perfect for when "he said, she said" happens.',
+    tag: 'Security'
+  },
 ];
 
-const Features = () => {
+export const Features = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   // Auto-cycle when idle
   useEffect(() => {
     const timer = setInterval(() => {
       setActiveIndex(i => (i + 1) % features.length);
-    }, 5000);
+    }, 8000);
     return () => clearInterval(timer);
-  }, [activeIndex]);
+  }, []);
 
   return (
-    <section id="features" className="py-20 md:py-32 section-glow">
-      <div className="container">
-        {/* Header */}
-        <div className="mb-12 max-w-xl">
-          <h2 data-gsap="heading" className="text-3xl md:text-4xl font-bold mb-3">
-            Purpose-built for client approvals
-          </h2>
-          <p data-gsap="fade-up" className="text-muted-foreground text-lg">
-            Upload. Review. Approve. That's it. No project management, no invoicing, no feature bloat.
-          </p>
-        </div>
+    <section id="features" className="py-32 relative overflow-hidden">
+      {/* Background ambient glow */}
+      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
 
-        <div className="grid lg:grid-cols-[1fr,1.4fr] gap-6 lg:gap-10 items-stretch">
-          {/* Left: Clickable feature list */}
-          <div className="flex flex-col justify-center gap-0">
-            {features.map((f, i) => {
+      <div className="container px-4 mx-auto relative">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: [0.21, 0.47, 0.32, 0.98] }}
+          className="max-w-3xl mx-auto text-center mb-24"
+        >
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
+            <Sparkles className="h-4 w-4" />
+            <span>Built for High-Growth Agencies</span>
+          </div>
+          <h2 className="text-4xl md:text-6xl font-bold mb-8 tracking-tight leading-[1.1]">
+            A workflow that actually <span className="text-primary italic">handles the friction</span>
+          </h2>
+          <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+            We didn't just build a project manager. We built a high-velocity approval engine designed to get you to "Yes" faster than ever.
+          </p>
+        </motion.div>
+
+        <div className="grid lg:grid-cols-[1fr,1.4fr] gap-12 lg:gap-20 items-center">
+          {/* Left: Interactive feature list */}
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="flex flex-col gap-2"
+          >
+            {features.map((feature, i) => {
               const isActive = activeIndex === i;
               return (
                 <button
-                  key={f.title}
+                  key={feature.id}
                   onClick={() => setActiveIndex(i)}
-                  className="relative border-l-2 text-left transition-all duration-300 cursor-pointer rounded-r-xl"
-                  style={{
-                    borderColor: isActive
-                      ? 'hsl(var(--primary))'
-                      : 'hsl(var(--border))',
-                    backgroundColor: isActive
-                      ? 'hsl(var(--primary) / 0.06)'
-                      : 'transparent',
-                  }}
+                  className={`group relative p-6 rounded-2xl text-left transition-all duration-500 overflow-hidden ${
+                    isActive 
+                      ? 'bg-primary/[0.03] border-primary/20 border shadow-[0_10px_30px_-15px_rgba(var(--primary),0.1)]' 
+                      : 'hover:bg-muted/50 border-transparent border'
+                  }`}
                 >
-                  <div className="pl-5 py-3">
-                    <div className="flex items-baseline gap-3">
-                      <span
-                        className="font-mono text-xs tabular-nums transition-colors duration-300"
-                        style={{
-                          color: isActive
-                            ? 'hsl(var(--primary))'
-                            : 'hsl(var(--muted-foreground))',
-                        }}
-                      >
-                        {String(i + 1).padStart(2, '0')}
-                      </span>
-                      <h3
-                        className="font-semibold text-base transition-colors duration-300"
-                        style={{
-                          color: isActive
-                            ? 'hsl(var(--foreground))'
-                            : 'hsl(var(--muted-foreground))',
-                        }}
-                      >
-                        {f.title}
-                      </h3>
+                  <div className="relative z-10 flex items-start gap-4">
+                    <div className={`mt-1 font-mono text-xs tabular-nums transition-colors duration-300 ${
+                      isActive ? 'text-primary' : 'text-muted-foreground'
+                    }`}>
+                      {String(i + 1).padStart(2, '0')}
                     </div>
-                    <AnimatePresence initial={false}>
-                      {isActive && (
-                        <motion.p
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: 'auto', opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.3, ease: 'easeOut' }}
-                          className="text-muted-foreground text-sm leading-relaxed pl-8 pr-2 overflow-hidden"
-                        >
-                          {f.description}
-                        </motion.p>
-                      )}
-                    </AnimatePresence>
+                    <div>
+                      <h3 className={`text-lg font-bold mb-2 transition-colors duration-300 ${
+                        isActive ? 'text-foreground' : 'text-muted-foreground group-hover:text-foreground'
+                      }`}>
+                        {feature.title}
+                      </h3>
+                      <AnimatePresence initial={false}>
+                        {isActive && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                            className="overflow-hidden"
+                          >
+                            <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                              {feature.description}
+                            </p>
+                            <div className="flex items-center gap-2 text-xs font-bold text-primary tracking-wider uppercase">
+                              {feature.tag} <ArrowRight className="h-3 w-3" />
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
                   </div>
                 </button>
               );
             })}
+          </motion.div>
 
-            {/* Progress dots */}
-            <div className="mt-4 ml-5 flex gap-1.5">
-              {features.map((_, i) => (
+          {/* Right: Interactive Demo Visualization */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95, x: 40 }}
+            whileInView={{ opacity: 1, scale: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
+            className="relative"
+          >
+            {/* Glossy Mockup Container */}
+            <div className="relative rounded-[2rem] border border-primary/10 bg-card/40 backdrop-blur-3xl overflow-hidden min-h-[460px] shadow-[0_32px_120px_-20px_rgba(0,0,0,0.3)] ring-1 ring-white/10 group">
+              <div className="absolute inset-0 bg-gradient-to-tr from-primary/[0.02] via-transparent to-primary/[0.05]" />
+              
+              <AnimatePresence mode="wait">
                 <motion.div
-                  key={i}
-                  className="h-1 rounded-full cursor-pointer"
-                  onClick={() => setActiveIndex(i)}
-                  animate={{
-                    width: activeIndex === i ? 28 : 6,
-                    backgroundColor: activeIndex === i
-                      ? 'hsl(var(--primary))'
-                      : 'hsl(var(--border))',
-                  }}
-                  transition={{ duration: 0.3, ease: 'easeOut' }}
-                />
-              ))}
+                  key={activeIndex}
+                  initial={{ opacity: 0, scale: 0.98, filter: 'blur(10px)' }}
+                  animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                  exit={{ opacity: 0, scale: 1.02, filter: 'blur(10px)' }}
+                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  className="w-full h-full flex items-center justify-center p-8 lg:p-12"
+                >
+                  <div className="w-full max-w-md aspect-video bg-muted/20 rounded-xl border border-border/40 flex items-center justify-center relative shadow-inner overflow-hidden">
+                    {(() => {
+                      const Demo = features[activeIndex].demo;
+                      return <Demo />;
+                    })()}
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+
+              {/* Decorative elements */}
+              <div className="absolute bottom-6 left-6 flex gap-2">
+                <div className="w-2 h-2 rounded-full bg-primary/20" />
+                <div className="w-2 h-2 rounded-full bg-primary/10" />
+                <div className="w-2 h-2 rounded-full bg-primary/5" />
+              </div>
             </div>
-          </div>
 
-          {/* Right: Interactive Demo */}
-          <div className="relative rounded-2xl border border-primary/10 bg-card/60 backdrop-blur-2xl overflow-hidden min-h-[340px] md:min-h-[400px] shadow-[0_8px_32px_-8px_hsl(160_84%_39%/0.08)] ring-1 ring-primary/5">
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,hsl(160_84%_39%/0.06),transparent_60%),radial-gradient(ellipse_at_bottom_right,hsl(160_84%_39%/0.04),transparent_60%)] pointer-events-none" />
-            <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-primary/[0.04] blur-3xl pointer-events-none" />
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeIndex}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                className="w-full h-full flex items-center justify-center p-6"
-              >
-                {(() => {
-                  const Demo = features[activeIndex].demo;
-                  return <Demo />;
-                })()}
-              </motion.div>
-            </AnimatePresence>
-          </div>
+            {/* Glowing accent dots */}
+            <div className="absolute -top-12 -right-12 w-64 h-64 bg-primary/10 rounded-full blur-[80px] pointer-events-none group-hover:bg-primary/20 transition-colors duration-1000" />
+            <div className="absolute -bottom-12 -left-12 w-64 h-64 bg-primary/5 rounded-full blur-[80px] pointer-events-none group-hover:bg-primary/10 transition-colors duration-1000" />
+          </motion.div>
         </div>
-      </div>
-
-      {/* Decorative divider */}
-      <div className="container mt-20">
-        <div data-gsap="line" className="h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
       </div>
     </section>
   );

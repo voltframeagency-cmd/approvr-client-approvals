@@ -20,7 +20,14 @@ const ClientPortal = () => {
   const [selectedDel, setSelectedDel] = useState(deliverables[0]?.id);
   const comments = mockComments.filter(c => c.deliverableId === selectedDel);
   const [newComment, setNewComment] = useState('');
+  const [resolvedCommentIds, setResolvedCommentIds] = useState<string[]>([]);
   const currentDel = deliverables.find(d => d.id === selectedDel);
+
+  const toggleResolve = (id: string) => {
+    setResolvedCommentIds(prev => 
+      prev.includes(id) ? prev.filter(cid => cid !== id) : [...prev, id]
+    );
+  };
 
   const approvedCount = deliverables.filter(d => d.status === 'approved').length;
   const allApproved = approvedCount === deliverables.length;
@@ -238,7 +245,7 @@ const ClientPortal = () => {
                               <span className="text-[11px] text-muted-foreground">
                                 {new Date(c.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                               </span>
-                              {c.resolved && (
+                              {(c.resolved || resolvedCommentIds.includes(c.id)) && (
                                 <span className="text-[10px] font-medium text-success bg-success/10 px-2 py-0.5 rounded-full flex items-center gap-1">
                                   <Check className="h-2.5 w-2.5" />
                                   Resolved
@@ -246,13 +253,24 @@ const ClientPortal = () => {
                               )}
                             </div>
                             <p className={cn(
-                              "text-[13px] mt-1 leading-relaxed",
-                              c.resolved ? "text-muted-foreground/60 line-through" : "text-muted-foreground"
+                              "text-[13px] mt-1 leading-relaxed transition-all duration-300",
+                              (c.resolved || resolvedCommentIds.includes(c.id)) ? "text-muted-foreground/60 line-through" : "text-muted-foreground"
                             )}>{c.body}</p>
-                            {!c.resolved && (
-                              <button className="text-[11px] text-muted-foreground hover:text-primary mt-1 transition-colors">
+                            {!(c.resolved || resolvedCommentIds.includes(c.id)) && (
+                              <button 
+                                onClick={() => toggleResolve(c.id)}
+                                className="text-[11px] text-primary/70 hover:text-primary mt-1 transition-colors font-medium"
+                              >
                                 Mark as resolved
                               </button>
+                            )}
+                            {(c.resolved || resolvedCommentIds.includes(c.id)) && !c.resolved && (
+                               <button 
+                               onClick={() => toggleResolve(c.id)}
+                               className="text-[11px] text-muted-foreground hover:text-foreground mt-1 transition-colors"
+                             >
+                               Unresolve
+                             </button>
                             )}
                           </div>
                         </motion.div>

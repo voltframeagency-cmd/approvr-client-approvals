@@ -1,200 +1,277 @@
 import { Button } from '@/components/ui/button';
-import { Check, Sparkles, Zap, Building2, Lock } from 'lucide-react';
+import { Check, Sparkles, Zap, Building2, Lock, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
+import { cn } from '@/lib/utils';
 
 const plans = [
   {
     name: 'Founder Beta',
-    price: '$0',
+    price: { monthly: 0, yearly: 0 },
     period: '/mo',
     description: 'Limited early access for founding users.',
     features: [
-      '3 projects (lifetime)',
-      '10 approval events',
-      '1 workspace',
-      'Basic branding',
-      '30-day beta access',
+      '3 projects (lifetime total)',
+      '10 approval events total',
+      '1 branded workspace',
+      'Standard portal design',
+      '30-day early access',
     ],
     cta: 'Join Founder Beta',
     popular: false,
     icon: Lock,
-    badge: 'Limited spots',
+    badge: 'Invite only',
     note: 'Free during beta · Read-only after expiry',
   },
   {
     name: 'Pro',
-    price: '$29',
+    price: { monthly: 29, yearly: 24 },
     period: '/mo',
-    description: 'For growing agencies and studios.',
+    description: 'Perfect for growing agencies and studios.',
     features: [
+      'Everything in Beta, plus:',
       'Unlimited projects',
       'Unlimited approvals',
-      '3 workspaces',
-      'Custom branding',
-      'Priority support',
+      '3 branded workspaces',
+      'Custom accent colors',
       '25 GB storage',
     ],
-    cta: 'Start free trial',
+    cta: 'Start 14-day free trial',
     popular: true,
     icon: Sparkles,
-    badge: null,
-    note: '14-day free trial · No credit card required',
+    badge: 'Growth choice',
+    note: 'No credit card required to start',
   },
   {
     name: 'Agency',
-    price: '$79',
+    price: { monthly: 79, yearly: 64 },
     period: '/mo',
     description: 'For teams managing multiple clients.',
     features: [
-      'Everything in Pro',
+      'Everything in Pro, plus:',
       'Unlimited workspaces',
-      'White-label portal',
-      'API access',
+      'White-label client portal',
+      'API & webhook access',
       '100 GB storage',
-      'Dedicated support',
+      'Priority dedicated support',
     ],
-    cta: 'Contact sales',
+    cta: 'Contact for Agency',
     popular: false,
     icon: Building2,
     badge: null,
-    note: 'Custom onboarding included',
+    note: 'Onboarding & migration included',
   },
 ];
 
-const Pricing = () => (
-  <section className="py-20 md:py-32 surface-sunken relative overflow-hidden">
-    {/* Background glows */}
-    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] opacity-[0.04] blur-3xl" style={{ background: 'radial-gradient(circle, hsl(var(--primary)), transparent 60%)' }} />
-    <div className="absolute bottom-0 right-0 w-[400px] h-[400px] opacity-[0.02] blur-3xl" style={{ background: 'radial-gradient(circle, hsl(var(--primary)), transparent 60%)' }} />
+const Pricing = () => {
+  const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'yearly'>('monthly');
 
-    <div className="container relative">
-      <div className="text-center max-w-2xl mx-auto mb-16">
-        <h2 data-gsap="heading" className="text-3xl md:text-4xl font-bold mb-4">Simple, transparent pricing</h2>
-        <p data-gsap="fade-up" className="text-muted-foreground text-lg">Early access for founding users. Upgrade when you're ready to scale.</p>
-      </div>
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.2
+      }
+    }
+  };
 
-      <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto items-start">
-        {plans.map((plan, i) => {
-          const Icon = plan.icon;
-          return (
-            <motion.div
-              key={plan.name}
-              data-gsap="card"
-              data-delay={String(i * 0.1)}
-              whileHover={{ y: -6, transition: { duration: 0.25 } }}
-              className={`group relative rounded-2xl flex flex-col h-full transition-shadow duration-500 ${
-                plan.popular
-                  ? 'md:-mt-4 md:mb-4'
-                  : ''
-              }`}
+  const cardVariants = {
+    hidden: { opacity: 0, y: 40, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.8,
+        ease: [0.22, 1, 0.36, 1]
+      }
+    }
+  };
+
+  return (
+    <section id="pricing" className="py-32 relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
+
+      <div className="container relative mx-auto px-4">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: [0.21, 0.47, 0.32, 0.98] }}
+          className="text-center max-w-3xl mx-auto mb-20"
+        >
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
+            <Zap className="h-4 w-4" />
+            <span>Risk-Free Early Access</span>
+          </div>
+          <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-8 leading-[1.1]">
+            Straightforward pricing for <br className="hidden md:block" />
+            <span className="text-primary italic">ambitious agencies.</span>
+          </h2>
+          
+          {/* Pricing Toggle */}
+          <div className="flex items-center justify-center gap-4 mt-8">
+            <span className={`text-sm font-medium transition-colors ${billingPeriod === 'monthly' ? 'text-foreground' : 'text-muted-foreground'}`}>
+              Monthly
+            </span>
+            <button
+              onClick={() => setBillingPeriod(billingPeriod === 'monthly' ? 'yearly' : 'monthly')}
+              className="relative w-14 h-7 rounded-full bg-muted border p-1 transition-all duration-300 hover:border-primary/40 outline-none"
             >
-              {/* Card border + glow wrapper for popular */}
-              {plan.popular && (
-                <>
-                  <div
-                    className="absolute -inset-px rounded-2xl opacity-60 blur-sm"
-                    style={{
-                      background: 'linear-gradient(135deg, hsl(var(--primary) / 0.3), hsl(var(--primary) / 0.05), hsl(var(--primary) / 0.3))',
-                    }}
-                  />
-                  <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10 bg-primary text-primary-foreground text-xs font-semibold px-4 py-1.5 rounded-full shadow-lg shadow-primary/20 flex items-center gap-1.5">
-                    <Sparkles className="h-3 w-3" />
-                    Most popular
-                  </span>
-                </>
-              )}
+              <motion.div
+                animate={{ x: billingPeriod === 'monthly' ? 0 : 28 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                className="w-5 h-5 rounded-full bg-primary shadow-sm"
+              />
+            </button>
+            <div className="flex items-center gap-2">
+              <span className={`text-sm font-medium transition-colors ${billingPeriod === 'yearly' ? 'text-foreground' : 'text-muted-foreground'}`}>
+                Yearly
+              </span>
+              <span className="text-[10px] bg-primary/20 text-primary px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">
+                Save 20%
+              </span>
+            </div>
+          </div>
+        </motion.div>
 
-              {/* Founder Beta badge */}
-              {plan.badge && !plan.popular && (
-                <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10 bg-muted text-foreground text-xs font-semibold px-4 py-1.5 rounded-full shadow-sm border flex items-center gap-1.5">
-                  <Lock className="h-3 w-3" />
-                  {plan.badge}
-                </span>
-              )}
-
-              <div
-                className={`relative rounded-2xl bg-card/60 backdrop-blur-2xl flex flex-col h-full overflow-hidden ring-1 ring-primary/5 shadow-[0_8px_32px_-8px_hsl(160_84%_39%/0.08)] ${
-                  plan.popular
-                    ? 'border-2 border-primary/30'
-                    : 'border border-primary/10'
-                }`}
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto items-stretch"
+        >
+          {plans.map((plan, i) => {
+            const Icon = plan.icon;
+            const price = plan.price[billingPeriod];
+            
+            return (
+              <motion.div
+                key={plan.name}
+                variants={cardVariants}
+                className="flex flex-col h-full"
               >
-                {/* Glassmorphic gradient overlay */}
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,hsl(160_84%_39%/0.05),transparent_60%),radial-gradient(ellipse_at_bottom_right,hsl(160_84%_39%/0.03),transparent_60%)] pointer-events-none" />
-                {plan.popular && (
-                  <div className="h-1 w-full bg-gradient-to-r from-primary/40 via-primary to-primary/40" />
-                )}
-
-                <div className="p-8 flex flex-col flex-1">
-                  {/* Header */}
-                  <div className="flex items-center gap-3 mb-6">
-                    <div
-                      className={`h-10 w-10 rounded-xl flex items-center justify-center ${
-                        plan.popular
-                          ? 'bg-primary/10'
-                          : 'bg-muted'
-                      }`}
-                    >
-                      <Icon className={`h-5 w-5 ${plan.popular ? 'text-primary' : 'text-muted-foreground'}`} />
+                <div className={cn(
+                  "relative rounded-[2.5rem] p-8 flex flex-col h-full transition-all duration-500",
+                  "bg-card/40 backdrop-blur-2xl border border-primary/10 shadow-sm",
+                  plan.popular 
+                    ? "ring-1 ring-primary border-primary/20 shadow-[0_20px_50px_-12px_rgba(var(--primary),0.15)] scale-[1.02] z-10" 
+                    : "hover:border-primary/20 hover:bg-card/60"
+                )}>
+                  {plan.popular && (
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-[10px] font-black tracking-widest px-5 py-2 rounded-full shadow-xl flex items-center gap-1.5 whitespace-nowrap uppercase">
+                      <Sparkles className="h-3 w-3" />
+                      MOST POPULAR
                     </div>
-                    <h3 className="font-semibold text-lg">{plan.name}</h3>
-                  </div>
-
-                  {/* Price */}
-                  <div className="mb-1">
-                    <span className="text-5xl font-bold tracking-tight">{plan.price}</span>
-                    <span className="text-muted-foreground text-base ml-1">{plan.period}</span>
-                  </div>
-                  <p className="text-sm text-muted-foreground mb-8">{plan.description}</p>
-
-                  {/* Divider */}
-                  <div className="h-px bg-border mb-6" />
-
-                  {/* Features */}
-                  <ul className="space-y-3.5 mb-8 flex-1">
-                    {plan.features.map(f => (
-                      <li key={f} className="flex items-center gap-3 text-sm">
-                        <div
-                          className={`h-5 w-5 rounded-full flex items-center justify-center flex-shrink-0 ${
-                            plan.popular
-                              ? 'bg-primary/15'
-                              : 'bg-muted'
-                          }`}
-                        >
-                          <Check className={`h-3 w-3 ${plan.popular ? 'text-primary' : 'text-muted-foreground'}`} />
-                        </div>
-                        <span className="text-foreground/80">{f}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* CTA */}
-                  <Link to="/signup" className="mt-auto">
-                    <Button
-                      className={`w-full h-11 text-sm font-medium ${
-                        plan.popular
-                          ? 'shadow-lg shadow-primary/20'
-                          : ''
-                      }`}
-                      variant={plan.popular ? 'default' : 'outline'}
-                    >
-                      {plan.cta}
-                    </Button>
-                  </Link>
-
-                  {/* Note */}
-                  {plan.note && (
-                    <p className="text-[11px] text-muted-foreground text-center mt-3">{plan.note}</p>
                   )}
+
+                  <div className="mb-8 pt-2">
+                    <div className={cn(
+                      "inline-flex p-4 rounded-2xl mb-8 transition-colors",
+                      plan.popular ? "bg-primary/10 text-primary" : "bg-muted/50 text-muted-foreground"
+                    )}>
+                      <Icon size={28} strokeWidth={1.5} />
+                    </div>
+                    <div className="flex items-center gap-2 mb-3">
+                      <h3 className="text-2xl font-bold tracking-tight">{plan.name}</h3>
+                      {plan.badge && !plan.popular && (
+                        <span className="text-[10px] bg-muted/80 px-2 py-0.5 rounded-md font-bold uppercase tracking-wider">{plan.badge}</span>
+                      )}
+                    </div>
+                    <p className="text-muted-foreground text-sm leading-relaxed">{plan.description}</p>
+                  </div>
+
+                  <div className="mb-10">
+                    <div className="flex items-baseline gap-2">
+                      <AnimatePresence mode="wait">
+                        <motion.span
+                          key={price}
+                          initial={{ opacity: 0, y: 12, filter: 'blur(8px)' }}
+                          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                          exit={{ opacity: 0, y: -12, filter: 'blur(8px)' }}
+                          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                          className="text-5xl font-bold tracking-tighter"
+                        >
+                          ${price}
+                        </motion.span>
+                      </AnimatePresence>
+                      <span className="text-muted-foreground/60 text-lg font-medium">{plan.period}</span>
+                    </div>
+                    {billingPeriod === 'yearly' && price > 0 && (
+                      <p className="text-xs text-primary font-bold mt-2 uppercase tracking-wide">Billed annually (${price * 12}/yr)</p>
+                    )}
+                  </div>
+
+                  <div className="space-y-4 mb-10 flex-1">
+                    {plan.features.map((feature) => (
+                      <div key={feature} className="flex items-start gap-3 group/item">
+                        <div className={cn(
+                          "mt-1 w-5 h-5 rounded-full flex items-center justify-center transition-colors shrink-0",
+                          plan.popular ? "text-primary bg-primary/10" : "text-muted-foreground/60 bg-muted/50"
+                        )}>
+                          <Check size={12} strokeWidth={3} />
+                        </div>
+                        <span className="text-[14px] text-foreground/70 leading-snug group-hover/item:text-foreground transition-colors">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-auto">
+                    <Link to="/signup" className="block">
+                      <Button 
+                        className={cn(
+                          "w-full h-14 rounded-2xl text-base font-bold transition-all duration-500 overflow-hidden relative group/btn",
+                          plan.popular 
+                            ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98]" 
+                            : "bg-secondary/50 text-secondary-foreground hover:bg-secondary hover:border-primary/20"
+                        )}
+                        variant={plan.popular ? "default" : "outline"}
+                      >
+                        <span className="relative z-10 flex items-center justify-center gap-2">
+                          {plan.cta}
+                          <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
+                        </span>
+                        {plan.popular && (
+                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000" />
+                        )}
+                      </Button>
+                    </Link>
+                    {plan.note && (
+                      <p className="text-center text-[11px] text-muted-foreground/60 mt-4 font-medium">{plan.note}</p>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          );
-        })}
+              </motion.div>
+            );
+          })}
+        </motion.div>
+        
+        {/* Simple Trust Footer */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.6 }}
+          className="mt-32 text-center"
+        >
+          <p className="text-sm font-bold text-muted-foreground/60 uppercase tracking-[0.2em] mb-10">
+            Trusted by world-class creative teams
+          </p>
+          <div className="flex flex-wrap justify-center items-center gap-x-16 gap-y-10 opacity-30 grayscale hover:grayscale-0 transition-all duration-1000">
+            <span className="text-xl font-black tracking-tighter">AGENCY_X</span>
+            <span className="text-xl font-black tracking-tighter">STUDIO.M</span>
+            <span className="text-xl font-black tracking-tighter">CREATIVE.CO</span>
+            <span className="text-xl font-black tracking-tighter">DESIGN.OS</span>
+          </div>
+        </motion.div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default Pricing;

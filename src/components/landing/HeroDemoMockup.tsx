@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, MessageSquare, Clock, FileText, Image, Palette } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 type Status = 'draft' | 'in_review' | 'approved';
 
@@ -39,69 +40,96 @@ const HeroDemoMockup = () => {
   const [cursorClick, setCursorClick] = useState(false);
   const [cursorVisible, setCursorVisible] = useState(true);
 
-  // Single unified timeline — cursor + demo events in sync
+  const [animationStep, setAnimationStep] = useState(0);
+
+  // Synchronized timeline
   useEffect(() => {
     const timers: ReturnType<typeof setTimeout>[] = [];
     const at = (ms: number, fn: () => void) => timers.push(setTimeout(fn, ms));
     const moveTo = (x: number, y: number) => setCursorPos({ x, y });
-    const click = () => { setCursorClick(true); setTimeout(() => setCursorClick(false), 200); };
+    const click = () => { 
+      setCursorClick(true); 
+      setTimeout(() => setCursorClick(false), 200); 
+    };
 
-    // 0s — cursor starts near the comment area, reading discussion
-    moveTo(55, 52);
-
-    // 1.5s — cursor drifts over the first comment
-    at(1500, () => moveTo(65, 58));
-
-    // 3s — typing indicator appears, cursor watches
-    at(3000, () => {
-      setShowTyping(true);
-      moveTo(55, 68);
-    });
-
-    // 4.5s — new comment appears, cursor reads it
-    at(4500, () => {
-      setShowTyping(false);
-      setCommentIndex(1);
-      moveTo(60, 65);
-    });
-
-    // 5.5s — cursor moves toward the Approve button
-    at(5500, () => moveTo(72, 88));
-
-    // 6.5s — cursor hovers right on the Approve button
-    at(6500, () => moveTo(72, 90));
-
-    // 7s — cursor clicks Approve → approval fires
-    at(7000, () => {
-      click();
-      setShowApproveAnim(true);
-      setDeliverables(prev => prev.map(d => d.id === 2 ? { ...d, status: 'approved' as Status } : d));
-    });
-
-    // 8s — cursor drifts up to the status badge to admire the result
-    at(8000, () => moveTo(80, 22));
-
-    // 9.5s — cursor moves to sidebar progress bar
-    at(9500, () => moveTo(18, 82));
-
-    // 11s — reset everything
-    at(11000, () => {
-      setCursorVisible(false);
-      setDeliverables(initialDeliverables);
-      setActiveTab(2);
-      setShowApproveAnim(false);
-      setCommentIndex(0);
-      setShowTyping(false);
-    });
-
-    // 11.3s — reappear cursor at starting position
-    at(11300, () => {
-      moveTo(55, 35);
+    const runTimeline = () => {
+      // Step 0: Initial position - looking at first deliverable
+      moveTo(18, 25);
       setCursorVisible(true);
-    });
 
+      // Step 1: Move to second deliverable (Color Palette)
+      at(1500, () => {
+        moveTo(18, 38);
+        at(800, () => setActiveTab(2));
+      });
+
+      // Step 2: Move to discussion area for Color Palette
+      at(3500, () => {
+        moveTo(55, 55);
+      });
+
+      // Step 3: Alex starts typing
+      at(5000, () => {
+        setShowTyping(true);
+        moveTo(45, 68);
+      });
+
+      // Step 4: New comment appears
+      at(7000, () => {
+        setShowTyping(false);
+        setCommentIndex(1);
+        moveTo(55, 65);
+      });
+
+      // Step 5: Move to Approve button
+      at(9000, () => {
+        moveTo(77, 83);
+      });
+
+      // Step 6: Click Approve
+      at(10500, () => {
+        click();
+        at(200, () => {
+          setShowApproveAnim(true);
+          setDeliverables(prev => prev.map(d => d.id === 2 ? { ...d, status: 'approved' as Status } : d));
+        });
+      });
+
+      // Step 7: Move to third deliverable (Typography Guide)
+      at(12500, () => {
+        setShowApproveAnim(false);
+        moveTo(18, 51);
+        at(800, () => {
+          setActiveTab(3);
+          setCommentIndex(0); // Reset comments for the new tab
+        });
+      });
+
+      // Step 8: Brief pause on Typography Guide
+      at(14500, () => {
+        moveTo(50, 40);
+      });
+
+      // Step 9: Final reset prep
+      at(17000, () => {
+        setCursorVisible(false);
+      });
+
+      // Step 10: Full reset
+      at(17500, () => {
+        setDeliverables(initialDeliverables);
+        setActiveTab(1);
+        setShowApproveAnim(false);
+        setCommentIndex(0);
+        setShowTyping(false);
+        // Re-run
+        setAnimationStep(prev => prev + 1);
+      });
+    };
+
+    runTimeline();
     return () => timers.forEach(clearTimeout);
-  }, [deliverables[1].status]);
+  }, [animationStep]);
 
   const activeDeliverable = deliverables.find(d => d.id === activeTab)!;
   const st = statusStyles[activeDeliverable.status];
@@ -166,7 +194,7 @@ const HeroDemoMockup = () => {
         </div>
       </div>
 
-      <div className="grid md:grid-cols-[200px_1fr] min-h-[320px]">
+      <div className="grid md:grid-cols-[200px_1fr] min-h-[440px]">
         {/* Sidebar — deliverable list */}
         <div className="border-r bg-muted/[0.03] p-3 space-y-1 hidden md:block">
           <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider px-2 py-1.5">Deliverables</p>
@@ -340,9 +368,11 @@ const HeroDemoMockup = () => {
                 </AnimatePresence>
               </div>
 
-              {/* Action buttons — only show for non-approved */}
-              {activeDeliverable.status !== 'approved' && !showApproveAnim && (
-                <div className="flex gap-2 mt-4">
+                {/* Action buttons — always visible for demo structure */}
+                <div className={cn(
+                  "flex gap-2 mt-4 transition-all duration-300",
+                  showApproveAnim ? "opacity-30 pointer-events-none scale-95" : "opacity-100"
+                )}>
                   <div className="flex-1 h-8 rounded-lg border border-border/60 flex items-center justify-center text-[11px] text-muted-foreground font-medium cursor-default">
                     Request changes
                   </div>
@@ -351,7 +381,6 @@ const HeroDemoMockup = () => {
                     Approve
                   </div>
                 </div>
-              )}
             </motion.div>
           </AnimatePresence>
         </div>

@@ -1,3 +1,5 @@
+import { motion } from 'framer-motion';
+
 const logos = [
   { name: 'Stripe', svg: 'M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-7.076-2.18l-.891 5.534C5.326 22.88 8.382 24 12.062 24c2.589 0 4.777-.596 6.319-1.839 1.644-1.345 2.451-3.321 2.451-5.71 0-4.124-2.607-5.833-6.856-7.301' },
   { name: 'Figma', svg: 'M15.852 8.981h-4.588V0h4.588c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.491-4.49 4.491zM12.735 7.51h3.117c1.665 0 3.019-1.355 3.019-3.019s-1.355-3.019-3.019-3.019h-3.117V7.51zm0 8.943h-4.588c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h4.588v8.98zM4.147 11.962c0 1.665 1.354 3.019 3.019 3.019h3.117V8.943H7.166c-1.665 0-3.019 1.354-3.019 3.019zm4.537 7.019c0 2.476-2.014 4.49-4.49 4.49S-.296 21.457-.296 18.981s2.014-4.49 4.49-4.49h4.49v4.49zm-1.471 0c0-1.665-1.354-3.019-3.019-3.019s-3.019 1.354-3.019 3.019 1.354 3.019 3.019 3.019 3.019-1.354 3.019-3.019zM8.147 8.981H3.559c-2.476 0-4.49-2.014-4.49-4.49S1.083 0 3.559 0h4.588v8.981zM.54 4.49c0 1.665 1.354 3.019 3.019 3.019h3.117V1.471H3.559C1.894 1.471.54 2.826.54 4.491zm14.96 8.943c0-2.476-2.014-4.49-4.49-4.49s-4.49 2.014-4.49 4.49 2.014 4.49 4.49 4.49 4.49-2.014 4.49-4.49zm-7.51 0c0-1.665 1.354-3.019 3.019-3.019s3.019 1.354 3.019 3.019-1.354 3.019-3.019 3.019-3.019-1.354-3.019-3.019z' },
@@ -7,44 +9,86 @@ const logos = [
   { name: 'Slack', svg: 'M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z' },
 ];
 
-const SocialProof = () => (
-  <section className="py-16 md:py-20 border-t border-b border-border/50 relative overflow-hidden">
-    <div className="container">
-      {/* Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-14">
-        {[
-          { value: '2,400+', label: 'Approval cycles completed' },
-          { value: '380+', label: 'Agencies & studios' },
-          { value: '12k+', label: 'Deliverables signed off' },
-          { value: '4.9/5', label: 'Average rating' },
-        ].map((stat, i) => (
-          <div key={stat.label} data-gsap="fade-up" data-delay={String(i * 0.1)} className="text-center">
-            <p className="text-3xl md:text-4xl font-bold tracking-tight gradient-text">{stat.value}</p>
-            <p className="text-[13px] text-muted-foreground mt-1">{stat.label}</p>
-          </div>
-        ))}
-      </div>
+const stats = [
+  { value: '2,400+', label: 'Approval cycles completed' },
+  { value: '380+', label: 'Agencies & studios' },
+  { value: '12k+', label: 'Deliverables signed off' },
+  { value: '4.9/5', label: 'Average rating' },
+];
 
-      {/* Logo marquee */}
-      <div className="relative">
-        <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-background to-transparent z-10" />
-        <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-background to-transparent z-10" />
-        <p data-gsap="fade-up" className="text-center text-[11px] font-medium text-muted-foreground uppercase tracking-[0.15em] mb-6">Trusted by teams at</p>
-        <div className="flex gap-16 items-center justify-center overflow-hidden">
-          <div className="flex gap-16 items-center animate-marquee">
-            {[...logos, ...logos].map((logo, i) => (
-              <div key={`${logo.name}-${i}`} className="flex items-center gap-2 flex-shrink-0 opacity-30 hover:opacity-60 transition-opacity duration-300">
-                <svg viewBox="0 0 24 24" className="h-5 w-5 fill-foreground">
-                  <path d={logo.svg} />
-                </svg>
-                <span className="text-[13px] font-medium text-foreground whitespace-nowrap">{logo.name}</span>
-              </div>
-            ))}
+const SocialProof = () => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" }
+    }
+  };
+
+  return (
+    <section className="py-24 border-t border-b border-border/40 relative overflow-hidden bg-muted/30">
+      <div className="container mx-auto px-4">
+        {/* Stats */}
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20"
+        >
+          {stats.map((stat) => (
+            <motion.div key={stat.label} variants={itemVariants} className="text-center group">
+              <p className="text-4xl md:text-5xl font-black tracking-tight text-primary mb-2 group-hover:scale-110 transition-transform duration-500">
+                {stat.value}
+              </p>
+              <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">{stat.label}</p>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Logo marquee */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.4 }}
+          className="relative pt-10 border-t border-border/20"
+        >
+          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-muted/30 to-transparent z-10" />
+          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-muted/30 to-transparent z-10" />
+          
+          <p className="text-center text-[10px] font-black text-muted-foreground/50 uppercase tracking-[0.3em] mb-12">
+            Integrated with the tools you love
+          </p>
+          
+          <div className="flex gap-16 items-center justify-center overflow-hidden">
+            <div className="flex gap-20 items-center animate-marquee whitespace-nowrap">
+              {[...logos, ...logos].map((logo, i) => (
+                <div key={`${logo.name}-${i}`} className="flex items-center gap-3 opacity-30 hover:opacity-100 transition-all duration-500 cursor-default grayscale hover:grayscale-0 scale-90 hover:scale-100">
+                  <svg viewBox="0 0 24 24" className="h-6 w-6 fill-current">
+                    <path d={logo.svg} />
+                  </svg>
+                  <span className="text-sm font-bold tracking-tight">{logo.name}</span>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        </motion.div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default SocialProof;

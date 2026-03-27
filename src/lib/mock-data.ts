@@ -132,6 +132,22 @@ export const providerTypeLabels: Record<NextStepProviderType, string> = {
   custom_url: 'Custom link',
 };
 
+export interface FounderBetaMetadata {
+  isFounderBeta: boolean;
+  betaExpiresAt: string;
+  lifetimeProjectsCreated: number;
+  lifetimeApprovalEvents: number;
+  readOnlyAfterExpiry: boolean;
+}
+
+export const mockFounderBeta: FounderBetaMetadata = {
+  isFounderBeta: true,
+  betaExpiresAt: '2026-04-26', // 30 days from now (simulated)
+  lifetimeProjectsCreated: 5, // Already over 3 for demo purposes
+  lifetimeApprovalEvents: 8,
+  readOnlyAfterExpiry: true,
+};
+
 export const statusConfig: Record<string, { label: string; className: string }> = {
   draft: { label: 'Draft', className: 'bg-muted text-muted-foreground' },
   in_review: { label: 'In Review', className: 'bg-info/10 text-info' },

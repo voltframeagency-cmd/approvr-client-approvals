@@ -1,145 +1,151 @@
 import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Upload, MessageSquare, CheckCircle2, ArrowRight } from 'lucide-react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { Upload, MessageSquare, CheckCircle2, ArrowRight, Sparkles } from 'lucide-react';
 
 const steps = [
   {
     number: '01',
     icon: Upload,
-    title: 'Upload & share',
-    description: 'Upload deliverables to a project. Organize by version. Hit submit when ready for review.',
-    detail: 'Supports PDF, Figma, images, video, and any file type.',
+    title: 'Centralize & Submit',
+    description: 'Upload your deliverables to a dedicated project space. Organize by version and hit submit when you\'re ready for client eyes.',
+    detail: 'Supports any file type including Figma, PDF, and Video.',
     color: 'primary',
   },
   {
     number: '02',
     icon: MessageSquare,
-    title: 'Review & discuss',
-    description: 'Clients open their branded portal — no login required. They leave comments on each deliverable.',
-    detail: 'Threaded discussions. Contextual feedback. Zero email.',
-    color: 'info',
+    title: 'Collaborative Review',
+    description: 'Clients access a branded portal — no login required. They leave precise, contextual feedback exactly where it matters.',
+    detail: 'Threaded discussions eliminate "lost in email" syndrome.',
+    color: 'primary',
   },
   {
     number: '03',
     icon: CheckCircle2,
-    title: 'Approve & ship',
-    description: 'One click to approve. One click to request changes. Every decision is logged with a timestamp.',
-    detail: 'Final signoff triggers completion. Full audit trail.',
-    color: 'success',
+    title: 'Instant Sign-off',
+    description: 'One click for the client to approve or request changes. Every decision is logged with a permanent, legal-grade audit trail.',
+    detail: 'A single source of truth for every "Yes".',
+    color: 'primary',
   },
 ];
 
-const colorMap: Record<string, { bg: string; text: string; ring: string; glow: string }> = {
-  primary: { bg: 'bg-primary/[0.08]', text: 'text-primary', ring: 'ring-primary/20', glow: 'shadow-primary/10' },
-  info: { bg: 'bg-info/[0.08]', text: 'text-info', ring: 'ring-info/20', glow: 'shadow-info/10' },
-  success: { bg: 'bg-success/[0.08]', text: 'text-success', ring: 'ring-success/20', glow: 'shadow-success/10' },
-};
-
-const HowItWorks = () => {
+export const HowItWorks = () => {
   const [activeStep, setActiveStep] = useState(0);
-  const intervalRef = useRef<ReturnType<typeof setInterval>>();
+  const sectionRef = useRef<HTMLDivElement>(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
 
-  // Auto-advance
-  useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      setActiveStep(prev => (prev + 1) % 3);
-    }, 4000);
-    return () => clearInterval(intervalRef.current);
-  }, []);
-
-  const handleStepClick = (i: number) => {
-    setActiveStep(i);
-    clearInterval(intervalRef.current);
-    intervalRef.current = setInterval(() => {
-      setActiveStep(prev => (prev + 1) % 3);
-    }, 4000);
-  };
+  const lineHeight = useTransform(scrollYProgress, [0.2, 0.8], ["0%", "100%"]);
 
   return (
-    <section className="py-20 md:py-32 relative overflow-hidden">
-      <div className="container">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <p data-gsap="fade-up" className="text-[12px] font-semibold text-primary uppercase tracking-[0.15em] mb-3">How it works</p>
-          <h2 data-gsap="heading" className="text-3xl md:text-4xl font-bold mb-4">From deliverable to signoff in three steps</h2>
-          <p data-gsap="fade-up" className="text-muted-foreground text-lg">Replace your scattered approval workflow in under five minutes.</p>
-        </div>
+    <section id="how-it-works" ref={sectionRef} className="py-32 relative overflow-hidden bg-card/10">
+      <div className="container px-4 mx-auto relative">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="max-w-3xl mx-auto text-center mb-24"
+        >
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
+            <Sparkles className="h-4 w-4" />
+            <span>High-Velocity Workflow</span>
+          </div>
+          <h2 className="text-4xl md:text-6xl font-black mb-8 tracking-tight leading-[1.1]">
+            From deliverable to sign-off <span className="text-primary italic">in seconds.</span>
+          </h2>
+          <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+            We’ve stripped away the overhead. No logic puzzles, no complex Jira tickets. Just a direct path from work to win.
+          </p>
+        </motion.div>
 
-        <div className="max-w-4xl mx-auto">
-          {/* Step indicators */}
-          <div className="flex items-center justify-center gap-3 md:gap-4 mb-12" data-gsap="fade-up">
-            {steps.map((step, i) => {
-              const c = colorMap[step.color];
-              const active = activeStep === i;
-              const completed = activeStep > i;
+        <div className="relative max-w-5xl mx-auto">
+          {/* Vertical Connecting Line */}
+          <div className="absolute left-[27px] md:left-1/2 top-0 bottom-0 w-px bg-border/40 -translate-x-1/2 hidden md:block" />
+          <motion.div 
+            className="absolute left-[27px] md:left-1/2 top-0 w-px bg-primary -translate-x-1/2 hidden md:block origin-top"
+            style={{ height: lineHeight }}
+          />
+
+          <div className="space-y-24 md:space-y-32">
+            {steps.map((step, index) => {
+              const isEven = index % 2 === 0;
               return (
-                <div key={step.number} className="flex items-center gap-3 md:gap-4">
-                  <button
-                    onClick={() => handleStepClick(i)}
-                    className={`relative overflow-hidden flex items-center gap-2.5 rounded-full px-4 py-2 text-[13px] font-medium transition-all duration-300 ${active ? `${c.bg} ${c.text} ring-1 ${c.ring} shadow-lg ${c.glow}` : completed ? `${c.bg} ${c.text}` : 'bg-muted/50 text-muted-foreground hover:bg-muted'}`}
-                  >
-                    <span className={`h-6 w-6 rounded-full flex items-center justify-center text-[10px] font-bold ${active ? `${c.bg} ${c.text}` : completed ? `${c.bg} ${c.text}` : 'bg-muted text-muted-foreground'}`}>
-                      {completed ? <CheckCircle2 className="h-3.5 w-3.5" /> : step.number}
-                    </span>
-                    <span className="hidden sm:inline">{step.title}</span>
+                <motion.div
+                  key={step.number}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.8, delay: index * 0.1 }}
+                  className={`relative flex flex-col md:flex-row items-center gap-12 md:gap-20 ${isEven ? '' : 'md:flex-row-reverse'}`}
+                >
+                  {/* Step Number Badge */}
+                  <div className="absolute left-0 md:left-1/2 top-0 md:top-1/2 -translate-x-1/2 md:-translate-y-1/2 z-10">
+                    <div className="w-14 h-14 rounded-full bg-card border-2 border-primary flex items-center justify-center text-primary font-black text-xl shadow-[0_0_20px_rgba(var(--primary),0.2)]">
+                      {step.number}
+                    </div>
+                  </div>
 
-                    {/* Progress scrub inside active step */}
-                    {active && (
-                      <motion.div
-                        className={`absolute inset-0 rounded-full opacity-[0.08] ${c.text.replace('text-', 'bg-')}`}
-                        initial={{ clipPath: 'inset(0 100% 0 0 round 9999px)' }}
-                        animate={{ clipPath: 'inset(0 0% 0 0 round 9999px)' }}
-                        transition={{ duration: 4, ease: 'linear' }}
-                        key={`progress-${i}-${activeStep}`}
-                      />
-                    )}
-                  </button>
-                  {i < 2 && <ArrowRight className="h-3.5 w-3.5 text-muted-foreground/30 hidden md:block" />}
-                </div>
+                  {/* Image/Visual Area */}
+                  <div className="w-full md:w-1/2 group">
+                    <div className="aspect-video rounded-[3rem] border border-primary/20 bg-muted/20 backdrop-blur-md overflow-hidden p-6 md:p-10 flex items-center justify-center relative shadow-inner hover:bg-muted/30 transition-all duration-700">
+                      <div className="absolute inset-0 bg-gradient-to-tr from-primary/[0.05] via-transparent to-transparent opacity-50" />
+                      
+                      {/* Premium Mockup Window Frame */}
+                      <motion.div 
+                        initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                        className="w-full max-w-[90%] bg-card/90 backdrop-blur-3xl border border-primary/10 rounded-[2rem] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.2)] relative overflow-hidden group-hover:shadow-[0_45px_100px_-20px_rgba(0,0,0,0.15)] transition-all duration-700"
+                      >
+                        {/* Chrome / Window Header */}
+                        <div className="h-10 border-b border-primary/5 px-6 flex items-center justify-between bg-muted/40">
+                          <div className="flex items-center gap-2">
+                            <div className="w-2.5 h-2.5 rounded-full bg-destructive/30" />
+                            <div className="w-2.5 h-2.5 rounded-full bg-amber-400/30" />
+                            <div className="w-2.5 h-2.5 rounded-full bg-success/30" />
+                          </div>
+                          <div className="h-4 w-32 bg-primary/5 rounded-full" />
+                          <div className="w-8 h-8 rounded-full bg-primary/5" />
+                        </div>
+                        
+                        {/* Content Area - Filling more space as requested */}
+                        <div className="p-8 flex items-center justify-center min-h-[160px] md:min-h-[200px]">
+                          <StepVisual step={index} />
+                        </div>
+                      </motion.div>
+                    </div>
+                  </div>
+
+                  {/* Content Area */}
+                  <div className={`w-full md:w-1/2 text-center ${isEven ? 'md:text-left' : 'md:text-right'} relative`}>
+                    <div className={`inline-flex items-center gap-2 mb-4 text-primary font-bold tracking-widest uppercase text-xs ${isEven ? 'justify-start' : 'justify-end md:justify-end flex-row-reverse'}`}>
+                      <step.icon className="h-4 w-4" />
+                      <span>{step.detail}</span>
+                    </div>
+                    <h3 className="text-3xl font-bold mb-4 tracking-tight">{step.title}</h3>
+                    <p className="text-lg text-muted-foreground leading-relaxed max-w-md mx-auto md:mx-0">
+                      {step.description}
+                    </p>
+                    <div className={`mt-8 flex items-center gap-2 font-black text-primary ${isEven ? 'justify-center md:justify-start' : 'justify-center md:justify-end'}`}>
+                      View Demo <ArrowRight className="h-4 w-4" />
+                    </div>
+                  </div>
+                </motion.div>
               );
             })}
           </div>
-
-          {/* Step content */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeStep}
-              initial={{ opacity: 0, y: 16, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -12, scale: 0.98 }}
-              transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
-              className="grid md:grid-cols-2 gap-8 items-center"
-            >
-              {/* Left: visual */}
-              <div className={`rounded-2xl border p-8 h-64 flex items-center justify-center relative overflow-hidden`} style={{ background: `linear-gradient(135deg, hsl(var(--${steps[activeStep].color === 'primary' ? 'primary' : steps[activeStep].color}) / 0.03), transparent)` }}>
-                <StepVisual step={activeStep} />
-              </div>
-
-              {/* Right: content */}
-              <div>
-                <div className="flex items-center gap-3 mb-4">
-                  <div className={`h-10 w-10 rounded-xl flex items-center justify-center ${colorMap[steps[activeStep].color].bg}`}>
-                    {(() => { const Icon = steps[activeStep].icon; return <Icon className={`h-5 w-5 ${colorMap[steps[activeStep].color].text}`} />; })()}
-                  </div>
-                  <span className="text-[12px] font-semibold text-muted-foreground uppercase tracking-wider">Step {steps[activeStep].number}</span>
-                </div>
-                <h3 className="text-2xl font-bold mb-3">{steps[activeStep].title}</h3>
-                <p className="text-muted-foreground leading-relaxed mb-4">{steps[activeStep].description}</p>
-                <p className="text-[13px] text-muted-foreground/70 border-l-2 border-primary/20 pl-3">{steps[activeStep].detail}</p>
-              </div>
-            </motion.div>
-          </AnimatePresence>
         </div>
-      </div>
-
-      {/* Section divider */}
-      <div className="container mt-20">
-        <div data-gsap="line" className="h-px bg-gradient-to-r from-transparent via-border to-transparent" />
       </div>
     </section>
   );
 };
 
-// Interactive step visuals
+// Simplified but premium visuals
 const StepVisual = ({ step }: { step: number }) => {
   if (step === 0) return <UploadVisual />;
   if (step === 1) return <ReviewVisual />;
@@ -147,25 +153,25 @@ const StepVisual = ({ step }: { step: number }) => {
 };
 
 const UploadVisual = () => (
-  <div className="flex flex-col items-center gap-3">
-    {['Brand_Guidelines.pdf', 'Logo_Final.svg', 'Palette.png'].map((file, i) => (
+  <div className="flex flex-col items-center gap-4 w-full max-w-xs">
+    {[1, 2, 3].map((i) => (
       <motion.div
-        key={file}
-        initial={{ opacity: 0, x: -20, y: 10 }}
-        animate={{ opacity: 1, x: 0, y: 0 }}
-        transition={{ delay: i * 0.15, duration: 0.4, type: 'spring', damping: 15 }}
-        className="flex items-center gap-3 bg-card border rounded-lg px-4 py-2.5 shadow-sm w-56"
+        key={i}
+        initial={{ opacity: 0, x: -20 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ delay: i * 0.15 }}
+        className="w-full bg-card/60 backdrop-blur-md border rounded-xl p-4 flex items-center gap-4 shadow-sm"
       >
-        <div className={`h-8 w-8 rounded-md flex items-center justify-center text-[9px] font-mono font-bold ${i === 0 ? 'bg-destructive/10 text-destructive' : i === 1 ? 'bg-primary/10 text-primary' : 'bg-info/10 text-info'}`}>
-          {file.split('.')[1].toUpperCase()}
+        <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-black text-[10px]">
+          SVG
         </div>
-        <div className="flex-1 min-w-0">
-          <p className="text-[11px] font-medium truncate">{file.replace('_', ' ').split('.')[0]}</p>
-          <motion.div
-            className="h-0.5 rounded-full bg-primary mt-1"
-            initial={{ width: '0%' }}
-            animate={{ width: '100%' }}
-            transition={{ delay: 0.5 + i * 0.15, duration: 0.6 }}
+        <div className="flex-1">
+          <div className="h-1.5 w-24 bg-primary/20 rounded-full mb-2" />
+          <motion.div 
+            className="h-1 bg-primary rounded-full"
+            initial={{ width: "0%" }}
+            whileInView={{ width: "100%" }}
+            transition={{ duration: 1, delay: 0.5 + i * 0.1 }}
           />
         </div>
       </motion.div>
@@ -174,24 +180,22 @@ const UploadVisual = () => (
 );
 
 const ReviewVisual = () => (
-  <div className="space-y-3 w-64">
+  <div className="space-y-4 w-full max-w-xs">
     {[
-      { author: 'SC', text: 'Can we try a warmer palette?', align: 'left' as const },
-      { author: 'AR', text: 'Good call — v2 uploaded.', align: 'right' as const },
-      { author: 'SC', text: 'Perfect. This is the one. ✓', align: 'left' as const },
-    ].map((msg, i) => (
+      { side: 'left', text: 'Looks great, one tiny change...' },
+      { side: 'right', text: 'Already updated! Check v3.' },
+    ].map((m, i) => (
       <motion.div
         key={i}
-        initial={{ opacity: 0, x: msg.align === 'left' ? -16 : 16 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: i * 0.3, duration: 0.4 }}
-        className={`flex items-start gap-2 ${msg.align === 'right' ? 'flex-row-reverse' : ''}`}
+        initial={{ opacity: 0, scale: 0.9, x: m.side === 'left' ? -20 : 20 }}
+        whileInView={{ opacity: 1, scale: 1, x: 0 }}
+        transition={{ delay: i * 0.4 }}
+        className={`flex ${m.side === 'left' ? 'justify-start' : 'justify-end'}`}
       >
-        <div className={`h-6 w-6 rounded-full flex items-center justify-center text-[9px] font-semibold flex-shrink-0 ${msg.author === 'SC' ? 'bg-info/10 text-info ring-1 ring-info/10' : 'bg-primary/10 text-primary ring-1 ring-primary/10'}`}>
-          {msg.author}
-        </div>
-        <div className={`rounded-xl px-3 py-2 text-[11px] max-w-[180px] ${msg.align === 'left' ? 'bg-muted/60 text-foreground' : 'bg-primary/[0.08] text-foreground'}`}>
-          {msg.text}
+        <div className={`p-4 rounded-2xl text-[11px] font-medium max-w-[80%] ${
+          m.side === 'left' ? 'bg-muted text-foreground' : 'bg-primary text-primary-foreground'
+        } shadow-lg shadow-black/5`}>
+          {m.text}
         </div>
       </motion.div>
     ))}
@@ -199,43 +203,27 @@ const ReviewVisual = () => (
 );
 
 const ApproveVisual = () => (
-  <div className="flex flex-col items-center gap-4">
+  <div className="relative flex items-center justify-center">
     <motion.div
       initial={{ scale: 0 }}
-      animate={{ scale: 1 }}
-      transition={{ type: 'spring', damping: 10, stiffness: 150 }}
-      className="h-20 w-20 rounded-full bg-success/10 flex items-center justify-center ring-1 ring-success/20"
+      whileInView={{ scale: 1 }}
+      transition={{ type: 'spring', damping: 10 }}
+      className="h-24 w-24 rounded-full bg-primary/10 flex items-center justify-center ring-2 ring-primary/20"
     >
-      <motion.div
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ delay: 0.3, type: 'spring', damping: 10 }}
-      >
-        <CheckCircle2 className="h-10 w-10 text-success" />
-      </motion.div>
+      <CheckCircle2 className="h-12 w-12 text-primary" />
     </motion.div>
-    <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.5 }}
-      className="text-center"
-    >
-      <p className="text-[13px] font-semibold text-success">Approved</p>
-      <p className="text-[11px] text-muted-foreground mt-0.5">by Sarah Chen · March 25, 2026</p>
-    </motion.div>
-    {/* Sparkle particles */}
-    {[...Array(6)].map((_, i) => (
+    {[...Array(8)].map((_, i) => (
       <motion.div
         key={i}
-        className="absolute h-1 w-1 rounded-full bg-success/40"
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{
+        className="absolute w-1.5 h-1.5 bg-primary/40 rounded-full"
+        initial={{ opacity: 0, x: 0, y: 0 }}
+        whileInView={{
           opacity: [0, 1, 0],
-          scale: [0, 1, 0],
-          x: Math.cos((i / 6) * Math.PI * 2) * 60,
-          y: Math.sin((i / 6) * Math.PI * 2) * 60,
+          x: Math.cos((i / 8) * Math.PI * 2) * 80,
+          y: Math.sin((i / 8) * Math.PI * 2) * 80,
+          scale: [0, 1, 0]
         }}
-        transition={{ delay: 0.4 + i * 0.05, duration: 0.8 }}
+        transition={{ duration: 1, delay: 0.4 }}
       />
     ))}
   </div>

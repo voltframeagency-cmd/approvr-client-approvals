@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Quote } from 'lucide-react';
+import { Quote, Star, ArrowLeft, ArrowRight } from 'lucide-react';
 
 const testimonials = [
   {
@@ -9,77 +9,122 @@ const testimonials = [
     role: 'Creative Director',
     company: 'Wildframe Studio',
     initials: 'JH',
-    color: 'bg-primary/10 text-primary ring-primary/10',
   },
   {
-    quote: "As a web design agency, scope disputes were killing us. Approvr's audit trail saved us from two disputes last quarter — every approval is timestamped and attributed. No more he-said-she-said.",
+    quote: "As a web design agency, scope disputes were killing us. Approvr's audit trail saved us from two disputes last quarter — every approval is timestamped and attributed.",
     author: 'Marcus Cole',
     role: 'Agency Partner',
     company: 'Cole & Partners',
     initials: 'MC',
-    color: 'bg-info/10 text-info ring-info/10',
   },
   {
-    quote: "Our branding clients told us the portal feels more professional than anything they've used. It's like having a white-label review tool built just for our studio. No more chasing feedback.",
+    quote: "Our branding clients told us the portal feels more professional than anything they've used. It's like having a white-label review tool built just for our studio.",
     author: 'Priya Sharma',
     role: 'Founder',
     company: 'Luma Design Co',
     initials: 'PS',
-    color: 'bg-success/10 text-success ring-success/10',
   },
 ];
 
-const Testimonials = () => {
+export const Testimonials = () => {
   const [active, setActive] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+
+  useEffect(() => {
+    if (!isAutoPlaying) return;
+    const interval = setInterval(() => {
+      setActive((prev) => (prev + 1) % testimonials.length);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, [isAutoPlaying]);
+
+  const next = () => {
+    setIsAutoPlaying(false);
+    setActive((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const prev = () => {
+    setIsAutoPlaying(false);
+    setActive((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
 
   return (
-    <section className="py-20 md:py-32 surface-sunken relative overflow-hidden">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] opacity-[0.03] blur-3xl rounded-full" style={{ background: 'radial-gradient(circle, hsl(160, 84%, 39%), transparent 60%)' }} />
-      <div className="container relative">
-        <div className="text-center max-w-2xl mx-auto mb-14">
-          <p data-gsap="fade-up" className="text-[12px] font-semibold text-primary uppercase tracking-[0.15em] mb-3">What they say</p>
-          <h2 data-gsap="heading" className="text-3xl md:text-4xl font-bold">Loved by agencies worldwide</h2>
-        </div>
+    <section id="testimonials" className="py-32 relative overflow-hidden bg-muted/20">
+      {/* Background Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
 
-        <div className="max-w-3xl mx-auto">
-          {/* Quote */}
-          <div className="relative min-h-[200px] flex items-center justify-center">
+      <div className="container px-4 mx-auto relative">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="max-w-3xl mx-auto text-center mb-20"
+        >
+          <div className="flex items-center justify-center gap-1 mb-6">
+            {[...Array(5)].map((_, i) => (
+              <Star key={i} className="h-4 w-4 fill-primary text-primary" />
+            ))}
+          </div>
+          <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tight">
+            The new standard for <span className="text-primary italic">client relations.</span>
+          </h2>
+        </motion.div>
+
+        <div className="max-w-5xl mx-auto relative px-12">
+          <div className="relative overflow-hidden rounded-[3rem] border border-primary/10 bg-card/40 backdrop-blur-2xl p-8 md:p-16 shadow-2xl">
+            <Quote className="absolute top-8 left-8 h-12 w-12 text-primary/10" />
+            
             <AnimatePresence mode="wait">
               <motion.div
                 key={active}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.35 }}
-                className="text-center"
+                initial={{ opacity: 0, x: 20, filter: 'blur(10px)' }}
+                animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+                exit={{ opacity: 0, x: -20, filter: 'blur(10px)' }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                className="relative"
               >
-                <Quote className="h-8 w-8 text-primary/20 mx-auto mb-6" />
-                <blockquote className="text-xl md:text-2xl font-medium leading-relaxed mb-8 text-balance">
+                <blockquote className="text-2xl md:text-3xl font-medium leading-relaxed mb-12 text-foreground/90 tracking-tight italic">
                   "{testimonials[active].quote}"
                 </blockquote>
-                <div className="flex items-center justify-center gap-3">
-                  <div className={`h-10 w-10 rounded-full flex items-center justify-center text-[12px] font-semibold ring-1 ${testimonials[active].color}`}>
+                
+                <div className="flex items-center gap-4">
+                  <div className="h-14 w-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary font-black text-xl border border-primary/20">
                     {testimonials[active].initials}
                   </div>
-                  <div className="text-left">
-                    <p className="text-[14px] font-semibold">{testimonials[active].author}</p>
-                    <p className="text-[12px] text-muted-foreground">{testimonials[active].role}, {testimonials[active].company}</p>
+                  <div>
+                    <p className="text-lg font-bold">{testimonials[active].author}</p>
+                    <p className="text-sm text-muted-foreground font-medium">{testimonials[active].role} at {testimonials[active].company}</p>
                   </div>
                 </div>
               </motion.div>
             </AnimatePresence>
+
+            {/* Progress Bar */}
+            <div className="absolute bottom-0 left-0 right-0 h-1 bg-muted/50">
+              <motion.div
+                key={active + (isAutoPlaying ? '-playing' : '-stopped')}
+                initial={{ width: "0%" }}
+                animate={{ width: isAutoPlaying ? "100%" : "0%" }}
+                transition={{ duration: isAutoPlaying ? 6 : 0, ease: "linear" }}
+                className="h-full bg-primary"
+              />
+            </div>
           </div>
 
-          {/* Navigation dots */}
-          <div className="flex items-center justify-center gap-2 mt-10">
-            {testimonials.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setActive(i)}
-                className={`transition-all duration-300 rounded-full ${active === i ? 'w-8 h-2 bg-primary' : 'w-2 h-2 bg-muted-foreground/20 hover:bg-muted-foreground/40'}`}
-              />
-            ))}
-          </div>
+          {/* Navigation Controls */}
+          <button 
+            onClick={prev}
+            className="absolute left-0 top-1/2 -translate-y-1/2 h-14 w-14 rounded-full bg-card border border-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-all shadow-xl z-20"
+          >
+            <ArrowLeft className="h-6 w-6" />
+          </button>
+          <button 
+            onClick={next}
+            className="absolute right-0 top-1/2 -translate-y-1/2 h-14 w-14 rounded-full bg-card border border-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-all shadow-xl z-20"
+          >
+            <ArrowRight className="h-6 w-6" />
+          </button>
         </div>
       </div>
     </section>

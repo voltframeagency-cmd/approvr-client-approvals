@@ -1,13 +1,22 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { CheckCircle2 } from 'lucide-react';
+import { Logo } from '@/components/brand/Logo';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { getLenis } from '@/hooks/use-smooth-scroll';
 
 const Navbar = () => {
   const { scrollY } = useScroll();
-  const bgOpacity = useTransform(scrollY, [0, 100], [0.6, 0.95]);
-  const borderOpacity = useTransform(scrollY, [0, 100], [0, 1]);
+  
+  // Transform values for the navbar shell
+  const maxWidth = useTransform(scrollY, [0, 80], ['1280px', '800px']);
+  const top = useTransform(scrollY, [0, 80], [0, 16]);
+  const borderRadius = useTransform(scrollY, [0, 80], [0, 32]);
+  const px = useTransform(scrollY, [0, 80], [20, 24]);
+  const bgOpacity = useTransform(scrollY, [0, 30], [0, 0.85]);
+  const borderOpacity = useTransform(scrollY, [0, 40], [0, 1]);
+  const shadowOpacity = useTransform(scrollY, [40, 100], [0, 0.12]);
+
   const location = useLocation();
 
   const scrollToFeatures = (e: React.MouseEvent) => {
@@ -22,63 +31,76 @@ const Navbar = () => {
   };
 
   return (
-    <motion.nav
-      initial={{ opacity: 0, y: -8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="fixed top-0 left-0 right-0 z-50"
-    >
-      <motion.div
-        className="absolute inset-0 backdrop-blur-2xl border-b"
+    <div className="fixed top-0 left-1/2 -translate-x-1/2 z-50 pointer-events-none w-full flex justify-center">
+      <motion.nav
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         style={{
+          width: maxWidth,
+          top: top,
+          borderRadius: borderRadius,
+          paddingLeft: px,
+          paddingRight: px,
           backgroundColor: `hsl(var(--card) / var(--tw-bg-opacity))`,
+          borderColor: `hsl(var(--border) / var(--tw-border-opacity))`,
+          boxShadow: `0 10px 40px -10px rgb(0 0 0 / ${shadowOpacity}), 0 0 20px 0px hsl(var(--primary) / calc(${shadowOpacity} * 0.2))`,
           // @ts-ignore
           '--tw-bg-opacity': bgOpacity,
-          borderColor: `hsl(var(--border) / var(--tw-border-opacity))`,
           // @ts-ignore
           '--tw-border-opacity': borderOpacity,
         } as any}
-      />
-      <div className="container relative flex items-center justify-between h-16">
-        <Link to="/" className="flex items-center gap-2 font-bold text-[15px]">
-          <CheckCircle2 className="h-5 w-5 text-primary" />
-          Approvr
-        </Link>
-        <div className="hidden md:flex items-center gap-1">
-          {[
-            { label: 'Features', href: '#features', onClick: location.pathname === '/' ? scrollToFeatures : undefined },
-            { label: 'Pricing', href: '/pricing' },
-          ].map(item => (
-            item.href.startsWith('#') ? (
-              <a
-                key={item.label}
-                href={item.href}
-                onClick={item.onClick}
-                className="text-[13px] text-muted-foreground hover:text-foreground px-3 py-1.5 rounded-lg hover:bg-muted/50 transition-all duration-200"
-              >
-                {item.label}
-              </a>
-            ) : (
-              <Link
-                key={item.label}
-                to={item.href}
-                className="text-[13px] text-muted-foreground hover:text-foreground px-3 py-1.5 rounded-lg hover:bg-muted/50 transition-all duration-200"
-              >
-                {item.label}
-              </Link>
-            )
-          ))}
+        className="relative pointer-events-auto backdrop-blur-xl border flex items-center h-[52px] md:h-16 transition-all duration-500 ease-out"
+      >
+        <div className="flex items-center w-full h-full max-w-7xl mx-auto px-6 md:px-10">
+          <div className="flex-1 flex items-center">
+            <Link to="/" className="group">
+              <Logo className="h-7 md:h-8" />
+            </Link>
+          </div>
+
+          <div className="hidden md:flex items-center justify-center gap-8 flex-1">
+            {[
+              { label: 'Features', href: '#features', onClick: location.pathname === '/' ? scrollToFeatures : undefined },
+              { label: 'Pricing', href: '/pricing' },
+            ].map(item => (
+              <div key={item.label} className="relative group/nav">
+                {item.href.startsWith('#') ? (
+                  <a
+                    href={item.href}
+                    onClick={item.onClick}
+                    className="text-[13px] text-muted-foreground/80 hover:text-foreground px-3 py-1.5 rounded-full transition-all duration-200"
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <Link
+                    to={item.href}
+                    className="text-[13px] text-muted-foreground/80 hover:text-foreground px-3 py-1.5 rounded-full transition-all duration-200"
+                  >
+                    {item.label}
+                  </Link>
+                )}
+                <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-primary rounded-full group-hover/nav:w-1/2 transition-all duration-300 opacity-0 group-hover/nav:opacity-100" />
+              </div>
+            ))}
+          </div>
+
+          <div className="flex-1 flex items-center justify-end gap-3">
+            <Link to="/login">
+              <Button variant="ghost" size="sm" className="hidden sm:flex text-[12px] font-medium h-8 md:h-9 hover:bg-muted/60 transition-colors">
+                Log in
+              </Button>
+            </Link>
+            <Link to="/signup">
+              <Button size="sm" className="text-[12px] font-semibold h-8 md:h-9 px-4 md:px-5 shadow-sm shadow-primary/20">
+                Join Beta
+              </Button>
+            </Link>
+          </div>
         </div>
-        <div className="flex items-center gap-2">
-          <Link to="/login">
-            <Button variant="ghost" size="sm" className="text-[13px] h-9">Log in</Button>
-          </Link>
-          <Link to="/signup">
-            <Button size="sm" className="text-[13px] h-9">Join Founder Beta</Button>
-          </Link>
-        </div>
-      </div>
-    </motion.nav>
+      </motion.nav>
+    </div>
   );
 };
 
