@@ -46,7 +46,7 @@ html.lenis, html.lenis body {
     --secondary-foreground: 220 20% 10%;
     --muted: 220 14% 96%;
     --muted-foreground: 220 10% 41%; /* Darkened for better contrast on light backgrounds (was 46%) */
-    --accent: 160 84% 39%;
+    --accent: 169 76% 48%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
