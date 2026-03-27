@@ -4,7 +4,7 @@ import { mockProjects, mockActivity } from '@/lib/mock-data';
 import { Link } from 'react-router-dom';
 import {
   FolderKanban, Clock, CheckCircle, AlertTriangle, ArrowRight,
-  FileText, MessageSquare, Upload, UserPlus, Eye, AlertCircle, ArrowUpRight, Sparkles
+  FileText, MessageSquare, Upload, UserPlus, Eye, AlertCircle, ArrowUpRight, Sparkles, Bell
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
@@ -14,6 +14,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
+import { toast } from 'sonner';
 
 // Derive attention items
 const overdueProjects = mockProjects.filter(p => p.isOverdue && p.status !== 'approved');
@@ -195,41 +196,60 @@ const Dashboard = () => {
               <StaggerContainer className="grid gap-4" staggerDelay={0.05}>
                 {activeApprovals.slice(0, 5).map(project => (
                   <StaggerItem key={project.id}>
-                    <Link to={`/dashboard/projects/${project.id}`}>
-                      <motion.div
-                        className="card-elevated p-6 border-none ring-1 ring-slate-200/60 dark:ring-slate-800/60 group"
-                      >
-                        <div className="flex items-start justify-between gap-4 mb-6">
-                          <div className="min-w-0">
-                            <p className="font-bold text-[16px] truncate group-hover:text-primary transition-colors duration-300 text-slate-900 dark:text-white">{project.name}</p>
-                            <p className="text-[13px] text-muted-foreground font-medium mt-0.5">{project.clientName}</p>
+                    <div className="relative group/card">
+                      <Link to={`/dashboard/projects/${project.id}`}>
+                        <motion.div
+                          className="card-elevated p-6 border-none ring-1 ring-slate-200/60 dark:ring-slate-800/60 group"
+                        >
+                          <div className="flex items-start justify-between gap-4 mb-6">
+                            <div className="min-w-0">
+                              <p className="font-bold text-[16px] truncate group-hover:text-primary transition-colors duration-300 text-slate-900 dark:text-white">{project.name}</p>
+                              <p className="text-[13px] text-muted-foreground font-medium mt-0.5">{project.clientName}</p>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <StatusBadge status={project.status} />
+                              <Button
+                                size="icon"
+                                variant="ghost"
+                                className="h-8 w-8 rounded-lg opacity-0 group-hover/card:opacity-100 transition-all hover:bg-primary/5 hover:text-primary text-muted-foreground/40"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  toast.success(`Gentle nudge sent to ${project.clientName.split(' ')[0]}`, {
+                                    description: "They'll receive a premium, low-pressure reminder.",
+                                    icon: <Bell className="h-4 w-4" />,
+                                  });
+                                }}
+                              >
+                                <Bell className="h-4 w-4" />
+                              </Button>
+                            </div>
                           </div>
-                          <StatusBadge status={project.status} />
-                        </div>
-                        <div className="space-y-3">
-                          <div className="flex items-center justify-between text-[11px] font-bold uppercase tracking-widest text-muted-foreground/60">
-                             <span>Progress</span>
-                             <div className="flex items-center gap-4 text-right">
-                                {project.lastViewedByClient && (
-                                  <span className="flex items-center gap-1 text-[10px] text-emerald-500/80 lowercase">
-                                    <Eye className="h-2.5 w-2.5" />
-                                    viewed {timeAgo(project.lastViewedByClient)}
-                                  </span>
-                                )}
-                                <span className="font-mono">{Math.round((project.approvedCount / project.deliverableCount) * 100)}%</span>
-                             </div>
+                          <div className="space-y-3">
+                            <div className="flex items-center justify-between text-[11px] font-bold uppercase tracking-widest text-muted-foreground/60">
+                               <span>Progress</span>
+                               <div className="flex items-center gap-4 text-right">
+                                  {project.lastViewedByClient && (
+                                    <span className="flex items-center gap-1 text-[10px] text-emerald-500/80 lowercase">
+                                      <Eye className="h-2.5 w-2.5" />
+                                      viewed {timeAgo(project.lastViewedByClient)}
+                                    </span>
+                                  )}
+                                  <span className="font-mono">{Math.round((project.approvedCount / project.deliverableCount) * 100)}%</span>
+                               </div>
+                            </div>
+                            <div className="h-1.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+                              <motion.div
+                                initial={{ width: 0 }}
+                                animate={{ width: `${(project.approvedCount / project.deliverableCount) * 100}%` }}
+                                transition={{ duration: 1.2, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                                className={cn("h-full rounded-full transition-colors duration-500", getProgressColor(project.status, project.isOverdue || false))}
+                              />
+                            </div>
                           </div>
-                          <div className="h-1.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
-                            <motion.div
-                              initial={{ width: 0 }}
-                              animate={{ width: `${(project.approvedCount / project.deliverableCount) * 100}%` }}
-                              transition={{ duration: 1.2, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                              className={cn("h-full rounded-full transition-colors duration-500", getProgressColor(project.status, project.isOverdue || false))}
-                            />
-                          </div>
-                        </div>
-                      </motion.div>
-                    </Link>
+                        </motion.div>
+                      </Link>
+                    </div>
                   </StaggerItem>
                 ))}
               </StaggerContainer>

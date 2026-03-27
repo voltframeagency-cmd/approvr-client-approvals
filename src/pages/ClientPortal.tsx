@@ -38,6 +38,7 @@ const ClientPortal = () => {
   const comments = mockComments.filter(c => c.deliverableId === selectedDel);
   const [newComment, setNewComment] = useState('');
   const [resolvedCommentIds, setResolvedCommentIds] = useState<string[]>([]);
+  const [isComparing, setIsComparing] = useState(false);
   const currentDel = deliverables.find(d => d.id === selectedDel);
 
   const toggleResolve = (id: string) => {
@@ -294,13 +295,32 @@ const ClientPortal = () => {
                               Action Required
                             </Badge>
                             <div className="h-1 w-1 rounded-full bg-slate-200" />
-                            <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-widest">Version {currentDel.version}</span>
+                            <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-widest">Version {isComparing ? currentDel.version - 1 : currentDel.version}</span>
                           </div>
                           <h3 className="text-3xl md:text-4xl font-black tracking-tight text-slate-900 dark:text-white leading-tight">
                             {currentDel.title}
                           </h3>
                         </div>
-                        <StatusBadge status={currentDel.status} animated />
+                        <div className="flex flex-col items-end gap-3">
+                          <StatusBadge status={currentDel.status} animated />
+                          {currentDel.version > 1 && (
+                            <Button
+                              variant="ghost"
+                              className={cn(
+                                "h-9 px-4 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all gap-2 border border-primary/10",
+                                isComparing ? "bg-primary text-white scale-95 shadow-lg shadow-primary/20" : "bg-primary/5 text-primary hover:bg-primary/10"
+                              )}
+                              onMouseDown={() => setIsComparing(true)}
+                              onMouseUp={() => setIsComparing(false)}
+                              onMouseLeave={() => setIsComparing(false)}
+                              onTouchStart={() => setIsComparing(true)}
+                              onTouchEnd={() => setIsComparing(false)}
+                            >
+                              <History className="h-3.5 w-3.5" />
+                              Hold to Compare (v{currentDel.version - 1})
+                            </Button>
+                          )}
+                        </div>
                       </div>
 
                       {/* File Preview Mock */}
@@ -309,20 +329,30 @@ const ClientPortal = () => {
                         <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.07] pointer-events-none" style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/carbon-fibre.png")' }} />
                         
                         <motion.div
-                          initial={{ scale: 0.95, opacity: 0 }}
-                          animate={{ scale: 1, opacity: 1 }}
-                          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                          key={isComparing ? 'prev' : 'curr'}
+                          initial={{ opacity: 0, scale: 0.98 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.2 }}
                           className="relative z-10"
                         >
                           <div className={cn(
                             "h-32 w-24 rounded-2xl flex items-center justify-center mb-8 mx-auto shadow-2xl ring-1 ring-white/10 group-hover/preview:scale-110 transition-transform duration-700",
-                            fileTypeColors[currentDel.fileType] || 'bg-slate-100 text-slate-400'
+                            isComparing ? "bg-slate-300 dark:bg-slate-700 text-slate-500 grayscale opacity-80" : (fileTypeColors[currentDel.fileType] || 'bg-slate-100 text-slate-400')
                           )}>
                             <FileText className="h-12 w-12" />
+                            {isComparing && (
+                              <div className="absolute inset-x-0 -bottom-10 flex justify-center">
+                                <Badge className="bg-slate-900 text-white border-none font-black text-[9px] uppercase tracking-widest px-2 py-0.5">Previous Version</Badge>
+                              </div>
+                            )}
                           </div>
-                          <h4 className="text-[18px] font-black tracking-tight text-slate-900 dark:text-white mb-2">{currentDel.fileName}</h4>
+                          <h4 className="text-[18px] font-black tracking-tight text-slate-900 dark:text-white mb-2">
+                            {isComparing ? currentDel.fileName.replace(`v${currentDel.version}`, `v${currentDel.version - 1}`) : currentDel.fileName}
+                          </h4>
                           <p className="text-[13px] text-muted-foreground font-medium max-w-[280px] leading-relaxed mx-auto">
-                            The latest {currentDel.fileType.toUpperCase()} file for your review.
+                            {isComparing 
+                              ? `Comparing changes from the previous version ${currentDel.version - 1}.`
+                              : `The latest ${currentDel.fileType.toUpperCase()} file for your review.`}
                           </p>
                         </motion.div>
                         
