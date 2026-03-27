@@ -191,6 +191,7 @@ const ReviewVisual = () => (
         key={i}
         initial={{ opacity: 0, scale: 0.9, x: m.side === 'left' ? -20 : 20 }}
         whileInView={{ opacity: 1, scale: 1, x: 0 }}
+        viewport={{ once: true }}
         transition={{ delay: i * 0.4 }}
         className={`flex ${m.side === 'left' ? 'justify-start' : 'justify-end'}`}
       >
