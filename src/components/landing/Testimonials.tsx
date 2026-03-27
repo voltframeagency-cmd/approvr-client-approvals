@@ -66,7 +66,7 @@ export const Testimonials = () => {
               <Star key={i} className="h-4 w-4 fill-primary text-primary" />
             ))}
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold mb-6 tracking-tighter leading-[1.1] drop-shadow-sm">
+          <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold mb-6 tracking-tighter leading-[1.1]" style={{ textShadow: '0 4px 12px hsl(0 0% 0% / 0.15)' }}>
             The new standard for <span className="italic bg-gradient-to-b from-primary via-primary to-primary/60 bg-clip-text text-transparent">client relations.</span>
           </h2>
         </motion.div>
