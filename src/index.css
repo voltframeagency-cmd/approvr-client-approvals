@@ -76,6 +76,13 @@ html.lenis, html.lenis body {
 
   .dark {
     --background: 220 20% 7%;
+    --ds-gray-100: hsla(0, 0%, 10%, 1);
+    --ds-gray-400: hsla(0, 0%, 18%, 1);
+    --ds-gray-1000: hsla(0, 0%, 93%, 1);
+    --ds-gray-alpha-400: hsla(0, 0%, 100%, 0.14);
+    --geist-background: #000;
+    --accents-1: #111111;
+    --accents-2: #333333;
     --foreground: 220 14% 96%;
     --card: 220 20% 10%;
     --card-foreground: 220 14% 96%;
