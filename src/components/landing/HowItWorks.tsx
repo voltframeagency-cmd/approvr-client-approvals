@@ -210,6 +210,7 @@ const ApproveVisual = () => (
     <motion.div
       initial={{ scale: 0 }}
       whileInView={{ scale: 1 }}
+      viewport={{ once: true }}
       transition={{ type: 'spring', damping: 10 }}
       className="h-24 w-24 rounded-full bg-primary/10 flex items-center justify-center ring-2 ring-primary/20"
     >
