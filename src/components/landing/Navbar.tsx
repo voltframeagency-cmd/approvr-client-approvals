@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { ShinyButton } from '@/components/ui/shiny-button';
 import { CheckCircle2 } from 'lucide-react';
 import { Logo } from '@/components/brand/Logo';
 import { motion, useScroll, useTransform } from 'framer-motion';
