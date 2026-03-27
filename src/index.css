@@ -231,7 +231,7 @@ html.lenis, html.lenis body {
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   border: 1px solid transparent;
-  border-radius: 360px;
+  border-radius: var(--shiny-cta-radius, 360px);
   color: var(--shiny-cta-fg);
   background: linear-gradient(var(--shiny-cta-bg), var(--shiny-cta-bg)) padding-box,
     conic-gradient(

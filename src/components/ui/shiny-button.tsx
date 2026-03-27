@@ -6,11 +6,13 @@ interface ShinyButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>
 }
 
 const ShinyButton = React.forwardRef<HTMLButtonElement, ShinyButtonProps>(
-  ({ className, children, ...props }, ref) => {
+  ({ className, style, children, ...props }, ref) => {
+    const isSquarish = className?.includes("rounded-lg");
     return (
       <button
         ref={ref}
         className={cn("shiny-cta", className)}
+        style={isSquarish ? { "--shiny-cta-radius": "0.5rem", ...style } as React.CSSProperties : style}
         {...props}
       >
         <span>{children}</span>
