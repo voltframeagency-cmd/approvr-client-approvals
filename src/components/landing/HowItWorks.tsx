@@ -201,7 +201,7 @@ const ApproveVisual = () => (
       initial={{ scale: 0 }}
       whileInView={{ scale: 1 }}
       transition={{ type: 'spring', damping: 10 }}
-      className="h-24 w-24 rounded-full bg-primary/10 flex items-center justify-center ring-2 ring-primary/20"
+      className="h-24 w-24 rounded-full bg-gradient-to-br from-primary/10 via-primary/10 to-accent/20 flex items-center justify-center ring-2 ring-primary/20"
     >
       <CheckCircle2 className="h-12 w-12 text-primary" />
     </motion.div>
