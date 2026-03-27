@@ -252,7 +252,7 @@ export const TimelineDemo = () => {
 };
 
 // ─── Branding Demo ─────────────────────────────────────────
-const colors = ['hsl(160, 84%, 39%)', 'hsl(210, 100%, 52%)', 'hsl(38, 92%, 50%)'];
+const colors = ['hsl(169, 76%, 48%)', 'hsl(210, 100%, 52%)', 'hsl(38, 92%, 50%)'];
 
 export const BrandingDemo = () => {
   const [activeColor, setActiveColor] = useState(0);
