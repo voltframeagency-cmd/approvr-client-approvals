@@ -44,6 +44,7 @@ const urgencyConfig: Record<string, { color: string; bg: string; border: string 
 type FilterType = 'all' | 'unread' | 'approval' | 'comment' | 'reminder';
 
 const Notifications = () => {
+  const navigate = useNavigate();
   const [filter, setFilter] = useState<FilterType>('all');
   const [notifications, setNotifications] = useState<Notification[]>(mockNotifications);
 
