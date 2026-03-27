@@ -172,6 +172,7 @@ const UploadVisual = () => (
             className="h-1 bg-primary rounded-full"
             initial={{ width: "0%" }}
             whileInView={{ width: "100%" }}
+            viewport={{ once: true }}
             transition={{ duration: 1, delay: 0.5 + i * 0.1 }}
           />
         </div>
