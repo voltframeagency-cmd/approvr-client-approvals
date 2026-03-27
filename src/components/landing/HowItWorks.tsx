@@ -203,7 +203,7 @@ const ApproveVisual = () => (
       initial={{ scale: 0 }}
       whileInView={{ scale: 1 }}
       transition={{ type: 'spring', damping: 10 }}
-      className="h-24 w-24 rounded-full bg-gradient-to-br from-primary/10 via-primary/10 to-accent/20 flex items-center justify-center ring-2 ring-primary/20 relative overflow-hidden"
+      className="h-24 w-24 rounded-full bg-gradient-to-br from-primary/10 via-primary/10 to-accent/20 flex items-center justify-center ring-2 ring-primary/20 relative overflow-hidden shadow-xl shadow-primary/10 dark:shadow-primary/20"
     >
       <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-transparent to-transparent rounded-full pointer-events-none" />
       <CheckCircle2 className="h-12 w-12 text-primary" />
