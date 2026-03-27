@@ -60,7 +60,7 @@ const Hero = () => (
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.45 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-3" style={{ filter: 'drop-shadow(0 4px 12px hsl(160 84% 39% / 0.25)) drop-shadow(0 8px 24px hsl(160 84% 39% / 0.12))' }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-3 drop-shadow-sm"
         >
           <Link to="/signup">
             <ShinyButton className="h-12 px-8 text-[15px] font-medium">
