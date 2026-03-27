@@ -47,10 +47,8 @@ const CTA = () => {
           <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/20 rounded-full blur-[80px]" />
           
           <div className="relative z-10 text-center max-w-3xl mx-auto">
-            <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-black tracking-widest uppercase mb-8 border border-primary/20">
-              <Sparkles className="h-4 w-4" />
-              <span>Limited Founder Beta</span>
-            </motion.div>
+
+
             
             <motion.h2 variants={itemVariants} className="text-4xl md:text-6xl lg:text-[4.25rem] font-bold mb-8 tracking-tighter leading-[1.05] drop-shadow-md">
               Stop chasing. <br />
