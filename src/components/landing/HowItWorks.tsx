@@ -54,7 +54,7 @@ export const HowItWorks = () => {
             <Sparkles className="h-4 w-4" />
             <span>High-Velocity Workflow</span>
           </div>
-          <h2 className="text-4xl md:text-6xl font-black mb-8 tracking-tight leading-[1.1]">
+          <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold mb-8 tracking-tighter leading-[1.1]">
             From deliverable to sign-off <span className="text-primary italic">in seconds.</span>
           </h2>
           <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">

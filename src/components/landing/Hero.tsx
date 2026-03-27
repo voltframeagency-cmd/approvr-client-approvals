@@ -34,7 +34,7 @@ const Hero = () => (
           Founder Beta — Limited early access
         </motion.div>
 
-        <h1 className="text-4xl md:text-[3.5rem] lg:text-[4.25rem] font-bold tracking-tight leading-[1.06] mb-6">
+        <h1 className="text-4xl md:text-[3.5rem] lg:text-[4.25rem] font-bold tracking-tighter leading-[1.05] mb-6">
           Stop chasing approvals across{' '}
           <span className="gradient-text">email, Slack, and WhatsApp</span>
         </h1>

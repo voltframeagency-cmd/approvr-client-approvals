@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -109,8 +109,9 @@ html.lenis, html.lenis body {
     font-feature-settings: 'cv11', 'ss01', 'ss03';
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply tracking-tight font-semibold;
-    letter-spacing: -0.025em;
+    @apply tracking-tighter font-bold;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    letter-spacing: -0.04em;
   }
 }
 

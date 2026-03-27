@@ -51,7 +51,7 @@ const CTA = () => {
               <span>Limited Founder Beta</span>
             </motion.div>
             
-            <motion.h2 variants={itemVariants} className="text-4xl md:text-7xl font-black mb-8 tracking-tighter leading-[1.05]">
+            <motion.h2 variants={itemVariants} className="text-4xl md:text-6xl lg:text-[4.25rem] font-bold mb-8 tracking-tighter leading-[1.05]">
               Stop chasing. <br />
               <span className="text-primary italic">Start approving.</span>
             </motion.h2>

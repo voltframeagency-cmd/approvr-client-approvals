@@ -66,7 +66,7 @@ export const Testimonials = () => {
               <Star key={i} className="h-4 w-4 fill-primary text-primary" />
             ))}
           </div>
-          <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tight">
+          <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold mb-6 tracking-tighter leading-[1.1]">
             The new standard for <span className="text-primary italic">client relations.</span>
           </h2>
         </motion.div>
