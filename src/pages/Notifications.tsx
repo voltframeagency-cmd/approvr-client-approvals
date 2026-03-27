@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { mockNotifications, Notification, providerTypeLabels } from '@/lib/mock-data';
 import { 
   Bell, 
