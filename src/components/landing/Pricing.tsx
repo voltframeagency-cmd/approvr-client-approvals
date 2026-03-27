@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+import { ShinyButton } from '@/components/ui/shiny-button';
 import { Check, Sparkles, Zap, Building2, Lock, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -223,23 +224,22 @@ const Pricing = () => {
 
                   <div className="mt-auto">
                     <Link to="/signup" className="block">
-                      <Button 
-                        className={cn(
-                          "w-full h-14 rounded-2xl text-base font-bold transition-all duration-500 overflow-hidden relative group/btn",
-                          plan.popular 
-                            ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98]" 
-                            : "bg-secondary/50 text-secondary-foreground hover:bg-secondary hover:border-primary/20"
-                        )}
-                        variant={plan.popular ? "default" : "outline"}
-                      >
-                        <span className="relative z-10 flex items-center justify-center gap-2">
+                      {plan.popular ? (
+                        <ShinyButton className="w-full h-14 text-base font-bold group/btn">
                           {plan.cta}
-                          <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
-                        </span>
-                        {plan.popular && (
-                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000" />
-                        )}
-                      </Button>
+                          <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
+                        </ShinyButton>
+                      ) : (
+                        <Button 
+                          className="w-full h-14 rounded-2xl text-base font-bold transition-all duration-500 bg-secondary/50 text-secondary-foreground hover:bg-secondary hover:border-primary/20"
+                          variant="outline"
+                        >
+                          <span className="relative z-10 flex items-center justify-center gap-2">
+                            {plan.cta}
+                            <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
+                          </span>
+                        </Button>
+                      )}
                     </Link>
                     {plan.note && (
                       <p className="text-center text-[11px] text-muted-foreground/60 mt-4 font-medium">{plan.note}</p>
