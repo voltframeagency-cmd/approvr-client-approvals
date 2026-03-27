@@ -63,7 +63,7 @@ const CTA = () => {
             
             <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <Link to="/signup" className="w-full sm:w-auto">
-                <ShinyButton size="lg" className="h-16 px-10 text-lg rounded-2xl gap-3 hover:scale-105 active:scale-95 transition-all shadow-xl shadow-primary/20 font-black">
+                <ShinyButton className="h-16 px-10 text-lg hover:scale-105 active:scale-95 transition-all shadow-xl shadow-primary/20 font-black">
                     Claim Your Spot
                     <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </ShinyButton>
