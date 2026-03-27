@@ -135,7 +135,7 @@ const HeroDemoMockup = () => {
   const st = statusStyles[activeDeliverable.status];
 
   return (
-    <div className="rounded-2xl border bg-card overflow-hidden relative" style={{ boxShadow: '0 25px 80px -15px hsl(160 84% 39% / 0.08), 0 8px 24px -8px hsl(220 20% 10% / 0.06)' }}>
+    <div className="rounded-2xl border bg-card overflow-hidden relative" style={{ boxShadow: '0 25px 80px -15px hsl(169 76% 48% / 0.08), 0 8px 24px -8px hsl(220 20% 10% / 0.06)' }}>
       {/* Animated cursor */}
       <motion.div
         className="absolute z-50 pointer-events-none"

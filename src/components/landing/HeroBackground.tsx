@@ -77,7 +77,7 @@ const HeroBackground = () => {
           const maxDist = w * 0.35;
           if (dist < maxDist) {
             const alpha = (1 - dist / maxDist) * 0.08;
-            ctx.strokeStyle = `hsla(160, 84%, 39%, ${alpha})`;
+            ctx.strokeStyle = `hsla(169, 76%, 48%, ${alpha})`;
             ctx.lineWidth = 1;
             ctx.beginPath();
             // Curved connector
@@ -95,22 +95,22 @@ const HeroBackground = () => {
         
         // Glow
         const gradient = ctx.createRadialGradient(nx, ny, 0, nx, ny, r * 6);
-        gradient.addColorStop(0, `hsla(160, 84%, 39%, ${0.08 + pulse * 0.04})`);
-        gradient.addColorStop(1, 'hsla(160, 84%, 39%, 0)');
+        gradient.addColorStop(0, `hsla(169, 76%, 48%, ${0.08 + pulse * 0.04})`);
+        gradient.addColorStop(1, 'hsla(169, 76%, 48%, 0)');
         ctx.fillStyle = gradient;
         ctx.beginPath();
         ctx.arc(nx, ny, r * 6, 0, Math.PI * 2);
         ctx.fill();
 
         // Core dot
-        ctx.fillStyle = `hsla(160, 84%, 39%, ${0.25 + pulse * 0.15})`;
+        ctx.fillStyle = `hsla(169, 76%, 48%, ${0.25 + pulse * 0.15})`;
         ctx.beginPath();
         ctx.arc(nx, ny, r, 0, Math.PI * 2);
         ctx.fill();
       });
 
       // Flowing gradient line across top
-      ctx.strokeStyle = 'hsla(160, 84%, 39%, 0.06)';
+      ctx.strokeStyle = 'hsla(169, 76%, 48%, 0.06)';
       ctx.lineWidth = 1.5;
       ctx.beginPath();
       for (let x = 0; x <= w; x += 2) {
@@ -121,7 +121,7 @@ const HeroBackground = () => {
       ctx.stroke();
 
       // Second flowing line
-      ctx.strokeStyle = 'hsla(160, 84%, 39%, 0.04)';
+      ctx.strokeStyle = 'hsla(169, 76%, 48%, 0.04)';
       ctx.beginPath();
       for (let x = 0; x <= w; x += 2) {
         const y = h * 0.6 + Math.sin(x * 0.007 + time * 1.5 + 2) * 30 + Math.cos(x * 0.003 + time * 0.8) * 25;

@@ -40,19 +40,19 @@ html.lenis, html.lenis body {
     --card-foreground: 220 20% 10%;
     --popover: 0 0% 100%;
     --popover-foreground: 220 20% 10%;
-    --primary: 160 84% 39%;
+    --primary: 169 76% 48%;
     --primary-foreground: 0 0% 100%;
     --secondary: 220 14% 96%;
     --secondary-foreground: 220 20% 10%;
     --muted: 220 14% 96%;
     --muted-foreground: 220 10% 41%; /* Darkened for better contrast on light backgrounds (was 46%) */
-    --accent: 160 84% 39%;
+    --accent: 169 76% 48%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
     --border: 220 13% 91%;
     --input: 220 13% 91%;
-    --ring: 160 84% 39%;
+    --ring: 169 76% 48%;
     --radius: 0.625rem;
     --surface-elevated: 0 0% 100%;
     --surface-sunken: 220 20% 97.5%;
@@ -63,15 +63,15 @@ html.lenis, html.lenis body {
     --warning-foreground: 0 0% 100%;
     --info: 210 100% 52%;
     --info-foreground: 0 0% 100%;
-    --shadow-color: 160 30% 50%;
+    --shadow-color: 169 30% 50%;
     --sidebar-background: 0 0% 100%;
     --sidebar-foreground: 220 20% 10%;
-    --sidebar-primary: 160 84% 39%;
+    --sidebar-primary: 169 76% 48%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 220 14% 96%;
     --sidebar-accent-foreground: 220 20% 10%;
     --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 160 84% 39%;
+    --sidebar-ring: 169 76% 48%;
   }
 
   .dark {
@@ -88,7 +88,7 @@ html.lenis, html.lenis body {
     --card-foreground: 220 14% 96%;
     --popover: 220 20% 10%;
     --popover-foreground: 220 14% 96%;
-    --primary: 160 84% 39%;
+    --primary: 169 76% 48%;
     --primary-foreground: 0 0% 100%;
     --secondary: 220 20% 14%;
     --secondary-foreground: 220 14% 96%;
@@ -100,16 +100,16 @@ html.lenis, html.lenis body {
     --destructive-foreground: 220 14% 96%;
     --border: 220 20% 18%;
     --input: 220 20% 18%;
-    --ring: 160 84% 39%;
-    --shadow-color: 160 30% 20%;
+    --ring: 169 76% 48%;
+    --shadow-color: 169 30% 20%;
     --sidebar-background: 220 20% 7%;
     --sidebar-foreground: 220 14% 96%;
-    --sidebar-primary: 160 84% 39%;
+    --sidebar-primary: 169 76% 48%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 220 20% 14%;
     --sidebar-accent-foreground: 220 14% 96%;
     --sidebar-border: 220 20% 18%;
-    --sidebar-ring: 160 84% 39%;
+    --sidebar-ring: 169 76% 48%;
   }
 }
 
@@ -135,7 +135,7 @@ html.lenis, html.lenis body {
   }
   .gradient-text {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(160, 84%, 39%), hsl(175, 70%, 41%), hsl(190, 80%, 42%));
+    background-image: linear-gradient(135deg, hsl(169, 76%, 48%), hsl(180, 70%, 45%), hsl(190, 80%, 42%));
   }
   .glass-panel {
     @apply bg-card/80 backdrop-blur-2xl border border-border/60;
@@ -165,7 +165,7 @@ html.lenis, html.lenis body {
     transform: translateY(-1px);
   }
   .glow-primary {
-    box-shadow: 0 0 20px -4px hsl(160 84% 39% / 0.15), 0 0 60px -12px hsl(160 84% 39% / 0.1);
+    box-shadow: 0 0 20px -4px hsl(169 76% 48% / 0.15), 0 0 60px -12px hsl(169 76% 48% / 0.1);
   }
   .section-glow {
     position: relative;
@@ -178,7 +178,7 @@ html.lenis, html.lenis body {
     transform: translate(-50%, -50%);
     width: 60%;
     height: 50%;
-    background: radial-gradient(ellipse, hsl(160 84% 39% / 0.04), transparent 70%);
+    background: radial-gradient(ellipse, hsl(169 76% 48% / 0.04), transparent 70%);
     pointer-events: none;
   }
 }
@@ -213,11 +213,11 @@ html.lenis, html.lenis body {
 }
 
 .shiny-cta {
-  --shiny-cta-bg: hsl(160 84% 30%);
-  --shiny-cta-bg-subtle: hsl(160 84% 25%);
+  --shiny-cta-bg: hsl(169 76% 34%);
+  --shiny-cta-bg-subtle: hsl(169 76% 28%);
   --shiny-cta-fg: #ffffff;
-  --shiny-cta-highlight: hsl(160 90% 55%);
-  --shiny-cta-highlight-subtle: hsl(160 80% 65%);
+  --shiny-cta-highlight: hsl(169 80% 55%);
+  --shiny-cta-highlight-subtle: hsl(169 76% 65%);
   --animation: gradient-angle linear infinite;
   --duration: 3s;
   --shadow-size: 2px;

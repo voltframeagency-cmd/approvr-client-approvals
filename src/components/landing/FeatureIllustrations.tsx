@@ -27,16 +27,16 @@ export const UploadIllustration = () => (
     {/* Folder back */}
     <motion.path
       d="M16 28h88a4 4 0 014 4v40a4 4 0 01-4 4H16a4 4 0 01-4 4V32a4 4 0 014-4z"
-      fill="hsl(160, 84%, 39%)" fillOpacity={0.06}
-      stroke="hsl(160, 84%, 39%)" strokeOpacity={0.2} strokeWidth={1}
+      fill="hsl(169, 76%, 48%)" fillOpacity={0.06}
+      stroke="hsl(169, 76%, 48%)" strokeOpacity={0.2} strokeWidth={1}
       initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
       viewport={{ once: true }} transition={{ duration: 0.5 }}
     />
     {/* Folder tab */}
     <motion.path
       d="M16 28l8-12h24l8 12"
-      stroke="hsl(160, 84%, 39%)" strokeOpacity={0.3} strokeWidth={1}
-      fill="hsl(160, 84%, 39%)" fillOpacity={0.04}
+      stroke="hsl(169, 76%, 48%)" strokeOpacity={0.3} strokeWidth={1}
+      fill="hsl(169, 76%, 48%)" fillOpacity={0.04}
       initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
       viewport={{ once: true }} transition={{ duration: 0.4, delay: 0.2 }}
     />
@@ -48,8 +48,8 @@ export const UploadIllustration = () => (
       transition={{ duration: 0.6, delay: 0.4, type: 'spring', damping: 12 }}
     >
       <motion.g animate={float(0, 3.5, 2)}>
-        <rect x="36" y="34" width="20" height="26" rx="2" fill="hsl(160, 84%, 39%)" fillOpacity={0.1} stroke="hsl(160, 84%, 39%)" strokeOpacity={0.25} strokeWidth={0.8} />
-        <path d="M40 42h12M40 46h8M40 50h10" stroke="hsl(160, 84%, 39%)" strokeOpacity={0.3} strokeWidth={0.6} />
+        <rect x="36" y="34" width="20" height="26" rx="2" fill="hsl(169, 76%, 48%)" fillOpacity={0.1} stroke="hsl(169, 76%, 48%)" strokeOpacity={0.25} strokeWidth={0.8} />
+        <path d="M40 42h12M40 46h8M40 50h10" stroke="hsl(169, 76%, 48%)" strokeOpacity={0.3} strokeWidth={0.6} />
       </motion.g>
     </motion.g>
     {/* File 2 — continuous float offset */}
@@ -69,7 +69,7 @@ export const UploadIllustration = () => (
     <motion.g animate={{ y: [0, -3, 0], opacity: [0.6, 1, 0.6] }} transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}>
       <motion.path
         d="M60 18V8M55 13l5-5 5 5"
-        stroke="hsl(160, 84%, 39%)" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round"
+        stroke="hsl(169, 76%, 48%)" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round"
         variants={draw} initial="hidden" whileInView="visible"
         viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.3 }}
       />
@@ -88,10 +88,10 @@ export const FeedbackIllustration = () => (
       transition={{ duration: 0.5, delay: 0.2 }}
     >
       <motion.g animate={float(0, 4, 1.5)}>
-        <rect x="12" y="12" width="52" height="20" rx="10" fill="hsl(160, 84%, 39%)" fillOpacity={0.08} stroke="hsl(160, 84%, 39%)" strokeOpacity={0.2} strokeWidth={0.8} />
-        <path d="M24 20h28" stroke="hsl(160, 84%, 39%)" strokeOpacity={0.25} strokeWidth={1.5} strokeLinecap="round" />
-        <path d="M24 26h16" stroke="hsl(160, 84%, 39%)" strokeOpacity={0.15} strokeWidth={1} strokeLinecap="round" />
-        <motion.circle cx="16" cy="22" r="4" fill="hsl(160, 84%, 39%)" fillOpacity={0.15} animate={pulse(0.5)} />
+        <rect x="12" y="12" width="52" height="20" rx="10" fill="hsl(169, 76%, 48%)" fillOpacity={0.08} stroke="hsl(169, 76%, 48%)" strokeOpacity={0.2} strokeWidth={0.8} />
+        <path d="M24 20h28" stroke="hsl(169, 76%, 48%)" strokeOpacity={0.25} strokeWidth={1.5} strokeLinecap="round" />
+        <path d="M24 26h16" stroke="hsl(169, 76%, 48%)" strokeOpacity={0.15} strokeWidth={1} strokeLinecap="round" />
+        <motion.circle cx="16" cy="22" r="4" fill="hsl(169, 76%, 48%)" fillOpacity={0.15} animate={pulse(0.5)} />
       </motion.g>
     </motion.g>
     {/* Bubble 2 — slides in + subtle float */}
@@ -115,7 +115,7 @@ export const FeedbackIllustration = () => (
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: 0.7 }}
     >
-      <rect x="12" y="62" width="40" height="14" rx="7" fill="hsl(160, 84%, 39%)" fillOpacity={0.06} stroke="hsl(160, 84%, 39%)" strokeOpacity={0.15} strokeWidth={0.8} />
+      <rect x="12" y="62" width="40" height="14" rx="7" fill="hsl(169, 76%, 48%)" fillOpacity={0.06} stroke="hsl(169, 76%, 48%)" strokeOpacity={0.15} strokeWidth={0.8} />
       {/* Typing dots */}
       {[0, 1, 2].map(i => (
         <motion.circle
@@ -123,7 +123,7 @@ export const FeedbackIllustration = () => (
           cx={26 + i * 6}
           cy="69"
           r="1.5"
-          fill="hsl(160, 84%, 39%)"
+          fill="hsl(169, 76%, 48%)"
           fillOpacity={0.3}
           animate={{ y: [0, -2, 0], fillOpacity: [0.15, 0.4, 0.15] }}
           transition={{ duration: 0.7, repeat: Infinity, delay: i * 0.15, ease: 'easeInOut' }}
@@ -133,7 +133,7 @@ export const FeedbackIllustration = () => (
     {/* Connector line */}
     <motion.path
       d="M38 32v6M82 58v4"
-      stroke="hsl(160, 84%, 39%)" strokeOpacity={0.1} strokeWidth={0.5} strokeDasharray="2 2"
+      stroke="hsl(169, 76%, 48%)" strokeOpacity={0.1} strokeWidth={0.5} strokeDasharray="2 2"
       animate={shimmer(0.3)}
     />
   </svg>
@@ -206,19 +206,19 @@ export const TimelineIllustration = () => (
     {/* Timeline line — drawing */}
     <motion.path
       d="M30 8v64"
-      stroke="hsl(160, 84%, 39%)" strokeOpacity={0.15} strokeWidth={1.5}
+      stroke="hsl(169, 76%, 48%)" strokeOpacity={0.15} strokeWidth={1.5}
       variants={draw} initial="hidden" whileInView="visible"
       viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.2 }}
     />
     {/* Event 1 — float + pulse dot */}
     <motion.g initial={{ x: -10, opacity: 0 }} whileInView={{ x: 0, opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.4 }}>
       <motion.g animate={float(0, 4, 1)}>
-        <motion.circle cx="30" cy="16" r="4" fill="hsl(160, 84%, 39%)" stroke="hsl(160, 84%, 39%)" strokeWidth={0.8}
+        <motion.circle cx="30" cy="16" r="4" fill="hsl(169, 76%, 48%)" stroke="hsl(169, 76%, 48%)" strokeWidth={0.8}
           animate={{ fillOpacity: [0.15, 0.3, 0.15], strokeOpacity: [0.2, 0.4, 0.2] }}
           transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
         />
-        <rect x="42" y="10" width="60" height="12" rx="6" fill="hsl(160, 84%, 39%)" fillOpacity={0.06} stroke="hsl(160, 84%, 39%)" strokeOpacity={0.12} strokeWidth={0.6} />
-        <motion.path d="M50 16h40" stroke="hsl(160, 84%, 39%)" strokeLinecap="round" strokeWidth={1} animate={shimmer(0)} />
+        <rect x="42" y="10" width="60" height="12" rx="6" fill="hsl(169, 76%, 48%)" fillOpacity={0.06} stroke="hsl(169, 76%, 48%)" strokeOpacity={0.12} strokeWidth={0.6} />
+        <motion.path d="M50 16h40" stroke="hsl(169, 76%, 48%)" strokeLinecap="round" strokeWidth={1} animate={shimmer(0)} />
       </motion.g>
     </motion.g>
     {/* Event 2 */}
@@ -256,14 +256,14 @@ export const BrandingIllustration = () => (
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: 0.2 }}
     >
-      <rect x="14" y="10" width="92" height="60" rx="6" fill="hsl(160, 84%, 39%)" fillOpacity={0.03} stroke="hsl(160, 84%, 39%)" strokeOpacity={0.15} strokeWidth={0.8} />
-      <path d="M14 22h92" stroke="hsl(160, 84%, 39%)" strokeOpacity={0.1} strokeWidth={0.6} />
+      <rect x="14" y="10" width="92" height="60" rx="6" fill="hsl(169, 76%, 48%)" fillOpacity={0.03} stroke="hsl(169, 76%, 48%)" strokeOpacity={0.15} strokeWidth={0.8} />
+      <path d="M14 22h92" stroke="hsl(169, 76%, 48%)" strokeOpacity={0.1} strokeWidth={0.6} />
       {/* Window dots — staggered pulse */}
       {[24, 32, 40].map((cx, i) => (
         <motion.circle
           key={cx}
           cx={cx} cy="16" r="2"
-          fill="hsl(160, 84%, 39%)"
+          fill="hsl(169, 76%, 48%)"
           animate={{ fillOpacity: [0.1, 0.25, 0.1] }}
           transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: i * 0.3 }}
         />
@@ -277,9 +277,9 @@ export const BrandingIllustration = () => (
       transition={{ delay: 0.5, type: 'spring', damping: 12 }}
     >
       <motion.g animate={{ scale: [1, 1.05, 1] }} transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}>
-        <rect x="24" y="28" width="24" height="24" rx="6" fill="hsl(160, 84%, 39%)" fillOpacity={0.1} stroke="hsl(160, 84%, 39%)" strokeOpacity={0.2} strokeWidth={0.8} />
-        <path d="M32 36l4 4 4-4" stroke="hsl(160, 84%, 39%)" strokeOpacity={0.4} strokeWidth={1.2} strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M36 40v-6" stroke="hsl(160, 84%, 39%)" strokeOpacity={0.4} strokeWidth={1.2} strokeLinecap="round" />
+        <rect x="24" y="28" width="24" height="24" rx="6" fill="hsl(169, 76%, 48%)" fillOpacity={0.1} stroke="hsl(169, 76%, 48%)" strokeOpacity={0.2} strokeWidth={0.8} />
+        <path d="M32 36l4 4 4-4" stroke="hsl(169, 76%, 48%)" strokeOpacity={0.4} strokeWidth={1.2} strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M36 40v-6" stroke="hsl(169, 76%, 48%)" strokeOpacity={0.4} strokeWidth={1.2} strokeLinecap="round" />
       </motion.g>
     </motion.g>
     {/* Color swatches — rotating pulse */}
@@ -290,7 +290,7 @@ export const BrandingIllustration = () => (
       transition={{ delay: 0.65, duration: 0.4 }}
     >
       {[
-        { cx: 62, color: 'hsl(160, 84%, 39%)', delay: 0 },
+        { cx: 62, color: 'hsl(169, 76%, 48%)', delay: 0 },
         { cx: 78, color: 'hsl(210, 100%, 52%)', delay: 0.5 },
         { cx: 94, color: 'hsl(38, 92%, 50%)', delay: 1 },
       ].map(s => (
@@ -310,9 +310,9 @@ export const BrandingIllustration = () => (
       viewport={{ once: true }}
       transition={{ delay: 0.8 }}
     >
-      <motion.path d="M56 50h40" stroke="hsl(160, 84%, 39%)" strokeWidth={1.5} strokeLinecap="round" animate={shimmer(0)} />
-      <motion.path d="M56 56h28" stroke="hsl(160, 84%, 39%)" strokeWidth={1} strokeLinecap="round" animate={shimmer(0.3)} />
-      <motion.path d="M24 58h18" stroke="hsl(160, 84%, 39%)" strokeWidth={1} strokeLinecap="round" animate={shimmer(0.6)} />
+      <motion.path d="M56 50h40" stroke="hsl(169, 76%, 48%)" strokeWidth={1.5} strokeLinecap="round" animate={shimmer(0)} />
+      <motion.path d="M56 56h28" stroke="hsl(169, 76%, 48%)" strokeWidth={1} strokeLinecap="round" animate={shimmer(0.3)} />
+      <motion.path d="M24 58h18" stroke="hsl(169, 76%, 48%)" strokeWidth={1} strokeLinecap="round" animate={shimmer(0.6)} />
     </motion.g>
   </svg>
 );
@@ -323,8 +323,8 @@ export const AuditIllustration = () => (
     {/* Shield — breathing */}
     <motion.path
       d="M40 14l-20 8v18c0 14 10 26 20 30 10-4 20-16 20-30V22l-20-8z"
-      fill="hsl(160, 84%, 39%)" strokeWidth={0.8}
-      stroke="hsl(160, 84%, 39%)"
+      fill="hsl(169, 76%, 48%)" strokeWidth={0.8}
+      stroke="hsl(169, 76%, 48%)"
       animate={{ fillOpacity: [0.04, 0.08, 0.04], strokeOpacity: [0.15, 0.25, 0.15] }}
       transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
     />
@@ -336,9 +336,9 @@ export const AuditIllustration = () => (
       transition={{ delay: 0.5, type: 'spring', damping: 10 }}
     >
       <motion.g animate={{ scale: [1, 1.06, 1] }} transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}>
-        <rect x="34" y="36" width="12" height="10" rx="2" fill="hsl(160, 84%, 39%)" fillOpacity={0.15} stroke="hsl(160, 84%, 39%)" strokeOpacity={0.3} strokeWidth={0.8} />
-        <path d="M36 36v-4a4 4 0 018 0v4" stroke="hsl(160, 84%, 39%)" strokeOpacity={0.25} strokeWidth={0.8} fill="none" />
-        <motion.circle cx="40" cy="42" r="1.5" fill="hsl(160, 84%, 39%)"
+        <rect x="34" y="36" width="12" height="10" rx="2" fill="hsl(169, 76%, 48%)" fillOpacity={0.15} stroke="hsl(169, 76%, 48%)" strokeOpacity={0.3} strokeWidth={0.8} />
+        <path d="M36 36v-4a4 4 0 018 0v4" stroke="hsl(169, 76%, 48%)" strokeOpacity={0.25} strokeWidth={0.8} fill="none" />
+        <motion.circle cx="40" cy="42" r="1.5" fill="hsl(169, 76%, 48%)"
           animate={{ fillOpacity: [0.2, 0.45, 0.2] }}
           transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
         />
@@ -346,7 +346,7 @@ export const AuditIllustration = () => (
     </motion.g>
     {/* Log entries — float + shimmer */}
     {[
-      { y: 16, color: 'hsl(160, 84%, 39%)', lineW: 28, delay: 0 },
+      { y: 16, color: 'hsl(169, 76%, 48%)', lineW: 28, delay: 0 },
       { y: 32, color: 'hsl(142, 71%, 45%)', lineW: 24, delay: 0.4 },
       { y: 48, color: 'hsl(210, 100%, 52%)', lineW: 30, delay: 0.8 },
     ].map((entry, i) => (
@@ -364,7 +364,7 @@ export const AuditIllustration = () => (
     ))}
     {/* Timestamp dots — twinkling */}
     {[
-      { cy: 21, color: 'hsl(160, 84%, 39%)', delay: 0.2 },
+      { cy: 21, color: 'hsl(169, 76%, 48%)', delay: 0.2 },
       { cy: 37, color: 'hsl(142, 71%, 45%)', delay: 0.7 },
       { cy: 53, color: 'hsl(210, 100%, 52%)', delay: 1.2 },
     ].map((dot, i) => (
@@ -373,6 +373,6 @@ export const AuditIllustration = () => (
         transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: dot.delay }}
       />
     ))}
-    <motion.path d="M66 23v8M66 39v8" stroke="hsl(160, 84%, 39%)" strokeOpacity={0.08} strokeWidth={0.5} />
+    <motion.path d="M66 23v8M66 39v8" stroke="hsl(169, 76%, 48%)" strokeOpacity={0.08} strokeWidth={0.5} />
   </svg>
 );
