@@ -67,7 +67,7 @@ export const Testimonials = () => {
             ))}
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold mb-6 tracking-tighter leading-[1.1]">
-            The new standard for <span className="text-primary italic">client relations.</span>
+            The new standard for <span className="italic bg-gradient-to-b from-primary via-primary to-primary/60 bg-clip-text text-transparent">client relations.</span>
           </h2>
         </motion.div>
 
