@@ -153,8 +153,9 @@ const UploadVisual = () => (
         transition={{ delay: i * 0.15 }}
         className="w-full bg-card/60 backdrop-blur-md border rounded-xl p-4 flex items-center gap-4 shadow-sm"
       >
-        <div className="h-10 w-10 rounded-lg bg-gradient-to-b from-primary/20 via-primary/10 to-primary/5 flex items-center justify-center font-black text-[10px] bg-clip-text text-transparent bg-gradient-to-b from-primary via-primary to-primary/60">
-          SVG
+        <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center relative overflow-hidden">
+          <span className="font-black text-[10px] bg-gradient-to-b from-primary via-primary to-primary/60 bg-clip-text text-transparent">SVG</span>
+          <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-transparent to-transparent rounded-lg pointer-events-none" />
         </div>
         <div className="flex-1">
           <div className="h-1.5 w-24 bg-primary/20 rounded-full mb-2" />
