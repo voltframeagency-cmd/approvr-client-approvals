@@ -85,7 +85,7 @@ export const Features = () => {
             <span>Built for High-Growth Agencies</span>
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold mb-8 tracking-tighter leading-[1.1]">
-            A workflow that actually <span className="text-primary italic">handles the friction</span>
+            A workflow that actually <span className="relative text-primary italic"><span className="relative z-10">handles the friction</span><span className="absolute inset-0 bg-gradient-to-b from-white/20 via-transparent to-transparent rounded-md pointer-events-none" /></span>
           </h2>
           <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
             We didn't just build a project manager. We built a high-velocity approval engine designed to get you to "Yes" faster than ever.
