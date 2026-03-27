@@ -54,7 +54,7 @@ const CTA = () => {
             
             <motion.h2 variants={itemVariants} className="text-4xl md:text-6xl lg:text-[4.25rem] font-bold mb-8 tracking-tighter leading-[1.05]">
               Stop chasing. <br />
-              <span className="text-primary italic">Start approving.</span>
+              <span className="italic bg-gradient-to-b from-primary via-primary to-primary/60 bg-clip-text text-transparent">Start approving.</span>
             </motion.h2>
             
             <motion.p variants={itemVariants} className="text-xl text-muted-foreground mb-12 max-w-xl mx-auto leading-relaxed">

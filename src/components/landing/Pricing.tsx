@@ -110,7 +110,7 @@ const Pricing = () => {
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold tracking-tighter mb-8 leading-[1.1]">
             Straightforward pricing for <br className="hidden md:block" />
-            <span className="text-primary italic">ambitious agencies.</span>
+            <span className="italic bg-gradient-to-b from-primary via-primary to-primary/60 bg-clip-text text-transparent">ambitious agencies.</span>
           </h2>
           
           {/* Pricing Toggle */}

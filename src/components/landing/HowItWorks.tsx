@@ -54,7 +54,7 @@ export const HowItWorks = () => {
             <span>High-Velocity Workflow</span>
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold mb-8 tracking-tighter leading-[1.1]">
-            From deliverable to sign-off <span className="text-primary italic">in seconds.</span>
+            From deliverable to sign-off <span className="italic bg-gradient-to-b from-primary via-primary to-primary/60 bg-clip-text text-transparent">in seconds.</span>
           </h2>
           <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
             We’ve stripped away the overhead. No logic puzzles, no complex Jira tickets. Just a direct path from work to win.
