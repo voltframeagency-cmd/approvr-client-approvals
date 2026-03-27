@@ -51,8 +51,7 @@ export const Testimonials = () => {
   return (
     <section id="testimonials" className="py-32 relative overflow-hidden bg-muted/20">
       {/* Background Glow */}
-      <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-[#1dd8a9]/6 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/3 w-[400px] h-[400px] bg-[#1dd8a9]/8 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="container px-4 mx-auto relative">
         <motion.div 

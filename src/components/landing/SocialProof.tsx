@@ -65,7 +65,7 @@ const SocialProof = () => {
   };
 
   return (
-    <section className="py-24 relative overflow-hidden bg-muted/30 rounded-b-[3rem] md:rounded-b-[5rem] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.08),0_10px_30px_-10px_hsl(var(--primary)/0.15)] dark:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.3),0_10px_30px_-10px_hsl(var(--primary)/0.2)]">
+    <section className="py-24 border-t border-b border-border/40 relative overflow-hidden bg-muted/30">
       <div className="container mx-auto px-4">
         {/* Stats */}
         <motion.div 

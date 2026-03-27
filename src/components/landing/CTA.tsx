@@ -44,7 +44,7 @@ const CTA = () => {
           className="max-w-5xl mx-auto relative rounded-[3rem] border border-primary/20 bg-card/40 backdrop-blur-3xl p-12 md:p-24 overflow-hidden shadow-2xl"
         >
           {/* Internal Glow */}
-          <div className="absolute -top-24 -right-24 w-64 h-64 bg-[#1dd8a9]/15 rounded-full blur-[80px]" />
+          <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/20 rounded-full blur-[80px]" />
           
           <div className="relative z-10 text-center max-w-3xl mx-auto">
             <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-black tracking-widest uppercase mb-8 border border-primary/20">
