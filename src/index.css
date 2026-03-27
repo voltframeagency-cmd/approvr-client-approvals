@@ -291,18 +291,12 @@ html.lenis, html.lenis body {
 
 .shiny-cta span {
   z-index: 1;
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  overflow: visible;
 }
 
 .shiny-cta span::before {
   --size: calc(100% + 1rem);
   width: var(--size);
   height: var(--size);
-  border-radius: 360px;
   box-shadow: inset 0 -1ex 2rem 4px var(--shiny-cta-highlight);
   opacity: 0;
   transition: opacity var(--transition);
