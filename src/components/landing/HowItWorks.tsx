@@ -100,7 +100,7 @@ export const HowItWorks = () => {
                         whileInView={{ opacity: 1, y: 0, scale: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-                        className="w-full max-w-[90%] bg-card/90 backdrop-blur-3xl border border-primary/10 rounded-[2rem] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.2)] relative overflow-hidden group-hover:shadow-[0_45px_100px_-20px_rgba(0,0,0,0.15)] transition-all duration-700"
+                        className="w-full max-w-[90%] bg-card border border-primary/10 rounded-[2rem] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.2)] relative overflow-hidden group-hover:shadow-[0_45px_100px_-20px_rgba(0,0,0,0.15)] transition-all duration-700"
                       >
                         {/* Chrome / Window Header */}
                         <div className="h-10 border-b border-primary/5 px-6 flex items-center justify-between bg-muted/40">
