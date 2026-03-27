@@ -262,9 +262,9 @@ export const useGsapScrollTrigger = () => {
       el.style.position = 'relative';
       el.style.zIndex = '2';
       gsap.fromTo(el,
-        { y: 120, boxShadow: '0 -20px 60px -15px hsl(var(--primary) / 0.15)' },
+        { y: 120, boxShadow: '0 -20px 60px -15px rgba(0,0,0,0.15)' },
         {
-          y: 0, boxShadow: '0 0px 0px 0px hsl(var(--primary) / 0)',
+          y: 0, boxShadow: '0 0px 0px 0px rgba(0,0,0,0)',
           ease: 'none',
           scrollTrigger: {
             trigger: el,
