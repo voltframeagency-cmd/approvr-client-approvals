@@ -15,6 +15,8 @@ export interface Project {
   lastViewedByClient?: string;
   lastClientActivity?: string;
   isOverdue?: boolean;
+  reminderSentAt?: string;
+  reminderCount?: number;
 }
 
 export interface Deliverable {
