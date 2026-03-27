@@ -183,9 +183,9 @@ const ReviewVisual = () => (
         transition={{ delay: i * 0.4 }}
         className={`flex ${m.side === 'left' ? 'justify-start' : 'justify-end'}`}
       >
-        <div className={`p-4 rounded-2xl text-[11px] font-medium max-w-[80%] ${
-          m.side === 'left' ? 'bg-muted text-foreground' : 'bg-primary text-primary-foreground'
-        } shadow-lg shadow-black/5`}>
+        <div className={`p-4 rounded-2xl text-[11px] font-medium max-w-[80%] backdrop-blur-2xl border border-border/30 shadow-lg shadow-black/10 ${
+          m.side === 'left' ? 'bg-card/60 text-foreground' : 'bg-primary/20 text-primary-foreground border-primary/20'
+        }`}>
           {m.text}
         </div>
       </motion.div>
