@@ -184,7 +184,9 @@ const ReviewVisual = () => (
         className={`flex ${m.side === 'left' ? 'justify-start' : 'justify-end'}`}
       >
         <div className={`p-4 rounded-2xl text-[11px] font-medium max-w-[80%] ${
-          m.side === 'left' ? 'bg-muted text-foreground' : 'bg-primary text-primary-foreground'
+          m.side === 'left' 
+            ? 'bg-gradient-to-br from-muted via-muted to-accent/30 text-foreground' 
+            : 'bg-gradient-to-br from-primary via-primary to-primary/70 text-primary-foreground'
         } shadow-lg shadow-black/5`}>
           {m.text}
         </div>
