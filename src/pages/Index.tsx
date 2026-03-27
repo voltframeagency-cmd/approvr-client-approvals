@@ -16,27 +16,13 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <Navbar />
-      <div data-transition="crossfade-out">
-        <Hero />
-      </div>
-      <div data-transition="crossfade-in">
-        <SocialProof />
-      </div>
-      <div data-transition="wipe">
-        <HowItWorks />
-      </div>
-      <div data-transition="scale">
-        <Features />
-      </div>
-      <div data-transition="overlap">
-        <Testimonials />
-      </div>
-      <div data-transition="dissolve">
-        <Pricing />
-      </div>
-      <div data-transition="glow">
-        <CTA />
-      </div>
+      <Hero />
+      <SocialProof />
+      <HowItWorks />
+      <Features />
+      <Testimonials />
+      <Pricing />
+      <CTA />
       <Footer />
     </div>
   );
