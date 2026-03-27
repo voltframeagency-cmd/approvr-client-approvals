@@ -28,6 +28,13 @@ html.lenis, html.lenis body {
 @layer base {
   :root {
     --background: 0 0% 99%;
+    --ds-gray-100: hsla(0, 0%, 95%, 1);
+    --ds-gray-400: hsla(0, 0%, 82%, 1);
+    --ds-gray-1000: hsla(0, 0%, 7%, 1);
+    --ds-gray-alpha-400: hsla(0, 0%, 0%, 0.08);
+    --geist-background: #fff;
+    --accents-1: #fafafa;
+    --accents-2: #eaeaea;
     --foreground: 220 20% 10%;
     --card: 0 0% 100%;
     --card-foreground: 220 20% 10%;
@@ -69,6 +76,13 @@ html.lenis, html.lenis body {
 
   .dark {
     --background: 220 20% 7%;
+    --ds-gray-100: hsla(0, 0%, 10%, 1);
+    --ds-gray-400: hsla(0, 0%, 18%, 1);
+    --ds-gray-1000: hsla(0, 0%, 93%, 1);
+    --ds-gray-alpha-400: hsla(0, 0%, 100%, 0.14);
+    --geist-background: #000;
+    --accents-1: #111111;
+    --accents-2: #333333;
     --foreground: 220 14% 96%;
     --card: 220 20% 10%;
     --card-foreground: 220 14% 96%;
