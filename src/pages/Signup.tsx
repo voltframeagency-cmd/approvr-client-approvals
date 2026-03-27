@@ -163,10 +163,10 @@ const Signup = () => {
                 </div>
                 
                 <Link to="/dashboard" className="block pt-2">
-                  <Button className="w-full h-12 text-sm font-bold group bg-primary hover:bg-primary/90 rounded-xl">
+                  <ShinyButton className="w-full h-12 text-sm font-bold group rounded-lg">
                     Create workspace
                     <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </Button>
+                  </ShinyButton>
                 </Link>
               </div>
             </div>
