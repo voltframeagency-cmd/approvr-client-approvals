@@ -47,6 +47,10 @@ export const HowItWorks = () => {
       className="py-32 relative overflow-hidden bg-card/10"
       data-gsap-section
     >
+      {/* Background Blobs */}
+      <div className="absolute top-32 right-0 w-[500px] h-[500px] bg-[#1dd8a9]/6 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-32 left-0 w-[400px] h-[400px] bg-[#1dd8a9]/8 rounded-full blur-[120px] pointer-events-none" />
+
       <div className="container px-4 mx-auto relative" data-gsap="section-reveal">
         <div className="max-w-3xl mx-auto text-center mb-24">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
