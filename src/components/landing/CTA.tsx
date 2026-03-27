@@ -66,11 +66,11 @@ const CTA = () => {
                     <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </ShinyButton>
               </Link>
-              <Link to="/pricing" className="w-full sm:w-auto">
+              <a href="#pricing" className="w-full sm:w-auto">
                 <Button variant="outline" size="lg" className="h-16 px-10 text-lg rounded-2xl font-bold bg-muted/50 border-primary/10 hover:border-primary/30 transition-all">
                   View Pricing
                 </Button>
-              </Link>
+              </a>
             </motion.div>
             
             <motion.div variants={itemVariants} className="mt-12 flex flex-wrap justify-center items-center gap-8 text-muted-foreground/60">
