@@ -41,15 +41,14 @@ export const HowItWorks = () => {
   const lineHeight = useTransform(scrollYProgress, [0.2, 0.8], ["0%", "100%"]);
 
   return (
-    <section id="how-it-works" ref={sectionRef} className="py-32 relative overflow-hidden bg-card/10">
-      <div className="container px-4 mx-auto relative">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="max-w-3xl mx-auto text-center mb-24"
-        >
+    <section 
+      id="how-it-works" 
+      ref={sectionRef} 
+      className="py-32 relative overflow-hidden bg-card/10"
+      data-gsap-section
+    >
+      <div className="container px-4 mx-auto relative" data-gsap="section-reveal">
+        <div className="max-w-3xl mx-auto text-center mb-24">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
             <Sparkles className="h-4 w-4" />
             <span>High-Velocity Workflow</span>
@@ -60,7 +59,7 @@ export const HowItWorks = () => {
           <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
             We’ve stripped away the overhead. No logic puzzles, no complex Jira tickets. Just a direct path from work to win.
           </p>
-        </motion.div>
+        </div>
 
         <div className="relative max-w-5xl mx-auto">
           {/* Vertical Connecting Line */}
@@ -74,12 +73,8 @@ export const HowItWorks = () => {
             {steps.map((step, index) => {
               const isEven = index % 2 === 0;
               return (
-                <motion.div
+                <div
                   key={step.number}
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.8, delay: index * 0.1 }}
                   className={`relative flex flex-col md:flex-row items-center gap-12 md:gap-20 ${isEven ? '' : 'md:flex-row-reverse'}`}
                 >
                   {/* Step Number Badge */}
@@ -96,11 +91,7 @@ export const HowItWorks = () => {
                       
                       {/* Premium Mockup Window Frame */}
                       <motion.div 
-                        initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                        whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-                        className="w-full max-w-[90%] bg-card/90 backdrop-blur-3xl border border-primary/10 rounded-[2rem] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.2)] relative overflow-hidden group-hover:shadow-[0_45px_100px_-20px_rgba(0,0,0,0.15)] transition-all duration-700"
+                        className="w-full max-w-[90%] bg-card/90 backdrop-blur-3xl border border-primary/10 rounded-[2rem] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.2)] relative overflow-hidden group-hover:shadow-[0_45px_100px_-20px_rgba(0,0,0,0.15)] transition-all duration-700 will-change-transform"
                       >
                         {/* Chrome / Window Header */}
                         <div className="h-10 border-b border-primary/5 px-6 flex items-center justify-between bg-muted/40">
@@ -135,7 +126,7 @@ export const HowItWorks = () => {
                       View Demo <ArrowRight className="h-4 w-4" />
                     </div>
                   </div>
-                </motion.div>
+                </div>
               );
             })}
           </div>

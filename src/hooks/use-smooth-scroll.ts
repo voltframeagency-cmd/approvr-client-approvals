@@ -133,6 +133,23 @@ export const useGsapScrollTrigger = () => {
       );
     });
 
+    // Section reveals for grouped elements
+    gsap.utils.toArray<HTMLElement>('[data-gsap="section-reveal"]').forEach((el) => {
+      gsap.from(el.children, {
+        y: 40,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.2,
+        ease: 'power3.out',
+        clearProps: "all",
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 85%',
+          toggleActions: 'play none none none',
+        },
+      });
+    });
+
     // Hero browser mockup — subtle parallax upward on scroll
     const mockup = document.querySelector('[data-gsap="mockup"]');
     if (mockup) {
@@ -151,19 +168,21 @@ export const useGsapScrollTrigger = () => {
     // CTA section — scale in
     const cta = document.querySelector('[data-gsap="cta"]');
     if (cta) {
-      gsap.fromTo(cta,
-        { opacity: 0, scale: 0.96 },
-        {
-          opacity: 1, scale: 1,
-          duration: 0.7,
-          ease: 'power2.out',
+      const reveals = gsap.utils.toArray<HTMLElement>('[data-gsap="cta-reveal"]');
+      reveals.forEach(reveal => {
+        gsap.from(reveal.children, {
+          y: 30,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.2,
+          clearProps: "all",
           scrollTrigger: {
-            trigger: cta,
+            trigger: reveal,
             start: 'top 80%',
             toggleActions: 'play none none none',
-          },
-        }
-      );
+          }
+        });
+      });
     }
 
     return () => {
