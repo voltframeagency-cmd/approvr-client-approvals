@@ -61,7 +61,7 @@ export const Testimonials = () => {
           transition={{ duration: 0.8 }}
           className="max-w-3xl mx-auto text-center mb-20"
         >
-          <div className="flex items-center justify-center gap-1 mb-6">
+          <div className="flex items-center justify-center gap-1 mb-6" style={{ filter: 'drop-shadow(0 4px 12px hsl(0 0% 0% / 0.15))' }}>
             {[...Array(5)].map((_, i) => (
               <Star key={i} className="h-4 w-4 fill-primary text-primary" />
             ))}
