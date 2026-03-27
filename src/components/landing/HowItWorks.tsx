@@ -159,8 +159,9 @@ const UploadVisual = () => (
         key={i}
         initial={{ opacity: 0, x: -20 }}
         whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
         transition={{ delay: i * 0.15 }}
-        className="w-full bg-card/60 backdrop-blur-md border rounded-xl p-4 flex items-center gap-4 shadow-sm"
+        className="w-full bg-card border rounded-xl p-4 flex items-center gap-4 shadow-sm"
       >
         <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-black text-[10px]">
           SVG
