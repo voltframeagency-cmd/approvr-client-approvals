@@ -1,18 +1,20 @@
 import * as React from "react";
-import { Button, type ButtonProps } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-const ShinyButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
+interface ShinyButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  children: React.ReactNode;
+}
+
+const ShinyButton = React.forwardRef<HTMLButtonElement, ShinyButtonProps>(
   ({ className, children, ...props }, ref) => {
     return (
-      <Button
+      <button
         ref={ref}
-        className={cn("shiny-button relative overflow-hidden", className)}
+        className={cn("shiny-cta", className)}
         {...props}
       >
-        <span className="relative z-10 flex items-center gap-2">{children}</span>
-        <div className="shiny-button__shimmer absolute inset-0 z-[1] pointer-events-none" />
-      </Button>
+        <span>{children}</span>
+      </button>
     );
   }
 );
