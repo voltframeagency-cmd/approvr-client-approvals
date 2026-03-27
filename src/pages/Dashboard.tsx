@@ -28,9 +28,9 @@ const attentionItems = [
 ];
 
 const statCards = [
-  { label: 'Needs attention', value: attentionItems.length, icon: AlertCircle, color: 'text-destructive', bg: 'bg-destructive/5', borderColor: 'border-destructive' },
-  { label: 'Changes requested', value: changesRequested.length, icon: AlertTriangle, color: 'text-warning', bg: 'bg-warning/5', borderColor: 'border-warning' },
-  { label: 'Awaiting client', value: pendingReview.length, icon: Clock, color: 'text-primary', bg: 'bg-primary/5', borderColor: 'border-primary' },
+  { label: 'Requires Attention', value: attentionItems.length, icon: AlertCircle, color: 'text-destructive', bg: 'bg-destructive/5', borderColor: 'border-destructive' },
+  { label: 'Feedback Received', value: changesRequested.length, icon: AlertTriangle, color: 'text-warning', bg: 'bg-warning/5', borderColor: 'border-warning' },
+  { label: 'Pending Review', value: pendingReview.length, icon: Clock, color: 'text-primary', bg: 'bg-primary/5', borderColor: 'border-primary' },
   { label: 'Approved this week', value: recentApprovals.length, icon: CheckCircle, color: 'text-emerald-500', bg: 'bg-emerald-500/5', borderColor: 'border-emerald-500' },
 ];
 
@@ -146,7 +146,7 @@ const Dashboard = () => {
                   <div className="p-1.5 bg-destructive/10 rounded-lg">
                     <AlertCircle className="h-4 w-4 text-destructive" />
                   </div>
-                  <h2 className="text-lg font-bold tracking-tight">Attention Queue</h2>
+                  <h2 className="text-lg font-bold tracking-tight">Project Attention</h2>
                 </div>
                 <Badge variant="secondary" className="rounded-full px-2.5 py-0.5 text-[11px] font-bold bg-muted/60 text-muted-foreground border-none">
                   {attentionItems.length} items
@@ -209,13 +209,14 @@ const Dashboard = () => {
                         <div className="space-y-3">
                           <div className="flex items-center justify-between text-[11px] font-bold uppercase tracking-widest text-muted-foreground/60">
                              <span>Progress</span>
-                             <div className="flex items-center gap-4">
+                             <div className="flex items-center gap-4 text-right">
+                                {project.lastViewedByClient && (
+                                  <span className="flex items-center gap-1 text-[10px] text-emerald-500/80 lowercase">
+                                    <Eye className="h-2.5 w-2.5" />
+                                    viewed {timeAgo(project.lastViewedByClient)}
+                                  </span>
+                                )}
                                 <span className="font-mono">{Math.round((project.approvedCount / project.deliverableCount) * 100)}%</span>
-                                <span className="text-slate-400">·</span>
-                                <span className="flex items-center gap-1.5">
-                                  <Clock className="h-3 w-3" />
-                                  {new Date(project.deadline).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-                                </span>
                              </div>
                           </div>
                           <div className="h-1.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
@@ -249,7 +250,7 @@ const Dashboard = () => {
         <div className="lg:col-span-2 space-y-10">
           <section className="space-y-6">
             <h2 className="text-xl font-bold tracking-tight">Recent Activity</h2>
-            <div className="relative pl-6 space-y-8 before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[2px] before:bg-slate-100 dark:before:bg-slate-800">
+            <div className="relative pl-10 space-y-8 before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[1.5px] before:bg-slate-100 dark:before:bg-slate-800">
               {mockActivity.slice(0, 8).map((item, i) => {
                 const Icon = activityIcons[item.type] || FileText;
                 return (
@@ -260,7 +261,7 @@ const Dashboard = () => {
                     transition={{ delay: 0.2 + i * 0.05, duration: 0.4 }}
                     className="relative"
                   >
-                    <div className="absolute -left-[23px] top-0 h-6 w-6 rounded-full bg-white dark:bg-slate-900 flex items-center justify-center ring-4 ring-white dark:ring-background z-10">
+                    <div className="absolute -left-[41px] top-0 h-6 w-6 rounded-full bg-white dark:bg-slate-900 flex items-center justify-center ring-4 ring-white dark:ring-background z-10 scale-90 sm:scale-100">
                       <div className="h-5 w-5 rounded-full bg-slate-50 dark:bg-slate-900 border flex items-center justify-center text-primary group-hover:border-primary/40 transition-colors">
                         <Icon className="h-2.5 w-2.5" />
                       </div>
@@ -280,15 +281,40 @@ const Dashboard = () => {
           </section>
 
           {/* Mini Upgrade Card */}
-          <Card className="bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 text-white border-none rounded-2xl overflow-hidden shadow-2xl relative">
+          <Card className="bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 text-white border-none rounded-2xl overflow-hidden shadow-2xl relative group">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.1),transparent)]" />
               <CardContent className="p-6 relative z-10">
                 <Badge className="bg-primary hover:bg-primary text-white text-[10px] font-black px-2.5 py-1 border-none mb-4 uppercase tracking-widest">Founder Beta</Badge>
                 <h3 className="text-lg font-extrabold mb-2 tracking-tight">Upgrade to Pro</h3>
                 <p className="text-[12px] text-slate-300 mb-6 leading-relaxed font-semibold">Get unlimited projects, custom domains, and white-labeled client portals for your agency.</p>
-                <Button variant="secondary" className="w-full rounded-xl font-black hover:bg-white hover:text-black transition-all h-10 text-[13px] uppercase tracking-wider">
-                  View Pricing Plans
-                </Button>
+                <Link to="/dashboard/settings">
+                  <Button variant="secondary" className="w-full rounded-xl font-black hover:bg-white hover:text-black transition-all h-10 text-[13px] uppercase tracking-wider">
+                    View Pricing Plans
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+
+            {/* Portal Preview Card */}
+            <Card className="bg-card/40 backdrop-blur-sm border border-primary/10 rounded-2xl overflow-hidden relative group">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="p-2 bg-primary/5 rounded-lg">
+                    <Eye className="h-4 w-4 text-primary" />
+                  </div>
+                  <h3 className="font-bold text-sm tracking-tight">Portal Preview</h3>
+                </div>
+                <div className="aspect-video rounded-xl bg-slate-100 dark:bg-slate-800/50 border border-slate-200/50 dark:border-slate-700/50 flex flex-col items-center justify-center p-4 text-center group-hover:bg-slate-200/50 dark:group-hover:bg-slate-800 transition-colors">
+                  <div className="w-12 h-1 bg-primary/20 rounded-full mb-3" />
+                  <div className="space-y-1.5 w-full">
+                    <div className="h-2 w-3/4 bg-slate-200 dark:bg-slate-700 rounded mx-auto" />
+                    <div className="h-2 w-1/2 bg-slate-200 dark:bg-slate-700 rounded mx-auto" />
+                  </div>
+                  <Button variant="ghost" size="sm" className="mt-4 h-8 text-[11px] font-bold uppercase tracking-wider text-primary hover:text-primary hover:bg-primary/5">
+                    Launch Preview
+                  </Button>
+                </div>
+                <p className="text-[11px] text-muted-foreground mt-4 font-medium italic">"Ensure your client's first impression is perfect."</p>
               </CardContent>
             </Card>
         </div>

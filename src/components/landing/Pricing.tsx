@@ -22,7 +22,7 @@ const plans = [
     popular: false,
     icon: Lock,
     badge: 'Invite only',
-    note: 'Free during beta · Read-only after expiry',
+    note: 'Lifetime founders access · Verified invite required',
   },
   {
     name: 'Pro',

@@ -9,10 +9,13 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Badge } from '@/components/ui/badge';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { providerIcons } from '@/lib/provider-icons';
+import { useFounderBeta } from '@/hooks/use-founder-beta';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 const fileTypeColors: Record<string, string> = {
   svg: 'bg-primary/10 text-primary',
@@ -40,6 +43,7 @@ const activityIcons: Record<string, typeof FileText> = {
 };
 
 const ProjectDetail = () => {
+  const beta = useFounderBeta();
   const { id } = useParams();
   const project = mockProjects.find(p => p.id === id);
   const deliverables = mockDeliverables.filter(d => d.projectId === id);
@@ -49,6 +53,9 @@ const ProjectDetail = () => {
   const [newComment, setNewComment] = useState('');
   const [activeTab, setActiveTab] = useState<'preview' | 'versions' | 'timeline' | 'next_steps'>('preview');
   const [showAddAction, setShowAddAction] = useState(false);
+  const [commentFilter, setCommentFilter] = useState<'all' | 'open' | 'resolved'>('all');
+  const [isReminderSending, setIsReminderSending] = useState(false);
+  const [reminderStatus, setReminderStatus] = useState<'idle' | 'sent'>('idle');
 
   const projectActions = mockNextStepActions.filter(a => a.scope === 'project' && a.projectId === id);
   const workspaceActions = mockNextStepActions.filter(a => a.scope === 'workspace');
@@ -99,10 +106,36 @@ const ProjectDetail = () => {
             Client last viewed {timeAgo(project.lastViewedByClient)}
           </span>
         )}
-        <Link to="/portal" className="flex items-center gap-1 text-primary hover:underline ml-auto">
+        <Link to="/portal" className="flex items-center gap-1 text-primary hover:underline">
           <ExternalLink className="h-3 w-3" />
-          Preview client portal
+          Preview portal
         </Link>
+        <div className="flex items-center gap-2 ml-auto">
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="h-8 text-[11px] font-bold uppercase tracking-wider rounded-lg"
+            onClick={() => {
+              setIsReminderSending(true);
+              setTimeout(() => {
+                setIsReminderSending(false);
+                setReminderStatus('sent');
+              }, 1500);
+            }}
+            disabled={isReminderSending || reminderStatus === 'sent' || project.status === 'approved'}
+          >
+            {isReminderSending ? (
+              <span className="flex items-center gap-1.5"><Clock className="h-3 w-3 animate-spin" /> Sending...</span>
+            ) : reminderStatus === 'sent' ? (
+              <span className="flex items-center gap-1.5 text-success"><CheckCircle2 className="h-3 w-3" /> Reminder Sent</span>
+            ) : (
+              <span className="flex items-center gap-1.5"><Send className="h-3 w-3" /> Nudge Client</span>
+            )}
+          </Button>
+          <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold uppercase tracking-wider rounded-lg">
+             Download Summary
+          </Button>
+        </div>
       </motion.div>
 
       {project.description && (
@@ -229,11 +262,30 @@ const ProjectDetail = () => {
                       </div>
                       {selectedDel.status !== 'approved' && (
                         <div className="flex gap-3 mt-5">
-                          <Button variant="outline" className="flex-1">Request changes</Button>
-                          <Button className="flex-1 gap-2">
-                            <CheckCircle2 className="h-4 w-4" />
-                            Approve
-                          </Button>
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <div className={cn("flex-1", !beta.canAddEvent && "cursor-not-allowed")}>
+                                  <Button variant="outline" className="w-full" disabled={!beta.canAddEvent}>Request changes</Button>
+                                </div>
+                              </TooltipTrigger>
+                              {!beta.canAddEvent && <TooltipContent><p>Event limit reached ({beta.eventLimit} events)</p></TooltipContent>}
+                            </Tooltip>
+                          </TooltipProvider>
+
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <div className={cn("flex-1", !beta.canAddEvent && "cursor-not-allowed")}>
+                                  <Button className="w-full gap-2" disabled={!beta.canAddEvent}>
+                                    <CheckCircle2 className="h-4 w-4" />
+                                    Approve
+                                  </Button>
+                                </div>
+                              </TooltipTrigger>
+                              {!beta.canAddEvent && <TooltipContent><p>Event limit reached ({beta.eventLimit} events)</p></TooltipContent>}
+                            </Tooltip>
+                          </TooltipProvider>
                         </div>
                       )}
                       {selectedDel.status === 'approved' && (
@@ -250,19 +302,39 @@ const ProjectDetail = () => {
 
                     {/* Comments */}
                     <div className="card-elevated p-6">
-                      <h3 className="font-semibold text-[14px] flex items-center gap-2 mb-4">
-                        <MessageSquare className="h-4 w-4" /> Comments ({comments.length})
-                      </h3>
+                      <div className="flex items-center justify-between mb-4">
+                        <h3 className="font-semibold text-[14px] flex items-center gap-2">
+                          <MessageSquare className="h-4 w-4" /> Comments ({comments.length})
+                        </h3>
+                        <div className="flex bg-muted/40 p-0.5 rounded-lg border border-border/40">
+                          {(['all', 'open', 'resolved'] as const).map(f => (
+                            <button
+                              key={f}
+                              onClick={() => setCommentFilter(f)}
+                              className={cn(
+                                "px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-md transition-all",
+                                commentFilter === f 
+                                  ? "bg-white dark:bg-slate-800 text-primary shadow-sm"
+                                  : "text-muted-foreground hover:text-foreground"
+                              )}
+                            >
+                              {f}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
                       <div className="space-y-4 mb-4">
-                        {comments.map((c, i) => (
+                        {comments
+                          .filter(c => commentFilter === 'all' || (commentFilter === 'open' ? !c.resolved : c.resolved))
+                          .map((c, i) => (
                           <motion.div
                             key={c.id}
                             initial={{ opacity: 0, y: 8 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: i * 0.05 }}
                             className={cn(
-                              'flex items-start gap-3',
-                              c.resolved && 'opacity-60'
+                              'flex items-start gap-3 p-3 rounded-xl transition-all',
+                              c.resolved ? 'bg-muted/30 opacity-60' : 'bg-transparent'
                             )}
                           >
                             <div className={cn(
@@ -273,24 +345,33 @@ const ProjectDetail = () => {
                             )}>
                               {c.authorName.split(' ').map(n => n[0]).join('')}
                             </div>
-                            <div className="flex-1">
-                              <div className="flex items-center gap-2">
-                                <span className="text-[13px] font-medium">{c.authorName}</span>
-                                <span className="text-[11px] text-muted-foreground">
-                                  {new Date(c.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-                                </span>
-                                {c.resolved && (
-                                  <span className="text-[10px] text-success bg-success/10 px-1.5 py-0.5 rounded-full font-medium">Resolved</span>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-2">
+                                  <span className="text-[13px] font-bold text-slate-900 dark:text-white">{c.authorName}</span>
+                                  <span className="text-[11px] text-muted-foreground font-medium">
+                                    {new Date(c.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                                  </span>
+                                </div>
+                                {c.resolved ? (
+                                  <span className="text-[10px] text-success bg-success/10 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">Resolved</span>
+                                ) : (
+                                  <button className="text-[10px] font-bold text-muted-foreground hover:text-primary transition-colors">Resolve</button>
                                 )}
                               </div>
-                              <p className="text-[13px] text-muted-foreground mt-1 leading-relaxed">{c.body}</p>
+                              <p className="text-[13px] text-muted-foreground mt-1.5 leading-relaxed font-medium">{c.body}</p>
                             </div>
                           </motion.div>
                         ))}
                         {comments.length === 0 && (
-                          <div className="text-center py-8">
+                          <div className="text-center py-12 bg-muted/10 rounded-2xl border border-dashed">
                             <MessageSquare className="h-6 w-6 mx-auto mb-2 text-muted-foreground/20" />
-                            <p className="text-[13px] text-muted-foreground">No comments yet</p>
+                            <p className="text-[13px] text-muted-foreground font-medium">No comments yet</p>
+                          </div>
+                        )}
+                        {comments.length > 0 && comments.filter(c => commentFilter === 'open' ? !c.resolved : commentFilter === 'resolved' ? c.resolved : true).length === 0 && (
+                          <div className="text-center py-8">
+                            <p className="text-[12px] text-muted-foreground font-medium uppercase tracking-widest">No {commentFilter} comments</p>
                           </div>
                         )}
                       </div>
@@ -301,9 +382,18 @@ const ProjectDetail = () => {
                           value={newComment}
                           onChange={e => setNewComment(e.target.value)}
                         />
-                        <Button size="sm" className="self-end gap-1" disabled={!newComment.trim()}>
-                          <Send className="h-3 w-3" />
-                        </Button>
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <div className={cn("self-end", !beta.canAddEvent && "cursor-not-allowed")}>
+                                <Button size="sm" className="gap-1" disabled={!newComment.trim() || !beta.canAddEvent}>
+                                  <Send className="h-3 w-3" />
+                                </Button>
+                              </div>
+                            </TooltipTrigger>
+                            {!beta.canAddEvent && <TooltipContent><p>Event limit reached ({beta.eventLimit} events)</p></TooltipContent>}
+                          </Tooltip>
+                        </TooltipProvider>
                       </div>
                     </div>
                   </>
@@ -311,28 +401,47 @@ const ProjectDetail = () => {
 
                 {/* Version history tab */}
                 {activeTab === 'versions' && (
-                  <div className="card-elevated p-6">
-                    <h3 className="font-semibold text-[14px] flex items-center gap-2 mb-5">
-                      <History className="h-4 w-4" /> Version history
-                    </h3>
+                  <div className="card-elevated p-8">
+                    <div className="flex items-center justify-between mb-8">
+                      <h3 className="font-bold text-[15px] flex items-center gap-2.5 uppercase tracking-widest text-slate-900 dark:text-white">
+                        <History className="h-4 w-4 text-primary" /> Version history
+                      </h3>
+                      <Badge variant="outline" className="text-[10px] font-bold border-slate-200 text-muted-foreground bg-white">
+                        {selectedDel.versions?.length || 1} Versions
+                      </Badge>
+                    </div>
                     <div className="relative">
-                      <div className="absolute left-[11px] top-3 bottom-3 w-px bg-border" />
-                      <div className="space-y-5">
-                        {(selectedDel.versions || [{ version: selectedDel.version, submittedAt: selectedDel.submittedAt }])
+                      <div className="absolute left-[15px] top-6 bottom-6 w-[1.5px] bg-slate-100 dark:bg-slate-800" />
+                      <div className="space-y-8">
+                        {(selectedDel.versions || [{ version: selectedDel.version, submittedAt: selectedDel.submittedAt, note: 'Initial submission' }])
                           .slice().reverse().map((v, i) => (
-                          <div key={v.version} className="flex items-start gap-4 relative">
+                          <div key={v.version} className="flex items-start gap-6 relative group/v">
                             <div className={cn(
-                              'h-6 w-6 rounded-full flex items-center justify-center text-[10px] font-bold flex-shrink-0 z-10',
-                              i === 0 ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'
+                              'h-8 w-8 rounded-full flex items-center justify-center text-[11px] font-black flex-shrink-0 z-10 shadow-sm ring-4 ring-white dark:ring-slate-900 transition-all group-hover/v:scale-110',
+                              i === 0 ? 'bg-primary text-white' : 'bg-slate-100 dark:bg-slate-800 text-muted-foreground'
                             )}>
                               {v.version}
                             </div>
-                            <div>
-                              <p className="text-[13px] font-medium">Version {v.version} {i === 0 && <span className="text-primary">(Current)</span>}</p>
-                              <p className="text-[12px] text-muted-foreground mt-0.5">
-                                {new Date(v.submittedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-                              </p>
-                              {v.note && <p className="text-[12px] text-muted-foreground mt-1 italic">"{v.note}"</p>}
+                            <div className="flex-1 min-w-0 bg-slate-50/50 dark:bg-white/5 p-4 rounded-2xl border border-transparent hover:border-slate-200 dark:hover:border-white/10 transition-all">
+                              <div className="flex items-center justify-between mb-1.5">
+                                <p className="text-[14px] font-bold text-slate-900 dark:text-white">
+                                  Version {v.version}
+                                  {i === 0 && <span className="ml-2 text-[10px] text-primary bg-primary/10 px-2 py-0.5 rounded-full font-black uppercase tracking-widest">Latest</span>}
+                                </p>
+                                <p className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                                  {new Date(v.submittedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                                </p>
+                              </div>
+                              <div className="flex items-center gap-2 text-[11px] font-medium text-muted-foreground mb-3">
+                                <Building2 className="h-3 w-3" />
+                                <span>Uploaded by Rivera Design Co</span>
+                                <span className="opacity-40">·</span>
+                                <Clock className="h-3 w-3" />
+                                <span>{new Date(v.submittedAt).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</span>
+                              </div>
+                              <div className="bg-white dark:bg-slate-900 p-3 rounded-xl border border-border/40 shadow-sm italic text-[12px] text-slate-600 dark:text-slate-400 font-medium">
+                                "{v.note || 'No change summary provided.'}"
+                              </div>
                             </div>
                           </div>
                         ))}

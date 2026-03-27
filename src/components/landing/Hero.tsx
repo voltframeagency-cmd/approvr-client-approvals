@@ -35,8 +35,8 @@ const Hero = () => (
         </motion.div>
 
         <h1 className="text-4xl md:text-[3.5rem] lg:text-[4.25rem] font-bold tracking-tighter leading-[1.05] mb-6">
-          Stop chasing approvals across{' '}
-          <span className="gradient-text">email, Slack, and WhatsApp</span>
+          Get client approvals <br className="hidden md:block" />
+          <span className="gradient-text italic">out of email.</span>
         </h1>
         <motion.p
           initial={{ opacity: 0 }}
@@ -44,7 +44,7 @@ const Hero = () => (
           transition={{ duration: 0.6, delay: 0.3 }}
           className="text-lg md:text-xl text-muted-foreground max-w-[560px] mx-auto mb-10 leading-relaxed"
         >
-          Email is for talking. It's not for version control or hunting down signatures. Approvr gives you a single, branded portal where clients review, comment, and sign off in seconds. Just work that gets done.
+          Approvr brings sanity to the sign-off loop. One branded portal where clients review, comment, and approve in seconds. No more hunting through Slack threads or chasing email chains for a simple "yes."
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 12 }}

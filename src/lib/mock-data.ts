@@ -68,21 +68,46 @@ export const mockProjects: Project[] = [
 ];
 
 export const mockDeliverables: Deliverable[] = [
-  { id: 'd1', projectId: '1', title: 'Primary Logo', fileName: 'logo-primary-v3.svg', fileType: 'svg', version: 3, status: 'approved', submittedAt: '2026-03-20', versions: [{ version: 1, submittedAt: '2026-03-16', note: 'Initial concept' }, { version: 2, submittedAt: '2026-03-18', note: 'Refined proportions' }, { version: 3, submittedAt: '2026-03-20', note: 'Final with tweaks' }] },
-  { id: 'd2', projectId: '1', title: 'Color Palette', fileName: 'color-palette-v2.pdf', fileType: 'pdf', version: 2, status: 'approved', submittedAt: '2026-03-21', versions: [{ version: 1, submittedAt: '2026-03-17' }, { version: 2, submittedAt: '2026-03-21', note: 'Added secondary palette' }] },
-  { id: 'd3', projectId: '1', title: 'Typography Guide', fileName: 'typography-guide-v1.pdf', fileType: 'pdf', version: 1, status: 'in_review', submittedAt: '2026-03-23', versions: [{ version: 1, submittedAt: '2026-03-23' }] },
-  { id: 'd4', projectId: '1', title: 'Brand Guidelines Doc', fileName: 'brand-guidelines-v1.pdf', fileType: 'pdf', version: 1, status: 'in_review', submittedAt: '2026-03-24', versions: [{ version: 1, submittedAt: '2026-03-24' }] },
-  { id: 'd5', projectId: '2', title: 'Homepage Mockup', fileName: 'homepage-v2.fig', fileType: 'fig', version: 2, status: 'changes_requested', submittedAt: '2026-03-18', versions: [{ version: 1, submittedAt: '2026-03-14' }, { version: 2, submittedAt: '2026-03-18', note: 'Updated hero section' }] },
-  { id: 'd6', projectId: '2', title: 'About Page', fileName: 'about-v1.fig', fileType: 'fig', version: 1, status: 'in_review', submittedAt: '2026-03-19', versions: [{ version: 1, submittedAt: '2026-03-19' }] },
+  { 
+    id: 'd1', 
+    projectId: '1', 
+    title: 'Primary Logo', 
+    fileName: 'logo-primary-v3.svg', 
+    fileType: 'svg', 
+    version: 3, 
+    status: 'approved', 
+    submittedAt: '2026-03-20T14:30:00', 
+    versions: [
+      { version: 1, submittedAt: '2026-03-16T09:00:00', note: 'Initial concept based on moodboard.' }, 
+      { version: 2, submittedAt: '2026-03-18T11:20:00', note: 'Refined proportions and simplified geometry.' }, 
+      { version: 3, submittedAt: '2026-03-20T14:30:00', note: 'Final color application and export.' }
+    ] 
+  },
+  { 
+    id: 'd2', 
+    projectId: '1', 
+    title: 'Color Palette', 
+    fileName: 'color-palette-v2.pdf', 
+    fileType: 'pdf', 
+    version: 2, 
+    status: 'approved', 
+    submittedAt: '2026-03-21T10:00:00', 
+    versions: [
+      { version: 1, submittedAt: '2026-03-17T15:00:00', note: 'Exploration of warm vs cool tones.' }, 
+      { version: 2, submittedAt: '2026-03-21T10:00:00', note: 'Added secondary palette for digital use.' }
+    ] 
+  },
+  { id: 'd3', projectId: '1', title: 'Typography Guide', fileName: 'typography-guide-v1.pdf', fileType: 'pdf', version: 1, status: 'in_review', submittedAt: '2026-03-23' },
+  { id: 'd4', projectId: '1', title: 'Brand Guidelines Doc', fileName: 'brand-guidelines-v1.pdf', fileType: 'pdf', version: 1, status: 'in_review', submittedAt: '2026-03-24' },
+  { id: 'd5', projectId: '2', title: 'Homepage Mockup', fileName: 'homepage-v2.fig', fileType: 'fig', version: 2, status: 'changes_requested', submittedAt: '2026-03-18', versions: [{ version: 1, submittedAt: '2026-03-14' }, { version: 2, submittedAt: '2026-03-18', note: 'Updated hero section with more white space.' }] },
+  { id: 'd6', projectId: '2', title: 'About Page', fileName: 'about-v1.fig', fileType: 'fig', version: 1, status: 'in_review', submittedAt: '2026-03-19' },
 ];
 
 export const mockComments: Comment[] = [
   { id: 'c1', deliverableId: 'd3', authorName: 'Sarah Chen', authorType: 'client', body: 'Love the direction! Can we try a slightly heavier weight for the body text? It feels a bit thin on mobile.', createdAt: '2026-03-24T10:30:00', resolved: false },
   { id: 'c2', deliverableId: 'd3', authorName: 'Alex Rivera', authorType: 'agency', body: 'Great catch — I\'ll update to 400 weight for body and send a new version by tomorrow.', createdAt: '2026-03-24T11:15:00', resolved: false },
-  { id: 'c3', deliverableId: 'd5', authorName: 'Mike Johnson', authorType: 'client', body: 'The hero section needs more contrast. Also, can we swap the stock photo for something more authentic?', createdAt: '2026-03-20T14:00:00', resolved: false },
-  { id: 'c4', deliverableId: 'd5', authorName: 'Alex Rivera', authorType: 'agency', body: 'Absolutely. I\'ll source some custom photography and increase the contrast ratio. Will have V3 ready by Friday.', createdAt: '2026-03-20T15:30:00', resolved: false },
-  { id: 'c5', deliverableId: 'd4', authorName: 'Sarah Chen', authorType: 'client', body: 'This looks comprehensive! Just one question — should we include social media templates in this doc?', createdAt: '2026-03-25T09:00:00', resolved: false },
   { id: 'c6', deliverableId: 'd1', authorName: 'Sarah Chen', authorType: 'client', body: 'Perfect — love the final version. Approved!', createdAt: '2026-03-20T16:00:00', resolved: true },
+  { id: 'c7', deliverableId: 'd3', authorName: 'Sarah Chen', authorType: 'client', body: 'Also, is this font license included or do we buy it separately?', createdAt: '2026-03-24T12:00:00', resolved: true },
 ];
 
 export const mockActivity: ActivityItem[] = [
@@ -150,7 +175,7 @@ export const mockFounderBeta: FounderBetaMetadata = {
 
 export const statusConfig: Record<string, { label: string; className: string }> = {
   draft: { label: 'Draft', className: 'bg-muted text-muted-foreground' },
-  in_review: { label: 'In Review', className: 'bg-info/10 text-info' },
-  changes_requested: { label: 'Changes Requested', className: 'bg-warning/10 text-warning' },
+  in_review: { label: 'Pending Review', className: 'bg-info/10 text-info' },
+  changes_requested: { label: 'Feedback Received', className: 'bg-warning/10 text-warning' },
   approved: { label: 'Approved', className: 'bg-success/10 text-success' },
 };
