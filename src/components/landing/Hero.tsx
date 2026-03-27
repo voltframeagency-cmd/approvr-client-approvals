@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { ShinyButton } from '@/components/ui/shiny-button';
 import { ArrowRight, Play } from 'lucide-react';
 import { motion } from 'framer-motion';
 import HeroBackground from './HeroBackground';
