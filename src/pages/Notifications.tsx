@@ -226,7 +226,10 @@ const Notifications = () => {
                               <Archive className="h-3 w-3" /> Archive
                             </button>
                             {n.projectId && (
-                              <button className="text-[11px] font-medium text-muted-foreground hover:text-foreground flex items-center gap-1">
+                              <button 
+                                onClick={() => navigate(`/dashboard/projects/${n.projectId}`)}
+                                className="text-[11px] font-medium text-muted-foreground hover:text-foreground flex items-center gap-1"
+                              >
                                 <ExternalLink className="h-3 w-3" /> View Project
                               </button>
                             )}
