@@ -306,12 +306,12 @@ export const useGsapScrollTrigger = () => {
         {
           scale: 0.96,
           opacity: 0,
-          boxShadow: '0 0 0px 0px hsl(var(--primary) / 0)',
+          boxShadow: '0 0 0px 0px rgba(34,197,94,0)',
         },
         {
           scale: 1,
           opacity: 1,
-          boxShadow: '0 0 80px 20px hsl(var(--primary) / 0.08)',
+          boxShadow: '0 0 80px 20px rgba(34,197,94,0.08)',
           ease: 'none',
           scrollTrigger: {
             trigger: el,
