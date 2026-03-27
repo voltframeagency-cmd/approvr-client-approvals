@@ -213,10 +213,10 @@ html.lenis, html.lenis body {
 }
 
 .shiny-cta {
-  --shiny-cta-bg: hsl(160 84% 30%);
-  --shiny-cta-bg-subtle: hsl(160 84% 25%);
+  --shiny-cta-bg: hsl(169 76% 34%);
+  --shiny-cta-bg-subtle: hsl(169 76% 28%);
   --shiny-cta-fg: #ffffff;
-  --shiny-cta-highlight: hsl(160 90% 55%);
+  --shiny-cta-highlight: hsl(169 80% 55%);
   --shiny-cta-highlight-subtle: hsl(160 80% 65%);
   --animation: gradient-angle linear infinite;
   --duration: 3s;
