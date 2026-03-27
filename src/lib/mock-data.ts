@@ -69,6 +69,13 @@ export interface Notification {
   read: boolean;
   createdAt: string;
   type: 'approval' | 'comment' | 'upload' | 'reminder';
+  urgency: 'low' | 'medium' | 'high' | 'critical';
+  projectId?: string;
+  projectName?: string;
+  deliverableId?: string;
+  deliverableName?: string;
+  version?: number;
+  archived?: boolean;
 }
 
 export const mockProjects: Project[] = [
@@ -176,11 +183,84 @@ export const mockActivity: ActivityItem[] = [
 ];
 
 export const mockNotifications: Notification[] = [
-  { id: 'n1', title: 'New approval', body: 'Sarah Chen approved the Color Palette for Q1 Brand Refresh', read: false, createdAt: '2026-03-25T14:30:00', type: 'approval' },
-  { id: 'n2', title: 'New comment', body: 'Sarah Chen commented on Typography Guide', read: false, createdAt: '2026-03-24T10:30:00', type: 'comment' },
-  { id: 'n3', title: 'Changes requested', body: 'Mike Johnson requested changes on Homepage Mockup', read: true, createdAt: '2026-03-20T14:00:00', type: 'comment' },
-  { id: 'n4', title: 'Deadline approaching', body: 'Annual Report Design deadline is in 2 days', read: false, createdAt: '2026-03-26T09:00:00', type: 'reminder' },
-  { id: 'n5', title: 'Review overdue', body: 'Website Redesign is past its deadline with pending changes', read: false, createdAt: '2026-03-26T08:00:00', type: 'reminder' },
+  { 
+    id: 'n1', 
+    title: 'Deliverable Approved', 
+    body: 'Sarah Chen approved the final version.', 
+    read: false, 
+    createdAt: new Date().toISOString(), 
+    type: 'approval',
+    urgency: 'high',
+    projectId: '1',
+    projectName: 'Q1 Brand Refresh',
+    deliverableId: 'd1',
+    deliverableName: 'Primary Logo',
+    version: 3
+  },
+  { 
+    id: 'n2', 
+    title: 'New Client Comment', 
+    body: '"Can we try a slightly heavier weight?"', 
+    read: false, 
+    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(), // 2 hours ago
+    type: 'comment',
+    urgency: 'medium',
+    projectId: '1',
+    projectName: 'Q1 Brand Refresh',
+    deliverableId: 'd3',
+    deliverableName: 'Typography Guide',
+    version: 1
+  },
+  { 
+    id: 'n6', 
+    title: 'Review Overdue', 
+    body: 'Client has not viewed the latest Annual Report version.', 
+    read: false, 
+    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 5).toISOString(), // 5 hours ago
+    type: 'reminder',
+    urgency: 'critical',
+    projectId: '5',
+    projectName: 'Annual Report Design',
+    deliverableId: 'd7',
+    deliverableName: 'Financial Slides',
+    version: 1
+  },
+  { 
+    id: 'n3', 
+    title: 'Revisions Requested', 
+    body: 'Mike Johnson requested changes on Homepage.', 
+    read: true, 
+    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 25).toISOString(), // Yesterday
+    type: 'comment',
+    urgency: 'medium',
+    projectId: '2',
+    projectName: 'Website Redesign',
+    deliverableId: 'd5',
+    deliverableName: 'Homepage Mockup',
+    version: 2
+  },
+  { 
+    id: 'n4', 
+    title: 'Deadline Approaching', 
+    body: 'Project deadline is in 48 hours.', 
+    read: false, 
+    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 28).toISOString(), // Yesterday
+    type: 'reminder',
+    urgency: 'high',
+    projectId: '5',
+    projectName: 'Annual Report Design'
+  },
+  { 
+    id: 'n5', 
+    title: 'New Internal Comment', 
+    body: 'Jordan Smith mentioned you in a comment.', 
+    read: true, 
+    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 48).toISOString(), // 2 days ago
+    type: 'comment',
+    urgency: 'low',
+    projectId: '1',
+    projectName: 'Q1 Brand Refresh'
+  },
 ];
 
 export type NextStepProviderType = 'contract' | 'invoice' | 'payment' | 'booking' | 'delivery' | 'onboarding' | 'custom';
