@@ -63,13 +63,10 @@ const CTA = () => {
             
             <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <Link to="/signup" className="w-full sm:w-auto">
-                <Button size="lg" className="h-16 px-10 text-lg rounded-2xl gap-3 bg-primary text-primary-foreground hover:scale-105 active:scale-95 transition-all shadow-xl shadow-primary/20 font-black relative overflow-hidden group">
-                  <span className="relative z-10 flex items-center gap-2">
+                <ShinyButton size="lg" className="h-16 px-10 text-lg rounded-2xl gap-3 hover:scale-105 active:scale-95 transition-all shadow-xl shadow-primary/20 font-black">
                     Claim Your Spot
                     <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-                  </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-                </Button>
+                </ShinyButton>
               </Link>
               <Link to="/pricing" className="w-full sm:w-auto">
                 <Button variant="outline" size="lg" className="h-16 px-10 text-lg rounded-2xl font-bold bg-muted/50 border-primary/10 hover:border-primary/30 transition-all">
