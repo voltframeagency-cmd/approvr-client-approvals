@@ -84,7 +84,7 @@ export const Features = () => {
             <Sparkles className="h-4 w-4" />
             <span>Built for High-Growth Agencies</span>
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold mb-8 tracking-tighter leading-[1.1]">
+          <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold mb-8 tracking-tighter leading-[1.1] drop-shadow-sm">
             A workflow that actually <span className="italic bg-gradient-to-b from-primary via-primary to-primary/60 bg-clip-text text-transparent">handles the friction</span>
           </h2>
           <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
