@@ -166,6 +166,166 @@ export const useGsapScrollTrigger = () => {
       );
     }
 
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+    // === SECTION-TO-SECTION TRANSITIONS ===
+
+    // Crossfade out (Hero fades out + shifts up)
+    gsap.utils.toArray<HTMLElement>('[data-transition="crossfade-out"]').forEach((el) => {
+      gsap.to(el, {
+        opacity: 0,
+        y: -60,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: el,
+          start: 'center center',
+          end: 'bottom top',
+          scrub: 0.6,
+        },
+      });
+    });
+
+    // Crossfade in (SocialProof rises in)
+    gsap.utils.toArray<HTMLElement>('[data-transition="crossfade-in"]').forEach((el) => {
+      gsap.fromTo(el,
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1, y: 0,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 90%',
+            end: 'top 50%',
+            scrub: 0.6,
+          },
+        }
+      );
+    });
+
+    // Horizontal wipe (clip-path reveal from left)
+    gsap.utils.toArray<HTMLElement>('[data-transition="wipe"]').forEach((el) => {
+      if (isMobile) {
+        gsap.fromTo(el, { opacity: 0 }, {
+          opacity: 1, ease: 'none',
+          scrollTrigger: { trigger: el, start: 'top 85%', end: 'top 55%', scrub: 0.5 },
+        });
+        return;
+      }
+      gsap.fromTo(el,
+        { clipPath: 'inset(0 100% 0 0)' },
+        {
+          clipPath: 'inset(0 0% 0 0)',
+          ease: 'none',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 80%',
+            end: 'top 30%',
+            scrub: 0.8,
+          },
+        }
+      );
+    });
+
+    // Scale reveal (scales up from 0.92 with blur clearing)
+    gsap.utils.toArray<HTMLElement>('[data-transition="scale"]').forEach((el) => {
+      if (isMobile) {
+        gsap.fromTo(el, { opacity: 0 }, {
+          opacity: 1, ease: 'none',
+          scrollTrigger: { trigger: el, start: 'top 85%', end: 'top 55%', scrub: 0.5 },
+        });
+        return;
+      }
+      gsap.fromTo(el,
+        { scale: 0.92, opacity: 0, filter: 'blur(8px)' },
+        {
+          scale: 1, opacity: 1, filter: 'blur(0px)',
+          ease: 'none',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 85%',
+            end: 'top 35%',
+            scrub: 0.8,
+          },
+        }
+      );
+    });
+
+    // Parallax overlap (slides up over previous like a card)
+    gsap.utils.toArray<HTMLElement>('[data-transition="overlap"]').forEach((el) => {
+      if (isMobile) {
+        gsap.fromTo(el, { opacity: 0 }, {
+          opacity: 1, ease: 'none',
+          scrollTrigger: { trigger: el, start: 'top 85%', end: 'top 55%', scrub: 0.5 },
+        });
+        return;
+      }
+      el.style.position = 'relative';
+      el.style.zIndex = '2';
+      gsap.fromTo(el,
+        { y: 120, boxShadow: '0 -20px 60px -15px hsl(var(--primary) / 0.15)' },
+        {
+          y: 0, boxShadow: '0 0px 0px 0px hsl(var(--primary) / 0)',
+          ease: 'none',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 95%',
+            end: 'top 40%',
+            scrub: 0.8,
+          },
+        }
+      );
+    });
+
+    // Dissolve (simple opacity crossfade)
+    gsap.utils.toArray<HTMLElement>('[data-transition="dissolve"]').forEach((el) => {
+      gsap.fromTo(el,
+        { opacity: 0 },
+        {
+          opacity: 1,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 85%',
+            end: 'top 55%',
+            scrub: 0.6,
+          },
+        }
+      );
+    });
+
+    // Glow burst (scale + radial glow)
+    gsap.utils.toArray<HTMLElement>('[data-transition="glow"]').forEach((el) => {
+      if (isMobile) {
+        gsap.fromTo(el, { opacity: 0 }, {
+          opacity: 1, ease: 'none',
+          scrollTrigger: { trigger: el, start: 'top 85%', end: 'top 55%', scrub: 0.5 },
+        });
+        return;
+      }
+      gsap.fromTo(el,
+        {
+          scale: 0.96,
+          opacity: 0,
+          boxShadow: '0 0 0px 0px hsl(var(--primary) / 0)',
+        },
+        {
+          scale: 1,
+          opacity: 1,
+          boxShadow: '0 0 80px 20px hsl(var(--primary) / 0.08)',
+          ease: 'none',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 85%',
+            end: 'top 45%',
+            scrub: 0.8,
+            onLeave: () => {
+              gsap.to(el, { boxShadow: '0 0 0px 0px hsl(var(--primary) / 0)', duration: 1 });
+            },
+          },
+        }
+      );
+    });
+
     return () => {
       ScrollTrigger.getAll().forEach(st => st.kill());
     };
