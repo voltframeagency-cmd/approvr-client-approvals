@@ -14,7 +14,8 @@ import { providerIcons } from '@/lib/provider-icons';
 import { Logo } from '@/components/brand/Logo';
 import { Badge } from '@/components/ui/badge';
 import { StaggerContainer, StaggerItem } from '@/components/motion/Animations';
-import { History, Building2, User2, Laptop, Calendar, CheckCircle, AlertCircle, Eye, CornerDownRight } from 'lucide-react';
+import { History, Building2, User2, Laptop, Calendar, CheckCircle, AlertCircle, Eye, CornerDownRight, ChevronDown } from 'lucide-react';
+import { useEffect } from 'react';
 
 const fileTypeColors: Record<string, string> = {
   svg: 'bg-primary/10 text-primary',
@@ -23,11 +24,12 @@ const fileTypeColors: Record<string, string> = {
 };
 
 const providerTypeLabels: Record<string, string> = {
-  stripe: 'Stripe',
-  calendly: 'Calendly',
-  loom: 'Loom',
-  drive: 'Google Drive',
-  notion: 'Notion',
+  contract: 'Contract',
+  invoice: 'Invoice',
+  payment: 'Payment',
+  booking: 'Booking',
+  delivery: 'File Delivery',
+  onboarding: 'Onboarding',
   custom: 'External Link'
 };
 
@@ -35,17 +37,24 @@ const ClientPortal = () => {
   const project = mockProjects[0];
   const deliverables = mockDeliverables.filter(d => d.projectId === project.id);
   const [selectedDel, setSelectedDel] = useState(deliverables[0]?.id);
-  const comments = mockComments.filter(c => c.deliverableId === selectedDel);
+  const currentDel = deliverables.find(d => d.id === selectedDel);
+  const [activeVersion, setActiveVersion] = useState(currentDel?.version || 1);
+  const comments = mockComments.filter(c => c.deliverableId === selectedDel && c.versionNumber === activeVersion);
   const [newComment, setNewComment] = useState('');
   const [resolvedCommentIds, setResolvedCommentIds] = useState<string[]>([]);
   const [isComparing, setIsComparing] = useState(false);
-  const currentDel = deliverables.find(d => d.id === selectedDel);
 
   const toggleResolve = (id: string) => {
     setResolvedCommentIds(prev => 
       prev.includes(id) ? prev.filter(cid => cid !== id) : [...prev, id]
     );
   };
+
+  useEffect(() => {
+    if (currentDel) {
+      setActiveVersion(currentDel.version);
+    }
+  }, [selectedDel]);
 
   const approvedCount = deliverables.filter(d => d.status === 'approved').length;
   const allApproved = approvedCount === deliverables.length;
@@ -256,12 +265,17 @@ const ClientPortal = () => {
                         )}>{d.title}</p>
                         <div className="flex items-center gap-2 mt-1">
                           <span className="text-[11px] font-bold text-muted-foreground/60 uppercase tracking-widest">Version {d.version}</span>
-                          {d.status === 'approved' && (
+                          {d.status === 'approved' ? (
                             <>
                               <div className="h-1 w-1 rounded-full bg-emerald-500/30" />
                               <span className="text-[10px] font-black uppercase tracking-widest text-emerald-500/80">Approved</span>
                             </>
-                          )}
+                          ) : d.status === 'changes_requested' ? (
+                            <>
+                              <div className="h-1 w-1 rounded-full bg-amber-500/30" />
+                              <span className="text-[10px] font-black uppercase tracking-widest text-amber-500/80">Revising</span>
+                            </>
+                          ) : null}
                         </div>
                       </div>
                       {selectedDel === d.id && (
@@ -303,23 +317,43 @@ const ClientPortal = () => {
                         </div>
                         <div className="flex flex-col items-end gap-3">
                           <StatusBadge status={currentDel.status} animated />
-                          {currentDel.version > 1 && (
-                            <Button
-                              variant="ghost"
-                              className={cn(
-                                "h-9 px-4 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all gap-2 border border-primary/10",
-                                isComparing ? "bg-primary text-white scale-95 shadow-lg shadow-primary/20" : "bg-primary/5 text-primary hover:bg-primary/10"
-                              )}
-                              onMouseDown={() => setIsComparing(true)}
-                              onMouseUp={() => setIsComparing(false)}
-                              onMouseLeave={() => setIsComparing(false)}
-                              onTouchStart={() => setIsComparing(true)}
-                              onTouchEnd={() => setIsComparing(false)}
-                            >
-                              <History className="h-3.5 w-3.5" />
-                              Hold to Compare (v{currentDel.version - 1})
-                            </Button>
-                          )}
+                          <div className="flex items-center gap-2">
+                            {currentDel.versions && currentDel.versions.length > 1 && (
+                              <div className="flex bg-slate-100 dark:bg-white/5 rounded-xl p-1 border border-border/40">
+                                {currentDel.versions.map((v) => (
+                                  <button
+                                    key={v.version}
+                                    onClick={() => setActiveVersion(v.version)}
+                                    className={cn(
+                                      "px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-tight transition-all",
+                                      activeVersion === v.version
+                                        ? "bg-white dark:bg-slate-800 text-primary shadow-sm ring-1 ring-border/20"
+                                        : "text-muted-foreground hover:text-slate-900 dark:hover:text-white"
+                                    )}
+                                  >
+                                    v{v.version}
+                                  </button>
+                                ))}
+                              </div>
+                            )}
+                            {activeVersion > 1 && (
+                              <Button
+                                variant="ghost"
+                                className={cn(
+                                  "h-9 px-4 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all gap-2 border border-primary/10",
+                                  isComparing ? "bg-primary text-white scale-95 shadow-lg shadow-primary/20" : "bg-primary/5 text-primary hover:bg-primary/10"
+                                )}
+                                onMouseDown={() => setIsComparing(true)}
+                                onMouseUp={() => setIsComparing(false)}
+                                onMouseLeave={() => setIsComparing(false)}
+                                onTouchStart={() => setIsComparing(true)}
+                                onTouchEnd={() => setIsComparing(false)}
+                              >
+                                <History className="h-3.5 w-3.5" />
+                                Hold to Compare (v{activeVersion - 1})
+                              </Button>
+                            )}
+                          </div>
                         </div>
                       </div>
 
@@ -342,17 +376,17 @@ const ClientPortal = () => {
                             <FileText className="h-12 w-12" />
                             {isComparing && (
                               <div className="absolute inset-x-0 -bottom-10 flex justify-center">
-                                <Badge className="bg-slate-900 text-white border-none font-black text-[9px] uppercase tracking-widest px-2 py-0.5">Previous Version</Badge>
+                                <Badge className="bg-slate-900 text-white border-none font-black text-[9px] uppercase tracking-widest px-2 py-0.5">Comparing v{activeVersion - 1}</Badge>
                               </div>
                             )}
                           </div>
                           <h4 className="text-[18px] font-black tracking-tight text-slate-900 dark:text-white mb-2">
-                            {isComparing ? currentDel.fileName.replace(`v${currentDel.version}`, `v${currentDel.version - 1}`) : currentDel.fileName}
+                            {isComparing ? currentDel.fileName.replace(`v${currentDel.version}`, `v${activeVersion - 1}`) : currentDel.fileName.replace(`v${currentDel.version}`, `v${activeVersion}`)}
                           </h4>
                           <p className="text-[13px] text-muted-foreground font-medium max-w-[280px] leading-relaxed mx-auto">
                             {isComparing 
-                              ? `Comparing changes from the previous version ${currentDel.version - 1}.`
-                              : `The latest ${currentDel.fileType.toUpperCase()} file for your review.`}
+                              ? `Comparing changes from version ${activeVersion - 1}.`
+                              : `Reviewing version ${activeVersion} of this deliverable.`}
                           </p>
                         </motion.div>
                         
@@ -427,15 +461,44 @@ const ClientPortal = () => {
                     </div>
 
                     <div className="p-10 space-y-10">
-                      {/* Version Note (if available) */}
-                      {currentDel.versions?.find(v => v.version === currentDel.version)?.note && (
-                        <div className="bg-primary/[0.03] border border-primary/10 p-6 rounded-[24px] mb-4">
-                          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-2 flex items-center gap-2">
-                            <Sparkles className="h-3 w-3" /> Designer's Note
+                      {/* Version Revision Narrative (The "What Changed" Card) */}
+                      {currentDel.versions?.find(v => v.version === activeVersion) && (
+                        <div className="bg-primary/[0.03] border border-primary/10 p-8 rounded-[32px] mb-8 relative overflow-hidden group/narrative">
+                          <div className="absolute top-0 right-0 p-6 opacity-[0.03] group-hover/narrative:opacity-[0.07] transition-opacity">
+                            <Sparkles className="h-16 w-16 text-primary" />
+                          </div>
+                          <div className="flex items-center justify-between mb-4">
+                            <p className="text-[11px] font-black uppercase tracking-[0.2em] text-primary flex items-center gap-2">
+                              <Sparkles className="h-3.5 w-3.5" /> What Changed in v{activeVersion}
+                            </p>
+                            <span className="text-[10px] font-bold text-muted-foreground/60 uppercase tracking-widest">
+                              Submitted by {currentDel.versions?.find(v => v.version === activeVersion)?.submittedBy}
+                            </span>
+                          </div>
+                          <h4 className="text-[18px] font-bold text-slate-900 dark:text-white mb-3 tracking-tight leading-tight">
+                            {currentDel.versions?.find(v => v.version === activeVersion)?.note || "Official Revision Update"}
+                          </h4>
+                          <p className="text-[14px] font-medium text-slate-600 dark:text-slate-400 leading-relaxed">
+                            {currentDel.versions?.find(v => v.version === activeVersion)?.changeSummary || "No detailed change log provided for this version."}
                           </p>
-                          <p className="text-[14px] font-medium text-slate-700 dark:text-slate-300 leading-relaxed italic">
-                            "{currentDel.versions?.find(v => v.version === currentDel.version)?.note}"
-                          </p>
+                          
+                          <div className="flex items-center gap-6 mt-6 pt-6 border-t border-primary/10">
+                            <div className="flex items-center gap-2">
+                              <div className="h-2 w-2 rounded-full bg-emerald-500" />
+                              <span className="text-[11px] font-black uppercase tracking-wider text-slate-900 dark:text-white">
+                                {currentDel.versions?.find(v => v.version === activeVersion)?.resolvedCount || 0} Resolved
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <div className="h-2 w-2 rounded-full bg-amber-500" />
+                              <span className="text-[11px] font-black uppercase tracking-wider text-slate-900 dark:text-white">
+                                {currentDel.versions?.find(v => v.version === activeVersion)?.openCount || 0} Pending
+                              </span>
+                            </div>
+                             <div className="ml-auto flex items-center gap-2">
+                              <span className="text-[10px] font-bold text-muted-foreground/40 uppercase tracking-widest">Review Round #{currentDel.versions?.find(v => v.version === activeVersion)?.reviewRound}</span>
+                            </div>
+                          </div>
                         </div>
                       )}
 

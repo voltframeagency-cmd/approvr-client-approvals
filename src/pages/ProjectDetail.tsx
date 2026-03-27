@@ -1,16 +1,20 @@
 import { useParams, Link } from 'react-router-dom';
-import { mockProjects, mockDeliverables, mockComments, mockActivity, mockNextStepActions, providerTypeLabels, type NextStepProviderType } from '@/lib/mock-data';
+import { 
+  mockProjects, mockDeliverables, mockComments, mockActivity, mockNextStepActions, providerTypeLabels, 
+  type NextStepProviderType, type NextStepAction 
+} from '@/lib/mock-data';
 import { StatusBadge } from '@/components/app/StatusBadge';
 import {
   ArrowLeft, FileText, MessageSquare, Upload, Clock, Send, CheckCircle2,
-  Eye, History, ExternalLink, AlertCircle, Zap, Plus, Trash2, Building2
+  Eye, History, ExternalLink, AlertCircle, Zap, Plus, Trash2, Building2,
+  Sparkles
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { providerIcons } from '@/lib/provider-icons';
@@ -48,17 +52,83 @@ const ProjectDetail = () => {
   const project = mockProjects.find(p => p.id === id);
   const deliverables = mockDeliverables.filter(d => d.projectId === id);
   const projectActivity = mockActivity.filter(a => a.projectId === id);
-  const [selectedDeliverable, setSelectedDeliverable] = useState(deliverables[0]?.id);
-  const comments = mockComments.filter(c => c.deliverableId === selectedDeliverable);
-  const [newComment, setNewComment] = useState('');
+  
+  const [selectedDeliverableId, setSelectedDeliverableId] = useState(deliverables[0]?.id);
+  const selectedDel = deliverables.find(d => d.id === selectedDeliverableId);
+  const [activeVersion, setActiveVersion] = useState(selectedDel?.version || 1);
   const [activeTab, setActiveTab] = useState<'preview' | 'versions' | 'timeline' | 'next_steps'>('preview');
-  const [showAddAction, setShowAddAction] = useState(false);
+  
+  const [newComment, setNewComment] = useState('');
   const [commentFilter, setCommentFilter] = useState<'all' | 'open' | 'resolved'>('all');
+  
+  const [projectActions, setProjectActions] = useState(mockNextStepActions.filter(a => a.projectId === id && a.scope === 'project'));
+  const workspaceActions = mockNextStepActions.filter(a => a.scope === 'workspace');
+  const [showAddAction, setShowAddAction] = useState(false);
+  
   const [isReminderSending, setIsReminderSending] = useState(false);
   const [reminderStatus, setReminderStatus] = useState<'idle' | 'sent'>('idle');
+  
+  const [newAction, setNewAction] = useState({
+    label: '',
+    url: '',
+    providerType: 'custom' as NextStepProviderType,
+    showWhen: 'on_approval' as 'on_approval' | 'always'
+  });
 
-  const projectActions = mockNextStepActions.filter(a => a.scope === 'project' && a.projectId === id);
-  const workspaceActions = mockNextStepActions.filter(a => a.scope === 'workspace');
+  useEffect(() => {
+    if (selectedDel) {
+      setActiveVersion(selectedDel.version);
+    }
+  }, [selectedDeliverableId]);
+
+  const comments = mockComments.filter(c => 
+    c.deliverableId === selectedDeliverableId && 
+    c.versionNumber === activeVersion
+  );
+
+  const handleAddAction = () => {
+    if (!newAction.label || !newAction.url) return;
+    
+    const action: NextStepAction = {
+      id: Math.random().toString(36).substr(2, 9),
+      projectId: id!,
+      label: newAction.label,
+      url: newAction.url.startsWith('http') ? newAction.url : `https://${newAction.url}`,
+      providerType: newAction.providerType,
+      displayCondition: newAction.showWhen,
+      scope: 'project'
+    };
+    
+    setProjectActions(prev => [...prev, action]);
+    setNewAction({ label: '', url: '', providerType: 'custom', showWhen: 'on_approval' });
+    setShowAddAction(false);
+  };
+
+  const domainToProvider: Record<string, NextStepProviderType> = {
+    'stripe.com/i/': 'invoice',
+    'stripe.com': 'payment',
+    'calendly.com': 'booking',
+    'docusign.com': 'contract',
+    'pandadoc.com': 'contract',
+    'drive.google.com': 'delivery',
+    'dropbox.com': 'delivery',
+    'notion.so': 'onboarding',
+  };
+
+  const handleUrlChange = (url: string) => {
+    setNewAction(prev => {
+      const updates: any = { url };
+      const matchedDomain = Object.keys(domainToProvider).find(domain => url.toLowerCase().includes(domain));
+      if (matchedDomain) {
+        updates.providerType = domainToProvider[matchedDomain];
+      }
+      return { ...prev, ...updates };
+    });
+  };
+
+  const handleDeleteAction = (actionId: string) => {
+    setProjectActions(prev => prev.filter(a => a.id !== actionId));
+  };
 
   if (!project) return (
     <div className="text-center py-20">
@@ -66,8 +136,6 @@ const ProjectDetail = () => {
       <p className="text-muted-foreground">Project not found.</p>
     </div>
   );
-
-  const selectedDel = deliverables.find(d => d.id === selectedDeliverable);
 
   return (
     <div className="space-y-6">
@@ -168,10 +236,10 @@ const ProjectDetail = () => {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 + i * 0.05 }}
-                onClick={() => { setSelectedDeliverable(d.id); setActiveTab('preview'); }}
+                onClick={() => { setSelectedDeliverableId(d.id); setActiveTab('preview'); }}
                 className={cn(
                   'w-full text-left rounded-xl border p-4 transition-all duration-200',
-                  selectedDeliverable === d.id ? 'ring-2 ring-primary shadow-sm bg-card' : 'hover:bg-muted/30 bg-card'
+                  selectedDeliverableId === d.id ? 'ring-2 ring-primary shadow-sm bg-card' : 'hover:bg-muted/30 bg-card'
                 )}
               >
                 <div className="flex items-center gap-3">
@@ -243,61 +311,120 @@ const ProjectDetail = () => {
                 </div>
 
                 {activeTab === 'preview' && (
-                  <>
-                    <div className="card-elevated p-6">
-                      <div className="flex items-center justify-between mb-4">
-                        <div>
-                          <h3 className="text-lg font-semibold">{selectedDel.title}</h3>
-                          <p className="text-[13px] text-muted-foreground flex items-center gap-2 mt-1">
-                            <Clock className="h-3 w-3" />
-                            Submitted {new Date(selectedDel.submittedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}
-                            <span className="font-mono">· v{selectedDel.version}</span>
-                          </p>
+                  <div className="space-y-6">
+                    <div className="card-elevated p-0 overflow-hidden">
+                      <div className="p-6 border-b border-border/40 bg-slate-50/50 dark:bg-white/5">
+                        <div className="flex items-start justify-between">
+                          <div className="space-y-1">
+                            <div className="flex items-center gap-2 mb-2">
+                               <Badge variant="outline" className="text-[9px] font-black uppercase tracking-widest border-primary/20 text-primary bg-primary/5">
+                                 Round #{selectedDel.versions?.find(v => v.version === activeVersion)?.reviewRound || 1}
+                               </Badge>
+                               <div className="h-1 w-1 rounded-full bg-border" />
+                               <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-widest">Version {activeVersion}</span>
+                            </div>
+                            <h2 className="text-xl font-bold tracking-tight">{selectedDel.title}</h2>
+                            <p className="text-[13px] text-muted-foreground font-medium">{selectedDel.fileName}</p>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            {selectedDel.versions && selectedDel.versions.length > 1 && (
+                              <div className="flex bg-white dark:bg-slate-800 p-1 rounded-xl border shadow-sm mr-2">
+                                {selectedDel.versions.map(v => (
+                                  <button
+                                    key={v.version}
+                                    onClick={() => setActiveVersion(v.version)}
+                                    className={cn(
+                                      "px-3 py-1.5 rounded-lg text-[10px] font-black uppercase transition-all",
+                                      activeVersion === v.version 
+                                        ? "bg-primary text-white shadow-sm ring-1 ring-primary/20" 
+                                        : "text-muted-foreground hover:text-foreground"
+                                    )}
+                                  >
+                                    v{v.version}
+                                  </button>
+                                ))}
+                              </div>
+                            )}
+                            <StatusBadge status={selectedDel.status} animated />
+                          </div>
                         </div>
-                        <StatusBadge status={selectedDel.status} animated />
-                      </div>
-                      <div className="h-48 rounded-xl bg-muted/30 border border-dashed flex items-center justify-center text-sm text-muted-foreground">
-                        <FileText className="h-8 w-8 mr-2 text-muted-foreground/30" />
-                        {selectedDel.fileName}
-                      </div>
-                      {selectedDel.status !== 'approved' && (
-                        <div className="flex gap-3 mt-5">
-                          <TooltipProvider>
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <div className={cn("flex-1", !beta.canAddEvent && "cursor-not-allowed")}>
-                                  <Button variant="outline" className="w-full" disabled={!beta.canAddEvent}>Request changes</Button>
-                                </div>
-                              </TooltipTrigger>
-                              {!beta.canAddEvent && <TooltipContent><p>Event limit reached ({beta.eventLimit} events)</p></TooltipContent>}
-                            </Tooltip>
-                          </TooltipProvider>
 
-                          <TooltipProvider>
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <div className={cn("flex-1", !beta.canAddEvent && "cursor-not-allowed")}>
-                                  <Button className="w-full gap-2" disabled={!beta.canAddEvent}>
-                                    <CheckCircle2 className="h-4 w-4" />
-                                    Approve
-                                  </Button>
-                                </div>
-                              </TooltipTrigger>
-                              {!beta.canAddEvent && <TooltipContent><p>Event limit reached ({beta.eventLimit} events)</p></TooltipContent>}
-                            </Tooltip>
-                          </TooltipProvider>
+                        {/* Revision Narrative */}
+                        {selectedDel.versions?.find(v => v.version === activeVersion) && (
+                          <div className="mt-6 p-5 rounded-2xl bg-white dark:bg-slate-900 border border-border/40 relative overflow-hidden group/nar">
+                            <div className="absolute top-0 right-0 p-4 opacity-[0.03] group-hover/nar:opacity-[0.07] transition-opacity">
+                              <Sparkles className="h-12 w-12 text-primary" />
+                            </div>
+                            <div className="flex items-center justify-between mb-3">
+                               <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary flex items-center gap-2">
+                                 <Sparkles className="h-3 w-3" /> Revision Summary
+                               </p>
+                               <span className="text-[10px] font-bold text-muted-foreground/40 uppercase tracking-widest">
+                                 By {selectedDel.versions?.find(v => v.version === activeVersion)?.submittedBy}
+                               </span>
+                            </div>
+                            <p className="text-[13px] font-medium leading-relaxed text-slate-700 dark:text-slate-300">
+                               {selectedDel.versions?.find(v => v.version === activeVersion)?.changeSummary || "Final production version."}
+                            </p>
+                            <div className="flex items-center gap-4 mt-4 pt-4 border-t border-border/40">
+                               <div className="flex items-center gap-1.5">
+                                 <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                                 <span className="text-[11px] font-bold">{selectedDel.versions?.find(v => v.version === activeVersion)?.resolvedCount || 0} Resolved</span>
+                               </div>
+                               <div className="flex items-center gap-1.5">
+                                 <div className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+                                 <span className="text-[11px] font-bold">{selectedDel.versions?.find(v => v.version === activeVersion)?.openCount || 0} Open</span>
+                               </div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="p-6 space-y-6">
+                        <div className="h-64 rounded-2xl bg-slate-50 dark:bg-black/20 border border-dashed flex flex-col items-center justify-center text-sm text-muted-foreground transition-colors hover:bg-slate-100 dark:hover:bg-white/5">
+                          <FileText className="h-10 w-10 mb-3 text-muted-foreground/20" />
+                          <p className="font-bold text-slate-900 dark:text-white">{selectedDel.fileName}</p>
+                          <p className="text-[12px] mt-1 uppercase tracking-widest font-black opacity-40">{selectedDel.fileType} Deliverable</p>
                         </div>
-                      )}
-                      {selectedDel.status === 'approved' && (
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.95 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          className="mt-5 rounded-xl bg-success/[0.06] border border-success/20 text-success text-sm font-medium p-4 text-center flex items-center justify-center gap-2"
-                        >
-                          <CheckCircle2 className="h-4 w-4" />
-                          This deliverable has been approved
-                        </motion.div>
-                      )}
+                        {selectedDel.status !== 'approved' && (
+                          <div className="flex gap-3 mt-5">
+                            <TooltipProvider>
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <div className={cn("flex-1", !beta.canAddEvent && "cursor-not-allowed")}>
+                                    <Button variant="outline" className="w-full" disabled={!beta.canAddEvent}>Request changes</Button>
+                                  </div>
+                                </TooltipTrigger>
+                                {!beta.canAddEvent && <TooltipContent><p>Event limit reached ({beta.eventLimit} events)</p></TooltipContent>}
+                              </Tooltip>
+                            </TooltipProvider>
+
+                            <TooltipProvider>
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <div className={cn("flex-1", !beta.canAddEvent && "cursor-not-allowed")}>
+                                    <Button className="w-full gap-2" disabled={!beta.canAddEvent}>
+                                      <CheckCircle2 className="h-4 w-4" />
+                                      Approve
+                                    </Button>
+                                  </div>
+                                </TooltipTrigger>
+                                {!beta.canAddEvent && <TooltipContent><p>Event limit reached ({beta.eventLimit} events)</p></TooltipContent>}
+                              </Tooltip>
+                            </TooltipProvider>
+                          </div>
+                        )}
+                        {selectedDel.status === 'approved' && (
+                          <motion.div
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            className="mt-5 rounded-xl bg-success/[0.06] border border-success/20 text-success text-sm font-medium p-4 text-center flex items-center justify-center gap-2"
+                          >
+                            <CheckCircle2 className="h-4 w-4" />
+                            This deliverable has been approved
+                          </motion.div>
+                        )}
+                      </div>
                     </div>
 
                     {/* Comments */}
@@ -369,11 +496,6 @@ const ProjectDetail = () => {
                             <p className="text-[13px] text-muted-foreground font-medium">No comments yet</p>
                           </div>
                         )}
-                        {comments.length > 0 && comments.filter(c => commentFilter === 'open' ? !c.resolved : commentFilter === 'resolved' ? c.resolved : true).length === 0 && (
-                          <div className="text-center py-8">
-                            <p className="text-[12px] text-muted-foreground font-medium uppercase tracking-widest">No {commentFilter} comments</p>
-                          </div>
-                        )}
                       </div>
                       <div className="flex gap-2">
                         <Textarea
@@ -396,7 +518,7 @@ const ProjectDetail = () => {
                         </TooltipProvider>
                       </div>
                     </div>
-                  </>
+                  </div>
                 )}
 
                 {/* Version history tab */}
@@ -508,64 +630,116 @@ const ProjectDetail = () => {
 
                     {showAddAction && (
                       <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        className="border rounded-xl p-4 mb-5 space-y-3 bg-muted/20"
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="border border-slate-200 dark:border-white/10 rounded-[32px] p-10 mb-10 bg-white dark:bg-slate-900 shadow-2xl shadow-slate-200/50 dark:shadow-none relative overflow-hidden"
                       >
-                        <div className="grid sm:grid-cols-2 gap-3">
-                          <div className="space-y-1.5">
-                            <Label className="text-[12px]">Label</Label>
-                            <Input placeholder="e.g. Pay now" className="text-[13px]" />
-                          </div>
-                          <div className="space-y-1.5">
-                            <Label className="text-[12px]">Destination URL</Label>
-                            <Input placeholder="https://..." className="text-[13px]" />
-                          </div>
-                        </div>
-                        <div className="grid sm:grid-cols-2 gap-3">
-                          <div className="space-y-1.5">
-                            <Label className="text-[12px]">Provider type</Label>
-                            <select className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-[13px] ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-                              {Object.entries(providerTypeLabels).map(([key, label]) => (
-                                <option key={key} value={key}>{label}</option>
-                              ))}
-                            </select>
-                          </div>
-                          <div className="space-y-1.5">
-                            <Label className="text-[12px]">Show when</Label>
-                            <select className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-[13px] ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-                              <option value="on_approval">After approval</option>
-                              <option value="always">Always</option>
-                            </select>
+                        <div className="mb-10">
+                          <Label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 ml-1 mb-4 block">Select Provider Type</Label>
+                          <div className="flex flex-wrap gap-3">
+                            {Object.entries(providerTypeLabels).map(([key, label]) => {
+                              const Icon = providerIcons[key as NextStepProviderType];
+                              const isSelected = newAction.providerType === key;
+                              return (
+                                <button
+                                  key={key}
+                                  onClick={() => setNewAction(prev => ({ ...prev, providerType: key as NextStepProviderType }))}
+                                  className={cn(
+                                    "flex flex-col items-center justify-center p-3 rounded-2xl border transition-all gap-2 min-w-[80px]",
+                                    isSelected 
+                                      ? "border-primary bg-primary/[0.04] text-primary ring-1 ring-primary" 
+                                      : "border-border/40 hover:border-border hover:bg-slate-50 dark:hover:bg-white/5 text-muted-foreground/60"
+                                  )}
+                                >
+                                  <Icon className={cn("h-6 w-6", isSelected ? "text-primary" : "text-muted-foreground/40")} />
+                                  <span className="text-[10px] font-bold truncate max-w-full">{label}</span>
+                                </button>
+                              );
+                            })}
                           </div>
                         </div>
-                        <div className="flex gap-2 justify-end">
-                          <Button variant="outline" size="sm" onClick={() => setShowAddAction(false)}>Cancel</Button>
-                          <Button size="sm" onClick={() => setShowAddAction(false)}>Add action</Button>
+
+                        <div className="grid sm:grid-cols-2 gap-8">
+                          <div className="space-y-3">
+                            <Label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 ml-1">Action Label</Label>
+                            <Input 
+                              placeholder="e.g. Download final files" 
+                              className="h-14 bg-slate-50 dark:bg-black/20 border-border/20 focus:ring-primary/10 transition-all rounded-2xl text-[15px] font-medium px-5" 
+                              value={newAction.label}
+                              onChange={e => setNewAction(prev => ({ ...prev, label: e.target.value }))}
+                            />
+                          </div>
+                          <div className="space-y-3">
+                            <Label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 ml-1 text-primary">Destination URL</Label>
+                            <Input 
+                              placeholder="https://..." 
+                              className="h-14 bg-slate-50 dark:bg-black/20 border-border/20 focus:ring-primary/10 transition-all rounded-2xl text-[15px] font-medium px-5" 
+                              value={newAction.url}
+                              onChange={e => handleUrlChange(e.target.value)}
+                            />
+                          </div>
+                        </div>
+                        
+                        <div className="grid sm:grid-cols-2 gap-8 mt-8">
+                          <div className="space-y-3">
+                            <Label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 ml-1">Show when</Label>
+                            <select 
+                              className="flex h-14 w-full rounded-2xl border border-border/20 bg-slate-50 dark:bg-black/20 px-5 py-2 text-[15px] font-medium ring-offset-background cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/10 transition-all appearance-none"
+                              value={newAction.showWhen}
+                              onChange={e => setNewAction(prev => ({ ...prev, showWhen: e.target.value as 'on_approval' | 'always' }))}
+                            >
+                              <option value="on_approval">After final approval</option>
+                              <option value="always">Always visible</option>
+                            </select>
+                          </div>
+                          
+                          <div className="flex items-end justify-end gap-4 p-2">
+                             <Button 
+                              variant="ghost" 
+                              className="rounded-2xl px-6 h-14 text-[12px] font-black uppercase tracking-widest hover:bg-slate-100 dark:hover:bg-white/5" 
+                              onClick={() => setShowAddAction(false)}
+                            >
+                              Cancel
+                            </Button>
+                            <Button 
+                              size="lg" 
+                              className="rounded-2xl px-10 h-14 bg-slate-900 dark:bg-primary text-white shadow-xl shadow-slate-200 dark:shadow-none hover:scale-[1.02] transition-all text-[12px] font-black uppercase tracking-widest"
+                              onClick={handleAddAction}
+                              disabled={!newAction.label || !newAction.url}
+                            >
+                              Add action
+                            </Button>
+                          </div>
                         </div>
                       </motion.div>
                     )}
 
-                    {/* Project-level actions */}
                     {projectActions.length > 0 && (
-                      <div className="mb-5">
-                        <p className="text-[11px] font-medium text-muted-foreground uppercase tracking-wider mb-2">Project actions</p>
-                        <div className="space-y-2">
+                      <div className="mb-10">
+                        <p className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em] mb-4 ml-1">Project Actions</p>
+                        <div className="grid gap-3">
                           {projectActions.map(action => {
                             const Icon = providerIcons[action.providerType];
                             return (
-                              <div key={action.id} className="flex items-center gap-3 rounded-xl border p-3.5 bg-card">
-                                <div className="h-9 w-9 rounded-lg bg-primary/[0.06] flex items-center justify-center flex-shrink-0">
-                                  <Icon className="h-4 w-4 text-primary" />
+                              <div key={action.id} className="flex items-center gap-5 rounded-[24px] border border-slate-200 dark:border-white/5 p-5 bg-white dark:bg-slate-900 group/item transition-all hover:bg-slate-50 dark:hover:bg-white/[0.02] hover:shadow-lg hover:shadow-slate-200/50 dark:hover:shadow-none">
+                                <div className="h-14 w-14 rounded-2xl bg-slate-50 dark:bg-white/5 flex items-center justify-center flex-shrink-0 group-hover/item:scale-110 transition-transform shadow-sm ring-1 ring-border/20">
+                                  <Icon className="h-6 w-6 text-slate-700 dark:text-slate-200" />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                  <p className="text-[13px] font-medium">{action.label}</p>
-                                  <p className="text-[11px] text-muted-foreground truncate">{action.url}</p>
+                                  <p className="text-[15px] font-bold text-slate-900 dark:text-white mb-0.5">{action.label}</p>
+                                  <p className="text-[11px] text-muted-foreground font-medium truncate opacity-60">{action.url}</p>
                                 </div>
-                                <span className="text-[10px] font-medium text-muted-foreground bg-muted px-2 py-0.5 rounded-full">{providerTypeLabels[action.providerType]}</span>
-                                <button className="p-1.5 rounded-md hover:bg-destructive/10 text-muted-foreground hover:text-destructive transition-colors">
-                                  <Trash2 className="h-3.5 w-3.5" />
-                                </button>
+                                <div className="flex items-center gap-3">
+                                  <Badge variant="secondary" className="text-[10px] font-black uppercase tracking-widest px-2.5 py-1 bg-slate-100 dark:bg-white/5 text-muted-foreground border-none">
+                                    {providerTypeLabels[action.providerType]}
+                                  </Badge>
+                                  <button 
+                                    onClick={() => handleDeleteAction(action.id)}
+                                    className="p-2.5 rounded-xl hover:bg-destructive/10 text-muted-foreground/40 hover:text-destructive transition-all group-hover/item:opacity-100"
+                                  >
+                                    <Trash2 className="h-4 w-4" />
+                                  </button>
+                                </div>
                               </div>
                             );
                           })}
@@ -573,25 +747,26 @@ const ProjectDetail = () => {
                       </div>
                     )}
 
-                    {/* Workspace-level (inherited) actions */}
                     {workspaceActions.length > 0 && (
                       <div>
-                        <p className="text-[11px] font-medium text-muted-foreground uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                          <Building2 className="h-3 w-3" /> Inherited from workspace
+                        <p className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em] mb-4 ml-1 flex items-center gap-2">
+                          <Building2 className="h-3.5 w-3.5" /> Inherited from workspace
                         </p>
-                        <div className="space-y-2">
+                        <div className="grid gap-3 opacity-80">
                           {workspaceActions.map(action => {
                             const Icon = providerIcons[action.providerType];
                             return (
-                              <div key={action.id} className="flex items-center gap-3 rounded-xl border border-dashed p-3.5 opacity-75">
-                                <div className="h-9 w-9 rounded-lg bg-muted flex items-center justify-center flex-shrink-0">
-                                  <Icon className="h-4 w-4 text-muted-foreground" />
+                              <div key={action.id} className="flex items-center gap-5 rounded-[24px] border border-dashed border-slate-200 dark:border-white/10 p-5 bg-slate-50/20 dark:bg-transparent transition-all">
+                                <div className="h-14 w-14 rounded-2xl bg-white dark:bg-white/5 flex items-center justify-center flex-shrink-0 shadow-sm ring-1 ring-border/20">
+                                  <Icon className="h-6 w-6 text-slate-400 dark:text-slate-500" />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                  <p className="text-[13px] font-medium">{action.label}</p>
-                                  <p className="text-[11px] text-muted-foreground truncate">{action.url}</p>
+                                  <p className="text-[15px] font-bold text-slate-400 dark:text-slate-500 mb-0.5">{action.label}</p>
+                                  <p className="text-[11px] text-muted-foreground font-medium truncate opacity-40">{action.url}</p>
                                 </div>
-                                <span className="text-[10px] font-medium text-muted-foreground bg-muted px-2 py-0.5 rounded-full">{providerTypeLabels[action.providerType]}</span>
+                                <Badge variant="outline" className="text-[10px] font-black uppercase tracking-widest px-2.5 py-1 border-slate-200 dark:border-white/5 text-slate-400">
+                                  {providerTypeLabels[action.providerType]}
+                                </Badge>
                               </div>
                             );
                           })}

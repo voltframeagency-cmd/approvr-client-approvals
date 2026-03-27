@@ -17,6 +17,17 @@ export interface Project {
   isOverdue?: boolean;
 }
 
+export interface DeliverableVersion {
+  version: number;
+  submittedAt: string;
+  submittedBy: string;
+  note?: string;
+  changeSummary?: string; // "What Changed" narrative
+  resolvedCount?: number;
+  openCount?: number;
+  reviewRound?: number;
+}
+
 export interface Deliverable {
   id: string;
   projectId: string;
@@ -27,12 +38,13 @@ export interface Deliverable {
   status: DeliverableStatus;
   submittedAt: string;
   fileUrl?: string;
-  versions?: { version: number; submittedAt: string; note?: string }[];
+  versions?: DeliverableVersion[];
 }
 
 export interface Comment {
   id: string;
   deliverableId: string;
+  versionNumber: number; // Version-aware comments
   authorName: string;
   authorType: 'agency' | 'client';
   body: string;
@@ -78,9 +90,35 @@ export const mockDeliverables: Deliverable[] = [
     status: 'approved', 
     submittedAt: '2026-03-20T14:30:00', 
     versions: [
-      { version: 1, submittedAt: '2026-03-16T09:00:00', note: 'Initial concept based on moodboard.' }, 
-      { version: 2, submittedAt: '2026-03-18T11:20:00', note: 'Refined proportions and simplified geometry.' }, 
-      { version: 3, submittedAt: '2026-03-20T14:30:00', note: 'Final color application and export.' }
+      { 
+        version: 1, 
+        submittedAt: '2026-03-16T09:00:00', 
+        submittedBy: 'Alex Rivera',
+        note: 'Initial concept based on moodboard.',
+        changeSummary: 'First draft upload.',
+        openCount: 2,
+        reviewRound: 1
+      }, 
+      { 
+        version: 2, 
+        submittedAt: '2026-03-18T11:20:00', 
+        submittedBy: 'Alex Rivera',
+        note: 'Refined proportions and simplified geometry.',
+        changeSummary: 'Simplified paths, adjusted kerning on typography.',
+        resolvedCount: 2,
+        openCount: 1,
+        reviewRound: 2
+      }, 
+      { 
+        version: 3, 
+        submittedAt: '2026-03-20T14:30:00', 
+        submittedBy: 'Alex Rivera',
+        note: 'Final color application and export.',
+        changeSummary: 'Finalized color palette application and SVG optimization.',
+        resolvedCount: 1,
+        openCount: 0,
+        reviewRound: 3
+      }
     ] 
   },
   { 
@@ -93,21 +131,38 @@ export const mockDeliverables: Deliverable[] = [
     status: 'approved', 
     submittedAt: '2026-03-21T10:00:00', 
     versions: [
-      { version: 1, submittedAt: '2026-03-17T15:00:00', note: 'Exploration of warm vs cool tones.' }, 
-      { version: 2, submittedAt: '2026-03-21T10:00:00', note: 'Added secondary palette for digital use.' }
+      { 
+        version: 1, 
+        submittedAt: '2026-03-17T15:00:00',
+        submittedBy: 'Alex Rivera',
+        note: 'Exploration of warm vs cool tones.',
+        changeSummary: 'Initial palette upload.',
+        openCount: 1,
+        reviewRound: 1
+      }, 
+      { 
+        version: 2, 
+        submittedAt: '2026-03-21T10:00:00',
+        submittedBy: 'Alex Rivera',
+        note: 'Added secondary palette for digital use.',
+        changeSummary: 'Expanded primary colors and added accessibility-tested secondary tones.',
+        resolvedCount: 1,
+        openCount: 0,
+        reviewRound: 2
+      }
     ] 
   },
-  { id: 'd3', projectId: '1', title: 'Typography Guide', fileName: 'typography-guide-v1.pdf', fileType: 'pdf', version: 1, status: 'in_review', submittedAt: '2026-03-23' },
-  { id: 'd4', projectId: '1', title: 'Brand Guidelines Doc', fileName: 'brand-guidelines-v1.pdf', fileType: 'pdf', version: 1, status: 'in_review', submittedAt: '2026-03-24' },
-  { id: 'd5', projectId: '2', title: 'Homepage Mockup', fileName: 'homepage-v2.fig', fileType: 'fig', version: 2, status: 'changes_requested', submittedAt: '2026-03-18', versions: [{ version: 1, submittedAt: '2026-03-14' }, { version: 2, submittedAt: '2026-03-18', note: 'Updated hero section with more white space.' }] },
-  { id: 'd6', projectId: '2', title: 'About Page', fileName: 'about-v1.fig', fileType: 'fig', version: 1, status: 'in_review', submittedAt: '2026-03-19' },
+  { id: 'd3', projectId: '1', title: 'Typography Guide', fileName: 'typography-guide-v2.pdf', fileType: 'pdf', version: 2, status: 'in_review', submittedAt: '2026-03-25', versions: [{ version: 1, submittedAt: '2026-03-23', submittedBy: 'Alex Rivera', changeSummary: 'First draft.', openCount: 2, reviewRound: 1 }, { version: 2, submittedAt: '2026-03-25', submittedBy: 'Alex Rivera', changeSummary: 'Adjusted weights based on mobile readability feedback.', resolvedCount: 1, openCount: 1, reviewRound: 2 }] },
+  { id: 'd4', projectId: '1', title: 'Brand Guidelines Doc', fileName: 'brand-guidelines-v1.pdf', fileType: 'pdf', version: 1, status: 'in_review', submittedAt: '2026-03-24', versions: [{ version: 1, submittedAt: '2026-03-24', submittedBy: 'Alex Rivera', changeSummary: 'Initial guidelines assembly.', openCount: 0, reviewRound: 1 }] },
+  { id: 'd5', projectId: '2', title: 'Homepage Mockup', fileName: 'homepage-v2.fig', fileType: 'fig', version: 2, status: 'changes_requested', submittedAt: '2026-03-18', versions: [{ version: 1, submittedAt: '2026-03-14', submittedBy: 'Alex Rivera', changeSummary: 'Initial layout.', openCount: 3, reviewRound: 1 }, { version: 2, submittedAt: '2026-03-18', submittedBy: 'Alex Rivera', note: 'Updated hero section with more white space.', changeSummary: 'Revised hero spacing and increased contrast for call-to-actions.', resolvedCount: 1, openCount: 2, reviewRound: 2 }] },
+  { id: 'd6', projectId: '2', title: 'About Page', fileName: 'about-v1.fig', fileType: 'fig', version: 1, status: 'in_review', submittedAt: '2026-03-19', versions: [{ version: 1, submittedAt: '2026-03-19', submittedBy: 'Alex Rivera', changeSummary: 'Initial design.', openCount: 0, reviewRound: 1 }] },
 ];
 
 export const mockComments: Comment[] = [
-  { id: 'c1', deliverableId: 'd3', authorName: 'Sarah Chen', authorType: 'client', body: 'Love the direction! Can we try a slightly heavier weight for the body text? It feels a bit thin on mobile.', createdAt: '2026-03-24T10:30:00', resolved: false },
-  { id: 'c2', deliverableId: 'd3', authorName: 'Alex Rivera', authorType: 'agency', body: 'Great catch — I\'ll update to 400 weight for body and send a new version by tomorrow.', createdAt: '2026-03-24T11:15:00', resolved: false },
-  { id: 'c6', deliverableId: 'd1', authorName: 'Sarah Chen', authorType: 'client', body: 'Perfect — love the final version. Approved!', createdAt: '2026-03-20T16:00:00', resolved: true },
-  { id: 'c7', deliverableId: 'd3', authorName: 'Sarah Chen', authorType: 'client', body: 'Also, is this font license included or do we buy it separately?', createdAt: '2026-03-24T12:00:00', resolved: true },
+  { id: 'c1', deliverableId: 'd3', versionNumber: 1, authorName: 'Sarah Chen', authorType: 'client', body: 'Love the direction! Can we try a slightly heavier weight for the body text? It feels a bit thin on mobile.', createdAt: '2026-03-24T10:30:00', resolved: true },
+  { id: 'c2', deliverableId: 'd3', versionNumber: 2, authorName: 'Alex Rivera', authorType: 'agency', body: 'Great catch — I\'ve updated to 400 weight for body in this latest version.', createdAt: '2026-03-25T11:15:00', resolved: false },
+  { id: 'c6', deliverableId: 'd1', versionNumber: 3, authorName: 'Sarah Chen', authorType: 'client', body: 'Perfect — love the final version. Approved!', createdAt: '2026-03-20T16:00:00', resolved: true },
+  { id: 'c7', deliverableId: 'd3', versionNumber: 1, authorName: 'Sarah Chen', authorType: 'client', body: 'Also, is this font license included or do we buy it separately?', createdAt: '2026-03-24T12:00:00', resolved: false },
 ];
 
 export const mockActivity: ActivityItem[] = [
@@ -128,7 +183,7 @@ export const mockNotifications: Notification[] = [
   { id: 'n5', title: 'Review overdue', body: 'Website Redesign is past its deadline with pending changes', read: false, createdAt: '2026-03-26T08:00:00', type: 'reminder' },
 ];
 
-export type NextStepProviderType = 'contract_link' | 'invoice_link' | 'payment_link' | 'booking_link' | 'file_delivery_link' | 'onboarding_link' | 'custom_url';
+export type NextStepProviderType = 'contract' | 'invoice' | 'payment' | 'booking' | 'delivery' | 'onboarding' | 'custom';
 
 export interface NextStepAction {
   id: string;
@@ -141,20 +196,20 @@ export interface NextStepAction {
 }
 
 export const mockNextStepActions: NextStepAction[] = [
-  { id: 'ns1', label: 'Open contract link', url: 'https://docusign.com/sign/abc123', providerType: 'contract_link', displayCondition: 'on_approval', scope: 'workspace' },
-  { id: 'ns2', label: 'Pay now', url: 'https://invoice.stripe.com/i/acct_123', providerType: 'payment_link', displayCondition: 'on_approval', scope: 'workspace' },
-  { id: 'ns3', label: 'Book next call', url: 'https://calendly.com/rivera-design/30min', providerType: 'booking_link', displayCondition: 'on_approval', scope: 'workspace' },
-  { id: 'ns4', label: 'Download final files', url: 'https://drive.google.com/drive/folders/abc', providerType: 'file_delivery_link', displayCondition: 'on_approval', scope: 'project', projectId: '1' },
+  { id: 'ns1', label: 'Open contract link', url: 'https://docusign.com/sign/abc123', providerType: 'contract', displayCondition: 'on_approval', scope: 'workspace' },
+  { id: 'ns2', label: 'Pay now', url: 'https://invoice.stripe.com/i/acct_123', providerType: 'payment', displayCondition: 'on_approval', scope: 'workspace' },
+  { id: 'ns3', label: 'Book next call', url: 'https://calendly.com/rivera-design/30min', providerType: 'booking', displayCondition: 'on_approval', scope: 'workspace' },
+  { id: 'ns4', label: 'Download final files', url: 'https://drive.google.com/drive/folders/abc', providerType: 'delivery', displayCondition: 'on_approval', scope: 'project', projectId: '1' },
 ];
 
 export const providerTypeLabels: Record<NextStepProviderType, string> = {
-  contract_link: 'Contract',
-  invoice_link: 'Invoice',
-  payment_link: 'Payment',
-  booking_link: 'Booking',
-  file_delivery_link: 'File delivery',
-  onboarding_link: 'Onboarding',
-  custom_url: 'Custom link',
+  contract: 'Contract',
+  invoice: 'Invoice',
+  payment: 'Payment',
+  booking: 'Booking',
+  delivery: 'File Delivery',
+  onboarding: 'Onboarding',
+  custom: 'Custom Link',
 };
 
 export interface FounderBetaMetadata {
@@ -164,6 +219,85 @@ export interface FounderBetaMetadata {
   lifetimeApprovalEvents: number;
   readOnlyAfterExpiry: boolean;
 }
+
+export interface WorkspaceMember {
+  id: string;
+  name: string;
+  email: string;
+  role: 'owner' | 'admin' | 'member';
+  avatarUrl?: string;
+}
+
+export interface Workspace {
+  id: string;
+  name: string;
+  agencyName: string;
+  supportEmail: string;
+  timezone: string;
+  defaultLanguage: string;
+  brandDescription: string;
+  logoUrl?: string;
+  accentColor: string;
+  portalWelcomeMessage: string;
+  portalFooterText: string;
+  portalHelpUrl: string;
+  portalSuccessMessage: string;
+  reviewDefaults: {
+    approveLabel: string;
+    requestChangesLabel: string;
+    autoCollapseResolved: boolean;
+    clientCanResolve: boolean;
+    showHistoryByDefault: boolean;
+  };
+  notificationDefaults: {
+    reminderCadenceDays: number;
+    notifyOnComment: boolean;
+    notifyOnApproval: boolean;
+    notifyOnChangesRequested: boolean;
+  };
+  securityDefaults: {
+    magicLinkExpirationDays: number;
+    requireEmailVerification: boolean;
+  };
+}
+
+export const mockWorkspace: Workspace = {
+  id: 'w1',
+  name: 'Rivera Design Co',
+  agencyName: 'Rivera Design Studio',
+  supportEmail: 'support@riveradesign.co',
+  timezone: 'America/New_York',
+  defaultLanguage: 'en',
+  brandDescription: 'Boutique brand identity and high-end digital design for modern startups.',
+  accentColor: '#0d9488',
+  portalWelcomeMessage: 'Welcome! Review the deliverables below and leave your feedback. When everything looks good, hit Approve.',
+  portalFooterText: '© 2026 Rivera Design Studio. All rights reserved.',
+  portalHelpUrl: 'https://support.riveradesign.co',
+  portalSuccessMessage: 'Thank you! Your approval has been recorded. We will reach out with the next steps shortly.',
+  reviewDefaults: {
+    approveLabel: 'Approve Deliverable',
+    requestChangesLabel: 'Request Revisions',
+    autoCollapseResolved: true,
+    clientCanResolve: false,
+    showHistoryByDefault: true,
+  },
+  notificationDefaults: {
+    reminderCadenceDays: 3,
+    notifyOnComment: true,
+    notifyOnApproval: true,
+    notifyOnChangesRequested: true,
+  },
+  securityDefaults: {
+    magicLinkExpirationDays: 7,
+    requireEmailVerification: false,
+  },
+};
+
+export const mockMembers: WorkspaceMember[] = [
+  { id: 'm1', name: 'Alex Rivera', email: 'alex@riveradesign.co', role: 'owner' },
+  { id: 'm2', name: 'Jordan Smith', email: 'jordan@riveradesign.co', role: 'admin' },
+  { id: 'm3', name: 'Taylor Wong', email: 'taylor@riveradesign.co', role: 'member' },
+];
 
 export const mockFounderBeta: FounderBetaMetadata = {
   isFounderBeta: true,
