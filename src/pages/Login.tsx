@@ -7,6 +7,7 @@ import { Logo } from '@/components/brand/Logo';
 import HeroBackground from '@/components/landing/HeroBackground';
 import { ShieldCheck, ArrowRight, Sparkles } from 'lucide-react';
 
+
 const Login = () => {
   const containerVariants = {
     hidden: { opacity: 0 },
