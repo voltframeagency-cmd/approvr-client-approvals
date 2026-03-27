@@ -5,6 +5,15 @@ import { ArrowRight, Play } from 'lucide-react';
 import { motion } from 'framer-motion';
 import HeroBackground from './HeroBackground';
 import HeroDemoMockup from './HeroDemoMockup';
+import { AvatarGroup } from '@/components/ui/avatar';
+
+const founderMembers = [
+  { username: 'Sarah', src: 'https://i.pravatar.cc/80?img=1' },
+  { username: 'Alex', src: 'https://i.pravatar.cc/80?img=3' },
+  { username: 'Jamie', src: 'https://i.pravatar.cc/80?img=5' },
+  { username: 'Morgan', src: 'https://i.pravatar.cc/80?img=7' },
+  { username: 'Taylor', src: 'https://i.pravatar.cc/80?img=9' },
+];
 
 const Hero = () => (
   <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
@@ -64,6 +73,19 @@ const Hero = () => (
             Watch demo
             <span className="text-muted-foreground text-[12px]">2 min</span>
           </Button>
+        </motion.div>
+
+        {/* Social proof avatars */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="flex items-center justify-center gap-3 mt-8"
+        >
+          <AvatarGroup members={founderMembers} size={28} limit={4} />
+          <span className="text-sm text-muted-foreground">
+            Join <span className="font-semibold text-foreground">380+</span> agencies already in
+          </span>
         </motion.div>
       </motion.div>
 
