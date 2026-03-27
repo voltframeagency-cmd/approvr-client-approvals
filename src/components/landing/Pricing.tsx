@@ -225,7 +225,7 @@ const Pricing = () => {
                   <div className="mt-auto">
                     <Link to="/signup" className="block">
                       {plan.popular ? (
-                        <ShinyButton className="w-full h-14 text-base font-bold group/btn">
+                        <ShinyButton className="w-full h-14 text-base font-bold group/btn rounded-lg">
                           {plan.cta}
                           <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
                         </ShinyButton>
