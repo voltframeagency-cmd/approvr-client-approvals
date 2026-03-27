@@ -295,6 +295,7 @@ html.lenis, html.lenis body {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+  overflow: visible;
 }
 
 .shiny-cta span::before {
