@@ -26,7 +26,7 @@ const plans = [
     ],
     cta: 'Join Founder Beta',
     popular: false,
-    icon: Lock,
+    icon: ProHexagonIcon,
     badge: 'Invite only',
     note: 'Lifetime founders access · Verified invite required',
   },
