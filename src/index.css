@@ -291,6 +291,10 @@ html.lenis, html.lenis body {
 
 .shiny-cta span {
   z-index: 1;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .shiny-cta span::before {
