@@ -221,6 +221,7 @@ const ApproveVisual = () => (
         key={i}
         className="absolute w-1.5 h-1.5 bg-primary/40 rounded-full"
         initial={{ opacity: 0, x: 0, y: 0 }}
+        viewport={{ once: true }}
         whileInView={{
           opacity: [0, 1, 0],
           x: Math.cos((i / 8) * Math.PI * 2) * 80,
