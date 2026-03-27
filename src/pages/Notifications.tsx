@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { mockNotifications, Notification, providerTypeLabels } from '@/lib/mock-data';
 import { 
   Bell, 
@@ -43,6 +44,7 @@ const urgencyConfig: Record<string, { color: string; bg: string; border: string 
 type FilterType = 'all' | 'unread' | 'approval' | 'comment' | 'reminder';
 
 const Notifications = () => {
+  const navigate = useNavigate();
   const [filter, setFilter] = useState<FilterType>('all');
   const [notifications, setNotifications] = useState<Notification[]>(mockNotifications);
 
@@ -224,7 +226,10 @@ const Notifications = () => {
                               <Archive className="h-3 w-3" /> Archive
                             </button>
                             {n.projectId && (
-                              <button className="text-[11px] font-medium text-muted-foreground hover:text-foreground flex items-center gap-1">
+                              <button 
+                                onClick={() => navigate(`/dashboard/projects/${n.projectId}`)}
+                                className="text-[11px] font-medium text-muted-foreground hover:text-foreground flex items-center gap-1"
+                              >
                                 <ExternalLink className="h-3 w-3" /> View Project
                               </button>
                             )}
