@@ -122,7 +122,7 @@ export const HowItWorks = () => {
                     <p className="text-lg text-muted-foreground leading-relaxed max-w-md mx-auto md:mx-0">
                       {step.description}
                     </p>
-                    <div className={`mt-8 flex items-center gap-2 font-black text-primary ${isEven ? 'justify-center md:justify-start' : 'justify-center md:justify-end'}`}>
+                    <div className={`mt-8 flex items-center gap-2 font-black text-primary ${isEven ? 'justify-center md:justify-start' : 'justify-center md:justify-end'}`} style={{ textShadow: '0 4px 12px hsl(0 0% 0% / 0.15)' }}>
                       View Demo <ArrowRight className="h-4 w-4" />
                     </div>
                   </div>
