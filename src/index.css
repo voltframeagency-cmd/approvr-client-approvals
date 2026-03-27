@@ -217,7 +217,7 @@ html.lenis, html.lenis body {
   --shiny-cta-bg-subtle: hsl(169 76% 28%);
   --shiny-cta-fg: #ffffff;
   --shiny-cta-highlight: hsl(169 80% 55%);
-  --shiny-cta-highlight-subtle: hsl(160 80% 65%);
+  --shiny-cta-highlight-subtle: hsl(169 76% 65%);
   --animation: gradient-angle linear infinite;
   --duration: 3s;
   --shadow-size: 2px;
