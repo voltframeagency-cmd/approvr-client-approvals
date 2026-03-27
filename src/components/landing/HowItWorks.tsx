@@ -91,7 +91,7 @@ export const HowItWorks = () => {
 
                   {/* Image/Visual Area */}
                   <div className="w-full md:w-1/2 group">
-                    <div className="aspect-video rounded-[3rem] border border-primary/20 bg-muted/20 backdrop-blur-md overflow-hidden p-6 md:p-10 flex items-center justify-center relative shadow-inner hover:bg-muted/30 transition-all duration-700">
+                    <div className="aspect-video rounded-[3rem] border border-primary/20 bg-muted/30 overflow-hidden p-6 md:p-10 flex items-center justify-center relative shadow-inner hover:bg-muted/40 transition-all duration-700">
                       <div className="absolute inset-0 bg-gradient-to-tr from-primary/[0.05] via-transparent to-transparent opacity-50" />
                       
                       {/* Premium Mockup Window Frame */}
