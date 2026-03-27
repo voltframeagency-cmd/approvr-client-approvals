@@ -188,7 +188,7 @@ const ReviewVisual = () => (
           m.side === 'left' 
             ? 'bg-gradient-to-br from-muted via-muted to-accent/30 text-foreground' 
             : 'bg-gradient-to-br from-primary via-primary to-primary/70 text-primary-foreground'
-        } shadow-lg shadow-black/5`}>
+        } shadow-xl shadow-black/10 dark:shadow-black/30`}>
           <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-transparent to-transparent rounded-2xl pointer-events-none" />
           {m.text}
         </div>
