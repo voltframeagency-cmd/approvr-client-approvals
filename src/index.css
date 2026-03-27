@@ -38,7 +38,7 @@ html.lenis, html.lenis body {
     --secondary: 220 14% 96%;
     --secondary-foreground: 220 20% 10%;
     --muted: 220 14% 96%;
-    --muted-foreground: 220 10% 46%;
+    --muted-foreground: 220 10% 41%; /* Darkened for better contrast on light backgrounds (was 46%) */
     --accent: 160 84% 39%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 72% 51%;
@@ -135,12 +135,14 @@ html.lenis, html.lenis body {
     background-color: hsl(var(--surface-sunken));
   }
   .card-elevated {
-    @apply bg-card border rounded-xl;
+    @apply bg-card border rounded-2xl;
     box-shadow: 0 1px 3px -1px hsla(var(--shadow-color), 0.05), 0 4px 16px -4px hsla(var(--shadow-color), 0.03);
-    transition: box-shadow 0.3s ease, transform 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .card-elevated:hover {
-    box-shadow: 0 2px 8px -2px hsla(var(--shadow-color), 0.08), 0 8px 32px -8px hsla(var(--shadow-color), 0.06);
+    @apply border-primary/20;
+    box-shadow: 0 4px 12px -2px hsla(var(--shadow-color), 0.08), 0 12px 40px -8px hsla(var(--shadow-color), 0.06);
+    transform: translateY(-2px);
   }
   .card-interactive {
     @apply card-elevated cursor-pointer;
