@@ -91,7 +91,7 @@ export const HowItWorks = () => {
 
                   {/* Image/Visual Area */}
                   <div className="w-full md:w-1/2 group">
-                    <div className="aspect-video rounded-[3rem] border border-primary/20 bg-muted/20 backdrop-blur-md overflow-hidden p-6 md:p-10 flex items-center justify-center relative shadow-inner hover:bg-muted/30 transition-all duration-700">
+                    <div className="aspect-video rounded-[3rem] border border-primary/20 bg-muted/30 overflow-hidden p-6 md:p-10 flex items-center justify-center relative shadow-inner hover:bg-muted/40 transition-all duration-700">
                       <div className="absolute inset-0 bg-gradient-to-tr from-primary/[0.05] via-transparent to-transparent opacity-50" />
                       
                       {/* Premium Mockup Window Frame */}
@@ -100,7 +100,7 @@ export const HowItWorks = () => {
                         whileInView={{ opacity: 1, y: 0, scale: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-                        className="w-full max-w-[90%] bg-card/90 backdrop-blur-3xl border border-primary/10 rounded-[2rem] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.2)] relative overflow-hidden group-hover:shadow-[0_45px_100px_-20px_rgba(0,0,0,0.15)] transition-all duration-700"
+                        className="w-full max-w-[90%] bg-card border border-primary/10 rounded-[2rem] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.2)] relative overflow-hidden group-hover:shadow-[0_45px_100px_-20px_rgba(0,0,0,0.15)] transition-all duration-700"
                       >
                         {/* Chrome / Window Header */}
                         <div className="h-10 border-b border-primary/5 px-6 flex items-center justify-between bg-muted/40">
@@ -159,8 +159,9 @@ const UploadVisual = () => (
         key={i}
         initial={{ opacity: 0, x: -20 }}
         whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
         transition={{ delay: i * 0.15 }}
-        className="w-full bg-card/60 backdrop-blur-md border rounded-xl p-4 flex items-center gap-4 shadow-sm"
+        className="w-full bg-card border rounded-xl p-4 flex items-center gap-4 shadow-sm"
       >
         <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-black text-[10px]">
           SVG
@@ -171,6 +172,7 @@ const UploadVisual = () => (
             className="h-1 bg-primary rounded-full"
             initial={{ width: "0%" }}
             whileInView={{ width: "100%" }}
+            viewport={{ once: true }}
             transition={{ duration: 1, delay: 0.5 + i * 0.1 }}
           />
         </div>
@@ -189,6 +191,7 @@ const ReviewVisual = () => (
         key={i}
         initial={{ opacity: 0, scale: 0.9, x: m.side === 'left' ? -20 : 20 }}
         whileInView={{ opacity: 1, scale: 1, x: 0 }}
+        viewport={{ once: true }}
         transition={{ delay: i * 0.4 }}
         className={`flex ${m.side === 'left' ? 'justify-start' : 'justify-end'}`}
       >
@@ -207,6 +210,7 @@ const ApproveVisual = () => (
     <motion.div
       initial={{ scale: 0 }}
       whileInView={{ scale: 1 }}
+      viewport={{ once: true }}
       transition={{ type: 'spring', damping: 10 }}
       className="h-24 w-24 rounded-full bg-primary/10 flex items-center justify-center ring-2 ring-primary/20"
     >
@@ -217,6 +221,7 @@ const ApproveVisual = () => (
         key={i}
         className="absolute w-1.5 h-1.5 bg-primary/40 rounded-full"
         initial={{ opacity: 0, x: 0, y: 0 }}
+        viewport={{ once: true }}
         whileInView={{
           opacity: [0, 1, 0],
           x: Math.cos((i / 8) * Math.PI * 2) * 80,
