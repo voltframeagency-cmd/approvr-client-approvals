@@ -77,7 +77,7 @@ const SocialProof = () => {
         >
           {stats.map((stat) => (
             <motion.div key={stat.label} variants={itemVariants} className="text-center group">
-              <p className="text-4xl md:text-5xl font-black tracking-tight text-primary mb-2 group-hover:scale-110 transition-transform duration-500">
+              <p className="text-4xl md:text-5xl font-black tracking-tight text-primary mb-2 group-hover:scale-110 transition-transform duration-500 drop-shadow-sm">
                 <AnimatedNumber value={stat.numericValue} suffix={stat.suffix} decimals={stat.decimals} />
               </p>
               <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">{stat.label}</p>
