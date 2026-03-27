@@ -149,7 +149,7 @@ const Login = () => {
                 </div>
                 
                 <Link to="/dashboard" className="block pt-2">
-                  <ShinyButton className="w-full h-12 text-sm font-bold group">
+                  <ShinyButton className="w-full h-12 text-sm font-bold group rounded-lg">
                     Sign in to Portal
                     <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </ShinyButton>
