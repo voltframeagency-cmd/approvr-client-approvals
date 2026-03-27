@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 
 const logos = [
   { name: 'Stripe', svg: 'M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-7.076-2.18l-.891 5.534C5.326 22.88 8.382 24 12.062 24c2.589 0 4.777-.596 6.319-1.839 1.644-1.345 2.451-3.321 2.451-5.71 0-4.124-2.607-5.833-6.856-7.301' },
@@ -10,11 +11,37 @@ const logos = [
 ];
 
 const stats = [
-  { value: '2,400+', label: 'Approval cycles completed' },
-  { value: '380+', label: 'Agencies & studios' },
-  { value: '12k+', label: 'Deliverables signed off' },
-  { value: '4.9/5', label: 'Average rating' },
+  { value: '2,400+', numericValue: 2400, suffix: '+', label: 'Approval cycles completed' },
+  { value: '380+', numericValue: 380, suffix: '+', label: 'Agencies & studios' },
+  { value: '12k+', numericValue: 12, suffix: 'k+', label: 'Deliverables signed off' },
+  { value: '4.9/5', numericValue: 4.9, suffix: '/5', label: 'Average rating', decimals: 1 },
 ];
+
+const AnimatedNumber = ({ value, suffix, decimals = 0 }: { value: number; suffix: string; decimals?: number }) => {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const [display, setDisplay] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return;
+    const duration = 1500;
+    const start = performance.now();
+    const tick = (now: number) => {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setDisplay(parseFloat((eased * value).toFixed(decimals)));
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }, [inView, value, decimals]);
+
+  const formatted = decimals > 0 
+    ? display.toFixed(decimals) 
+    : display.toLocaleString();
+
+  return <span ref={ref}>{formatted}{suffix}</span>;
+};
 
 const SocialProof = () => {
   const containerVariants = {
@@ -51,7 +78,7 @@ const SocialProof = () => {
           {stats.map((stat) => (
             <motion.div key={stat.label} variants={itemVariants} className="text-center group">
               <p className="text-4xl md:text-5xl font-black tracking-tight text-primary mb-2 group-hover:scale-110 transition-transform duration-500">
-                {stat.value}
+                <AnimatedNumber value={stat.numericValue} suffix={stat.suffix} decimals={stat.decimals} />
               </p>
               <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">{stat.label}</p>
             </motion.div>
