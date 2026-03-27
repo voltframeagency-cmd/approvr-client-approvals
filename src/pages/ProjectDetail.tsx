@@ -350,7 +350,7 @@ const ProjectDetail = () => {
                                 <div className="flex items-center gap-2">
                                   <span className="text-[13px] font-bold text-slate-900 dark:text-white">{c.authorName}</span>
                                   <span className="text-[11px] text-muted-foreground font-medium">
-                                    {new Date(c.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                                    {new Date(c.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} · {new Date(c.createdAt).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}
                                   </span>
                                 </div>
                                 {c.resolved ? (

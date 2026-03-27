@@ -466,7 +466,7 @@ const ClientPortal = () => {
                                   <span className="text-[14px] font-black text-slate-900 dark:text-white tracking-tight">{c.authorName}</span>
                                   <div className="h-1 w-1 rounded-full bg-slate-200" />
                                   <span className="text-[11px] text-muted-foreground font-bold uppercase tracking-widest">
-                                    {new Date(c.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                                    {new Date(c.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} · {new Date(c.createdAt).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}
                                   </span>
                                 </div>
                                 {(c.resolved || resolvedCommentIds.includes(c.id)) && (
