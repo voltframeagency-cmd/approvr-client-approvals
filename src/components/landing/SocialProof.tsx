@@ -11,11 +11,37 @@ const logos = [
 ];
 
 const stats = [
-  { value: '2,400+', label: 'Approval cycles completed' },
-  { value: '380+', label: 'Agencies & studios' },
-  { value: '12k+', label: 'Deliverables signed off' },
-  { value: '4.9/5', label: 'Average rating' },
+  { value: '2,400+', numericValue: 2400, suffix: '+', label: 'Approval cycles completed' },
+  { value: '380+', numericValue: 380, suffix: '+', label: 'Agencies & studios' },
+  { value: '12k+', numericValue: 12, suffix: 'k+', label: 'Deliverables signed off' },
+  { value: '4.9/5', numericValue: 4.9, suffix: '/5', label: 'Average rating', decimals: 1 },
 ];
+
+const AnimatedNumber = ({ value, suffix, decimals = 0 }: { value: number; suffix: string; decimals?: number }) => {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const [display, setDisplay] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return;
+    const duration = 1500;
+    const start = performance.now();
+    const tick = (now: number) => {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setDisplay(parseFloat((eased * value).toFixed(decimals)));
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }, [inView, value, decimals]);
+
+  const formatted = decimals > 0 
+    ? display.toFixed(decimals) 
+    : display.toLocaleString();
+
+  return <span ref={ref}>{formatted}{suffix}</span>;
+};
 
 const SocialProof = () => {
   const containerVariants = {
