@@ -171,7 +171,7 @@ export const Features = () => {
                   transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                   className="w-full h-full flex items-center justify-center p-8 lg:p-12"
                 >
-                  <div className="w-full max-w-md aspect-video bg-muted/20 rounded-xl border border-border/40 flex items-center justify-center relative shadow-inner overflow-hidden">
+                  <div className="w-full max-w-2xl aspect-video bg-muted/20 rounded-xl border border-border/40 flex items-center justify-center relative shadow-inner overflow-hidden">
                     {(() => {
                       const Demo = features[activeIndex].demo;
                       return <Demo />;
