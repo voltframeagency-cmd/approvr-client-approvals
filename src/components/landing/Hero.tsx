@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { ShinyButton } from '@/components/ui/shiny-button';
 import { ArrowRight, Play } from 'lucide-react';
 import { motion } from 'framer-motion';
 import HeroBackground from './HeroBackground';
@@ -53,10 +54,10 @@ const Hero = () => (
           className="flex flex-col sm:flex-row items-center justify-center gap-3"
         >
           <Link to="/signup">
-            <Button size="lg" className="h-12 px-8 text-[15px] gap-2 glow-primary font-medium">
+            <ShinyButton size="lg" className="h-12 px-8 text-[15px] gap-2 glow-primary font-medium">
               Join Founder Beta
               <ArrowRight className="h-4 w-4" />
-            </Button>
+            </ShinyButton>
           </Link>
           <Button variant="outline" size="lg" className="h-12 px-8 text-[15px] gap-2 bg-card/50 backdrop-blur-sm font-medium">
             <Play className="h-4 w-4" />

@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { ShinyButton } from '@/components/ui/shiny-button';
 import { CheckCircle2 } from 'lucide-react';
 import { Logo } from '@/components/brand/Logo';
 import { motion, useScroll, useTransform } from 'framer-motion';
@@ -93,9 +94,9 @@ const Navbar = () => {
               </Button>
             </Link>
             <Link to="/signup">
-              <Button size="sm" className="text-[12px] font-semibold h-8 md:h-9 px-4 md:px-5 shadow-sm shadow-primary/20">
+              <ShinyButton size="sm" className="text-[12px] font-semibold h-8 md:h-9 px-4 md:px-5 shadow-sm shadow-primary/20">
                 Join Beta
-              </Button>
+              </ShinyButton>
             </Link>
           </div>
         </div>
