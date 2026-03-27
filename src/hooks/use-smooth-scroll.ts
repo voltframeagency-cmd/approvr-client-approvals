@@ -319,7 +319,7 @@ export const useGsapScrollTrigger = () => {
             end: 'top 45%',
             scrub: 0.8,
             onLeave: () => {
-              gsap.to(el, { boxShadow: '0 0 0px 0px hsl(var(--primary) / 0)', duration: 1 });
+              gsap.to(el, { boxShadow: '0 0 0px 0px rgba(34,197,94,0)', duration: 1 });
             },
           },
         }
