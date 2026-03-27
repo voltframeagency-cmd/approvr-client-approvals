@@ -72,8 +72,21 @@ const Footer = () => (
       </div>
 
       {/* Bottom bar */}
-      <div className="pt-12 border-t border-border/20 flex items-center justify-center">
-        <p className="text-sm text-muted-foreground/60">© 2026 Approvr, Inc. All rights reserved.</p>
+      <div className="pt-12 border-t border-border/20 flex flex-col md:flex-row items-center justify-between gap-8">
+        <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
+          <p className="text-sm text-muted-foreground/60">© 2026 Approvr, Inc. All rights reserved.</p>
+          <div className="h-4 w-px bg-border/20 hidden md:block" />
+          <span className="flex items-center gap-2 text-xs font-bold text-success uppercase tracking-widest">
+            <span className="h-2 w-2 rounded-full bg-success animate-pulse" />
+            All systems operational
+          </span>
+        </div>
+        
+        <div className="flex items-center gap-6">
+          <p className="text-xs font-medium text-muted-foreground/40 hover:text-muted-foreground cursor-default transition-colors">
+            Designed with <span className="text-primary/60">♥</span> in San Francisco
+          </p>
+        </div>
       </div>
     </div>
   </footer>

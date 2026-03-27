@@ -183,9 +183,9 @@ const ReviewVisual = () => (
         transition={{ delay: i * 0.4 }}
         className={`flex ${m.side === 'left' ? 'justify-start' : 'justify-end'}`}
       >
-        <div className={`p-4 rounded-2xl text-[11px] font-medium max-w-[80%] shadow-lg shadow-black/5 ${
-          m.side === 'left' ? 'bg-muted text-foreground' : 'bg-gradient-to-br from-primary via-primary to-primary/80 text-primary-foreground ring-1 ring-white/20 shadow-primary/25'
-        }`} style={m.side === 'right' ? { backgroundImage: 'linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 50%)' } : undefined}>
+        <div className={`p-4 rounded-2xl text-[11px] font-medium max-w-[80%] ${
+          m.side === 'left' ? 'bg-muted text-foreground' : 'bg-primary text-primary-foreground'
+        } shadow-lg shadow-black/5`}>
           {m.text}
         </div>
       </motion.div>
