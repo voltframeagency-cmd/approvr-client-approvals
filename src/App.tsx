@@ -34,6 +34,7 @@ const App = () => (
     <HelmetProvider>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
         <AuthProvider>
+          <DemoProvider>
           <TooltipProvider>
             <SmoothScroll>
               <Toaster />
