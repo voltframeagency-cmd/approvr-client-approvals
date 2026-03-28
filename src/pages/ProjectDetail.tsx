@@ -313,7 +313,7 @@ const ProjectDetail = () => {
                 {activeTab === 'preview' && (
                   <div className="space-y-6">
                     <div className="card-elevated p-0 overflow-hidden">
-                      <div className="p-6 border-b border-border/40 bg-slate-50/50 dark:bg-white/5">
+                      <div className="p-4 md:p-6 border-b border-border/40 bg-muted/30">
                         <div className="flex items-start justify-between">
                           <div className="space-y-1">
                             <div className="flex items-center gap-2 mb-2">
