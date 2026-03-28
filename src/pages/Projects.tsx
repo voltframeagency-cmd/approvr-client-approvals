@@ -99,6 +99,24 @@ const Projects = () => {
     });
   };
 
+  const tabs: { key: FilterTab; label: string; count: number }[] = [
+    { key: 'all', label: 'All', count: projects.length },
+    { key: 'in_review', label: 'In Review', count: projects.filter(p => p.status === 'in_review').length },
+    { key: 'changes_requested', label: 'Changes Requested', count: projects.filter(p => p.status === 'changes_requested').length },
+    { key: 'overdue', label: 'Overdue', count: projects.filter(p => p.isOverdue && p.status !== 'approved').length },
+    { key: 'approved', label: 'Approved', count: projects.filter(p => p.status === 'approved').length },
+    { key: 'draft', label: 'Draft', count: projects.filter(p => p.status === 'draft').length },
+  ];
+
+  const filtered = projects.filter(p => {
+    const matchesSearch = p.name.toLowerCase().includes(search.toLowerCase()) ||
+      p.clientName.toLowerCase().includes(search.toLowerCase());
+    if (!matchesSearch) return false;
+    if (activeTab === 'all') return true;
+    if (activeTab === 'overdue') return p.isOverdue && p.status !== 'approved';
+    return p.status === activeTab;
+  });
+
   return (
     <div className="space-y-4 sm:space-y-6 overflow-hidden">
       <motion.div
@@ -108,7 +126,7 @@ const Projects = () => {
         className="flex items-center justify-between"
       >
         <h1 className="text-xl sm:text-2xl font-bold">Projects</h1>
-        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <Dialog open={dialogOpen} onOpenChange={(open) => { setDialogOpen(open); if (!open) resetForm(); }}>
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
@@ -134,58 +152,92 @@ const Projects = () => {
             <DialogHeader>
               <DialogTitle className="text-lg font-bold">Create New Project</DialogTitle>
             </DialogHeader>
-            <div className="space-y-4 mt-2">
+            <div className="space-y-5 mt-2">
+              {/* Project Name — hero field */}
               <div className="space-y-2">
                 <Label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Project Name *</Label>
                 <Input
-                  placeholder="e.g. Q2 Brand Campaign"
-                  value={newProject.name}
-                  onChange={e => setNewProject(prev => ({ ...prev, name: e.target.value }))}
-                  className="h-10"
+                  placeholder="e.g. Website Redesign, Brand Package..."
+                  value={projectName}
+                  onChange={e => setProjectName(e.target.value)}
+                  className="h-12 text-[15px] font-medium"
+                  autoFocus
                 />
               </div>
-              <div className="grid grid-cols-2 gap-3">
-                <div className="space-y-2">
-                  <Label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Client Name *</Label>
-                  <Input
-                    placeholder="e.g. Acme Corp"
-                    value={newProject.clientName}
-                    onChange={e => setNewProject(prev => ({ ...prev, clientName: e.target.value }))}
-                    className="h-10"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Client Email</Label>
-                  <Input
-                    placeholder="client@example.com"
-                    type="email"
-                    value={newProject.clientEmail}
-                    onChange={e => setNewProject(prev => ({ ...prev, clientEmail: e.target.value }))}
-                    className="h-10"
-                  />
-                </div>
-              </div>
+
+              {/* Client / Brand Name */}
               <div className="space-y-2">
-                <Label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Deadline *</Label>
+                <Label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Client / Brand Name *</Label>
                 <Input
-                  type="date"
-                  value={newProject.deadline}
-                  onChange={e => setNewProject(prev => ({ ...prev, deadline: e.target.value }))}
+                  placeholder="e.g. Acme Corp, Nike, Freelance Client"
+                  value={clientName}
+                  onChange={e => setClientName(e.target.value)}
                   className="h-10"
                 />
               </div>
+
+              {/* Project Type — optional chips */}
               <div className="space-y-2">
-                <Label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Description</Label>
-                <Textarea
-                  placeholder="Brief project description..."
-                  value={newProject.description}
-                  onChange={e => setNewProject(prev => ({ ...prev, description: e.target.value }))}
-                  className="min-h-[80px] resize-none"
-                />
+                <Label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Project Type</Label>
+                <div className="flex flex-wrap gap-1.5">
+                  {projectTypes.map(type => (
+                    <button
+                      key={type.key}
+                      type="button"
+                      onClick={() => setSelectedType(prev => prev === type.key ? null : type.key)}
+                      className={cn(
+                        'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-medium border transition-all duration-200',
+                        selectedType === type.key
+                          ? 'bg-primary/10 border-primary/30 text-primary'
+                          : 'border-border text-muted-foreground hover:border-foreground/20 hover:text-foreground'
+                      )}
+                    >
+                      {type.icon}
+                      {type.label}
+                    </button>
+                  ))}
+                </div>
               </div>
+
+              {/* Approval Deadline — preset chips */}
+              <div className="space-y-2">
+                <Label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Approval Deadline *</Label>
+                <div className="flex gap-1.5">
+                  {deadlinePresets.map(preset => (
+                    <button
+                      key={preset.key}
+                      type="button"
+                      onClick={() => { setDeadlinePreset(preset.key); if (preset.key !== 'custom') setCustomDeadline(''); }}
+                      className={cn(
+                        'px-3 py-1.5 rounded-full text-[12px] font-medium border transition-all duration-200',
+                        deadlinePreset === preset.key
+                          ? 'bg-primary/10 border-primary/30 text-primary'
+                          : 'border-border text-muted-foreground hover:border-foreground/20 hover:text-foreground'
+                      )}
+                    >
+                      {preset.label}
+                    </button>
+                  ))}
+                </div>
+                {deadlinePreset === 'custom' && (
+                  <Input
+                    type="date"
+                    value={customDeadline}
+                    onChange={e => setCustomDeadline(e.target.value)}
+                    className="h-10 mt-2"
+                    min={format(new Date(), 'yyyy-MM-dd')}
+                  />
+                )}
+                {deadlinePreset && deadlinePreset !== 'custom' && (
+                  <p className="text-[11px] text-muted-foreground mt-1">
+                    Due {format(new Date(computedDeadline), 'MMM d, yyyy')}
+                  </p>
+                )}
+              </div>
+
               <Button
                 onClick={handleCreateProject}
-                disabled={!newProject.name || !newProject.clientName || !newProject.deadline}
+                disabled={!canCreate}
                 className="w-full h-11 rounded-xl font-bold"
               >
                 Create Project
