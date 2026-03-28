@@ -703,7 +703,7 @@ const ProjectDetail = () => {
                             </Button>
                             <Button 
                               size="lg" 
-                              className="rounded-xl sm:rounded-2xl px-6 sm:px-10 h-10 sm:h-14 bg-slate-900 dark:bg-primary text-white shadow-xl shadow-slate-200 dark:shadow-none hover:scale-[1.02] transition-all text-[11px] sm:text-[12px] font-black uppercase tracking-widest"
+                              className="rounded-xl sm:rounded-2xl px-6 sm:px-10 h-10 sm:h-14 bg-primary text-white shadow-xl shadow-primary/20 hover:scale-[1.02] transition-all text-[11px] sm:text-[12px] font-black uppercase tracking-widest"
                               onClick={handleAddAction}
                               disabled={!newAction.label || !newAction.url}
                             >
