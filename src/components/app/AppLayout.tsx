@@ -123,7 +123,7 @@ const AppLayout = () => {
       </div>
 
       {/* Main content */}
-      <main className="flex-1 md:ml-[240px] min-h-screen bg-slate-50/30 dark:bg-transparent">
+      <main className="flex-1 md:ml-[240px] min-h-screen bg-slate-50/30 dark:bg-transparent overflow-x-hidden">
         <div className="px-4 py-4 md:p-10 lg:p-12 pt-[72px] md:pt-10 max-w-7xl mx-auto">
           <AnimatePresence mode="wait">
             <motion.div
