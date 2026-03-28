@@ -375,14 +375,14 @@ const Settings = () => {
 
               {/* Review Flow Tab */}
               {activeTab === 'review' && (
-                <div className="space-y-6">
-                  <div className="card-elevated p-6 space-y-6">
+                <div className="space-y-4 sm:space-y-6">
+                  <div className="card-elevated p-4 sm:p-6 space-y-4 sm:space-y-6">
                     <div>
-                      <h2 className="font-semibold text-base">Operational Review Defaults</h2>
-                      <p className="text-[13px] text-muted-foreground mt-1">Define consistent operating rules across all client portals.</p>
+                      <h2 className="font-semibold text-[15px] sm:text-base">Operational Review Defaults</h2>
+                      <p className="text-[12px] sm:text-[13px] text-muted-foreground mt-0.5 sm:mt-1">Define consistent operating rules across all client portals.</p>
                     </div>
 
-                    <div className="grid sm:grid-cols-2 gap-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
                       <div className="space-y-4">
                         <h3 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground/70">Interaction Labels</h3>
                         <div className="space-y-3">
