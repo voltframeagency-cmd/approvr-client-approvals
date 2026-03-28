@@ -63,6 +63,7 @@ const App = () => (
               </BrowserRouter>
             </SmoothScroll>
           </TooltipProvider>
+          </DemoProvider>
         </AuthProvider>
       </ThemeProvider>
     </HelmetProvider>
