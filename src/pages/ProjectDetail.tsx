@@ -91,7 +91,7 @@ const ProjectDetail = () => {
     }
   }, [selectedDeliverableId]);
 
-  const comments = mockComments.filter(c => 
+  const comments = allComments.filter(c => 
     c.deliverableId === selectedDeliverableId && 
     c.versionNumber === activeVersion
   );
