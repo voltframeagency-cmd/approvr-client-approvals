@@ -157,9 +157,9 @@ const Dashboard = () => {
                 {attentionItems.map(item => (
                   <StaggerItem key={item.id}>
                     <Link to={`/dashboard/projects/${item.id}`}>
-                      <motion.div
-                        whileHover={{ x: 4 }}
-                        className="card-elevated p-5 flex items-center gap-5 border-none ring-1 ring-slate-200/60 dark:ring-slate-800/60 hover:ring-2 hover:ring-primary/20"
+                       <motion.div
+                          whileHover={{ x: 4 }}
+                          className="card-elevated p-3.5 md:p-5 flex items-center gap-3 md:gap-5 border-none ring-1 ring-slate-200/60 dark:ring-slate-800/60 hover:ring-2 hover:ring-primary/20"
                       >
                         <div className={cn("px-3 py-1 rounded-full text-[10px] uppercase font-extrabold tracking-wider whitespace-nowrap", item.urgencyColor)}>
                           {item.urgencyLabel}
