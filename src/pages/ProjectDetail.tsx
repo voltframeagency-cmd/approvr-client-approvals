@@ -165,12 +165,12 @@ const ProjectDetail = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.08 }}
-        className="flex items-center gap-6 text-[13px] text-muted-foreground"
+        className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs md:text-[13px] text-muted-foreground"
       >
         <span className="font-mono">{project.approvedCount}/{project.deliverableCount} approved</span>
         {project.lastViewedByClient && (
           <span className="flex items-center gap-1.5">
-            <Eye className="h-3.5 w-3.5" />
+            <Eye className="h-3 w-3" />
             Client last viewed {timeAgo(project.lastViewedByClient)}
           </span>
         )}
@@ -178,33 +178,33 @@ const ProjectDetail = () => {
           <ExternalLink className="h-3 w-3" />
           Preview portal
         </Link>
-        <div className="flex items-center gap-2 ml-auto">
-          <Button 
-            variant="outline" 
-            size="sm" 
-            className="h-8 text-[11px] font-bold uppercase tracking-wider rounded-lg"
-            onClick={() => {
-              setIsReminderSending(true);
-              setTimeout(() => {
-                setIsReminderSending(false);
-                setReminderStatus('sent');
-              }, 1500);
-            }}
-            disabled={isReminderSending || reminderStatus === 'sent' || project.status === 'approved'}
-          >
-            {isReminderSending ? (
-              <span className="flex items-center gap-1.5"><Clock className="h-3 w-3 animate-spin" /> Sending...</span>
-            ) : reminderStatus === 'sent' ? (
-              <span className="flex items-center gap-1.5 text-success"><CheckCircle2 className="h-3 w-3" /> Reminder Sent</span>
-            ) : (
-              <span className="flex items-center gap-1.5"><Send className="h-3 w-3" /> Nudge Client</span>
-            )}
-          </Button>
-          <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold uppercase tracking-wider rounded-lg">
-             Download Summary
-          </Button>
-        </div>
       </motion.div>
+      <div className="flex flex-wrap gap-2">
+        <Button 
+          variant="outline" 
+          size="sm" 
+          className="h-8 text-[10px] md:text-[11px] font-bold uppercase tracking-wider rounded-lg flex-1 min-w-0 sm:flex-none"
+          onClick={() => {
+            setIsReminderSending(true);
+            setTimeout(() => {
+              setIsReminderSending(false);
+              setReminderStatus('sent');
+            }, 1500);
+          }}
+          disabled={isReminderSending || reminderStatus === 'sent' || project.status === 'approved'}
+        >
+          {isReminderSending ? (
+            <span className="flex items-center gap-1.5"><Clock className="h-3 w-3 animate-spin" /> Sending...</span>
+          ) : reminderStatus === 'sent' ? (
+            <span className="flex items-center gap-1.5 text-success"><CheckCircle2 className="h-3 w-3" /> Sent</span>
+          ) : (
+            <span className="flex items-center gap-1.5"><Send className="h-3 w-3" /> Nudge Client</span>
+          )}
+        </Button>
+        <Button variant="outline" size="sm" className="h-8 text-[10px] md:text-[11px] font-bold uppercase tracking-wider rounded-lg flex-1 min-w-0 sm:flex-none">
+           Download Summary
+        </Button>
+      </div>
 
       {project.description && (
         <motion.p
