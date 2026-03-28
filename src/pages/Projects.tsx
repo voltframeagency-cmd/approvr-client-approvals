@@ -15,6 +15,9 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { toast } from 'sonner';
 import { addDays, format } from 'date-fns';
+import { useWorkspace } from '@/hooks/use-workspace';
+import { useProjects, useCreateProject } from '@/hooks/use-projects';
+import { useWorkspaceUsage, checkProjectLimit, getWorkspacePlanConfig } from '@/hooks/use-workspace-usage';
 
 type FilterTab = 'all' | ProjectStatus | 'overdue';
 
@@ -48,14 +51,53 @@ function timeAgo(dateStr: string) {
 const Projects = () => {
   const beta = useFounderBeta();
   const { isDemoMode, demoData, planConfig } = useDemo();
-  const initialProjects = isDemoMode && demoData ? demoData.projects : mockProjects;
+  const { data: workspace } = useWorkspace();
+  const { data: realProjects } = useProjects(isDemoMode ? undefined : workspace?.id);
+  const { data: usageData } = useWorkspaceUsage(isDemoMode ? undefined : workspace?.id);
+  const createProject = useCreateProject();
+  
+  // Map real projects to the Project interface
+  const mappedRealProjects: Project[] = (realProjects || []).map(p => ({
+    id: p.id,
+    name: p.name,
+    clientName: p.client_name,
+    clientEmail: p.client_email || '',
+    status: p.status as any,
+    deadline: p.deadline || '',
+    description: p.description || '',
+    createdAt: p.created_at,
+    deliverableCount: 0,
+    approvedCount: 0,
+    isOverdue: p.deadline ? new Date(p.deadline) < new Date() && p.status !== 'approved' : false,
+    projectType: p.project_type as any,
+  }));
+
+  const demoProjects = isDemoMode && demoData ? demoData.projects : [];
+  const [localDemoProjects, setLocalDemoProjects] = useState<Project[]>(demoProjects);
+  
+  // Use real projects for authenticated users, demo projects for demo mode, mock as fallback
+  const projects = isDemoMode 
+    ? localDemoProjects 
+    : mappedRealProjects.length > 0 ? mappedRealProjects : mockProjects;
+
   const [search, setSearch] = useState('');
   const [activeTab, setActiveTab] = useState<FilterTab>('all');
-  const [projects, setProjects] = useState<Project[]>(initialProjects);
 
-  const projectLimitReached = isDemoMode && planConfig?.limits.maxProjects 
-    ? projects.length >= planConfig.limits.maxProjects 
-    : false;
+  // Project limit check — unified for demo and real
+  const realPlanConfig = !isDemoMode && workspace ? getWorkspacePlanConfig(workspace.plan) : null;
+  const projectLimit = isDemoMode && planConfig?.limits.maxProjects 
+    ? { allowed: projects.length < planConfig.limits.maxProjects, current: projects.length, limit: planConfig.limits.maxProjects }
+    : !isDemoMode && usageData && realPlanConfig
+      ? checkProjectLimit(usageData, workspace?.plan)
+      : { allowed: true, current: 0, limit: null };
+  
+  const canCreateProject = isDemoMode ? projectLimit.allowed : beta.canCreateProject && projectLimit.allowed;
+  const projectLimitMessage = !projectLimit.allowed 
+    ? `Project limit reached (${projectLimit.limit} projects)` 
+    : !beta.canCreateProject 
+      ? (beta.isExpired ? "Beta expired" : `Limit reached (${beta.projectLimit} projects)`)
+      : '';
+
   const [dialogOpen, setDialogOpen] = useState(false);
   const [projectName, setProjectName] = useState('');
   const [clientName, setClientName] = useState('');
@@ -81,29 +123,50 @@ const Projects = () => {
     setCustomDeadline('');
   };
 
-  const handleCreateProject = () => {
+  const handleCreateProject = async () => {
     if (!canCreate) return;
 
-    const project: Project = {
-      id: `proj-${Date.now()}`,
-      name: projectName.trim(),
-      clientName: clientName.trim(),
-      clientEmail: `${clientName.trim().toLowerCase().replace(/\s/g, '.')}@example.com`,
-      status: 'draft',
-      deadline: computedDeadline,
-      description: '',
-      createdAt: new Date().toISOString(),
-      deliverableCount: 0,
-      approvedCount: 0,
-      projectType: selectedType || undefined,
-    };
-
-    setProjects(prev => [project, ...prev]);
-    resetForm();
-    setDialogOpen(false);
-    toast.success(`Project "${project.name}" created`, {
-      description: `Draft project for ${project.clientName}`,
-    });
+    if (isDemoMode) {
+      // Demo mode: local state only
+      const project: Project = {
+        id: `proj-${Date.now()}`,
+        name: projectName.trim(),
+        clientName: clientName.trim(),
+        clientEmail: `${clientName.trim().toLowerCase().replace(/\s/g, '.')}@example.com`,
+        status: 'draft',
+        deadline: computedDeadline,
+        description: '',
+        createdAt: new Date().toISOString(),
+        deliverableCount: 0,
+        approvedCount: 0,
+        projectType: selectedType || undefined,
+      };
+      setLocalDemoProjects(prev => [project, ...prev]);
+      resetForm();
+      setDialogOpen(false);
+      toast.success(`Project "${project.name}" created`, {
+        description: `Draft project for ${project.clientName}`,
+      });
+    } else if (workspace) {
+      // Real mode: persist to Supabase
+      try {
+        await createProject.mutateAsync({
+          workspace_id: workspace.id,
+          name: projectName.trim(),
+          client_name: clientName.trim(),
+          client_email: `${clientName.trim().toLowerCase().replace(/\s/g, '.')}@example.com`,
+          project_type: selectedType || undefined,
+          deadline: computedDeadline,
+        });
+        resetForm();
+        setDialogOpen(false);
+        toast.success(`Project "${projectName.trim()}" created`, {
+          description: `Draft project for ${clientName.trim()}`,
+        });
+      } catch (err: any) {
+        toast.error('Failed to create project', { description: err.message });
+      }
+    }
   };
 
   const tabs: { key: FilterTab; label: string; count: number }[] = [
@@ -137,9 +200,9 @@ const Projects = () => {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <div className={cn(!beta.canCreateProject && "cursor-not-allowed")}>
+                <div className={cn(!canCreateProject && "cursor-not-allowed")}>
                   <DialogTrigger asChild>
-                    <Button className="gap-1.5 sm:gap-2 h-9 sm:h-10 text-[13px] px-3 sm:px-4" disabled={!beta.canCreateProject}>
+                    <Button className="gap-1.5 sm:gap-2 h-9 sm:h-10 text-[13px] px-3 sm:px-4" disabled={!canCreateProject}>
                       <Plus className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                       <span className="hidden sm:inline">New project</span>
                       <span className="sm:hidden">New</span>
@@ -147,9 +210,9 @@ const Projects = () => {
                   </DialogTrigger>
                 </div>
               </TooltipTrigger>
-              {!beta.canCreateProject && (
+              {!canCreateProject && (
                 <TooltipContent>
-                  <p>{beta.isExpired ? "Beta expired" : `Limit reached (${beta.projectLimit} projects)`}</p>
+                  <p>{projectLimitMessage}</p>
                 </TooltipContent>
               )}
             </Tooltip>
@@ -244,10 +307,10 @@ const Projects = () => {
 
               <Button
                 onClick={handleCreateProject}
-                disabled={!canCreate}
+                disabled={!canCreate || createProject.isPending}
                 className="w-full h-11 rounded-xl font-bold"
               >
-                Create Project
+                {createProject.isPending ? 'Creating...' : 'Create Project'}
               </Button>
             </div>
           </DialogContent>
@@ -335,7 +398,7 @@ const Projects = () => {
                   'hidden md:block text-[13px]',
                   project.isOverdue && project.status !== 'approved' ? 'text-destructive font-medium' : 'text-muted-foreground'
                 )}>
-                  {new Date(project.deadline).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                  {project.deadline ? new Date(project.deadline).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '—'}
                 </span>
               </Link>
             </StaggerItem>
@@ -375,7 +438,7 @@ const Projects = () => {
                   <span className={cn(
                     project.isOverdue && project.status !== 'approved' ? 'text-destructive font-medium' : ''
                   )}>
-                    {new Date(project.deadline).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                    {project.deadline ? new Date(project.deadline).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '—'}
                   </span>
                 </div>
               </Link>
@@ -385,7 +448,7 @@ const Projects = () => {
         {filtered.length === 0 && (
           <div className="py-12 text-center">
             <Search className="h-6 w-6 mx-auto mb-2 text-muted-foreground/30" />
-            <p className="text-[13px] text-muted-foreground">No projects found.</p>
+            <p className="text-sm text-muted-foreground">No projects found.</p>
           </div>
         )}
       </div>

@@ -24,6 +24,10 @@ import { FeatureGate } from '@/components/app/FeatureGate';
 import { Progress } from '@/components/ui/progress';
 import { useWorkspace } from '@/hooks/use-workspace';
 import { useWorkspaceUsage, getWorkspacePlanConfig } from '@/hooks/use-workspace-usage';
+import { useProjects } from '@/hooks/use-projects';
+import { useActivityLog } from '@/hooks/use-projects';
+import { useProfile } from '@/hooks/use-profile';
+import type { Project } from '@/lib/mock-data';
 
 const activityIcons: Record<string, typeof FileText> = {
   approval: CheckCircle,
@@ -60,6 +64,11 @@ const Dashboard = () => {
   const { data: workspace } = useWorkspace();
   const { data: realUsage } = useWorkspaceUsage(isDemoMode ? undefined : workspace?.id);
   const realPlanConfig = !isDemoMode && workspace ? getWorkspacePlanConfig(workspace.plan) : null;
+  const { data: profile } = useProfile();
+  
+  // Real Supabase data for authenticated users
+  const { data: realProjects } = useProjects(isDemoMode ? undefined : workspace?.id);
+  const { data: realActivity } = useActivityLog(isDemoMode ? undefined : workspace?.id);
   
   // Unified usage values: demo or real
   const activePlanConfig = isDemoMode ? demoPlanConfig : realPlanConfig;
@@ -69,9 +78,41 @@ const Dashboard = () => {
       ? { projectsUsed: realUsage.projectCount, storageUsedGB: realUsage.storageGB, teamMembersUsed: realUsage.teamMemberCount }
       : null;
   
-  // Use demo data when in demo mode, otherwise fall back to mock data
-  const projects = isDemoMode && demoData ? demoData.projects : mockProjects;
-  const activity = isDemoMode && demoData ? demoData.activity : mockActivity;
+  // Map real projects to the Project interface shape for consistent rendering
+  const mappedRealProjects: Project[] = (realProjects || []).map(p => ({
+    id: p.id,
+    name: p.name,
+    clientName: p.client_name,
+    clientEmail: p.client_email || '',
+    status: p.status as any,
+    deadline: p.deadline || '',
+    description: p.description || '',
+    createdAt: p.created_at,
+    deliverableCount: 0,
+    approvedCount: 0,
+    isOverdue: p.deadline ? new Date(p.deadline) < new Date() && p.status !== 'approved' : false,
+    projectType: p.project_type as any,
+  }));
+  
+  // Map real activity to the ActivityItem interface
+  const mappedRealActivity = (realActivity || []).map(a => ({
+    id: a.id,
+    projectId: a.project_id || undefined,
+    projectName: '',
+    action: a.action,
+    actor: a.actor_name || 'System',
+    createdAt: a.created_at,
+    type: a.type as any,
+  }));
+
+  // Use demo data when in demo mode, real data for authenticated users, mock as last fallback
+  const projects = isDemoMode && demoData ? demoData.projects : mappedRealProjects.length > 0 ? mappedRealProjects : mockProjects;
+  const activity = isDemoMode && demoData ? demoData.activity : mappedRealActivity.length > 0 ? mappedRealActivity : mockActivity;
+
+  // Greeting name
+  const greetingName = isDemoMode 
+    ? demoUserName.split(' ')[0] 
+    : profile?.full_name?.split(' ')[0] || 'there';
 
   const overdueProjects = projects.filter(p => p.isOverdue && p.status !== 'approved');
   const changesRequested = projects.filter(p => p.status === 'changes_requested');
@@ -191,7 +232,7 @@ const Dashboard = () => {
       <header className="flex flex-col md:flex-row md:items-end justify-between gap-4 md:gap-6">
         <div>
           <h1 className="text-2xl md:text-4xl font-extrabold tracking-tight mb-1 md:mb-2">Dashboard</h1>
-          <p className="text-muted-foreground text-xs md:text-base font-medium">Welcome back, {isDemoMode ? demoUserName.split(' ')[0] : 'there'}.</p>
+          <p className="text-muted-foreground text-xs md:text-base font-medium">Welcome back, {greetingName}.</p>
         </div>
         <Link to="/dashboard/projects">
           <Button className="rounded-xl shadow-lg shadow-primary/20 px-5 md:px-6 font-bold gap-2 h-10 md:h-11 border-none text-sm w-full md:w-auto">
@@ -272,10 +313,12 @@ const Dashboard = () => {
                         </div>
                         <div className="hidden sm:flex flex-col items-end gap-1.5">
                           <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">{item.approvedCount}/{item.deliverableCount} Approved</span>
-                          <div className="flex items-center gap-1.5 text-[11px] font-bold text-muted-foreground">
-                             <Clock className="h-3 w-3" />
-                             Due {new Date(item.deadline).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-                          </div>
+                          {item.deadline && (
+                            <div className="flex items-center gap-1.5 text-[11px] font-bold text-muted-foreground">
+                               <Clock className="h-3 w-3" />
+                               Due {new Date(item.deadline).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                            </div>
+                          )}
                         </div>
                         <ArrowUpRight className="h-4 w-4 text-muted-foreground/30 flex-shrink-0 group-hover:text-primary transition-colors" />
                       </motion.div>
@@ -337,13 +380,13 @@ const Dashboard = () => {
                                       viewed {timeAgo(project.lastViewedByClient)}
                                     </span>
                                   )}
-                                  <span className="font-mono">{Math.round((project.approvedCount / project.deliverableCount) * 100)}%</span>
+                                  <span className="font-mono">{project.deliverableCount > 0 ? Math.round((project.approvedCount / project.deliverableCount) * 100) : 0}%</span>
                                </div>
                             </div>
                             <div className="h-1.5 rounded-full bg-muted overflow-hidden">
                               <motion.div
                                 initial={{ width: 0 }}
-                                animate={{ width: `${(project.approvedCount / project.deliverableCount) * 100}%` }}
+                                animate={{ width: `${project.deliverableCount > 0 ? (project.approvedCount / project.deliverableCount) * 100 : 0}%` }}
                                 transition={{ duration: 1.2, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
                                 className={cn("h-full rounded-full transition-colors duration-500", getProgressColor(project.status, project.isOverdue || false))}
                               />
@@ -392,7 +435,7 @@ const Dashboard = () => {
                       <p className="text-xs md:text-[13px] leading-relaxed text-foreground">
                         <span className="font-bold">{item.actor}</span>{' '}
                         <span className="text-muted-foreground font-medium">{item.action}</span>{' '}
-                        <span className="font-bold text-primary/90 hover:underline cursor-pointer transition-all">{item.projectName}</span>
+                        {item.projectName && <span className="font-bold text-primary/90 hover:underline cursor-pointer transition-all">{item.projectName}</span>}
                       </p>
                       <time className="text-[11px] font-bold text-muted-foreground uppercase tracking-widest">{timeAgo(item.createdAt)}</time>
                     </div>

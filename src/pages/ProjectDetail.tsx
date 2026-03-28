@@ -23,6 +23,9 @@ import { cn } from '@/lib/utils';
 import { providerIcons } from '@/lib/provider-icons';
 import { useFounderBeta } from '@/hooks/use-founder-beta';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { useProject, useDeliverables, useComments as useProjectComments, useActivityLog } from '@/hooks/use-projects';
+import { useWorkspace } from '@/hooks/use-workspace';
+import type { Project, Deliverable, Comment, ActivityItem } from '@/lib/mock-data';
 
 const fileTypeColors: Record<string, string> = {
   svg: 'bg-primary/10 text-primary',
@@ -53,15 +56,63 @@ const ProjectDetail = () => {
   const beta = useFounderBeta();
   const { isDemoMode, demoData } = useDemo();
   const { id } = useParams();
+  const { data: workspace } = useWorkspace();
   
-  const allProjects = isDemoMode && demoData ? demoData.projects : mockProjects;
-  const allDeliverables = isDemoMode && demoData ? demoData.deliverables : mockDeliverables;
-  const allComments = isDemoMode && demoData ? demoData.comments : mockComments;
-  const allActivity = isDemoMode && demoData ? demoData.activity : mockActivity;
+  // Real Supabase data for authenticated users
+  const { data: realProject } = useProject(!isDemoMode ? id : undefined);
+  const { data: realDeliverables } = useDeliverables(!isDemoMode ? id : undefined);
+  const { data: realActivity } = useActivityLog(!isDemoMode ? workspace?.id : undefined);
   
-  const project = allProjects.find(p => p.id === id);
-  const deliverables = allDeliverables.filter(d => d.projectId === id);
-  const projectActivity = allActivity.filter(a => a.projectId === id);
+  // Map real data to mock interfaces for consistent rendering
+  const mappedRealProject: Project | null = realProject ? {
+    id: realProject.id,
+    name: realProject.name,
+    clientName: realProject.client_name,
+    clientEmail: realProject.client_email || '',
+    status: realProject.status as any,
+    deadline: realProject.deadline || '',
+    description: realProject.description || '',
+    createdAt: realProject.created_at,
+    deliverableCount: realDeliverables?.length || 0,
+    approvedCount: realDeliverables?.filter(d => d.status === 'approved').length || 0,
+    isOverdue: realProject.deadline ? new Date(realProject.deadline) < new Date() && realProject.status !== 'approved' : false,
+    projectType: realProject.project_type as any,
+  } : null;
+  
+  const mappedRealDeliverables: Deliverable[] = (realDeliverables || []).map(d => ({
+    id: d.id,
+    projectId: d.project_id,
+    title: d.title,
+    fileName: d.file_name,
+    fileType: d.file_type || 'unknown',
+    version: d.current_version,
+    status: d.status as any,
+    submittedAt: d.created_at,
+    fileUrl: d.file_url || undefined,
+  }));
+  
+  const mappedRealActivity: ActivityItem[] = (realActivity || [])
+    .filter(a => a.project_id === id)
+    .map(a => ({
+      id: a.id,
+      projectId: a.project_id || undefined,
+      projectName: '',
+      action: a.action,
+      actor: a.actor_name || 'System',
+      createdAt: a.created_at,
+      type: a.type as any,
+    }));
+  
+  // Demo or mock data paths
+  const demoProjects = isDemoMode && demoData ? demoData.projects : mockProjects;
+  const demoDeliverables = isDemoMode && demoData ? demoData.deliverables : mockDeliverables;
+  const demoComments = isDemoMode && demoData ? demoData.comments : mockComments;
+  const demoActivity = isDemoMode && demoData ? demoData.activity : mockActivity;
+  
+  const project = isDemoMode ? demoProjects.find(p => p.id === id) : (mappedRealProject || demoProjects.find(p => p.id === id));
+  const deliverables = isDemoMode ? demoDeliverables.filter(d => d.projectId === id) : (mappedRealDeliverables.length > 0 ? mappedRealDeliverables : demoDeliverables.filter(d => d.projectId === id));
+  const allComments = isDemoMode ? demoComments : demoComments; // Comments still from demo/mock for now
+  const projectActivity = isDemoMode ? demoActivity.filter(a => a.projectId === id) : (mappedRealActivity.length > 0 ? mappedRealActivity : demoActivity.filter(a => a.projectId === id));
   
   const [selectedDeliverableId, setSelectedDeliverableId] = useState(deliverables[0]?.id);
   const selectedDel = deliverables.find(d => d.id === selectedDeliverableId);

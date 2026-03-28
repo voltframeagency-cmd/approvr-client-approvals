@@ -34,7 +34,12 @@ const providerTypeLabels: Record<string, string> = {
 };
 
 const ClientPortal = () => {
+  // For now, use mockProjects[0] as the portal preview.
+  // In production, this would accept a project token via URL param.
   const project = mockProjects[0];
+  const agencyName = project?.clientName ? 'Your Agency' : 'Agency';
+  const portalYear = new Date().getFullYear();
+
   const deliverables = mockDeliverables.filter(d => d.projectId === project.id);
   const [selectedDel, setSelectedDel] = useState(deliverables[0]?.id);
   const currentDel = deliverables.find(d => d.id === selectedDel);
@@ -74,17 +79,17 @@ const ClientPortal = () => {
             <div className="h-4 w-px bg-border/60 hidden sm:block" />
             <div className="flex flex-col">
               <span className="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.15em] text-primary">Secure Portal</span>
-              <span className="text-[13px] sm:text-[14px] font-bold text-slate-900 dark:text-white leading-none">Rivera Design Co</span>
+              <span className="text-[13px] sm:text-[14px] font-bold text-slate-900 dark:text-white leading-none">{project.clientName}</span>
             </div>
           </motion.div>
           <div className="flex items-center gap-2 sm:gap-4">
             <div className="flex items-center gap-2 sm:gap-2.5 pl-2 sm:pl-4">
               <div className="text-right hidden sm:block">
-                <p className="text-[12px] font-bold text-slate-900 dark:text-white leading-tight">Sarah Chen</p>
-                <p className="text-[10px] text-muted-foreground font-medium">Project Owner</p>
+                <p className="text-[12px] font-bold text-slate-900 dark:text-white leading-tight">{project.clientName}</p>
+                <p className="text-[10px] text-muted-foreground font-medium">Client</p>
               </div>
               <div className="h-8 w-8 sm:h-9 sm:w-9 rounded-xl bg-gradient-to-br from-info via-info/80 to-blue-500 flex items-center justify-center text-[11px] sm:text-[12px] font-black text-white shadow-sm ring-2 ring-info/10">
-                SC
+                {project.clientName.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()}
               </div>
             </div>
           </div>
@@ -111,7 +116,7 @@ const ClientPortal = () => {
                 </span>
               </div>
               <h1 className="text-2xl sm:text-4xl md:text-6xl font-black tracking-tight text-slate-900 dark:text-white mb-4 sm:mb-8 leading-[1.1]">
-                Welcome back, <span className="text-primary/90">Sarah</span>.
+                Welcome back, <span className="text-primary/90">{project.clientName.split(' ')[0]}</span>.
               </h1>
               <div className="grid grid-cols-3 gap-2 sm:flex sm:flex-wrap sm:items-center sm:gap-6 mb-6 sm:mb-10">
                 <div className="flex flex-col sm:flex-row items-center sm:items-center gap-1.5 sm:gap-2.5 text-center sm:text-left">
@@ -129,7 +134,7 @@ const ClientPortal = () => {
                   </div>
                   <div>
                     <p className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.1em] text-muted-foreground leading-none mb-0.5 sm:mb-1">Agency</p>
-                    <p className="text-[11px] sm:text-[14px] font-bold text-slate-900 dark:text-white leading-tight">Rivera Design</p>
+                    <p className="text-[11px] sm:text-[14px] font-bold text-slate-900 dark:text-white leading-tight">Approvr</p>
                   </div>
                 </div>
                 <div className="flex flex-col sm:flex-row items-center sm:items-center gap-1.5 sm:gap-2.5 text-center sm:text-left sm:border-l sm:pl-6">
@@ -208,7 +213,7 @@ const ClientPortal = () => {
                   <Button
                     variant="ghost"
                     className="w-full mt-3 sm:mt-4 text-[10px] sm:text-[11px] font-black uppercase tracking-widest text-primary hover:text-primary hover:bg-primary/10 h-8 sm:h-9"
-                    onClick={() => window.open('https://support.riveradesign.co', '_blank')}
+                    onClick={() => window.open('https://approvr.com/support', '_blank')}
                   >
                     View FAQ
                   </Button>
@@ -464,7 +469,7 @@ const ClientPortal = () => {
                           </div>
                           <div>
                             <h4 className="text-lg sm:text-xl font-black tracking-tight text-slate-900 dark:text-white uppercase tracking-[0.1em]">Officially Approved</h4>
-                            <p className="text-[12px] sm:text-[14px] text-muted-foreground font-medium mt-1">This version was locked in by Sarah Chen on Mar 27, 2024</p>
+                            <p className="text-[12px] sm:text-[14px] text-muted-foreground font-medium mt-1">This version has been officially approved and locked</p>
                           </div>
                           <Button variant="ghost" className="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/10 mt-1 sm:mt-2 px-6 sm:px-8 h-8 sm:h-10 rounded-xl">
                             View Audit Trail
@@ -648,8 +653,8 @@ const ClientPortal = () => {
                         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
                           <div className="flex items-center gap-2">
                             <ShieldCheck className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-emerald-500/60" />
-                            <p className="text-[10px] sm:text-[11px] text-muted-foreground font-bold uppercase tracking-widest">
-                              Reviewing as <span className="text-slate-900 dark:text-white">Sarah Chen</span>
+                             <p className="text-[10px] sm:text-[11px] text-muted-foreground font-bold uppercase tracking-widest">
+                               Reviewing as <span className="text-slate-900 dark:text-white">{project.clientName}</span>
                             </p>
                           </div>
                           <Button 
@@ -781,7 +786,7 @@ const ClientPortal = () => {
               <a href="/terms" target="_blank" rel="noopener noreferrer" className="text-[10px] sm:text-[11px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">Terms</a>
             </div>
             <p className="text-[10px] sm:text-[11px] text-muted-foreground font-bold uppercase tracking-widest italic opacity-40">
-              © 2024 Rivera Design Co
+              © {portalYear} Approvr
             </p>
           </div>
         </div>
