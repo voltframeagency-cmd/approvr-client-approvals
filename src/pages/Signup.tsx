@@ -84,11 +84,11 @@ const Signup = () => {
       </div>
 
       {/* Right side: Signup Form */}
-      <div className="flex-1 flex items-center justify-center p-8 bg-white lg:bg-background relative">
+      <div className="flex-1 flex items-center justify-center px-5 py-6 md:p-8 bg-white lg:bg-background relative">
         {/* Mobile Logo */}
-        <div className="absolute top-8 left-8 lg:hidden">
+        <div className="absolute top-5 left-5 md:top-8 md:left-8 lg:hidden">
           <Link to="/">
-            <Logo />
+            <Logo className="h-6" />
           </Link>
         </div>
 
@@ -98,16 +98,16 @@ const Signup = () => {
           initial="hidden"
           animate="visible"
         >
-          <div className="mb-10 text-center lg:text-left">
+          <div className="mb-6 md:mb-10 text-center lg:text-left pt-8 md:pt-0">
             <motion.h1 
               variants={itemVariants}
-              className="text-3xl font-bold tracking-tighter mb-2"
+              className="text-2xl md:text-3xl font-bold tracking-tighter mb-1.5 md:mb-2"
             >
               Create your account
             </motion.h1>
             <motion.p 
               variants={itemVariants}
-              className="text-muted-foreground"
+              className="text-sm md:text-base text-muted-foreground"
             >
               No credit card required. Start approving in minutes.
             </motion.p>
@@ -115,10 +115,10 @@ const Signup = () => {
 
           <motion.div 
             variants={itemVariants}
-            className="glass-panel p-1 bg-gradient-to-br from-border/50 via-border/10 to-transparent rounded-2xl shadow-xl"
+            className="glass-panel p-1 bg-gradient-to-br from-border/50 via-border/10 to-transparent rounded-xl md:rounded-2xl shadow-xl"
           >
-            <div className="bg-background/80 backdrop-blur-xl p-8 rounded-2xl border border-border/50">
-              <div className="space-y-5">
+            <div className="bg-background/80 backdrop-blur-xl p-5 md:p-8 rounded-xl md:rounded-2xl border border-border/50">
+              <div className="space-y-4 md:space-y-5">
                 <div className="space-y-2">
                   <Label htmlFor="name" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground ml-1">
                     Full Name
@@ -126,7 +126,7 @@ const Signup = () => {
                   <Input 
                     id="name" 
                     placeholder="Alex Rivera"
-                    className="h-12 bg-slate-100/50 border-border focus:border-primary/50 focus:ring-primary/20 transition-all rounded-xl"
+                    className="h-11 md:h-12 bg-slate-100/50 border-border focus:border-primary/50 focus:ring-primary/20 transition-all rounded-xl text-sm"
                   />
                 </div>
                 <div className="space-y-2">
@@ -137,7 +137,7 @@ const Signup = () => {
                     id="email" 
                     type="email" 
                     placeholder="alex@agency.com"
-                    className="h-12 bg-slate-100/50 border-border focus:border-primary/50 focus:ring-primary/20 transition-all rounded-xl"
+                    className="h-11 md:h-12 bg-slate-100/50 border-border focus:border-primary/50 focus:ring-primary/20 transition-all rounded-xl text-sm"
                   />
                 </div>
                 <div className="space-y-2">
@@ -147,7 +147,7 @@ const Signup = () => {
                   <Input 
                     id="workspace" 
                     placeholder="Rivera Design Co"
-                    className="h-12 bg-slate-100/50 border-border focus:border-primary/50 focus:ring-primary/20 transition-all rounded-xl"
+                    className="h-11 md:h-12 bg-slate-100/50 border-border focus:border-primary/50 focus:ring-primary/20 transition-all rounded-xl text-sm"
                   />
                 </div>
                 <div className="space-y-2">
@@ -158,12 +158,12 @@ const Signup = () => {
                     id="password" 
                     type="password" 
                     placeholder="••••••••"
-                    className="h-12 bg-slate-100/50 border-border focus:border-primary/50 focus:ring-primary/20 transition-all rounded-xl"
+                    className="h-11 md:h-12 bg-slate-100/50 border-border focus:border-primary/50 focus:ring-primary/20 transition-all rounded-xl text-sm"
                   />
                 </div>
                 
                 <Link to="/dashboard" className="block pt-2">
-                  <ShinyButton className="w-full h-12 text-sm font-bold group rounded-lg">
+                  <ShinyButton className="w-full h-11 md:h-12 text-sm font-bold group rounded-lg">
                     Create workspace
                     <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </ShinyButton>
@@ -174,7 +174,7 @@ const Signup = () => {
 
           <motion.p 
             variants={itemVariants}
-            className="text-sm text-center text-muted-foreground mt-8"
+            className="text-sm text-center text-muted-foreground mt-5 md:mt-8"
           >
             Already have an account?{' '}
             <Link to="/login" className="text-primary hover:text-primary/80 font-bold transition-colors">
@@ -182,7 +182,7 @@ const Signup = () => {
             </Link>
           </motion.p>
 
-          <motion.div variants={itemVariants} className="flex items-center justify-center gap-4 mt-6 text-[11px] text-muted-foreground/50">
+          <motion.div variants={itemVariants} className="flex items-center justify-center gap-4 mt-4 md:mt-6 text-[11px] text-muted-foreground/50">
             <Link to="/privacy" className="hover:text-primary transition-colors">Privacy</Link>
             <span>·</span>
             <Link to="/terms" className="hover:text-primary transition-colors">Terms</Link>
