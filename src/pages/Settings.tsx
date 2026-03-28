@@ -281,14 +281,14 @@ const Settings = () => {
                     </div>
 
                     <div className="space-y-2">
-                      {members?.map((member) => (
+                      {(isDemoMode ? (effectiveMembers ?? []).map((m: any) => ({ id: m.id, full_name: m.name, user_id: m.id, role: m.role })) : members)?.map((member: any) => (
                         <div key={member.id} className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl border hover:bg-muted/10 transition-colors">
                           <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-primary/10 flex items-center justify-center font-semibold text-primary text-xs sm:text-sm">
                             {(member.full_name || 'U').split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2)}
                           </div>
                           <div className="flex-1 min-w-0">
                             <p className="text-[12px] sm:text-[13px] font-medium">{member.full_name || 'Unknown'}</p>
-                            <p className="text-[10px] sm:text-[11px] text-muted-foreground truncate">{member.user_id === user?.id ? user.email : ''}</p>
+                            <p className="text-[10px] sm:text-[11px] text-muted-foreground truncate">{isDemoMode ? '' : (member.user_id === user?.id ? user?.email : '')}</p>
                           </div>
                           <div className="flex items-center gap-2 sm:gap-4">
                             {isAdminOrOwner && member.role !== 'owner' && member.user_id !== user?.id ? (
