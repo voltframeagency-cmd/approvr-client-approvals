@@ -99,13 +99,13 @@ const Dashboard = () => {
         </motion.div>
       )}
 
-      <header className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <header className="flex flex-col md:flex-row md:items-end justify-between gap-4 md:gap-6">
         <div>
-          <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-2">Dashboard</h1>
-          <p className="text-muted-foreground text-sm md:text-base font-medium">Welcome back, Alex Rivera. Here's your operations overview.</p>
+          <h1 className="text-2xl md:text-4xl font-extrabold tracking-tight mb-1 md:mb-2">Dashboard</h1>
+          <p className="text-muted-foreground text-xs md:text-base font-medium">Welcome back, Alex Rivera.</p>
         </div>
         <Link to="/dashboard/projects">
-          <Button className="rounded-xl shadow-lg shadow-primary/20 px-6 font-bold gap-2 h-11 border-none">
+          <Button className="rounded-xl shadow-lg shadow-primary/20 px-5 md:px-6 font-bold gap-2 h-10 md:h-11 border-none text-sm w-full md:w-auto">
             <FolderKanban className="h-4 w-4" />
             New Project
           </Button>
