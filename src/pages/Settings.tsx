@@ -492,13 +492,13 @@ const Settings = () => {
                         <h3 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground/70 flex items-center gap-2">
                           <MailWarning className="h-3.5 w-3.5" /> Team Alert Rulebox
                         </h3>
-                        <div className="grid sm:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4">
                           {[
                             { label: 'New Client Comment', flag: 'notifyOnComment' },
                             { label: 'Deliverable Approved', flag: 'notifyOnApproval' },
                             { label: 'Revisions Requested', flag: 'notifyOnChangesRequested' },
                           ].map((rule) => (
-                            <div key={rule.label} className="flex items-center justify-between p-3.5 border rounded-xl hover:bg-muted/30 transition-colors">
+                            <div key={rule.label} className="flex items-center justify-between p-3 sm:p-3.5 border rounded-xl hover:bg-muted/30 transition-colors">
                               <span className="text-[13px]">{rule.label}</span>
                               <input 
                                 type="checkbox" 
