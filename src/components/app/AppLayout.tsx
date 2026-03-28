@@ -22,7 +22,7 @@ const AppLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { user, signOut } = useAuth();
-  const { isDemoMode, demoPlan, demoUserName, demoAgencyName, exitDemo } = useDemo();
+  const { isDemoMode, demoPlan, demoUserName, demoAgencyName, demoData, exitDemo } = useDemo();
   const { data: workspace } = useWorkspace();
   const { data: notifications } = useNotifications();
 
