@@ -57,7 +57,7 @@ const plans = [
       '100 GB storage',
       'Priority dedicated support',
     ],
-    cta: 'Contact for Agency',
+    cta: 'Talk to us about Agency',
     popular: false,
     icon: Building2,
     badge: null,
