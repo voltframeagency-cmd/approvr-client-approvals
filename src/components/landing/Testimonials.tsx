@@ -137,7 +137,7 @@ export const Testimonials = () => {
           </button>
           <button 
             onClick={next}
-            className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 h-14 w-14 rounded-full bg-card border border-primary/10 items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-colors duration-150 shadow-xl z-20"
+            className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 h-14 w-14 rounded-full bg-card border border-primary/10 items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-150 shadow-xl dark:shadow-[0_12px_32px_-6px_hsl(169_76%_48%/0.2)] dark:hover:shadow-[0_16px_48px_-8px_hsl(169_76%_48%/0.3)] z-20"
           >
             <ArrowRight className="h-6 w-6" />
           </button>
