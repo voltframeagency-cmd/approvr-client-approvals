@@ -531,6 +531,7 @@ const ProjectDetail = () => {
 
                 {/* Version history tab */}
                 {activeTab === 'versions' && (
+                  <FeatureGate feature="versionHistory">
                   <div className="card-elevated p-5 md:p-8">
                     <div className="flex items-center justify-between mb-5 md:mb-8">
                       <h3 className="font-bold text-xs md:text-[15px] flex items-center gap-2 md:gap-2.5 uppercase tracking-widest text-foreground">
