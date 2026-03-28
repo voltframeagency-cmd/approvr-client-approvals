@@ -756,9 +756,9 @@ const ProjectDetail = () => {
                           {workspaceActions.map(action => {
                             const Icon = providerIcons[action.providerType];
                             return (
-                              <div key={action.id} className="flex items-center gap-2.5 sm:gap-5 rounded-xl sm:rounded-[24px] border border-dashed border-slate-200 dark:border-white/10 p-3 sm:p-5 bg-slate-50/20 dark:bg-transparent transition-all">
-                                <div className="h-9 w-9 sm:h-14 sm:w-14 rounded-lg sm:rounded-2xl bg-white dark:bg-white/5 flex items-center justify-center flex-shrink-0 shadow-sm ring-1 ring-border/20">
-                                  <Icon className="h-4 w-4 sm:h-6 sm:w-6 text-slate-400 dark:text-slate-500" />
+                              <div key={action.id} className="flex items-center gap-2.5 sm:gap-5 rounded-xl sm:rounded-[24px] border border-dashed border-border p-3 sm:p-5 bg-muted/20 transition-all">
+                                <div className="h-9 w-9 sm:h-14 sm:w-14 rounded-lg sm:rounded-2xl bg-card flex items-center justify-center flex-shrink-0 shadow-sm ring-1 ring-border/20">
+                                  <Icon className="h-4 w-4 sm:h-6 sm:w-6 text-muted-foreground" />
                                 </div>
                                 <div className="flex-1 min-w-0">
                                   <p className="text-[12px] sm:text-[15px] font-bold text-slate-400 dark:text-slate-500 mb-0.5 truncate">{action.label}</p>
