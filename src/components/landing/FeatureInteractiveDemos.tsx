@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check, Upload, MessageSquare, Shield, Palette, Clock, FileText, Image as ImageIcon } from 'lucide-react';
+import { Check, Upload, MessageSquare, Shield, Palette, Clock, FileText, Image as ImageIcon, Eye, Download } from 'lucide-react';
 
 // ─── Upload Demo ───────────────────────────────────────────
 export const UploadDemo = () => {
