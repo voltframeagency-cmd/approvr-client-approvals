@@ -188,7 +188,7 @@ const Pricing = () => {
                     <p className="text-muted-foreground text-sm leading-relaxed">{plan.description}</p>
                   </div>
 
-                  <div className="mb-10">
+                  <div className="mb-6 md:mb-10">
                     <div className="flex items-baseline gap-2">
                       <AnimatePresence mode="wait">
                         <motion.span
