@@ -56,7 +56,7 @@ const CTA = () => {
             </motion.h2>
             
             <motion.p variants={itemVariants} className="text-xl text-muted-foreground mb-12 max-w-xl mx-auto leading-relaxed">
-              Email is for talking. Approvr is for deciding. Join the specialized group of agencies winning back hours of production time every week.
+              Every week you don't switch, your team loses another 6 hours to inbox chaos. That's 300+ hours a year — gone.
             </motion.p>
             
             <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center justify-center gap-6">
