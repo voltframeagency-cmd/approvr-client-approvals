@@ -136,9 +136,9 @@ const Dashboard = () => {
       </StaggerContainer>
 
       {/* Main Grid */}
-      <div className="grid lg:grid-cols-5 gap-8 lg:gap-12">
+      <div className="grid lg:grid-cols-5 gap-6 lg:gap-12">
         {/* Left Column: Projects & Attention */}
-        <div className="lg:col-span-3 space-y-12">
+        <div className="lg:col-span-3 space-y-8 md:space-y-12">
           {/* Attention queue */}
           {attentionItems.length > 0 && (
             <section className="space-y-6">
