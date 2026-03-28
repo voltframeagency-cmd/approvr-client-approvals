@@ -441,7 +441,7 @@ const ProjectDetail = () => {
                               className={cn(
                                 "px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-md transition-all",
                                 commentFilter === f 
-                                  ? "bg-white dark:bg-slate-800 text-primary shadow-sm"
+                                  ? "bg-card text-primary shadow-sm"
                                   : "text-muted-foreground hover:text-foreground"
                               )}
                             >
