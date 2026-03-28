@@ -282,7 +282,7 @@ const Dashboard = () => {
                     className="relative"
                   >
                     <div className="absolute -left-[33px] md:-left-[41px] top-0 h-5 w-5 md:h-6 md:w-6 rounded-full bg-white dark:bg-slate-900 flex items-center justify-center ring-4 ring-white dark:ring-background z-10">
-                      <div className="h-5 w-5 rounded-full bg-slate-50 dark:bg-slate-900 border flex items-center justify-center text-primary group-hover:border-primary/40 transition-colors">
+                      <div className="h-4 w-4 md:h-5 md:w-5 rounded-full bg-slate-50 dark:bg-slate-900 border flex items-center justify-center text-primary group-hover:border-primary/40 transition-colors">
                         <Icon className="h-2.5 w-2.5" />
                       </div>
                     </div>
