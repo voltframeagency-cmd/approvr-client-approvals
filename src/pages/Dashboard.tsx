@@ -66,7 +66,7 @@ const Dashboard = () => {
   const activeApprovals = mockProjects.filter(p => p.status !== 'draft' && p.status !== 'approved');
 
   return (
-    <div className="space-y-10 lg:space-y-12">
+    <div className="space-y-6 lg:space-y-12">
       {/* Beta Usage Banner */}
       {(beta.isProjectLimitReached || beta.isEventLimitReached || beta.daysRemaining < 7) && (
         <motion.div
