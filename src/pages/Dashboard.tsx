@@ -22,6 +22,8 @@ import { OnboardingChecklist, OnboardingWelcome } from '@/components/app/Onboard
 import { useOnboarding } from '@/hooks/use-onboarding';
 import { FeatureGate } from '@/components/app/FeatureGate';
 import { Progress } from '@/components/ui/progress';
+import { useWorkspace } from '@/hooks/use-workspace';
+import { useWorkspaceUsage, getWorkspacePlanConfig } from '@/hooks/use-workspace-usage';
 
 const activityIcons: Record<string, typeof FileText> = {
   approval: CheckCircle,
