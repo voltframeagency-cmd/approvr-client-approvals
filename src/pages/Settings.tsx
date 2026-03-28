@@ -312,7 +312,7 @@ const Settings = () => {
                     </div>
 
                     <div className="space-y-6">
-                      <div className="card-elevated p-6 bg-muted/[0.02]">
+                      <div className="card-elevated p-4 sm:p-6 bg-muted/[0.02]">
                         <h3 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground/70 mb-4 flex items-center gap-2">
                            <Eye className="h-3 w-3" /> Live Preview
                         </h3>
