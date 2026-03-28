@@ -70,7 +70,7 @@ const Hero = () => (
           </Link>
           <Button variant="outline" size="lg" className="h-12 px-8 text-[15px] gap-2 bg-card/50 backdrop-blur-sm font-medium">
             <Play className="h-4 w-4" />
-            Watch demo
+            See it work
             <span className="text-muted-foreground text-[12px]">2 min</span>
           </Button>
         </motion.div>
