@@ -22,6 +22,8 @@ import { useWorkspaceUsage, getWorkspacePlanConfig } from '@/hooks/use-workspace
 const Settings = () => {
   const { user } = useAuth();
   const { data: workspace, refetch: refetchWorkspace } = useWorkspace();
+  const { data: usageData } = useWorkspaceUsage(workspace?.id);
+  const wsPlanConfig = workspace ? getWorkspacePlanConfig(workspace.plan) : null;
   const { data: members, refetch: refetchMembers } = useWorkspaceMembers(workspace?.id);
   const { data: pendingInvitations } = usePendingInvitations(workspace?.id);
   const inviteMember = useInviteMember();
