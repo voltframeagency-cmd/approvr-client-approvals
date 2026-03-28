@@ -217,7 +217,7 @@ const ProjectDetail = () => {
         </motion.p>
       )}
 
-      <div className="grid lg:grid-cols-3 gap-6">
+      <div className="grid lg:grid-cols-3 gap-4 md:gap-6">
         {/* Deliverables sidebar */}
         <motion.div
           initial={{ opacity: 0, x: -12 }}
