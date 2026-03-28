@@ -214,79 +214,104 @@ const timelineEvents = [
 export const TimelineDemo = () => {
   const [visibleCount, setVisibleCount] = useState(0);
   const [cycle, setCycle] = useState(0);
+  const [isFading, setIsFading] = useState(false);
 
   useEffect(() => {
     const t: ReturnType<typeof setTimeout>[] = [];
+    setIsFading(false);
     setVisibleCount(0);
-    t.push(setTimeout(() => setVisibleCount(1), 500));
-    t.push(setTimeout(() => setVisibleCount(2), 1100));
-    t.push(setTimeout(() => setVisibleCount(3), 1700));
-    t.push(setTimeout(() => setVisibleCount(4), 2300));
-    t.push(setTimeout(() => setVisibleCount(5), 2900));
-    t.push(setTimeout(() => setCycle(c => c + 1), 5500));
+    t.push(setTimeout(() => setVisibleCount(1), 600));
+    t.push(setTimeout(() => setVisibleCount(2), 1300));
+    t.push(setTimeout(() => setVisibleCount(3), 2000));
+    t.push(setTimeout(() => setVisibleCount(4), 2700));
+    t.push(setTimeout(() => setVisibleCount(5), 3400));
+    // Smooth fade-out before reset
+    t.push(setTimeout(() => setIsFading(true), 5200));
+    t.push(setTimeout(() => setCycle(c => c + 1), 6000));
     return () => t.forEach(clearTimeout);
   }, [cycle]);
 
   return (
-    <div className="w-full h-full flex flex-col justify-center gap-0 px-6 py-4">
+    <motion.div
+      className="w-full h-full flex flex-col justify-center gap-0 px-6 py-4"
+      animate={{ opacity: isFading ? 0 : 1 }}
+      transition={{ duration: 0.6, ease: [0.2, 0, 0, 1] }}
+    >
       {timelineEvents.map((ev, i) => (
         <div key={i} className="flex items-stretch gap-3 relative">
-          {/* Vertical connector line */}
+          {/* Vertical connector */}
           <div className="flex flex-col items-center">
-            <AnimatePresence>
-              {i < visibleCount && (
-                <motion.div
-                  initial={{ scale: 0, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ type: 'spring', damping: 14, stiffness: 200 }}
-                  className="relative"
-                >
-                  <div className={`h-8 w-8 rounded-full flex items-center justify-center ${ev.color} bg-current/10`}>
-                    <ev.icon className={`h-4 w-4 ${ev.color}`} />
-                  </div>
-                  {/* Pulse ring on latest item */}
-                  {i === visibleCount - 1 && (
-                    <motion.div
-                      className={`absolute inset-0 rounded-full border-2 ${ev.color.replace('text-', 'border-')}/30`}
-                      initial={{ scale: 1, opacity: 0.6 }}
-                      animate={{ scale: 1.8, opacity: 0 }}
-                      transition={{ duration: 1, repeat: Infinity, ease: 'easeOut' }}
-                    />
-                  )}
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {i < visibleCount ? (
+              <motion.div
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ 
+                  type: 'spring', 
+                  damping: 20, 
+                  stiffness: 300,
+                  mass: 0.8,
+                }}
+                className="relative"
+              >
+                <div className={`h-8 w-8 rounded-full flex items-center justify-center ${ev.color} bg-current/10`}>
+                  <ev.icon className={`h-4 w-4 ${ev.color}`} />
+                </div>
+                {/* Pulse ring on latest */}
+                {i === visibleCount - 1 && (
+                  <motion.div
+                    className={`absolute inset-0 rounded-full border-2 ${ev.color.replace('text-', 'border-')}/20`}
+                    initial={{ scale: 1, opacity: 0.5 }}
+                    animate={{ scale: 2, opacity: 0 }}
+                    transition={{ duration: 1.2, repeat: Infinity, ease: [0.2, 0, 0, 1] }}
+                  />
+                )}
+              </motion.div>
+            ) : (
+              <div className="h-8 w-8" />
+            )}
             {/* Connecting line */}
             {i < timelineEvents.length - 1 && (
               <motion.div
-                className="w-px flex-1 min-h-[8px] bg-border/40"
-                initial={{ scaleY: 0 }}
-                animate={{ scaleY: i < visibleCount ? 1 : 0 }}
-                transition={{ duration: 0.3, delay: 0.2 }}
-                style={{ transformOrigin: 'top' }}
+                className="w-px flex-1 min-h-[8px] origin-top"
+                initial={{ scaleY: 0, opacity: 0 }}
+                animate={{ 
+                  scaleY: i < visibleCount ? 1 : 0,
+                  opacity: i < visibleCount ? 1 : 0,
+                  background: i < visibleCount 
+                    ? 'linear-gradient(to bottom, hsl(var(--border) / 0.5), hsl(var(--border) / 0.15))' 
+                    : 'hsl(var(--border) / 0.2)'
+                }}
+                transition={{ duration: 0.5, ease: [0.2, 0, 0, 1], delay: 0.15 }}
               />
             )}
           </div>
           {/* Content */}
-          <AnimatePresence>
-            {i < visibleCount && (
-              <motion.div
-                initial={{ opacity: 0, x: -8, filter: 'blur(4px)' }}
-                animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
-                transition={{ duration: 0.3, ease: [0.2, 0, 0, 1] }}
-                className="flex-1 flex items-center justify-between pb-3 min-h-[40px]"
+          {i < visibleCount ? (
+            <motion.div
+              initial={{ opacity: 0, y: 6, filter: 'blur(6px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              transition={{ duration: 0.45, ease: [0.05, 0.7, 0.1, 1] }}
+              className="flex-1 flex items-center justify-between pb-3 min-h-[40px]"
+            >
+              <div className="flex flex-col">
+                <span className="text-sm font-medium text-foreground/90">{ev.label}</span>
+                <span className="text-xs text-muted-foreground/50">{ev.user}</span>
+              </div>
+              <motion.span 
+                className="text-xs text-muted-foreground/40 whitespace-nowrap"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3, delay: 0.2 }}
               >
-                <div className="flex flex-col">
-                  <span className="text-sm font-medium text-foreground/90">{ev.label}</span>
-                  <span className="text-xs text-muted-foreground/50">{ev.user}</span>
-                </div>
-                <span className="text-xs text-muted-foreground/40 whitespace-nowrap">{ev.time}</span>
-              </motion.div>
-            )}
-          </AnimatePresence>
+                {ev.time}
+              </motion.span>
+            </motion.div>
+          ) : (
+            <div className="flex-1 pb-3 min-h-[40px]" />
+          )}
         </div>
       ))}
-    </div>
+    </motion.div>
   );
 };
 
