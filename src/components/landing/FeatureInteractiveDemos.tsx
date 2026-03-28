@@ -183,14 +183,14 @@ export const ApprovalDemo = () => {
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ type: 'spring', damping: 10, stiffness: 200 }}
-              className="h-14 w-14 rounded-full bg-success/10 flex items-center justify-center"
+              className="h-18 w-18 rounded-full bg-success/10 flex items-center justify-center"
             >
-              <Check className="h-7 w-7 text-success" />
+              <Check className="h-9 w-9 text-success" />
             </motion.div>
-            <span className="text-sm text-success font-medium">Approved</span>
+            <span className="text-base text-success font-medium">Approved</span>
             {/* Ripple */}
             <motion.div
-              className="absolute h-14 w-14 rounded-full border-2 border-success/20"
+              className="absolute h-18 w-18 rounded-full border-2 border-success/20"
               initial={{ scale: 1, opacity: 0.5 }}
               animate={{ scale: 2.5, opacity: 0 }}
               transition={{ duration: 0.8 }}
