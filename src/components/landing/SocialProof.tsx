@@ -94,8 +94,8 @@ const SocialProof = () => {
           transition={{ duration: DURATION.large, delay: 0.4, ease: EASING.standard as unknown as number[] }}
           className="relative pt-10 border-t border-border/20"
         >
-          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-muted/30 to-transparent z-10" />
-          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-muted/30 to-transparent z-10" />
+          <div className="absolute left-0 top-0 bottom-0 w-40 bg-gradient-to-r from-background via-background/80 to-transparent z-10" />
+          <div className="absolute right-0 top-0 bottom-0 w-40 bg-gradient-to-l from-background via-background/80 to-transparent z-10" />
           
           <p className="text-center text-[10px] font-black text-muted-foreground/50 uppercase tracking-[0.3em] mb-12">
             Works with what you already use
