@@ -537,10 +537,10 @@ const ProjectDetail = () => {
                       <div className="space-y-6 md:space-y-8">
                         {(selectedDel.versions || [{ version: selectedDel.version, submittedAt: selectedDel.submittedAt, note: 'Initial submission' }])
                           .slice().reverse().map((v, i) => (
-                          <div key={v.version} className="flex items-start gap-6 relative group/v">
+                          <div key={v.version} className="flex items-start gap-3 md:gap-6 relative group/v">
                             <div className={cn(
-                              'h-8 w-8 rounded-full flex items-center justify-center text-[11px] font-black flex-shrink-0 z-10 shadow-sm ring-4 ring-white dark:ring-slate-900 transition-all group-hover/v:scale-110',
-                              i === 0 ? 'bg-primary text-white' : 'bg-slate-100 dark:bg-slate-800 text-muted-foreground'
+                              'h-7 w-7 md:h-8 md:w-8 rounded-full flex items-center justify-center text-[10px] md:text-[11px] font-black flex-shrink-0 z-10 shadow-sm ring-4 ring-background transition-all group-hover/v:scale-110',
+                              i === 0 ? 'bg-primary text-white' : 'bg-muted text-muted-foreground'
                             )}>
                               {v.version}
                             </div>
