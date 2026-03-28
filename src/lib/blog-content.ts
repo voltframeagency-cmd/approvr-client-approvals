@@ -321,6 +321,9 @@ export const blogContent: Record<string, BlogSection[]> = {
   ],
 
   'how-to-get-client-feedback-faster': [
+    // DEFINITION (AEO)
+    { type: 'definition', content: 'Client feedback friction refers to the barriers that slow down a client\'s ability to review creative work — attachments requiring downloads, login requirements, unclear annotation methods, multi-step approval processes. Reducing these barriers typically cuts feedback response times from 3-7 days to same-day.' },
+
     // HOOK
     { type: 'p', content: 'You followed up three times. No reply.' },
     { type: 'p', content: 'The project sits in limbo. Your invoice waits. Your next project can\'t start because this one won\'t end.' },
