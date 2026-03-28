@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check, Upload, MessageSquare, Shield, Palette, Clock, FileText, Image as ImageIcon } from 'lucide-react';
+import { Check, Upload, MessageSquare, Shield, Palette, Clock, FileText, Image as ImageIcon, Eye, Download } from 'lucide-react';
 
 // ─── Upload Demo ───────────────────────────────────────────
 export const UploadDemo = () => {
@@ -204,9 +204,11 @@ export const ApprovalDemo = () => {
 
 // ─── Timeline Demo ─────────────────────────────────────────
 const timelineEvents = [
-  { icon: Upload, label: 'Files uploaded', color: 'text-primary' },
-  { icon: MessageSquare, label: 'Comment added', color: 'text-info' },
-  { icon: Check, label: 'Approved', color: 'text-success' },
+  { icon: Eye, label: 'Client opened link', user: 'Sarah C.', time: '2m ago', color: 'text-warning' },
+  { icon: Upload, label: 'Files uploaded', user: 'You', time: '1m ago', color: 'text-primary' },
+  { icon: MessageSquare, label: 'Comment added', user: 'Sarah C.', time: '45s ago', color: 'text-info' },
+  { icon: Download, label: 'Downloaded asset', user: 'Sarah C.', time: '30s ago', color: 'text-muted-foreground' },
+  { icon: Check, label: 'Approved', user: 'Sarah C.', time: 'just now', color: 'text-success' },
 ];
 
 export const TimelineDemo = () => {
@@ -217,31 +219,68 @@ export const TimelineDemo = () => {
     const t: ReturnType<typeof setTimeout>[] = [];
     setVisibleCount(0);
     t.push(setTimeout(() => setVisibleCount(1), 500));
-    t.push(setTimeout(() => setVisibleCount(2), 1300));
-    t.push(setTimeout(() => setVisibleCount(3), 2100));
-    t.push(setTimeout(() => setCycle(c => c + 1), 4500));
+    t.push(setTimeout(() => setVisibleCount(2), 1100));
+    t.push(setTimeout(() => setVisibleCount(3), 1700));
+    t.push(setTimeout(() => setVisibleCount(4), 2300));
+    t.push(setTimeout(() => setVisibleCount(5), 2900));
+    t.push(setTimeout(() => setCycle(c => c + 1), 5500));
     return () => t.forEach(clearTimeout);
   }, [cycle]);
 
   return (
-    <div className="w-full h-full flex flex-col justify-center gap-1 px-8 py-4">
+    <div className="w-full h-full flex flex-col justify-center gap-0 px-6 py-4">
       {timelineEvents.map((ev, i) => (
-        <div key={i} className="flex items-center gap-4 relative">
-          {/* Vertical line */}
-          {i < 2 && <div className="absolute left-[13px] top-11 w-px h-5 bg-border/50" />}
+        <div key={i} className="flex items-stretch gap-3 relative">
+          {/* Vertical connector line */}
+          <div className="flex flex-col items-center">
+            <AnimatePresence>
+              {i < visibleCount && (
+                <motion.div
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ type: 'spring', damping: 14, stiffness: 200 }}
+                  className="relative"
+                >
+                  <div className={`h-8 w-8 rounded-full flex items-center justify-center ${ev.color} bg-current/10`}>
+                    <ev.icon className={`h-4 w-4 ${ev.color}`} />
+                  </div>
+                  {/* Pulse ring on latest item */}
+                  {i === visibleCount - 1 && (
+                    <motion.div
+                      className={`absolute inset-0 rounded-full border-2 ${ev.color.replace('text-', 'border-')}/30`}
+                      initial={{ scale: 1, opacity: 0.6 }}
+                      animate={{ scale: 1.8, opacity: 0 }}
+                      transition={{ duration: 1, repeat: Infinity, ease: 'easeOut' }}
+                    />
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
+            {/* Connecting line */}
+            {i < timelineEvents.length - 1 && (
+              <motion.div
+                className="w-px flex-1 min-h-[8px] bg-border/40"
+                initial={{ scaleY: 0 }}
+                animate={{ scaleY: i < visibleCount ? 1 : 0 }}
+                transition={{ duration: 0.3, delay: 0.2 }}
+                style={{ transformOrigin: 'top' }}
+              />
+            )}
+          </div>
+          {/* Content */}
           <AnimatePresence>
             {i < visibleCount && (
               <motion.div
-                initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ type: 'spring', damping: 12 }}
-                className="flex items-center gap-4 py-2.5"
+                initial={{ opacity: 0, x: -8, filter: 'blur(4px)' }}
+                animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+                transition={{ duration: 0.3, ease: [0.2, 0, 0, 1] }}
+                className="flex-1 flex items-center justify-between pb-3 min-h-[40px]"
               >
-                <div className={`h-9 w-9 rounded-full flex items-center justify-center ${ev.color} bg-current/10`}>
-                  <ev.icon className={`h-5 w-5 ${ev.color}`} />
+                <div className="flex flex-col">
+                  <span className="text-sm font-medium text-foreground/90">{ev.label}</span>
+                  <span className="text-xs text-muted-foreground/50">{ev.user}</span>
                 </div>
-                <span className="text-lg text-muted-foreground">{ev.label}</span>
-                <span className="text-base text-muted-foreground/50">just now</span>
+                <span className="text-xs text-muted-foreground/40 whitespace-nowrap">{ev.time}</span>
               </motion.div>
             )}
           </AnimatePresence>
