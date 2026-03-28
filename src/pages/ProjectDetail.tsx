@@ -696,7 +696,7 @@ const ProjectDetail = () => {
                           <div className="flex items-end justify-end gap-2 sm:gap-4">
                              <Button 
                               variant="ghost" 
-                              className="rounded-xl sm:rounded-2xl px-4 sm:px-6 h-10 sm:h-14 text-[11px] sm:text-[12px] font-black uppercase tracking-widest hover:bg-slate-100 dark:hover:bg-white/5" 
+                              className="rounded-xl sm:rounded-2xl px-4 sm:px-6 h-10 sm:h-14 text-[11px] sm:text-[12px] font-black uppercase tracking-widest hover:bg-muted" 
                               onClick={() => setShowAddAction(false)}
                             >
                               Cancel
