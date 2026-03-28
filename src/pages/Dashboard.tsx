@@ -113,7 +113,7 @@ const Dashboard = () => {
       </header>
 
       {/* Stat cards */}
-      <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" staggerDelay={0.06}>
+      <StaggerContainer className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6" staggerDelay={0.06}>
         {statCards.map(card => (
           <StaggerItem key={card.label}>
             <motion.div
