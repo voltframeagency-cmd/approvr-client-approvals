@@ -141,7 +141,7 @@ const Dashboard = () => {
         <div className="lg:col-span-3 space-y-8 md:space-y-12">
           {/* Attention queue */}
           {attentionItems.length > 0 && (
-            <section className="space-y-6">
+            <section className="space-y-4 md:space-y-6">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
                   <div className="p-1.5 bg-destructive/10 rounded-lg">
