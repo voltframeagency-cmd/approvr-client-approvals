@@ -29,7 +29,7 @@ const plans = [
     name: 'Pro',
     price: { monthly: 29, yearly: 24 },
     period: '/mo',
-    description: 'Perfect for growing agencies and studios.',
+    description: 'For agencies ready to stop losing hours to email.',
     features: [
       'Everything in Beta, plus:',
       'Unlimited projects',
