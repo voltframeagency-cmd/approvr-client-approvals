@@ -95,7 +95,7 @@ const Hero = () => (
         initial={{ opacity: 0, y: 48 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: DURATION.large, delay: 0.5, ease: EASING.enter }}
-        className="mt-14 md:mt-20 max-w-4xl mx-auto glow-primary rounded-2xl"
+        className="mt-10 md:mt-20 max-w-4xl mx-auto glow-primary rounded-2xl"
         data-gsap="mockup"
       >
         <HeroDemoMockup />

@@ -119,8 +119,8 @@ export const HowItWorks = () => {
                       <step.icon className="h-4 w-4" />
                       <span>{step.detail}</span>
                     </div>
-                    <h3 className="text-3xl font-bold mb-4 tracking-tight">{step.title}</h3>
-                    <p className="text-lg text-muted-foreground leading-relaxed max-w-md mx-auto md:mx-0">
+                    <h3 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4 tracking-tight">{step.title}</h3>
+                    <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-md mx-auto md:mx-0">
                       {step.description}
                     </p>
                     <div className={`mt-8 flex items-center gap-2 font-black text-primary ${isEven ? 'justify-center md:justify-start' : 'justify-center md:justify-end'}`} style={{ textShadow: '0 4px 12px hsl(0 0% 0% / 0.15)' }}>

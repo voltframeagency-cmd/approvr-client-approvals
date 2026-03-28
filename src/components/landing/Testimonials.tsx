@@ -114,18 +114,21 @@ export const Testimonials = () => {
           </div>
 
           {/* Navigation Controls */}
-          <button 
-            onClick={prev}
-            className="absolute left-0 top-1/2 -translate-y-1/2 h-14 w-14 rounded-full bg-card border border-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-colors duration-150 shadow-xl z-20"
-          >
-            <ArrowLeft className="h-6 w-6" />
-          </button>
-          <button 
-            onClick={next}
-            className="absolute right-0 top-1/2 -translate-y-1/2 h-14 w-14 rounded-full bg-card border border-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-colors duration-150 shadow-xl z-20"
-          >
-            <ArrowRight className="h-6 w-6" />
-          </button>
+          {/* Navigation — inline on mobile, absolute on desktop */}
+          <div className="flex justify-center gap-3 mt-6 md:mt-0">
+            <button 
+              onClick={prev}
+              className="md:absolute md:left-0 md:top-1/2 md:-translate-y-1/2 h-11 w-11 md:h-14 md:w-14 rounded-full bg-card border border-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-colors duration-150 shadow-xl z-20"
+            >
+              <ArrowLeft className="h-5 w-5 md:h-6 md:w-6" />
+            </button>
+            <button 
+              onClick={next}
+              className="md:absolute md:right-0 md:top-1/2 md:-translate-y-1/2 h-11 w-11 md:h-14 md:w-14 rounded-full bg-card border border-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-colors duration-150 shadow-xl z-20"
+            >
+              <ArrowRight className="h-5 w-5 md:h-6 md:w-6" />
+            </button>
+          </div>
         </div>
       </div>
     </section>

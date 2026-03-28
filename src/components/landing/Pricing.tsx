@@ -258,7 +258,7 @@ const Pricing = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: DURATION.large, delay: 0.3, ease: EASING.standard as unknown as number[] }}
-          className="mt-32 text-center"
+          className="mt-20 md:mt-32 text-center"
         >
           <p className="text-sm font-bold text-muted-foreground/60 uppercase tracking-[0.2em] mb-10">
             Used by agencies who got tired of chasing emails

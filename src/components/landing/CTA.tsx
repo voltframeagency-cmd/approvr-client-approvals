@@ -65,7 +65,7 @@ const CTA = () => {
                 </ShinyButton>
               </Link>
               <a href="#pricing" className="w-full sm:w-auto">
-                <Button variant="outline" size="lg" className="h-16 px-10 text-lg rounded-2xl font-bold bg-muted/50 border-primary/10 hover:border-primary/30 transition-colors duration-150">
+                <Button variant="outline" size="lg" className="h-14 md:h-16 px-8 md:px-10 text-base md:text-lg rounded-2xl font-bold bg-muted/50 border-primary/10 hover:border-primary/30 transition-colors duration-150">
                   View Pricing
                 </Button>
               </a>
