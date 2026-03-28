@@ -651,8 +651,8 @@ const ProjectDetail = () => {
                                       : "border-border/40 hover:border-border hover:bg-slate-50 dark:hover:bg-white/5 text-muted-foreground/60"
                                   )}
                                 >
-                                  <Icon className={cn("h-6 w-6", isSelected ? "text-primary" : "text-muted-foreground/40")} />
-                                  <span className="text-[10px] font-bold truncate max-w-full">{label}</span>
+                                  <Icon className={cn("h-4 w-4 sm:h-6 sm:w-6", isSelected ? "text-primary" : "text-muted-foreground/40")} />
+                                  <span className="text-[8px] sm:text-[10px] font-bold truncate max-w-full">{label}</span>
                                 </button>
                               );
                             })}
