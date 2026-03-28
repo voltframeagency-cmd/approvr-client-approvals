@@ -6,9 +6,11 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Logo } from '@/components/brand/Logo';
 import HeroBackground from '@/components/landing/HeroBackground';
-import { ShieldCheck, ArrowRight, Sparkles } from 'lucide-react';
+import { ShieldCheck, ArrowRight, Sparkles, Zap, Building2, Play } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
+import { useDemo } from '@/contexts/DemoContext';
 import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
 
 const Login = () => {
   const { signIn } = useAuth();
