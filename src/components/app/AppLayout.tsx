@@ -92,12 +92,14 @@ const AppLayout = () => {
         </nav>
         
         <div className="px-3 pb-6 space-y-4">
-          {workspace && (
+          {(workspace || isDemoMode) && (
             <div className="px-4 py-4 rounded-2xl bg-gradient-to-br from-card via-card to-card text-foreground shadow-xl relative overflow-hidden group border border-border/10">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.1),transparent)]" />
               <div className="relative z-10 flex flex-col gap-2">
-                <Badge className="w-fit bg-primary/20 text-primary hover:bg-primary/30 border-none text-[8px] font-black tracking-widest px-1.5 py-0 uppercase">Founder Beta</Badge>
-                <p className="text-[11px] font-bold tracking-tight truncate">{workspace.name}</p>
+                <Badge className="w-fit bg-primary/20 text-primary hover:bg-primary/30 border-none text-[8px] font-black tracking-widest px-1.5 py-0 uppercase">
+                  {isDemoMode ? planLabel : 'Founder Beta'}
+                </Badge>
+                <p className="text-[11px] font-bold tracking-tight truncate">{workspaceName || workspace?.name}</p>
               </div>
             </div>
           )}
