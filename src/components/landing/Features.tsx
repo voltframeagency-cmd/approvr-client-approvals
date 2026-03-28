@@ -67,7 +67,7 @@ export const Features = () => {
   }, []);
 
   return (
-    <section id="features" className="py-20 md:py-32 relative overflow-hidden">
+    <section id="features" className="py-32 relative overflow-hidden">
       {/* Background ambient glow */}
       <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
@@ -78,16 +78,16 @@ export const Features = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: DURATION.large, ease: EASING.enter as unknown as number[] }}
-          className="max-w-3xl mx-auto text-center mb-14 md:mb-24"
+          className="max-w-3xl mx-auto text-center mb-24"
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
             <Sparkles className="h-4 w-4" />
             <span>What you actually get</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-bold mb-6 md:mb-8 tracking-tighter leading-[1.1]" style={{ textShadow: '0 4px 12px hsl(0 0% 0% / 0.15)' }}>
+          <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold mb-8 tracking-tighter leading-[1.1]" style={{ textShadow: '0 4px 12px hsl(0 0% 0% / 0.15)' }}>
             Six problems you <span className="italic bg-gradient-to-b from-primary via-primary to-primary/60 bg-clip-text text-transparent">won't have anymore</span>
           </h2>
-          <p className="text-base md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto px-2 md:px-0">
+          <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
             We didn't build another project manager. We built the thing that gets clients to say "yes" — fast.
           </p>
         </motion.div>
@@ -159,7 +159,7 @@ export const Features = () => {
             className="relative"
           >
             {/* Glossy Mockup Container */}
-            <div className="relative rounded-2xl lg:rounded-[2rem] border border-primary/10 bg-card/40 backdrop-blur-3xl overflow-hidden min-h-[320px] lg:min-h-[460px] shadow-[0_32px_120px_-20px_rgba(0,0,0,0.3)] ring-1 ring-white/10 group">
+            <div className="relative rounded-[2rem] border border-primary/10 bg-card/40 backdrop-blur-3xl overflow-hidden min-h-[460px] shadow-[0_32px_120px_-20px_rgba(0,0,0,0.3)] ring-1 ring-white/10 group">
               <div className="absolute inset-0 bg-gradient-to-tr from-primary/[0.02] via-transparent to-primary/[0.05]" />
               
               <AnimatePresence mode="wait">

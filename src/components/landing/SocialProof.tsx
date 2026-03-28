@@ -66,7 +66,7 @@ const SocialProof = () => {
   };
 
   return (
-    <section className="py-16 md:py-24 border-t border-b border-border/40 relative overflow-hidden bg-muted/30">
+    <section className="py-24 border-t border-b border-border/40 relative overflow-hidden bg-muted/30">
       <div className="container mx-auto px-4">
         {/* Stats */}
         <motion.div 
@@ -74,11 +74,11 @@ const SocialProof = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-12 md:mb-20"
+          className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20"
         >
           {stats.map((stat) => (
             <motion.div key={stat.label} variants={itemVariants} className="text-center group">
-              <p className="text-3xl md:text-5xl font-black tracking-tight text-primary mb-1 md:mb-2 group-hover:scale-110 transition-transform duration-150" style={{ textShadow: '0 2px 8px hsl(169 76% 48% / 0.3), 0 1px 2px hsl(169 76% 48% / 0.15)', WebkitBackgroundClip: 'text', backgroundImage: 'linear-gradient(180deg, hsl(160, 84%, 50%) 0%, hsl(169, 76%, 48%) 50%, hsl(160, 84%, 30%) 100%)', WebkitTextFillColor: 'transparent', filter: 'drop-shadow(0 2px 4px hsl(169 76% 48% / 0.2))' }}>
+              <p className="text-4xl md:text-5xl font-black tracking-tight text-primary mb-2 group-hover:scale-110 transition-transform duration-150" style={{ textShadow: '0 2px 8px hsl(169 76% 48% / 0.3), 0 1px 2px hsl(169 76% 48% / 0.15)', WebkitBackgroundClip: 'text', backgroundImage: 'linear-gradient(180deg, hsl(160, 84%, 50%) 0%, hsl(169, 76%, 48%) 50%, hsl(160, 84%, 30%) 100%)', WebkitTextFillColor: 'transparent', filter: 'drop-shadow(0 2px 4px hsl(169 76% 48% / 0.2))' }}>
                 <AnimatedNumber value={stat.numericValue} suffix={stat.suffix} decimals={stat.decimals} />
               </p>
               <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">{stat.label}</p>
