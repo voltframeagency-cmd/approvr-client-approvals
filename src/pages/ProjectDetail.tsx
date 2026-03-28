@@ -314,7 +314,7 @@ const ProjectDetail = () => {
                   <div className="space-y-6">
                     <div className="card-elevated p-0 overflow-hidden">
                       <div className="p-4 md:p-6 border-b border-border/40 bg-muted/30">
-                        <div className="flex items-start justify-between">
+                        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
                           <div className="space-y-1">
                             <div className="flex items-center gap-2 mb-2">
                                <Badge variant="outline" className="text-[9px] font-black uppercase tracking-widest border-primary/20 text-primary bg-primary/5">
