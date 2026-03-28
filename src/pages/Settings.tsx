@@ -127,7 +127,7 @@ const Settings = () => {
   ];
 
   return (
-    <div className="space-y-5 sm:space-y-8 max-w-5xl">
+    <div className="space-y-5 sm:space-y-8 max-w-5xl overflow-hidden">
       <div className="flex flex-col gap-0.5 sm:gap-1">
         <motion.h1
           initial={{ opacity: 0, y: 12 }}
