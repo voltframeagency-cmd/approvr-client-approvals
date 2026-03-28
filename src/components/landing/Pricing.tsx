@@ -107,7 +107,7 @@ const Pricing = () => {
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
             <Zap className="h-4 w-4" />
-            <span>Risk-Free Early Access</span>
+            <span>Pick your plan</span>
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold tracking-tighter mb-8 leading-[1.1]" style={{ textShadow: '0 4px 12px hsl(0 0% 0% / 0.15)' }}>
             Straightforward pricing for <br className="hidden md:block" />
