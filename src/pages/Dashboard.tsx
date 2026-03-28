@@ -287,7 +287,7 @@ const Dashboard = () => {
                       </div>
                     </div>
                     <div className="flex flex-col gap-1">
-                      <p className="text-[13px] leading-relaxed text-slate-900 dark:text-slate-100">
+                      <p className="text-xs md:text-[13px] leading-relaxed text-slate-900 dark:text-slate-100">
                         <span className="font-bold">{item.actor}</span>{' '}
                         <span className="text-muted-foreground font-medium">{item.action}</span>{' '}
                         <span className="font-bold text-primary/90 hover:underline cursor-pointer transition-all">{item.projectName}</span>
