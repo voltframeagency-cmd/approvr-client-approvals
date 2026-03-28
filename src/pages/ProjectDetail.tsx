@@ -618,7 +618,7 @@ const ProjectDetail = () => {
 
                 {/* Next Steps tab */}
                 {activeTab === 'next_steps' && (
-                  <div className="card-elevated p-6">
+                  <div className="card-elevated p-4 md:p-6">
                     <div className="flex items-center justify-between mb-5">
                       <h3 className="font-semibold text-[14px] flex items-center gap-2">
                         <Zap className="h-4 w-4" /> Next step actions
