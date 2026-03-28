@@ -574,7 +574,7 @@ const ProjectDetail = () => {
 
                 {/* Timeline tab */}
                 {activeTab === 'timeline' && (
-                  <div className="card-elevated p-6">
+                  <div className="card-elevated p-4 md:p-6">
                     <h3 className="font-semibold text-[14px] flex items-center gap-2 mb-5">
                       <Clock className="h-4 w-4" /> Project timeline
                     </h3>
