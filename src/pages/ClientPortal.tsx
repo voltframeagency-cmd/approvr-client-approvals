@@ -34,7 +34,12 @@ const providerTypeLabels: Record<string, string> = {
 };
 
 const ClientPortal = () => {
+  // For now, use mockProjects[0] as the portal preview.
+  // In production, this would accept a project token via URL param.
   const project = mockProjects[0];
+  const agencyName = project?.clientName ? 'Your Agency' : 'Agency';
+  const portalYear = new Date().getFullYear();
+
   const deliverables = mockDeliverables.filter(d => d.projectId === project.id);
   const [selectedDel, setSelectedDel] = useState(deliverables[0]?.id);
   const currentDel = deliverables.find(d => d.id === selectedDel);
