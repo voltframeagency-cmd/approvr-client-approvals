@@ -380,45 +380,76 @@ export const BrandingDemo = () => {
 
 // ─── Audit Demo ────────────────────────────────────────────
 const auditEntries = [
-  { action: 'Logged in', user: 'Sarah C.', icon: Shield },
-  { action: 'Approved logo', user: 'Sarah C.', icon: Check },
-  { action: 'Comment added', user: 'Alex R.', icon: MessageSquare },
+  { action: 'Logged in', user: 'Sarah C.', icon: Shield, time: '3m ago' },
+  { action: 'Viewed proposal', user: 'Sarah C.', icon: Eye, time: '2m ago' },
+  { action: 'Approved logo', user: 'Sarah C.', icon: Check, time: '1m ago' },
+  { action: 'Comment added', user: 'Alex R.', icon: MessageSquare, time: '30s ago' },
+  { action: 'Downloaded PDF', user: 'Sarah C.', icon: Download, time: 'just now' },
 ];
 
 export const AuditDemo = () => {
   const [visibleCount, setVisibleCount] = useState(0);
   const [cycle, setCycle] = useState(0);
+  const [isFading, setIsFading] = useState(false);
 
   useEffect(() => {
     const t: ReturnType<typeof setTimeout>[] = [];
+    setIsFading(false);
     setVisibleCount(0);
     t.push(setTimeout(() => setVisibleCount(1), 600));
-    t.push(setTimeout(() => setVisibleCount(2), 1400));
-    t.push(setTimeout(() => setVisibleCount(3), 2200));
-    t.push(setTimeout(() => setCycle(c => c + 1), 4500));
+    t.push(setTimeout(() => setVisibleCount(2), 1200));
+    t.push(setTimeout(() => setVisibleCount(3), 1800));
+    t.push(setTimeout(() => setVisibleCount(4), 2400));
+    t.push(setTimeout(() => setVisibleCount(5), 3000));
+    t.push(setTimeout(() => setIsFading(true), 5200));
+    t.push(setTimeout(() => setCycle(c => c + 1), 6000));
     return () => t.forEach(clearTimeout);
   }, [cycle]);
 
   return (
-    <div className="w-full h-full flex flex-col justify-center gap-2.5 px-6 py-4">
+    <motion.div
+      className="w-full h-full flex flex-col justify-center gap-1.5 px-6 py-4"
+      animate={{ opacity: isFading ? 0 : 1 }}
+      transition={{ duration: 0.6, ease: [0.2, 0, 0, 1] }}
+    >
       <div className="flex items-center gap-2 mb-1">
         <Shield className="h-4 w-4 text-primary/40" />
         <span className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">Audit log</span>
       </div>
-      <AnimatePresence mode="popLayout">
-        {auditEntries.slice(0, visibleCount).map((entry, i) => (
+      {auditEntries.map((entry, i) => (
+        i < visibleCount ? (
           <motion.div
             key={`${cycle}-${i}`}
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="flex items-center gap-3 bg-muted/20 rounded-lg px-4 py-2"
+            initial={{ opacity: 0, y: 6, filter: 'blur(6px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            transition={{ duration: 0.45, ease: [0.05, 0.7, 0.1, 1] }}
+            className="flex items-center gap-3 bg-muted/20 rounded-lg px-4 py-2.5 relative"
           >
             <entry.icon className="h-4 w-4 text-muted-foreground/40 flex-shrink-0" />
-            <span className="text-sm flex-1 truncate">{entry.action}</span>
+            <span className="text-sm flex-1 truncate font-medium">{entry.action}</span>
             <span className="text-xs text-muted-foreground/50">{entry.user}</span>
+            <motion.span
+              className="text-xs text-muted-foreground/30"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3, delay: 0.2 }}
+            >
+              {entry.time}
+            </motion.span>
+            {/* Pulse on latest */}
+            {i === visibleCount - 1 && (
+              <motion.div
+                className="absolute inset-0 rounded-lg border border-primary/10"
+                initial={{ opacity: 0.5 }}
+                animate={{ opacity: 0 }}
+                transition={{ duration: 1.2, ease: [0.2, 0, 0, 1] }}
+              />
+            )}
           </motion.div>
-        ))}
-      </AnimatePresence>
-    </div>
+        ) : (
+          <div key={i} className="h-[42px]" />
+        )
+      ))}
+    </motion.div>
   );
 };
