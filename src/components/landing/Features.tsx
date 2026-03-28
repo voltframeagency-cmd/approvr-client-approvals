@@ -99,7 +99,7 @@ export const Features = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: DURATION.large, delay: 0.2, ease: EASING.enter as unknown as number[] }}
-            className="flex flex-col gap-2"
+            className="flex flex-col gap-1 md:gap-2"
           >
             {features.map((feature, i) => {
               const isActive = activeIndex === i;
