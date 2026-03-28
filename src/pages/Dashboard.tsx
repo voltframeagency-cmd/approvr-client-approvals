@@ -56,6 +56,7 @@ function timeAgo(dateStr: string) {
 }
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const beta = useFounderBeta();
   const onboarding = useOnboarding();
   const { isDemoMode, demoUserName, demoData, planConfig: demoPlanConfig, usage: demoUsage } = useDemo();
