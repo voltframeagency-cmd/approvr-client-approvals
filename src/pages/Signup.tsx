@@ -31,7 +31,7 @@ const Signup = () => {
   return (
     <div className="min-h-screen flex bg-background selection:bg-primary/20">
       {/* Left side: Atmospheric Branding */}
-      <div className="hidden lg:flex lg:w-[45%] relative border-r border-border/50 overflow-hidden bg-slate-50">
+      <div className="hidden lg:flex lg:w-[45%] relative border-r border-border/50 overflow-hidden bg-muted/30">
         <div className="absolute inset-0 z-0">
           <HeroBackground />
         </div>
