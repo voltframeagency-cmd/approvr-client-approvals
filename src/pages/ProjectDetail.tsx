@@ -618,12 +618,12 @@ const ProjectDetail = () => {
 
                 {/* Next Steps tab */}
                 {activeTab === 'next_steps' && (
-                  <div className="card-elevated p-4 md:p-6">
-                    <div className="flex items-center justify-between mb-5">
-                      <h3 className="font-semibold text-[14px] flex items-center gap-2">
-                        <Zap className="h-4 w-4" /> Next step actions
+                  <div className="card-elevated p-3 sm:p-4 md:p-6">
+                    <div className="flex items-center justify-between mb-4 sm:mb-5">
+                      <h3 className="font-semibold text-[13px] sm:text-[14px] flex items-center gap-1.5 sm:gap-2">
+                        <Zap className="h-3.5 w-3.5 sm:h-4 sm:w-4" /> Next step actions
                       </h3>
-                      <Button variant="outline" size="sm" className="gap-1 text-xs" onClick={() => setShowAddAction(!showAddAction)}>
+                      <Button variant="outline" size="sm" className="gap-1 text-[11px] sm:text-xs h-7 sm:h-8 px-2 sm:px-3" onClick={() => setShowAddAction(!showAddAction)}>
                         <Plus className="h-3 w-3" /> Add action
                       </Button>
                     </div>
@@ -632,11 +632,11 @@ const ProjectDetail = () => {
                       <motion.div
                         initial={{ opacity: 0, y: 12 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="border border-border rounded-2xl md:rounded-[32px] p-5 md:p-10 mb-6 md:mb-10 bg-card shadow-xl relative overflow-hidden"
+                        className="border border-border rounded-xl sm:rounded-2xl md:rounded-[32px] p-4 sm:p-5 md:p-10 mb-4 sm:mb-6 md:mb-10 bg-card shadow-xl relative overflow-hidden"
                       >
-                        <div className="mb-10">
-                          <Label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 ml-1 mb-4 block">Select Provider Type</Label>
-                          <div className="flex flex-wrap gap-3">
+                        <div className="mb-5 sm:mb-10">
+                          <Label className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 ml-1 mb-3 sm:mb-4 block">Select Provider Type</Label>
+                          <div className="grid grid-cols-3 sm:flex sm:flex-wrap gap-2 sm:gap-3">
                             {Object.entries(providerTypeLabels).map(([key, label]) => {
                               const Icon = providerIcons[key as NextStepProviderType];
                               const isSelected = newAction.providerType === key;
@@ -645,46 +645,46 @@ const ProjectDetail = () => {
                                   key={key}
                                   onClick={() => setNewAction(prev => ({ ...prev, providerType: key as NextStepProviderType }))}
                                   className={cn(
-                                    "flex flex-col items-center justify-center p-3 rounded-2xl border transition-all gap-2 min-w-[80px]",
+                                    "flex flex-col items-center justify-center p-2 sm:p-3 rounded-xl sm:rounded-2xl border transition-all gap-1 sm:gap-2 min-w-0 sm:min-w-[80px]",
                                     isSelected 
                                       ? "border-primary bg-primary/[0.04] text-primary ring-1 ring-primary" 
                                       : "border-border/40 hover:border-border hover:bg-slate-50 dark:hover:bg-white/5 text-muted-foreground/60"
                                   )}
                                 >
-                                  <Icon className={cn("h-6 w-6", isSelected ? "text-primary" : "text-muted-foreground/40")} />
-                                  <span className="text-[10px] font-bold truncate max-w-full">{label}</span>
+                                  <Icon className={cn("h-4 w-4 sm:h-6 sm:w-6", isSelected ? "text-primary" : "text-muted-foreground/40")} />
+                                  <span className="text-[8px] sm:text-[10px] font-bold truncate max-w-full">{label}</span>
                                 </button>
                               );
                             })}
                           </div>
                         </div>
 
-                        <div className="grid sm:grid-cols-2 gap-8">
-                          <div className="space-y-3">
-                            <Label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 ml-1">Action Label</Label>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8">
+                          <div className="space-y-2 sm:space-y-3">
+                            <Label className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 ml-1">Action Label</Label>
                             <Input 
                               placeholder="e.g. Download final files" 
-                              className="h-14 bg-slate-50 dark:bg-black/20 border-border/20 focus:ring-primary/10 transition-all rounded-2xl text-[15px] font-medium px-5" 
+                              className="h-10 sm:h-14 bg-slate-50 dark:bg-black/20 border-border/20 focus:ring-primary/10 transition-all rounded-xl sm:rounded-2xl text-[13px] sm:text-[15px] font-medium px-3 sm:px-5" 
                               value={newAction.label}
                               onChange={e => setNewAction(prev => ({ ...prev, label: e.target.value }))}
                             />
                           </div>
-                          <div className="space-y-3">
-                            <Label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 ml-1 text-primary">Destination URL</Label>
+                          <div className="space-y-2 sm:space-y-3">
+                            <Label className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 ml-1 text-primary">Destination URL</Label>
                             <Input 
                               placeholder="https://..." 
-                              className="h-14 bg-slate-50 dark:bg-black/20 border-border/20 focus:ring-primary/10 transition-all rounded-2xl text-[15px] font-medium px-5" 
+                              className="h-10 sm:h-14 bg-slate-50 dark:bg-black/20 border-border/20 focus:ring-primary/10 transition-all rounded-xl sm:rounded-2xl text-[13px] sm:text-[15px] font-medium px-3 sm:px-5" 
                               value={newAction.url}
                               onChange={e => handleUrlChange(e.target.value)}
                             />
                           </div>
                         </div>
                         
-                        <div className="grid sm:grid-cols-2 gap-8 mt-8">
-                          <div className="space-y-3">
-                            <Label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 ml-1">Show when</Label>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8 mt-4 sm:mt-8">
+                          <div className="space-y-2 sm:space-y-3">
+                            <Label className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 ml-1">Show when</Label>
                             <select 
-                              className="flex h-14 w-full rounded-2xl border border-border/20 bg-slate-50 dark:bg-black/20 px-5 py-2 text-[15px] font-medium ring-offset-background cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/10 transition-all appearance-none"
+                              className="flex h-10 sm:h-14 w-full rounded-xl sm:rounded-2xl border border-border/20 bg-slate-50 dark:bg-black/20 px-3 sm:px-5 py-2 text-[13px] sm:text-[15px] font-medium ring-offset-background cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/10 transition-all appearance-none"
                               value={newAction.showWhen}
                               onChange={e => setNewAction(prev => ({ ...prev, showWhen: e.target.value as 'on_approval' | 'always' }))}
                             >
@@ -693,17 +693,17 @@ const ProjectDetail = () => {
                             </select>
                           </div>
                           
-                          <div className="flex items-end justify-end gap-4 p-2">
+                          <div className="flex items-end justify-end gap-2 sm:gap-4">
                              <Button 
                               variant="ghost" 
-                              className="rounded-2xl px-6 h-14 text-[12px] font-black uppercase tracking-widest hover:bg-slate-100 dark:hover:bg-white/5" 
+                              className="rounded-xl sm:rounded-2xl px-4 sm:px-6 h-10 sm:h-14 text-[11px] sm:text-[12px] font-black uppercase tracking-widest hover:bg-slate-100 dark:hover:bg-white/5" 
                               onClick={() => setShowAddAction(false)}
                             >
                               Cancel
                             </Button>
                             <Button 
                               size="lg" 
-                              className="rounded-2xl px-10 h-14 bg-slate-900 dark:bg-primary text-white shadow-xl shadow-slate-200 dark:shadow-none hover:scale-[1.02] transition-all text-[12px] font-black uppercase tracking-widest"
+                              className="rounded-xl sm:rounded-2xl px-6 sm:px-10 h-10 sm:h-14 bg-slate-900 dark:bg-primary text-white shadow-xl shadow-slate-200 dark:shadow-none hover:scale-[1.02] transition-all text-[11px] sm:text-[12px] font-black uppercase tracking-widest"
                               onClick={handleAddAction}
                               disabled={!newAction.label || !newAction.url}
                             >
@@ -715,29 +715,29 @@ const ProjectDetail = () => {
                     )}
 
                     {projectActions.length > 0 && (
-                      <div className="mb-10">
-                        <p className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em] mb-4 ml-1">Project Actions</p>
-                        <div className="grid gap-3">
+                      <div className="mb-5 sm:mb-10">
+                        <p className="text-[10px] sm:text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em] mb-3 sm:mb-4 ml-1">Project Actions</p>
+                        <div className="grid gap-2 sm:gap-3">
                           {projectActions.map(action => {
                             const Icon = providerIcons[action.providerType];
                             return (
-                              <div key={action.id} className="flex items-center gap-5 rounded-[24px] border border-slate-200 dark:border-white/5 p-5 bg-white dark:bg-slate-900 group/item transition-all hover:bg-slate-50 dark:hover:bg-white/[0.02] hover:shadow-lg hover:shadow-slate-200/50 dark:hover:shadow-none">
-                                <div className="h-14 w-14 rounded-2xl bg-slate-50 dark:bg-white/5 flex items-center justify-center flex-shrink-0 group-hover/item:scale-110 transition-transform shadow-sm ring-1 ring-border/20">
-                                  <Icon className="h-6 w-6 text-slate-700 dark:text-slate-200" />
+                              <div key={action.id} className="flex items-center gap-2.5 sm:gap-5 rounded-xl sm:rounded-[24px] border border-slate-200 dark:border-white/5 p-3 sm:p-5 bg-white dark:bg-slate-900 group/item transition-all hover:bg-slate-50 dark:hover:bg-white/[0.02] hover:shadow-lg hover:shadow-slate-200/50 dark:hover:shadow-none">
+                                <div className="h-9 w-9 sm:h-14 sm:w-14 rounded-lg sm:rounded-2xl bg-slate-50 dark:bg-white/5 flex items-center justify-center flex-shrink-0 group-hover/item:scale-110 transition-transform shadow-sm ring-1 ring-border/20">
+                                  <Icon className="h-4 w-4 sm:h-6 sm:w-6 text-slate-700 dark:text-slate-200" />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                  <p className="text-[15px] font-bold text-slate-900 dark:text-white mb-0.5">{action.label}</p>
-                                  <p className="text-[11px] text-muted-foreground font-medium truncate opacity-60">{action.url}</p>
+                                  <p className="text-[12px] sm:text-[15px] font-bold text-slate-900 dark:text-white mb-0.5 truncate">{action.label}</p>
+                                  <p className="text-[10px] sm:text-[11px] text-muted-foreground font-medium truncate opacity-60">{action.url}</p>
                                 </div>
-                                <div className="flex items-center gap-3">
-                                  <Badge variant="secondary" className="text-[10px] font-black uppercase tracking-widest px-2.5 py-1 bg-slate-100 dark:bg-white/5 text-muted-foreground border-none">
+                                <div className="flex items-center gap-1.5 sm:gap-3">
+                                  <Badge variant="secondary" className="text-[8px] sm:text-[10px] font-black uppercase tracking-widest px-1.5 sm:px-2.5 py-0.5 sm:py-1 bg-slate-100 dark:bg-white/5 text-muted-foreground border-none hidden sm:inline-flex">
                                     {providerTypeLabels[action.providerType]}
                                   </Badge>
                                   <button 
                                     onClick={() => handleDeleteAction(action.id)}
-                                    className="p-2.5 rounded-xl hover:bg-destructive/10 text-muted-foreground/40 hover:text-destructive transition-all group-hover/item:opacity-100"
+                                    className="p-1.5 sm:p-2.5 rounded-lg sm:rounded-xl hover:bg-destructive/10 text-muted-foreground/40 hover:text-destructive transition-all"
                                   >
-                                    <Trash2 className="h-4 w-4" />
+                                    <Trash2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                                   </button>
                                 </div>
                               </div>
@@ -749,22 +749,22 @@ const ProjectDetail = () => {
 
                     {workspaceActions.length > 0 && (
                       <div>
-                        <p className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em] mb-4 ml-1 flex items-center gap-2">
-                          <Building2 className="h-3.5 w-3.5" /> Inherited from workspace
+                        <p className="text-[10px] sm:text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em] mb-3 sm:mb-4 ml-1 flex items-center gap-1.5 sm:gap-2">
+                          <Building2 className="h-3 w-3 sm:h-3.5 sm:w-3.5" /> Inherited from workspace
                         </p>
-                        <div className="grid gap-3 opacity-80">
+                        <div className="grid gap-2 sm:gap-3 opacity-80">
                           {workspaceActions.map(action => {
                             const Icon = providerIcons[action.providerType];
                             return (
-                              <div key={action.id} className="flex items-center gap-5 rounded-[24px] border border-dashed border-slate-200 dark:border-white/10 p-5 bg-slate-50/20 dark:bg-transparent transition-all">
-                                <div className="h-14 w-14 rounded-2xl bg-white dark:bg-white/5 flex items-center justify-center flex-shrink-0 shadow-sm ring-1 ring-border/20">
-                                  <Icon className="h-6 w-6 text-slate-400 dark:text-slate-500" />
+                              <div key={action.id} className="flex items-center gap-2.5 sm:gap-5 rounded-xl sm:rounded-[24px] border border-dashed border-slate-200 dark:border-white/10 p-3 sm:p-5 bg-slate-50/20 dark:bg-transparent transition-all">
+                                <div className="h-9 w-9 sm:h-14 sm:w-14 rounded-lg sm:rounded-2xl bg-white dark:bg-white/5 flex items-center justify-center flex-shrink-0 shadow-sm ring-1 ring-border/20">
+                                  <Icon className="h-4 w-4 sm:h-6 sm:w-6 text-slate-400 dark:text-slate-500" />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                  <p className="text-[15px] font-bold text-slate-400 dark:text-slate-500 mb-0.5">{action.label}</p>
-                                  <p className="text-[11px] text-muted-foreground font-medium truncate opacity-40">{action.url}</p>
+                                  <p className="text-[12px] sm:text-[15px] font-bold text-slate-400 dark:text-slate-500 mb-0.5 truncate">{action.label}</p>
+                                  <p className="text-[10px] sm:text-[11px] text-muted-foreground font-medium truncate opacity-40">{action.url}</p>
                                 </div>
-                                <Badge variant="outline" className="text-[10px] font-black uppercase tracking-widest px-2.5 py-1 border-slate-200 dark:border-white/5 text-slate-400">
+                                <Badge variant="outline" className="text-[8px] sm:text-[10px] font-black uppercase tracking-widest px-1.5 sm:px-2.5 py-0.5 sm:py-1 border-slate-200 dark:border-white/5 text-slate-400 hidden sm:inline-flex">
                                   {providerTypeLabels[action.providerType]}
                                 </Badge>
                               </div>
