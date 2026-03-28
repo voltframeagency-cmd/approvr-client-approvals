@@ -512,8 +512,8 @@ const Settings = () => {
                       </div>
                     </div>
 
-                    <div className="pt-4 flex justify-end">
-                      <Button onClick={() => handleSave('Notifications')} className="h-9 px-6 text-[13px]">Save Rules</Button>
+                    <div className="pt-3 sm:pt-4 flex justify-end">
+                      <Button onClick={() => handleSave('Notifications')} className="h-9 px-6 text-[13px] w-full sm:w-auto">Save Rules</Button>
                     </div>
                   </div>
                 </div>
