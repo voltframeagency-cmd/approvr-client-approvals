@@ -35,7 +35,7 @@ const Signup = () => {
         <div className="absolute inset-0 z-0">
           <HeroBackground />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-br from-white/80 via-transparent to-primary/5 z-0" />
+        <div className="absolute inset-0 bg-gradient-to-br from-background/80 via-transparent to-primary/5 z-0" />
         
         <div className="relative z-10 w-full h-full p-16 flex flex-col justify-between">
           <Link to="/" className="inline-block">
