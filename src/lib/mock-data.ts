@@ -382,7 +382,7 @@ export const mockMembers: WorkspaceMember[] = [
 export const mockFounderBeta: FounderBetaMetadata = {
   isFounderBeta: true,
   betaExpiresAt: '2026-04-26', // 30 days from now (simulated)
-  lifetimeProjectsCreated: 5, // Already over 3 for demo purposes
+  lifetimeProjectsCreated: 2, // Under the 3-project beta limit
   lifetimeApprovalEvents: 8,
   readOnlyAfterExpiry: true,
 };
