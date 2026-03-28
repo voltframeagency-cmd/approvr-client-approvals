@@ -57,9 +57,9 @@ const CTA = () => {
               Every week you don't switch, your team loses another 6 hours to inbox chaos. That's 300+ hours a year — gone.
             </motion.p>
             
-            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center justify-center gap-6">
+            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6">
               <Link to="/signup" className="w-full sm:w-auto">
-                <ShinyButton className="h-16 px-10 text-lg font-black">
+                <ShinyButton className="h-14 md:h-16 px-8 md:px-10 text-base md:text-lg font-black">
                     Get early access
                     <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </ShinyButton>
