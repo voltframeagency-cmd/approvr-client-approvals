@@ -19,6 +19,7 @@ export interface WorkspaceData {
   notify_on_approval: boolean | null;
   notify_on_changes_requested: boolean | null;
   reminder_cadence_days: number | null;
+  plan: string;
 }
 
 export interface WorkspaceMemberData {
