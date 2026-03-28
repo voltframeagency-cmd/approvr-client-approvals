@@ -68,6 +68,7 @@ function timeAgo(dateStr: string) {
 const Dashboard = () => {
   const beta = useFounderBeta();
   const onboarding = useOnboarding();
+  const { isDemoMode, demoUserName } = useDemo();
   const activeApprovals = mockProjects.filter(p => p.status !== 'draft' && p.status !== 'approved');
 
   return (
