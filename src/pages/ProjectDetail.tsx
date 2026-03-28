@@ -244,7 +244,7 @@ const ProjectDetail = () => {
               >
                 <div className="flex items-center gap-3">
                   <div className={cn(
-                    'h-10 w-10 rounded-lg flex items-center justify-center text-[10px] font-mono font-bold',
+                    'h-8 w-8 md:h-10 md:w-10 rounded-lg flex items-center justify-center text-[9px] md:text-[10px] font-mono font-bold',
                     fileTypeColors[d.fileType] || 'bg-muted text-muted-foreground'
                   )}>
                     {d.fileType.toUpperCase()}
