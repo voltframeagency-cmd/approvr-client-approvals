@@ -74,7 +74,7 @@ const SocialProof = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20"
+          className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-12 md:mb-20"
         >
           {stats.map((stat) => (
             <motion.div key={stat.label} variants={itemVariants} className="text-center group">
