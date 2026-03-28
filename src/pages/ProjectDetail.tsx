@@ -328,7 +328,7 @@ const ProjectDetail = () => {
                           </div>
                           <div className="flex items-center gap-2">
                             {selectedDel.versions && selectedDel.versions.length > 1 && (
-                              <div className="flex bg-white dark:bg-slate-800 p-1 rounded-xl border shadow-sm mr-2">
+                              <div className="flex bg-card p-1 rounded-xl border shadow-sm mr-2">
                                 {selectedDel.versions.map(v => (
                                   <button
                                     key={v.version}
