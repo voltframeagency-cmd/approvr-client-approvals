@@ -645,7 +645,7 @@ const ProjectDetail = () => {
                                   key={key}
                                   onClick={() => setNewAction(prev => ({ ...prev, providerType: key as NextStepProviderType }))}
                                   className={cn(
-                                    "flex flex-col items-center justify-center p-3 rounded-2xl border transition-all gap-2 min-w-[80px]",
+                                    "flex flex-col items-center justify-center p-2 sm:p-3 rounded-xl sm:rounded-2xl border transition-all gap-1 sm:gap-2 min-w-0 sm:min-w-[80px]",
                                     isSelected 
                                       ? "border-primary bg-primary/[0.04] text-primary ring-1 ring-primary" 
                                       : "border-border/40 hover:border-border hover:bg-slate-50 dark:hover:bg-white/5 text-muted-foreground/60"
