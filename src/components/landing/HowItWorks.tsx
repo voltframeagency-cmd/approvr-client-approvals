@@ -76,7 +76,7 @@ export const HowItWorks = () => {
               return (
                 <div
                   key={step.number}
-                  className={`relative flex flex-col md:flex-row items-center gap-12 md:gap-20 ${isEven ? '' : 'md:flex-row-reverse'}`}
+                  className={`relative flex flex-col md:flex-row items-center gap-8 md:gap-20 pl-16 md:pl-0 ${isEven ? '' : 'md:flex-row-reverse'}`}
                 >
                   {/* Step Number Badge */}
                   <div className="absolute left-0 md:left-1/2 top-0 md:top-1/2 -translate-x-1/2 md:-translate-y-1/2 z-10">
