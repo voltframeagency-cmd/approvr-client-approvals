@@ -159,7 +159,7 @@ const Pricing = () => {
                 className="flex flex-col h-full"
               >
                 <div className={cn(
-                  "relative rounded-[2.5rem] p-8 flex flex-col h-full transition-colors duration-150",
+                  "relative rounded-2xl md:rounded-[2.5rem] p-6 md:p-8 flex flex-col h-full transition-colors duration-150",
                   "bg-card/40 backdrop-blur-2xl border border-primary/10 shadow-sm",
                   plan.popular 
                     ? "ring-1 ring-primary border-primary/20 shadow-[0_20px_50px_-12px_rgba(var(--primary),0.15)] scale-[1.02] z-10" 
