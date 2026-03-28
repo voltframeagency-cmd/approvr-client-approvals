@@ -786,7 +786,7 @@ const ClientPortal = () => {
               <a href="/terms" target="_blank" rel="noopener noreferrer" className="text-[10px] sm:text-[11px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">Terms</a>
             </div>
             <p className="text-[10px] sm:text-[11px] text-muted-foreground font-bold uppercase tracking-widest italic opacity-40">
-              © 2024 Rivera Design Co
+              © {portalYear} Approvr
             </p>
           </div>
         </div>
