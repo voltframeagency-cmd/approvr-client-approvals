@@ -170,7 +170,7 @@ const Dashboard = () => {
                         </div>
                         <div className="hidden sm:flex flex-col items-end gap-1.5">
                           <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">{item.approvedCount}/{item.deliverableCount} Approved</span>
-                          <div className="flex items-center gap-1.5 text-[11px] font-bold text-slate-500">
+                          <div className="flex items-center gap-1.5 text-[11px] font-bold text-muted-foreground">
                              <Clock className="h-3 w-3" />
                              Due {new Date(item.deadline).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                           </div>
