@@ -152,8 +152,12 @@ const Pricing = () => {
                     : "hover:border-primary/20 hover:bg-card/60"
                 )}>
                   {plan.popular && (
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-[10px] font-black tracking-widest px-5 py-2 rounded-full shadow-xl flex items-center gap-1.5 whitespace-nowrap uppercase">
-                      <Sparkles className="h-3 w-3" />
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 text-primary-foreground text-[10px] font-black tracking-widest px-5 py-2 rounded-full flex items-center gap-1.5 whitespace-nowrap uppercase border border-white/20"
+                      style={{
+                        background: 'linear-gradient(180deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.75) 100%)',
+                        boxShadow: 'inset 0 1px 1px rgba(255,255,255,0.3), inset 0 -2px 4px rgba(0,0,0,0.15), 0 4px 12px -2px hsl(var(--primary) / 0.4), 0 8px 24px -4px hsl(var(--primary) / 0.2)',
+                      }}>
+                      <Sparkles className="h-3 w-3 drop-shadow-sm" />
                       MOST POPULAR
                     </div>
                   )}
