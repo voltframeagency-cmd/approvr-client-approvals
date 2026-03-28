@@ -116,7 +116,7 @@ const ClientPortal = () => {
                 </span>
               </div>
               <h1 className="text-2xl sm:text-4xl md:text-6xl font-black tracking-tight text-slate-900 dark:text-white mb-4 sm:mb-8 leading-[1.1]">
-                Welcome back, <span className="text-primary/90">Sarah</span>.
+                Welcome back, <span className="text-primary/90">{project.clientName.split(' ')[0]}</span>.
               </h1>
               <div className="grid grid-cols-3 gap-2 sm:flex sm:flex-wrap sm:items-center sm:gap-6 mb-6 sm:mb-10">
                 <div className="flex flex-col sm:flex-row items-center sm:items-center gap-1.5 sm:gap-2.5 text-center sm:text-left">
