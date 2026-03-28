@@ -159,7 +159,7 @@ export const Features = () => {
             className="relative"
           >
             {/* Glossy Mockup Container */}
-            <div className="relative rounded-[2rem] border border-primary/10 bg-card/40 backdrop-blur-3xl overflow-hidden min-h-[460px] shadow-[0_32px_120px_-20px_rgba(0,0,0,0.3)] ring-1 ring-white/10 group">
+            <div className="relative rounded-xl md:rounded-[2rem] border border-primary/10 bg-card/40 backdrop-blur-3xl overflow-hidden min-h-[280px] md:min-h-[460px] shadow-[0_32px_120px_-20px_rgba(0,0,0,0.3)] ring-1 ring-white/10 group">
               <div className="absolute inset-0 bg-gradient-to-tr from-primary/[0.02] via-transparent to-primary/[0.05]" />
               
               <AnimatePresence mode="wait">
