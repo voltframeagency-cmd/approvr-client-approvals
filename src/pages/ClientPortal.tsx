@@ -213,7 +213,7 @@ const ClientPortal = () => {
                   <Button
                     variant="ghost"
                     className="w-full mt-3 sm:mt-4 text-[10px] sm:text-[11px] font-black uppercase tracking-widest text-primary hover:text-primary hover:bg-primary/10 h-8 sm:h-9"
-                    onClick={() => window.open('https://support.riveradesign.co', '_blank')}
+                    onClick={() => window.open('https://approvr.com/support', '_blank')}
                   >
                     View FAQ
                   </Button>
