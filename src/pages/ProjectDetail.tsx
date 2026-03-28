@@ -138,24 +138,24 @@ const ProjectDetail = () => {
   );
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="flex items-center gap-3"
+        className="flex items-start gap-2 md:gap-3"
       >
-        <Link to="/dashboard/projects" className="p-2 rounded-lg hover:bg-muted transition-colors">
+        <Link to="/dashboard/projects" className="p-1.5 md:p-2 rounded-lg hover:bg-muted transition-colors mt-0.5">
           <ArrowLeft className="h-4 w-4" />
         </Link>
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-3">
-            <h1 className="text-xl font-bold truncate">{project.name}</h1>
+          <div className="flex items-center gap-2 md:gap-3 flex-wrap">
+            <h1 className="text-lg md:text-xl font-bold truncate">{project.name}</h1>
             {project.isOverdue && project.status !== 'approved' && (
-              <span className="text-[11px] font-semibold text-destructive bg-destructive/[0.08] px-2 py-0.5 rounded-full">Overdue</span>
+              <span className="text-[10px] md:text-[11px] font-semibold text-destructive bg-destructive/[0.08] px-2 py-0.5 rounded-full">Overdue</span>
             )}
           </div>
-          <p className="text-[13px] text-muted-foreground">{project.clientName} · Due {new Date(project.deadline).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+          <p className="text-xs md:text-[13px] text-muted-foreground">{project.clientName} · Due {new Date(project.deadline).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
         </div>
         <StatusBadge status={project.status} animated />
       </motion.div>
