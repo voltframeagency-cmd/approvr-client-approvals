@@ -24,7 +24,7 @@ const footerLinks = {
 };
 
 const Footer = () => (
-  <footer className="border-t border-border/40 bg-card/10 pt-24 pb-12 relative overflow-hidden">
+  <footer className="border-t border-border/40 bg-card/10 pt-12 md:pt-24 pb-8 md:pb-12 relative overflow-hidden">
     {/* Subtle Glow */}
     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
     
