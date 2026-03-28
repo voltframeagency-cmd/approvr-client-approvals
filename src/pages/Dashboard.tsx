@@ -203,7 +203,7 @@ const Dashboard = () => {
                          >
                            <div className="flex items-start justify-between gap-3 md:gap-4 mb-4 md:mb-6">
                              <div className="min-w-0">
-                               <p className="font-bold text-sm md:text-[16px] truncate group-hover:text-primary transition-colors duration-300 text-slate-900 dark:text-white">{project.name}</p>
+                               <p className="font-bold text-sm md:text-[16px] truncate group-hover:text-primary transition-colors duration-300 text-foreground">{project.name}</p>
                                <p className="text-xs md:text-[13px] text-muted-foreground font-medium mt-0.5">{project.clientName}</p>
                             </div>
                             <div className="flex items-center gap-2">
