@@ -1,118 +1,104 @@
 
 
-# Rewrite Landing Page Copy — Elite Copywriting Principles
+# Apply Elite Motion, UI, and Copy Constraints
 
-Applying your framework: loss aversion, lexical blacklist, burstiness, BYAF CTAs, processing fluency, and VoC-driven language. Text-only changes across 7 files. No layout or design modifications.
-
----
-
-## Strategic Analysis (Before Writing)
-
-- **Audience**: Agency owners/creative directors — Solution Aware to Product Aware (Stage 3-4)
-- **Market Sophistication**: Stage 4-5 (saturated project management/approval tool space)
-- **Primary Bias**: Loss Aversion — frame around hours, money, and trust lost to email chaos
-- **CTA Strategy**: BYAF soft nudges, "Get" verb, first-person ownership
+Systematic pass across all landing page components to enforce the cubic-bezier easing profiles, duration limits, stagger choreography, compound-sentence elimination, and pricing psychology from the framework.
 
 ---
 
-## Section Rewrites
+## 1. Motion Easing Overhaul (All Landing Components)
 
-### 1. Hero (`Hero.tsx`)
+Replace all generic `"easeOut"`, `"easeIn"`, and loose easing arrays with the four standardized cubic-bezier profiles:
 
-| Element | Current | Rewrite |
-|---------|---------|---------|
-| Badge | "Founder Beta — Limited early access" | "Founder Beta — 380 spots gone" |
-| Headline | "Get client approvals out of email." | "Your clients owe you an answer. Stop waiting for it in email." |
-| Subhead | "Approvr brings sanity to the sign-off loop..." (long, uses "hunting") | "Every week your team loses 6+ hours digging through inboxes for a one-word reply. One portal. Clients open it, review, and hit approve — done." |
-| Primary CTA | "Join Founder Beta" | "Get early access" |
-| Secondary CTA | "Watch demo / 2 min" | "See it work — 2 min" |
-| Social line | "Join 380+ agencies already in" | "380+ agencies stopped chasing" |
+- **Standard motion** (expansions, moves): `[0.2, 0.0, 0, 1.0]`
+- **Emphasized decelerate** (entrances, modals): `[0.05, 0.7, 0.1, 1.0]`
+- **Emphasized accelerate** (exits): `[0.3, 0.0, 0.8, 0.15]`
+- **Expressive** (interactive/playful): `[0.4, 0.14, 0.3, 1.0]`
 
-### 2. Social Proof (`SocialProof.tsx`)
+Define these as shared constants in `Animations.tsx` and import them across components.
 
-| Element | Current | Rewrite |
-|---------|---------|---------|
-| Stat labels | "Approval cycles completed" / "Agencies & studios" / "Deliverables signed off" / "Average rating" | "Sign-offs locked in" / "Agencies done chasing" / "Files approved — no email" / "Avg. rating" |
-| Integration line | "Integrated with the tools you love" | "Works with what you already use" |
+**Files**: `Animations.tsx`, `Hero.tsx`, `SocialProof.tsx`, `HowItWorks.tsx`, `Features.tsx`, `Testimonials.tsx`, `Pricing.tsx`, `CTA.tsx`, `Navbar.tsx`
 
-### 3. How It Works (`HowItWorks.tsx`)
+## 2. Duration Constraints
 
-| Element | Current | Rewrite |
-|---------|---------|---------|
-| Badge | "High-Velocity Workflow" | "Three steps. That's it." |
-| Headline | "From deliverable to sign-off in seconds." | "Upload. Review. Approved. Done before lunch." |
-| Subhead | "We've stripped away the overhead..." (uses "Jira," generic) | "No project management degree required. Three moves and you've got a signed-off deliverable." |
-| Step 1 title | "Centralize & Submit" | "Drop your files in" |
-| Step 1 desc | "Upload your deliverables to a dedicated project space..." | "Drag your designs, docs, or videos into the project. Pick the version. Hit send." |
-| Step 1 detail | "Supports any file type including Figma, PDF, and Video." | "Figma, PDF, video — all of it." |
-| Step 2 title | "Collaborative Review" | "Clients review on their own" |
-| Step 2 desc | "Clients access a branded portal — no login required..." | "Your client gets a branded link. No login, no app download. They open it and leave comments right on the work." |
-| Step 2 detail | "Threaded discussions eliminate 'lost in email' syndrome." | "Comments stay on the file — not buried in a thread." |
-| Step 3 title | "Instant Sign-off" | "One-click approved" |
-| Step 3 desc | "One click for the client to approve..." | "They tap approve. It's logged, timestamped, and tied to their name. No more 'I never said yes to that.'" |
-| Step 3 detail | "A single source of truth for every 'Yes'." | "Every 'yes' has a paper trail." |
+Audit and clamp all animation durations:
+- Micro-interactions (hover, button press): cap at 150ms
+- Structural moves (fade-in sections, expand cards): 250–400ms
+- Large moves (hero entrance, mockup reveal): 400–500ms max
+- **Kill all 800ms and 1000ms durations** currently in the codebase
 
-### 4. Features (`Features.tsx`)
+Current violations:
+- `Features.tsx`: 0.8s, 1s section animations
+- `CTA.tsx`: 1s container, 0.8s items
+- `Testimonials.tsx`: 0.8s header, 0.6s card transitions
+- `Pricing.tsx`: 0.8s header, 0.8s cards
+- `HowItWorks.tsx`: inherits long durations
+- `Hero.tsx`: 0.9s mockup entrance, 0.7s container
+- `SocialProof.tsx`: 1s logo marquee fade
 
-| Element | Current | Rewrite |
-|---------|---------|---------|
-| Badge | "Built for High-Growth Agencies" | "What you actually get" |
-| Headline | "A workflow that actually handles the friction" | "Six problems you won't have anymore" |
-| Subhead | "We didn't just build a project manager..." (uses "high-velocity") | "We didn't build another project manager. We built the thing that gets clients to say 'yes' — fast." |
-| Feature 1 | "Centralize your work" / "Share files, designs..." | "All your files, one place" / "Designs, docs, videos — organized by version from day one. No more digging." |
-| Feature 2 | "Context is king" / "Clients leave comments..." | "Feedback where it belongs" / "Clients comment right on the work. You'll never hear 'which version?' again." |
-| Feature 3 | "Frictionless sign-offs" / "Give your clients a simple path..." | "The fastest 'yes' you'll get" / "One button. Client taps it. Decision logged. That's the whole process." |
-| Feature 4 | "Never lose a status" / "See every comment..." | "Know where everything stands" / "Every comment, every approval — visible in real time. Nothing slips." |
-| Feature 5 | "Your brand, first" / "It feels like a custom-built..." | "Looks like yours, not ours" / "Your logo, your colors. Clients see your brand — not some random tool." |
-| Feature 6 | "Complete peace of mind" / "Every decision is timestamped..." | "Proof when you need it" / "Every approval is timestamped and attributed. When a client says 'I never approved that' — you've got receipts." |
+## 3. Stagger Choreography
 
-### 5. Testimonials (`Testimonials.tsx`)
+Standardize all stagger delays to **50ms** (0.05s) between sequential items:
+- `SocialProof.tsx` stats: currently 0.1s → change to 0.05s
+- `Pricing.tsx` cards: currently 0.15s → change to 0.05s
+- `CTA.tsx` items: currently 0.2s → change to 0.05s
+- `Animations.tsx` StaggerContainer: currently 0.06s → change to 0.05s
 
-| Element | Current | Rewrite |
-|---------|---------|---------|
-| Headline | "The new standard for client relations." | "Don't take our word for it." |
-| Quote 1 | Long, formal (uses "eliminated 47 email threads") | "We were drowning in email threads — 40, 50 per project. Now clients open the portal and approve in minutes. I got three hours of my Monday back." |
-| Quote 2 | Uses "scope disputes were killing us" | "Two scope disputes last quarter almost cost us a client. Both times, we pulled up the audit trail. Timestamped. Case closed." |
-| Quote 3 | Uses "white-label review tool" | "Our clients actually said it looks like we built it. That's the point — it's our brand, not some third-party tool." |
+## 4. Kill Linear Easing
 
-### 6. Pricing (`Pricing.tsx`)
+- `Testimonials.tsx` progress bar uses `ease: "linear"` — replace with standard motion curve
+- Remove any `transition-all` CSS classes that default to linear and replace with explicit duration/ease
 
-| Element | Current | Rewrite |
-|---------|---------|---------|
-| Badge | "Risk-Free Early Access" | "Pick your plan" |
-| Headline | "Straightforward pricing for ambitious agencies." | "Simple pricing. No gotchas." |
-| Plan descriptions | "Limited early access..." / "Perfect for growing agencies..." / "For teams managing multiple clients." | "Free for founding members. Limited." / "For agencies ready to stop losing hours to email." / "For teams running 10+ client accounts." |
-| Pro CTA | "Start 14-day free trial" | "Get 14 days free" |
-| Agency CTA | "Contact for Agency" | "Talk to us about Agency" |
-| Trust footer | "Trusted by world-class creative teams" | "Used by agencies who got tired of chasing emails" |
-| Plan notes | "No credit card required to start" | "No card needed" |
+## 5. Compound Sentence Audit (Copy)
 
-### 7. CTA Section (`CTA.tsx`)
+Scan all copy for compound sentences joined by "and", "but", "or" and split them. Key violations:
 
-| Element | Current | Rewrite |
-|---------|---------|---------|
-| Headline | "Stop chasing. Start approving." | Keep — it's strong |
-| Subhead | "Email is for talking. Approvr is for deciding..." (uses "specialized group") | "Every week you don't switch, your team loses another 6 hours to inbox chaos. That's 300+ hours a year — gone." |
-| Primary CTA | "Claim Your Spot" | "Get early access" |
-| Trust badges | "2 Min Setup" / "No Card Required" | "Live in 2 minutes" / "No card needed" |
+- **Hero.tsx** subhead: "Clients open it, review, and hit approve — done." → Split: "Clients open it. They review. They hit approve — done."
+- **HowItWorks.tsx** Step 1: "Drag your designs, docs, or videos into the project. Pick the version. Hit send." → "Drag your designs into the project. Docs. Videos. Pick the version. Hit send."
+- **HowItWorks.tsx** Step 2: "No login, no app download." → Keep (this is a list fragment, not a compound sentence)
+- **Features.tsx** Feature 1: "Designs, docs, videos — organized by version from day one." → Keep (list fragment)
+- **Footer.tsx**: "Built for world-class agencies who prioritize velocity and professional delivery." → Rewrite: "The approval tool agencies actually use. Fast. Clean. Done right."
+
+## 6. Pricing Number Psychology
+
+- `SocialProof.tsx`: stat value "2,400+" displays with comma → strip comma to "2400+"
+- Pricing values ($0, $29, $24, $79, $64) are already comma-free — no change needed
+- Annual billing display `${price * 12}/yr` — values won't hit comma territory at current prices, fine as-is
+
+## 7. Shared Easing Constants
+
+Create a central export in `Animations.tsx`:
+
+```text
+export const EASING = {
+  standard:  [0.2, 0.0, 0, 1.0],
+  enter:     [0.05, 0.7, 0.1, 1.0],
+  exit:      [0.3, 0.0, 0.8, 0.15],
+  expressive:[0.4, 0.14, 0.3, 1.0],
+};
+
+export const DURATION = {
+  micro: 0.15,
+  structural: 0.35,
+  large: 0.5,
+};
+
+export const STAGGER = 0.05;
+```
+
+All components import from this single source of truth.
 
 ---
 
-## Constraints Enforced
-
-- **Blacklisted words removed**: "centralize," "frictionless," "high-velocity," "collaborative," "high-growth," "ambitious," "world-class," "seamless," "streamline," "comprehensive"
-- **No semicolons or exclamation marks**
-- **Contractions used throughout**
-- **Em-dashes for natural pauses**
-- **Burstiness**: Mix of 3-word fragments and longer sentences
-- **CTAs**: "Get" verb, BYAF soft tone, first-person where possible
-
-## Files Modified (text strings only)
-- `src/components/landing/Hero.tsx`
-- `src/components/landing/SocialProof.tsx`
-- `src/components/landing/HowItWorks.tsx`
-- `src/components/landing/Features.tsx`
-- `src/components/landing/Testimonials.tsx`
-- `src/components/landing/Pricing.tsx`
-- `src/components/landing/CTA.tsx`
+## Files Modified
+- `src/components/motion/Animations.tsx` — add easing/duration/stagger constants, update existing variants
+- `src/components/landing/Hero.tsx` — easing + duration fixes, copy split
+- `src/components/landing/SocialProof.tsx` — stagger, easing, strip comma from stat
+- `src/components/landing/HowItWorks.tsx` — easing + duration, copy refinement
+- `src/components/landing/Features.tsx` — easing + duration clamp
+- `src/components/landing/Testimonials.tsx` — easing + duration, kill linear
+- `src/components/landing/Pricing.tsx` — easing + duration + stagger
+- `src/components/landing/CTA.tsx` — easing + duration + stagger
+- `src/components/landing/Footer.tsx` — copy rewrite
+- `src/components/landing/Navbar.tsx` — easing standardization
 
