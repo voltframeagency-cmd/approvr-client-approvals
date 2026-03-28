@@ -94,7 +94,7 @@ const Pricing = () => {
   };
 
   return (
-    <section id="pricing" className="py-32 relative overflow-hidden">
+    <section id="pricing" className="py-16 md:py-32 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
 
@@ -104,13 +104,13 @@ const Pricing = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: DURATION.large, ease: EASING.enter as unknown as number[] }}
-          className="text-center max-w-3xl mx-auto mb-20"
+          className="text-center max-w-3xl mx-auto mb-10 md:mb-20"
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
             <Zap className="h-4 w-4" />
             <span>Pick your plan</span>
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold tracking-tighter mb-8 leading-[1.1]" style={{ textShadow: '0 4px 12px hsl(0 0% 0% / 0.15)' }}>
+          <h2 className="text-3xl md:text-5xl lg:text-[3.5rem] font-bold tracking-tighter mb-6 md:mb-8 leading-[1.1]" style={{ textShadow: '0 4px 12px hsl(0 0% 0% / 0.15)' }}>
             Simple pricing. <br className="hidden md:block" />
             <span className="italic bg-gradient-to-b from-primary via-primary to-primary/60 bg-clip-text text-transparent">No gotchas.</span>
           </h2>
@@ -146,7 +146,7 @@ const Pricing = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto items-stretch"
+          className="grid md:grid-cols-3 gap-5 md:gap-8 max-w-6xl mx-auto items-stretch"
         >
           {plans.map((plan, i) => {
             const Icon = plan.icon;
@@ -159,7 +159,7 @@ const Pricing = () => {
                 className="flex flex-col h-full"
               >
                 <div className={cn(
-                  "relative rounded-[2.5rem] p-8 flex flex-col h-full transition-colors duration-150",
+                  "relative rounded-2xl md:rounded-[2.5rem] p-6 md:p-8 flex flex-col h-full transition-colors duration-150",
                   "bg-card/40 backdrop-blur-2xl border border-primary/10 shadow-sm",
                   plan.popular 
                     ? "ring-1 ring-primary border-primary/20 shadow-[0_20px_50px_-12px_rgba(var(--primary),0.15)] scale-[1.02] z-10" 
@@ -172,9 +172,9 @@ const Pricing = () => {
                     </div>
                   )}
 
-                  <div className="mb-8 pt-2">
+                  <div className="mb-5 md:mb-8 pt-2">
                     <div className={cn(
-                      "inline-flex p-4 rounded-2xl mb-8 transition-colors duration-150",
+                      "inline-flex p-3 md:p-4 rounded-xl md:rounded-2xl mb-5 md:mb-8 transition-colors duration-150",
                       plan.popular ? "bg-primary/10 text-primary" : "bg-muted/50 text-muted-foreground"
                     )}>
                       <Icon size={28} strokeWidth={1.5} />
@@ -188,7 +188,7 @@ const Pricing = () => {
                     <p className="text-muted-foreground text-sm leading-relaxed">{plan.description}</p>
                   </div>
 
-                  <div className="mb-10">
+                  <div className="mb-6 md:mb-10">
                     <div className="flex items-baseline gap-2">
                       <AnimatePresence mode="wait">
                         <motion.span
@@ -197,7 +197,7 @@ const Pricing = () => {
                           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                           exit={{ opacity: 0, y: -12, filter: 'blur(8px)' }}
                           transition={{ duration: DURATION.structural, ease: EASING.standard as unknown as number[] }}
-                          className="text-5xl font-bold tracking-tighter"
+                          className="text-4xl md:text-5xl font-bold tracking-tighter"
                         >
                           ${price}
                         </motion.span>
@@ -209,7 +209,7 @@ const Pricing = () => {
                     )}
                   </div>
 
-                  <div className="space-y-4 mb-10 flex-1">
+                  <div className="space-y-3 md:space-y-4 mb-6 md:mb-10 flex-1">
                     {plan.features.map((feature) => (
                       <div key={feature} className="flex items-start gap-3 group/item">
                         <div className={cn(
@@ -258,7 +258,7 @@ const Pricing = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: DURATION.large, delay: 0.3, ease: EASING.standard as unknown as number[] }}
-          className="mt-32 text-center"
+          className="mt-16 md:mt-32 text-center"
         >
           <p className="text-sm font-bold text-muted-foreground/60 uppercase tracking-[0.2em] mb-10">
             Used by agencies who got tired of chasing emails
