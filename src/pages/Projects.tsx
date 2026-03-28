@@ -1,26 +1,21 @@
-import { mockProjects, type ProjectStatus } from '@/lib/mock-data';
+import { mockProjects, type ProjectStatus, type Project } from '@/lib/mock-data';
 import { StatusBadge } from '@/components/app/StatusBadge';
 import { Link } from 'react-router-dom';
 import { Plus, Search, Eye, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { StaggerContainer, StaggerItem } from '@/components/motion/Animations';
 import { cn } from '@/lib/utils';
 import { useFounderBeta } from '@/hooks/use-founder-beta';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { toast } from 'sonner';
 
 type FilterTab = 'all' | ProjectStatus | 'overdue';
-
-const tabs: { key: FilterTab; label: string; count: number }[] = [
-  { key: 'all', label: 'All', count: mockProjects.length },
-  { key: 'in_review', label: 'In Review', count: mockProjects.filter(p => p.status === 'in_review').length },
-  { key: 'changes_requested', label: 'Changes Requested', count: mockProjects.filter(p => p.status === 'changes_requested').length },
-  { key: 'overdue', label: 'Overdue', count: mockProjects.filter(p => p.isOverdue && p.status !== 'approved').length },
-  { key: 'approved', label: 'Approved', count: mockProjects.filter(p => p.status === 'approved').length },
-  { key: 'draft', label: 'Draft', count: mockProjects.filter(p => p.status === 'draft').length },
-];
 
 function timeAgo(dateStr: string) {
   const diff = Date.now() - new Date(dateStr).getTime();
@@ -36,8 +31,26 @@ const Projects = () => {
   const beta = useFounderBeta();
   const [search, setSearch] = useState('');
   const [activeTab, setActiveTab] = useState<FilterTab>('all');
+  const [projects, setProjects] = useState<Project[]>(mockProjects);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [newProject, setNewProject] = useState({
+    name: '',
+    clientName: '',
+    clientEmail: '',
+    description: '',
+    deadline: '',
+  });
 
-  const filtered = mockProjects.filter(p => {
+  const tabs: { key: FilterTab; label: string; count: number }[] = [
+    { key: 'all', label: 'All', count: projects.length },
+    { key: 'in_review', label: 'In Review', count: projects.filter(p => p.status === 'in_review').length },
+    { key: 'changes_requested', label: 'Changes Requested', count: projects.filter(p => p.status === 'changes_requested').length },
+    { key: 'overdue', label: 'Overdue', count: projects.filter(p => p.isOverdue && p.status !== 'approved').length },
+    { key: 'approved', label: 'Approved', count: projects.filter(p => p.status === 'approved').length },
+    { key: 'draft', label: 'Draft', count: projects.filter(p => p.status === 'draft').length },
+  ];
+
+  const filtered = projects.filter(p => {
     const matchesSearch = p.name.toLowerCase().includes(search.toLowerCase()) ||
       p.clientName.toLowerCase().includes(search.toLowerCase());
     if (!matchesSearch) return false;
@@ -45,6 +58,30 @@ const Projects = () => {
     if (activeTab === 'overdue') return p.isOverdue && p.status !== 'approved';
     return p.status === activeTab;
   });
+
+  const handleCreateProject = () => {
+    if (!newProject.name || !newProject.clientName || !newProject.deadline) return;
+
+    const project: Project = {
+      id: `proj-${Date.now()}`,
+      name: newProject.name,
+      clientName: newProject.clientName,
+      clientEmail: newProject.clientEmail || `${newProject.clientName.toLowerCase().replace(/\s/g, '.')}@example.com`,
+      status: 'draft',
+      deadline: newProject.deadline,
+      description: newProject.description,
+      createdAt: new Date().toISOString(),
+      deliverableCount: 0,
+      approvedCount: 0,
+    };
+
+    setProjects(prev => [project, ...prev]);
+    setNewProject({ name: '', clientName: '', clientEmail: '', description: '', deadline: '' });
+    setDialogOpen(false);
+    toast.success(`Project "${project.name}" created`, {
+      description: `Draft project for ${project.clientName}`,
+    });
+  };
 
   return (
     <div className="space-y-4 sm:space-y-6 overflow-hidden">
@@ -55,24 +92,91 @@ const Projects = () => {
         className="flex items-center justify-between"
       >
         <h1 className="text-xl sm:text-2xl font-bold">Projects</h1>
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <div className={cn(!beta.canCreateProject && "cursor-not-allowed")}>
-                <Button className="gap-1.5 sm:gap-2 h-9 sm:h-10 text-[13px] px-3 sm:px-4" disabled={!beta.canCreateProject}>
-                  <Plus className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                  <span className="hidden sm:inline">New project</span>
-                  <span className="sm:hidden">New</span>
-                </Button>
+        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div className={cn(!beta.canCreateProject && "cursor-not-allowed")}>
+                  <DialogTrigger asChild>
+                    <Button className="gap-1.5 sm:gap-2 h-9 sm:h-10 text-[13px] px-3 sm:px-4" disabled={!beta.canCreateProject}>
+                      <Plus className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                      <span className="hidden sm:inline">New project</span>
+                      <span className="sm:hidden">New</span>
+                    </Button>
+                  </DialogTrigger>
+                </div>
+              </TooltipTrigger>
+              {!beta.canCreateProject && (
+                <TooltipContent>
+                  <p>{beta.isExpired ? "Beta expired" : `Limit reached (${beta.projectLimit} projects)`}</p>
+                </TooltipContent>
+              )}
+            </Tooltip>
+          </TooltipProvider>
+
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle className="text-lg font-bold">Create New Project</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4 mt-2">
+              <div className="space-y-2">
+                <Label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Project Name *</Label>
+                <Input
+                  placeholder="e.g. Q2 Brand Campaign"
+                  value={newProject.name}
+                  onChange={e => setNewProject(prev => ({ ...prev, name: e.target.value }))}
+                  className="h-10"
+                />
               </div>
-            </TooltipTrigger>
-            {!beta.canCreateProject && (
-              <TooltipContent>
-                <p>{beta.isExpired ? "Beta expired" : `Limit reached (${beta.projectLimit} projects)`}</p>
-              </TooltipContent>
-            )}
-          </Tooltip>
-        </TooltipProvider>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-2">
+                  <Label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Client Name *</Label>
+                  <Input
+                    placeholder="e.g. Acme Corp"
+                    value={newProject.clientName}
+                    onChange={e => setNewProject(prev => ({ ...prev, clientName: e.target.value }))}
+                    className="h-10"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Client Email</Label>
+                  <Input
+                    placeholder="client@example.com"
+                    type="email"
+                    value={newProject.clientEmail}
+                    onChange={e => setNewProject(prev => ({ ...prev, clientEmail: e.target.value }))}
+                    className="h-10"
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Deadline *</Label>
+                <Input
+                  type="date"
+                  value={newProject.deadline}
+                  onChange={e => setNewProject(prev => ({ ...prev, deadline: e.target.value }))}
+                  className="h-10"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Description</Label>
+                <Textarea
+                  placeholder="Brief project description..."
+                  value={newProject.description}
+                  onChange={e => setNewProject(prev => ({ ...prev, description: e.target.value }))}
+                  className="min-h-[80px] resize-none"
+                />
+              </div>
+              <Button
+                onClick={handleCreateProject}
+                disabled={!newProject.name || !newProject.clientName || !newProject.deadline}
+                className="w-full h-11 rounded-xl font-bold"
+              >
+                Create Project
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
       </motion.div>
 
       {/* Filter tabs - horizontal scroll on mobile */}
