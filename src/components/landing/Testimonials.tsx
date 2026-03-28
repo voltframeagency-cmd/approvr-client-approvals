@@ -11,7 +11,7 @@ const testimonials = [
     initials: 'JH',
   },
   {
-    quote: "As a web design agency, scope disputes were killing us. Approvr's audit trail saved us from two disputes last quarter — every approval is timestamped and attributed.",
+    quote: "Two scope disputes last quarter almost cost us a client. Both times, we pulled up the audit trail. Timestamped. Case closed.",
     author: 'Marcus Cole',
     role: 'Agency Partner',
     company: 'Cole & Partners',
