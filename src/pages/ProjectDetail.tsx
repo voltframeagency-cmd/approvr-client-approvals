@@ -238,7 +238,7 @@ const ProjectDetail = () => {
                 transition={{ delay: 0.2 + i * 0.05 }}
                 onClick={() => { setSelectedDeliverableId(d.id); setActiveTab('preview'); }}
                 className={cn(
-                  'w-full text-left rounded-xl border p-4 transition-all duration-200',
+                  'w-full text-left rounded-xl border p-3 md:p-4 transition-all duration-200',
                   selectedDeliverableId === d.id ? 'ring-2 ring-primary shadow-sm bg-card' : 'hover:bg-muted/30 bg-card'
                 )}
               >
