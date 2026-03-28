@@ -125,16 +125,16 @@ const Dashboard = () => {
         </motion.div>
       )}
 
-      {/* Demo Plan Usage Indicators */}
-      {isDemoMode && planConfig && usage && (
+      {/* Plan Usage Indicators — shown for both demo and real authenticated users */}
+      {activePlanConfig && usageStats && (
         <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="mb-2">
           <div className="card-elevated p-4 md:p-6 border-none ring-1 ring-primary/20 bg-gradient-to-r from-card via-card to-primary/[0.02]">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2.5">
                 <Badge className="bg-primary/10 text-primary border-none text-[10px] font-black uppercase tracking-widest px-2 py-0.5">
-                  {planConfig.name}
+                  {activePlanConfig.name}
                 </Badge>
-                <span className="text-[12px] font-bold text-muted-foreground">${planConfig.price}/mo</span>
+                <span className="text-[12px] font-bold text-muted-foreground">${activePlanConfig.price}/mo</span>
               </div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -145,11 +145,11 @@ const Dashboard = () => {
                     <FolderOpen className="h-3 w-3" /> Projects
                   </span>
                   <span className="text-[11px] font-bold text-foreground">
-                    {usage.projectsUsed}/{planConfig.limits.maxProjects ?? '∞'}
+                    {usageStats.projectsUsed}/{activePlanConfig.limits.maxProjects ?? '∞'}
                   </span>
                 </div>
                 <Progress 
-                  value={planConfig.limits.maxProjects ? (usage.projectsUsed / planConfig.limits.maxProjects) * 100 : 15} 
+                  value={activePlanConfig.limits.maxProjects ? (usageStats.projectsUsed / activePlanConfig.limits.maxProjects) * 100 : 15} 
                   className="h-1.5"
                 />
               </div>
@@ -160,11 +160,11 @@ const Dashboard = () => {
                     <HardDrive className="h-3 w-3" /> Storage
                   </span>
                   <span className="text-[11px] font-bold text-foreground">
-                    {usage.storageUsedGB} GB / {planConfig.limits.maxStorageGB} GB
+                    {usageStats.storageUsedGB} GB / {activePlanConfig.limits.maxStorageGB} GB
                   </span>
                 </div>
                 <Progress 
-                  value={(usage.storageUsedGB / planConfig.limits.maxStorageGB) * 100} 
+                  value={(usageStats.storageUsedGB / activePlanConfig.limits.maxStorageGB) * 100} 
                   className="h-1.5"
                 />
               </div>
@@ -175,11 +175,11 @@ const Dashboard = () => {
                     <Users className="h-3 w-3" /> Team Seats
                   </span>
                   <span className="text-[11px] font-bold text-foreground">
-                    {usage.teamMembersUsed}/{planConfig.limits.maxTeamMembers}
+                    {usageStats.teamMembersUsed}/{activePlanConfig.limits.maxTeamMembers}
                   </span>
                 </div>
                 <Progress 
-                  value={(usage.teamMembersUsed / planConfig.limits.maxTeamMembers) * 100} 
+                  value={(usageStats.teamMembersUsed / activePlanConfig.limits.maxTeamMembers) * 100} 
                   className="h-1.5"
                 />
               </div>
