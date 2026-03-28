@@ -48,7 +48,7 @@ const CTA = () => {
           <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/20 rounded-full blur-[80px]" />
           
           <div className="relative z-10 text-center max-w-3xl mx-auto">
-            <motion.h2 variants={itemVariants} className="text-4xl md:text-6xl lg:text-[4.25rem] font-bold mb-8 tracking-tighter leading-[1.05] drop-shadow-md">
+            <motion.h2 variants={itemVariants} className="text-3xl sm:text-4xl md:text-6xl lg:text-[4.25rem] font-bold mb-6 md:mb-8 tracking-tighter leading-[1.05] drop-shadow-md">
               Stop chasing. <br />
               <span className="italic bg-gradient-to-b from-primary via-primary to-primary/60 bg-clip-text text-transparent">Start approving.</span>
             </motion.h2>
