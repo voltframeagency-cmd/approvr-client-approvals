@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { StatusBadge } from '@/components/app/StatusBadge';
 import { mockProjects, mockActivity } from '@/lib/mock-data';
 import { useDemo } from '@/contexts/DemoContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   FolderKanban, Clock, CheckCircle, AlertTriangle, ArrowRight,
   FileText, MessageSquare, Upload, UserPlus, Eye, AlertCircle, ArrowUpRight, Sparkles, Bell,
@@ -56,6 +56,7 @@ function timeAgo(dateStr: string) {
 }
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const beta = useFounderBeta();
   const onboarding = useOnboarding();
   const { isDemoMode, demoUserName, demoData, planConfig: demoPlanConfig, usage: demoUsage } = useDemo();
@@ -504,7 +505,7 @@ const Dashboard = () => {
                   <div className="h-2 w-3/4 bg-muted-foreground/20 rounded mx-auto" />
                   <div className="h-2 w-1/2 bg-muted-foreground/20 rounded mx-auto" />
                 </div>
-                <Button variant="ghost" size="sm" className="mt-4 h-8 text-[11px] font-bold uppercase tracking-wider text-primary hover:text-primary hover:bg-primary/5">
+                <Button variant="ghost" size="sm" className="mt-4 h-8 text-[11px] font-bold uppercase tracking-wider text-primary hover:text-primary hover:bg-primary/5" onClick={() => navigate('/portal')}>
                   Launch Preview
                 </Button>
               </div>
