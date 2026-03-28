@@ -680,7 +680,7 @@ const Settings = () => {
 
               {/* Usage Tab */}
               {activeTab === 'usage' && (
-                <div className="space-y-6">
+                 <div className="space-y-4 sm:space-y-6">
                   <div className="card-elevated p-4 sm:p-6 space-y-4 sm:space-y-6">
                     <div>
                       <h2 className="font-semibold text-[15px] sm:text-base">Plan & Usage Intelligence</h2>
