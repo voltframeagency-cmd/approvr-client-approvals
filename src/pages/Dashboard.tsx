@@ -15,6 +15,9 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
+import { ClientActivityTracker } from '@/components/app/ClientActivityTracker';
+import { OnboardingChecklist, OnboardingWelcome } from '@/components/app/OnboardingChecklist';
+import { useOnboarding } from '@/hooks/use-onboarding';
 
 // Derive attention items
 const overdueProjects = mockProjects.filter(p => p.isOverdue && p.status !== 'approved');
