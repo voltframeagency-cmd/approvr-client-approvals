@@ -169,7 +169,7 @@ export const Features = () => {
                   animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
                   exit={{ opacity: 0, scale: 1.02, filter: 'blur(10px)' }}
                   transition={{ duration: DURATION.structural, ease: EASING.standard as unknown as number[] }}
-                  className="w-full h-full flex items-center justify-center p-8 lg:p-12"
+                  className="w-full h-full flex items-center justify-center p-4 md:p-8 lg:p-12"
                 >
                   <div className="w-full max-w-2xl aspect-video bg-muted/20 rounded-xl border border-border/40 flex items-center justify-center relative shadow-inner overflow-hidden">
                     {(() => {

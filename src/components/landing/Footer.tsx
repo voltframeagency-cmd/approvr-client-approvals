@@ -49,8 +49,8 @@ const Footer = () => (
         {/* Link columns */}
         {Object.entries(footerLinks).map(([heading, links]) => (
           <div key={heading}>
-            <p className="text-sm font-black text-foreground uppercase tracking-widest mb-8">{heading}</p>
-            <ul className="space-y-4">
+            <p className="text-sm font-black text-foreground uppercase tracking-widest mb-4 md:mb-8">{heading}</p>
+            <ul className="space-y-3 md:space-y-4">
               {links.map(link => (
                 <li key={link.label}>
                   {link.href.startsWith('/') ? (
