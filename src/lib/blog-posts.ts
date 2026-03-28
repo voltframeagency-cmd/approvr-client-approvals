@@ -40,6 +40,36 @@ export const blogPosts: BlogPost[] = [
     category: 'Guides',
     ogTitle: 'The Hidden 6-Hour Tax on Your Agency',
   },
+  {
+    slug: 'govisually-alternative',
+    title: 'GoVisually Requires Client Logins. Your Clients Hate That.',
+    metaDescription: 'GoVisually forces every reviewer to create an account. That extra step kills your response rates. Here\'s the no-login alternative.',
+    excerpt: 'You send the proof link. Your client clicks it. They see a signup form. They close the tab. Sound familiar?',
+    publishedAt: '2025-03-30',
+    readTime: '5 min',
+    category: 'Comparisons',
+    ogTitle: 'GoVisually Alternative — No Client Logins Required',
+  },
+  {
+    slug: 'ziflow-alternative-small-teams',
+    title: 'Ziflow Supports 1,200 File Types. You Use Maybe Three.',
+    metaDescription: 'Ziflow is an enterprise proofing platform with custom pricing. If your team is under 15 people, you\'re paying for complexity you\'ll never touch.',
+    excerpt: 'Ziflow advertises 1,200 supported file types. Impressive on paper. Irrelevant when your client just needs to approve a logo.',
+    publishedAt: '2025-04-01',
+    readTime: '5 min',
+    category: 'Comparisons',
+    ogTitle: 'Why Ziflow Is Overkill for Small Creative Teams',
+  },
+  {
+    slug: 'how-to-get-client-feedback-faster',
+    title: 'Your Client Isn\'t Ghosting You. Your Process Is Pushing Them Away.',
+    metaDescription: 'The reason clients delay feedback isn\'t laziness. It\'s friction. Here are 5 changes that cut response times by half.',
+    excerpt: 'You followed up three times. No reply. The project stalls. The invoice waits. The real problem isn\'t your client — it\'s the number of steps between them seeing your work.',
+    publishedAt: '2025-04-03',
+    readTime: '6 min',
+    category: 'Guides',
+    ogTitle: 'Why Clients Ghost Your Feedback Requests',
+  },
 ];
 
 export const getBlogPost = (slug: string) => blogPosts.find(p => p.slug === slug);
