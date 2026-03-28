@@ -66,10 +66,13 @@ function timeAgo(dateStr: string) {
 
 const Dashboard = () => {
   const beta = useFounderBeta();
+  const onboarding = useOnboarding();
   const activeApprovals = mockProjects.filter(p => p.status !== 'draft' && p.status !== 'approved');
 
   return (
     <div className="space-y-6 lg:space-y-12">
+      {/* Welcome dialog for first-time users */}
+      {onboarding.showWelcome && <OnboardingWelcome onDismiss={onboarding.dismissWelcome} />}
       {/* Beta Usage Banner */}
       {(beta.isProjectLimitReached || beta.isEventLimitReached || beta.daysRemaining < 7) && (
         <motion.div

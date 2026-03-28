@@ -387,6 +387,26 @@ export const mockFounderBeta: FounderBetaMetadata = {
   readOnlyAfterExpiry: true,
 };
 
+export interface ClientViewEvent {
+  id: string;
+  projectId: string;
+  projectName: string;
+  deliverableId: string;
+  deliverableTitle: string;
+  clientName: string;
+  viewedAt: string;
+  durationSeconds: number;
+  device: 'desktop' | 'mobile' | 'tablet';
+}
+
+export const mockClientViewEvents: ClientViewEvent[] = [
+  { id: 'cv1', projectId: '1', projectName: 'Q1 Brand Refresh', deliverableId: 'd1', deliverableTitle: 'Primary Logo', clientName: 'Sarah Chen', viewedAt: new Date(Date.now() - 1000 * 60 * 25).toISOString(), durationSeconds: 240, device: 'desktop' },
+  { id: 'cv2', projectId: '1', projectName: 'Q1 Brand Refresh', deliverableId: 'd3', deliverableTitle: 'Typography Guide', clientName: 'Sarah Chen', viewedAt: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(), durationSeconds: 180, device: 'desktop' },
+  { id: 'cv3', projectId: '2', projectName: 'Website Redesign', deliverableId: 'd5', deliverableTitle: 'Homepage Mockup', clientName: 'Mike Johnson', viewedAt: new Date(Date.now() - 1000 * 60 * 60 * 5).toISOString(), durationSeconds: 95, device: 'mobile' },
+  { id: 'cv4', projectId: '5', projectName: 'Annual Report Design', deliverableId: 'd7', deliverableTitle: 'Financial Slides', clientName: 'Lisa Park', viewedAt: new Date(Date.now() - 1000 * 60 * 60 * 12).toISOString(), durationSeconds: 320, device: 'desktop' },
+  { id: 'cv5', projectId: '1', projectName: 'Q1 Brand Refresh', deliverableId: 'd2', deliverableTitle: 'Color Palette', clientName: 'Sarah Chen', viewedAt: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(), durationSeconds: 150, device: 'tablet' },
+];
+
 export const statusConfig: Record<string, { label: string; className: string }> = {
   draft: { label: 'Draft', className: 'bg-muted text-muted-foreground' },
   in_review: { label: 'Pending Review', className: 'bg-info/10 text-info' },
