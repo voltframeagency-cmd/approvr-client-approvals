@@ -42,7 +42,7 @@ const Hero = () => (
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" style={{ animationDuration: '2s' }} />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
           </span>
-          Founder Beta — 380 spots gone
+          Now in early access — 14-day free trial
         </motion.div>
 
         <h1 className="text-4xl md:text-6xl lg:text-[4.75rem] font-bold tracking-tight leading-[1.02] mb-8">
@@ -69,7 +69,7 @@ const Hero = () => (
         >
           <Link to="/signup">
             <ShinyButton className="h-13 px-10 text-base font-semibold shadow-xl shadow-primary/10">
-              Get early access
+              Start your free trial
               <ArrowRight className="h-4 w-4" />
             </ShinyButton>
           </Link>
@@ -92,7 +92,7 @@ const Hero = () => (
         >
           <AvatarGroup members={founderMembers} size={32} limit={4} />
           <span className="text-sm text-muted-foreground/80 font-medium">
-            <span className="text-foreground font-bold">380+</span> agencies stopped chasing
+            Join agencies already in early access
           </span>
         </motion.div>
       </motion.div>

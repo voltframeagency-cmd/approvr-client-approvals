@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { ShinyButton } from '@/components/ui/shiny-button';
-import { Check, Sparkles, Zap, Building2, Lock, ArrowRight } from 'lucide-react';
+import { Check, Sparkles, Zap, Building2, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
@@ -9,59 +9,42 @@ import { EASING, DURATION, STAGGER } from '@/components/motion/Animations';
 
 const plans = [
   {
-    name: 'The Founder',
-    price: { monthly: 0, yearly: 0 },
-    period: '/mo',
-    description: 'For early adopters who want to shape the future of Approvr.',
-    features: [
-      '3 active projects',
-      '10 cumulative approvals',
-      '1 branded workspace',
-      'Standard portal design',
-      'Beta feature access',
-    ],
-    cta: 'Claim Founder Spot',
-    popular: false,
-    icon: Lock,
-    badge: 'Limited Slots',
-    note: 'Lifetime access · Invite required',
-  },
-  {
     name: 'The Scaler',
-    price: { monthly: 29, yearly: 24 },
+    price: { monthly: 39, yearly: 29 },
     period: '/mo',
-    description: 'For solo founders and small teams killing inbox friction.',
+    description: 'For solo founders and small teams who refuse to chase clients for a living.',
     features: [
-      'Everything in Founder, plus:',
-      'Unlimited projects',
+      '10 active projects',
       'Unlimited approvals',
-      '3 branded workspaces',
-      'Custom accent colors',
+      '3 team members',
+      'Branded portal with your colors',
       '25 GB storage',
+      'Email notifications',
     ],
-    cta: 'Get 14 days free',
-    popular: true,
-    icon: Sparkles,
-    badge: 'Growth Choice',
-    note: 'No card required',
+    cta: 'Start 14-day free trial',
+    popular: false,
+    icon: Zap,
+    badge: null,
+    note: 'No card required · Full access for 14 days',
   },
   {
     name: 'The Studio',
-    price: { monthly: 79, yearly: 64 },
+    price: { monthly: 79, yearly: 59 },
     period: '/mo',
-    description: 'For established agencies running high-volume operations.',
+    description: 'For established agencies running high-volume client work across multiple brands.',
     features: [
       'Everything in Scaler, plus:',
-      'Unlimited workspaces',
+      'Unlimited projects',
+      '5 team members (+$15/mo each)',
       'White-label portal domain',
       'Full API access',
       '100 GB storage',
-      'Priority partner support',
+      'Priority white-glove support',
     ],
-    cta: 'Talk to us about Studio',
-    popular: false,
+    cta: 'Start 14-day free trial',
+    popular: true,
     icon: Building2,
-    badge: null,
+    badge: 'Best Value',
     note: 'Migration assistance included',
   },
 ];
@@ -111,8 +94,8 @@ const Pricing = () => {
             <span>Pick your plan</span>
           </div>
           <h2 className="text-3xl md:text-5xl lg:text-[3.5rem] font-bold tracking-tighter mb-6 md:mb-8 leading-[1.1]" style={{ textShadow: '0 4px 12px hsl(0 0% 0% / 0.15)' }}>
-            Simple pricing. <br className="hidden md:block" />
-            <span className="italic bg-gradient-to-b from-primary via-primary to-primary/60 bg-clip-text text-transparent">No gotchas.</span>
+            Two plans. <br className="hidden md:block" />
+            <span className="italic bg-gradient-to-b from-primary via-primary to-primary/60 bg-clip-text text-transparent">Zero surprises.</span>
           </h2>
           
           {/* Pricing Toggle */}
@@ -146,7 +129,7 @@ const Pricing = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid md:grid-cols-3 gap-5 md:gap-8 max-w-6xl mx-auto items-stretch"
+          className="grid md:grid-cols-2 gap-5 md:gap-8 max-w-4xl mx-auto items-stretch"
         >
           {plans.map((plan, i) => {
             const Icon = plan.icon;
