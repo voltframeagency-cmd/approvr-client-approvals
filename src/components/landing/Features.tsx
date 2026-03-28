@@ -134,7 +134,7 @@ export const Features = () => {
                             transition={{ duration: DURATION.structural, ease: EASING.standard as unknown as number[] }}
                             className="overflow-hidden"
                           >
-                            <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                            <p className="text-muted-foreground text-sm leading-relaxed mb-3 md:mb-4">
                               {feature.description}
                             </p>
                             <div className="flex items-center gap-2 text-xs font-bold text-primary tracking-wider uppercase">
