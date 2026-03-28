@@ -14,43 +14,43 @@ const features = [
   { 
     id: 1,
     demo: UploadDemo, 
-    title: 'Centralize your work', 
-    description: 'Share files, designs, and documents in one organized space. It\'s version-controlled from day one.',
+    title: 'All your files, one place', 
+    description: 'Designs, docs, videos — organized by version from day one. No more digging.',
     tag: 'Organization'
   },
   { 
     id: 2,
     demo: FeedbackDemo, 
-    title: 'Context is king', 
-    description: 'Clients leave comments exactly where they\'re needed. No more guessing which "v3_final_final.pdf" they\'re talking about.',
-    tag: 'Collaboration'
+    title: 'Feedback where it belongs', 
+    description: 'Clients comment right on the work. You\'ll never hear "which version?" again.',
+    tag: 'Feedback'
   },
   { 
     id: 3,
     demo: ApprovalDemo, 
-    title: 'Frictionless sign-offs', 
-    description: 'Give your clients a simple path to "Yes". Every decision is logged and instantly captured.',
-    tag: 'Efficiency'
+    title: 'The fastest "yes" you\'ll get', 
+    description: 'One button. Client taps it. Decision logged. That\'s the whole process.',
+    tag: 'Approvals'
   },
   { 
     id: 4,
     demo: TimelineDemo, 
-    title: 'Never lose a status', 
-    description: 'See every comment and approval in real-time. Accountability is built-in, not an afterthought.',
+    title: 'Know where everything stands', 
+    description: 'Every comment, every approval — visible in real time. Nothing slips.',
     tag: 'Real-time'
   },
   { 
     id: 5,
     demo: BrandingDemo, 
-    title: 'Your brand, first', 
-    description: 'It feels like a custom-built solution for your clients. Professionalism at every touchpoint.',
+    title: 'Looks like yours, not ours', 
+    description: 'Your logo, your colors. Clients see your brand — not some random tool.',
     tag: 'White-label'
   },
   { 
     id: 6,
     demo: AuditDemo, 
-    title: 'Complete peace of mind', 
-    description: 'Every decision is timestamped and attributed. Perfect for when "he said, she said" happens.',
+    title: 'Proof when you need it', 
+    description: 'Every approval is timestamped and attributed. When a client says "I never approved that" — you\'ve got receipts.',
     tag: 'Security'
   },
 ];
@@ -82,13 +82,13 @@ export const Features = () => {
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
             <Sparkles className="h-4 w-4" />
-            <span>Built for High-Growth Agencies</span>
+            <span>What you actually get</span>
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold mb-8 tracking-tighter leading-[1.1] drop-shadow-sm">
-            A workflow that actually <span className="italic bg-gradient-to-b from-primary via-primary to-primary/60 bg-clip-text text-transparent">handles the friction</span>
+            Six problems you <span className="italic bg-gradient-to-b from-primary via-primary to-primary/60 bg-clip-text text-transparent">won't have anymore</span>
           </h2>
           <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-            We didn't just build a project manager. We built a high-velocity approval engine designed to get you to "Yes" faster than ever.
+            We didn't build another project manager. We built the thing that gets clients to say "yes" — fast.
           </p>
         </motion.div>
 

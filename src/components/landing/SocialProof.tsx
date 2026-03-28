@@ -11,10 +11,10 @@ const logos = [
 ];
 
 const stats = [
-  { value: '2,400+', numericValue: 2400, suffix: '+', label: 'Approval cycles completed' },
-  { value: '380+', numericValue: 380, suffix: '+', label: 'Agencies & studios' },
-  { value: '12k+', numericValue: 12, suffix: 'k+', label: 'Deliverables signed off' },
-  { value: '4.9/5', numericValue: 4.9, suffix: '/5', label: 'Average rating', decimals: 1 },
+  { value: '2,400+', numericValue: 2400, suffix: '+', label: 'Sign-offs locked in' },
+  { value: '380+', numericValue: 380, suffix: '+', label: 'Agencies done chasing' },
+  { value: '12k+', numericValue: 12, suffix: 'k+', label: 'Files approved — no email' },
+  { value: '4.9/5', numericValue: 4.9, suffix: '/5', label: 'Avg. rating', decimals: 1 },
 ];
 
 const AnimatedNumber = ({ value, suffix, decimals = 0 }: { value: number; suffix: string; decimals?: number }) => {
@@ -97,7 +97,7 @@ const SocialProof = () => {
           <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-muted/30 to-transparent z-10" />
           
           <p className="text-center text-[10px] font-black text-muted-foreground/50 uppercase tracking-[0.3em] mb-12">
-            Integrated with the tools you love
+            Works with what you already use
           </p>
           
           <div className="flex gap-16 items-center justify-center overflow-hidden">

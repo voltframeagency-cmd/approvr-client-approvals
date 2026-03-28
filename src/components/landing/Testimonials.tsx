@@ -4,21 +4,21 @@ import { Quote, Star, ArrowLeft, ArrowRight } from 'lucide-react';
 
 const testimonials = [
   {
-    quote: "We used to chase clients across email, Slack, and WhatsApp for weeks. Now they open the branded portal and approve in minutes. We've eliminated 47 email threads per project.",
+    quote: "We were drowning in email threads — 40, 50 per project. Now clients open the portal and approve in minutes. I got three hours of my Monday back.",
     author: 'Jessica Hart',
     role: 'Creative Director',
     company: 'Wildframe Studio',
     initials: 'JH',
   },
   {
-    quote: "As a web design agency, scope disputes were killing us. Approvr's audit trail saved us from two disputes last quarter — every approval is timestamped and attributed.",
+    quote: "Two scope disputes last quarter almost cost us a client. Both times, we pulled up the audit trail. Timestamped. Case closed.",
     author: 'Marcus Cole',
     role: 'Agency Partner',
     company: 'Cole & Partners',
     initials: 'MC',
   },
   {
-    quote: "Our branding clients told us the portal feels more professional than anything they've used. It's like having a white-label review tool built just for our studio.",
+    quote: "Our clients actually said it looks like we built it. That's the point — it's our brand, not some third-party tool.",
     author: 'Priya Sharma',
     role: 'Founder',
     company: 'Luma Design Co',
@@ -67,7 +67,7 @@ export const Testimonials = () => {
             ))}
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold mb-6 tracking-tighter leading-[1.1]" style={{ textShadow: '0 4px 12px hsl(0 0% 0% / 0.15)' }}>
-            The new standard for <span className="italic bg-gradient-to-b from-primary via-primary to-primary/60 bg-clip-text text-transparent">client relations.</span>
+            Don't take our <span className="italic bg-gradient-to-b from-primary via-primary to-primary/60 bg-clip-text text-transparent">word for it.</span>
           </h2>
         </motion.div>
 

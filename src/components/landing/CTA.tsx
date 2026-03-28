@@ -56,13 +56,13 @@ const CTA = () => {
             </motion.h2>
             
             <motion.p variants={itemVariants} className="text-xl text-muted-foreground mb-12 max-w-xl mx-auto leading-relaxed">
-              Email is for talking. Approvr is for deciding. Join the specialized group of agencies winning back hours of production time every week.
+              Every week you don't switch, your team loses another 6 hours to inbox chaos. That's 300+ hours a year — gone.
             </motion.p>
             
             <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <Link to="/signup" className="w-full sm:w-auto">
                 <ShinyButton className="h-16 px-10 text-lg font-black">
-                    Claim Your Spot
+                    Get early access
                     <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </ShinyButton>
               </Link>
@@ -76,11 +76,11 @@ const CTA = () => {
             <motion.div variants={itemVariants} className="mt-12 flex flex-wrap justify-center items-center gap-8 text-muted-foreground/60">
               <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest">
                 <Zap className="h-4 w-4 text-primary" />
-                2 Min Setup
+                Live in 2 minutes
               </div>
               <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest">
                 <ShieldCheck className="h-4 w-4 text-primary" />
-                No Card Required
+                No card needed
               </div>
             </motion.div>
           </div>

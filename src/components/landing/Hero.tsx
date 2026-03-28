@@ -41,12 +41,12 @@ const Hero = () => (
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" style={{ animationDuration: '2s' }} />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
           </span>
-          Founder Beta — Limited early access
+          Founder Beta — 380 spots gone
         </motion.div>
 
         <h1 className="text-4xl md:text-[3.5rem] lg:text-[4.25rem] font-bold tracking-tighter leading-[1.05] mb-6">
-          Get client approvals <br className="hidden md:block" />
-          <span className="gradient-text italic">out of email.</span>
+          Your clients owe you an answer. <br className="hidden md:block" />
+          <span className="gradient-text italic">Stop waiting for it in email.</span>
         </h1>
         <motion.p
           initial={{ opacity: 0 }}
@@ -54,7 +54,7 @@ const Hero = () => (
           transition={{ duration: 0.6, delay: 0.3 }}
           className="text-lg md:text-xl text-muted-foreground max-w-[560px] mx-auto mb-10 leading-relaxed"
         >
-          Approvr brings sanity to the sign-off loop. One branded portal where clients review, comment, and approve in seconds. No more hunting through Slack threads or chasing email chains for a simple "yes."
+          Every week your team loses 6+ hours digging through inboxes for a one-word reply. One portal. Clients open it, review, and hit approve — done.
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 12 }}
@@ -64,13 +64,13 @@ const Hero = () => (
         >
           <Link to="/signup">
             <ShinyButton className="h-12 px-8 text-[15px] font-medium">
-              Join Founder Beta
+              Get early access
               <ArrowRight className="h-4 w-4" />
             </ShinyButton>
           </Link>
           <Button variant="outline" size="lg" className="h-12 px-8 text-[15px] gap-2 bg-card/50 backdrop-blur-sm font-medium">
             <Play className="h-4 w-4" />
-            Watch demo
+            See it work
             <span className="text-muted-foreground text-[12px]">2 min</span>
           </Button>
         </motion.div>
@@ -84,7 +84,7 @@ const Hero = () => (
         >
           <AvatarGroup members={founderMembers} size={28} limit={4} />
           <span className="text-sm text-muted-foreground">
-            Join <span className="font-semibold text-foreground">380+</span> agencies already in
+            <span className="font-semibold text-foreground">380+</span> agencies stopped chasing
           </span>
         </motion.div>
       </motion.div>

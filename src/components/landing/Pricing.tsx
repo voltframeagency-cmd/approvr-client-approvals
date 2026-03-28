@@ -11,7 +11,7 @@ const plans = [
     name: 'Founder Beta',
     price: { monthly: 0, yearly: 0 },
     period: '/mo',
-    description: 'Limited early access for founding users.',
+    description: 'Free for founding members. Limited.',
     features: [
       '3 projects (lifetime total)',
       '10 approval events total',
@@ -29,7 +29,7 @@ const plans = [
     name: 'Pro',
     price: { monthly: 29, yearly: 24 },
     period: '/mo',
-    description: 'Perfect for growing agencies and studios.',
+    description: 'For agencies ready to stop losing hours to email.',
     features: [
       'Everything in Beta, plus:',
       'Unlimited projects',
@@ -38,17 +38,17 @@ const plans = [
       'Custom accent colors',
       '25 GB storage',
     ],
-    cta: 'Start 14-day free trial',
+    cta: 'Get 14 days free',
     popular: true,
     icon: Sparkles,
     badge: 'Growth choice',
-    note: 'No credit card required to start',
+    note: 'No card needed',
   },
   {
     name: 'Agency',
     price: { monthly: 79, yearly: 64 },
     period: '/mo',
-    description: 'For teams managing multiple clients.',
+    description: 'For teams running 10+ client accounts.',
     features: [
       'Everything in Pro, plus:',
       'Unlimited workspaces',
@@ -57,7 +57,7 @@ const plans = [
       '100 GB storage',
       'Priority dedicated support',
     ],
-    cta: 'Contact for Agency',
+    cta: 'Talk to us about Agency',
     popular: false,
     icon: Building2,
     badge: null,
@@ -107,11 +107,11 @@ const Pricing = () => {
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
             <Zap className="h-4 w-4" />
-            <span>Risk-Free Early Access</span>
+            <span>Pick your plan</span>
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold tracking-tighter mb-8 leading-[1.1]" style={{ textShadow: '0 4px 12px hsl(0 0% 0% / 0.15)' }}>
-            Straightforward pricing for <br className="hidden md:block" />
-            <span className="italic bg-gradient-to-b from-primary via-primary to-primary/60 bg-clip-text text-transparent">ambitious agencies.</span>
+            Simple pricing. <br className="hidden md:block" />
+            <span className="italic bg-gradient-to-b from-primary via-primary to-primary/60 bg-clip-text text-transparent">No gotchas.</span>
           </h2>
           
           {/* Pricing Toggle */}
@@ -260,7 +260,7 @@ const Pricing = () => {
           className="mt-32 text-center"
         >
           <p className="text-sm font-bold text-muted-foreground/60 uppercase tracking-[0.2em] mb-10">
-            Trusted by world-class creative teams
+            Used by agencies who got tired of chasing emails
           </p>
           <div className="flex flex-wrap justify-center items-center gap-x-16 gap-y-10 opacity-30 grayscale hover:grayscale-0 transition-all duration-1000">
             <span className="text-xl font-black tracking-tighter">AGENCY_X</span>

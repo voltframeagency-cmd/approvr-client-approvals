@@ -6,25 +6,25 @@ const steps = [
   {
     number: '01',
     icon: Upload,
-    title: 'Centralize & Submit',
-    description: 'Upload your deliverables to a dedicated project space. Organize by version and hit submit when you\'re ready for client eyes.',
-    detail: 'Supports any file type including Figma, PDF, and Video.',
+    title: 'Drop your files in',
+    description: 'Drag your designs, docs, or videos into the project. Pick the version. Hit send.',
+    detail: 'Figma, PDF, video — all of it.',
     color: 'primary',
   },
   {
     number: '02',
     icon: MessageSquare,
-    title: 'Collaborative Review',
-    description: 'Clients access a branded portal — no login required. They leave precise, contextual feedback exactly where it matters.',
-    detail: 'Threaded discussions eliminate "lost in email" syndrome.',
+    title: 'Clients review on their own',
+    description: 'Your client gets a branded link. No login, no app download. They open it and leave comments right on the work.',
+    detail: 'Comments stay on the file — not buried in a thread.',
     color: 'primary',
   },
   {
     number: '03',
     icon: CheckCircle2,
-    title: 'Instant Sign-off',
-    description: 'One click for the client to approve or request changes. Every decision is logged with a permanent, legal-grade audit trail.',
-    detail: 'A single source of truth for every "Yes".',
+    title: 'One-click approved',
+    description: 'They tap approve. It\'s logged, timestamped, and tied to their name. No more "I never said yes to that."',
+    detail: 'Every "yes" has a paper trail.',
     color: 'primary',
   },
 ];
@@ -51,13 +51,13 @@ export const HowItWorks = () => {
         <div className="max-w-3xl mx-auto text-center mb-24">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
             <Sparkles className="h-4 w-4" />
-            <span>High-Velocity Workflow</span>
+            <span>Three steps. That's it.</span>
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold mb-8 tracking-tighter leading-[1.1]" style={{ textShadow: '0 4px 12px hsl(0 0% 0% / 0.15)' }}>
-            From deliverable to sign-off <span className="italic bg-gradient-to-b from-primary via-primary to-primary/60 bg-clip-text text-transparent">in seconds.</span>
+            Upload. Review. Approved. <span className="italic bg-gradient-to-b from-primary via-primary to-primary/60 bg-clip-text text-transparent">Done before lunch.</span>
           </h2>
           <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-            We’ve stripped away the overhead. No logic puzzles, no complex Jira tickets. Just a direct path from work to win.
+            No project management degree required. Three moves and you've got a signed-off deliverable.
           </p>
         </div>
 
