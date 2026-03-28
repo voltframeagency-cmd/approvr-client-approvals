@@ -64,7 +64,7 @@ const Login = () => {
                 {["Centralized approval portal", "One-click client sign-offs", "Automatic follow-ups", "Legal-grade audit trails"].map((feature, i) => (
                   <div key={i} className="flex items-center gap-3 text-foreground/80">
                     <div className="h-5 w-5 rounded-full bg-primary/20 flex items-center justify-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 32 32" fill="currentColor" stroke="currentColor" className="text-primary"><path d="M26,16H22a2.002,2.002,0,0,0-2,2V30h2V25h4v5h2V18A2.002,2.002,0,0,0,26,16Zm-4,7V18h4v5Z"/><path d="M16,27a10.9862,10.9862,0,0,1-9.2156-5H12V20H4v8H6V24.3149A13.0239,13.0239,0,0,0,16,29Z"/><path d="M20,10h5.2155A10.9973,10.9973,0,0,0,5,16H3A13.0048,13.0048,0,0,1,26,7.6849V4h2v8H20Z"/></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 256 256" fill="currentColor" className="text-primary"><path d="M232.49,55.51l-32-32a12,12,0,0,0-17,0l-96,96A12,12,0,0,0,84,128v32a12,12,0,0,0,12,12h32a12,12,0,0,0,8.49-3.51l96-96A12,12,0,0,0,232.49,55.51ZM192,49l15,15L196,75,181,60Zm-69,99H108V133l56-56,15,15Zm105-7.43V208a20,20,0,0,1-20,20H48a20,20,0,0,1-20-20V48A20,20,0,0,1,48,28h67.43a12,12,0,0,1,0,24H52V204H204V140.57a12,12,0,0,1,24,0Z"/></svg>
                     </div>
                     <span>{feature}</span>
                   </div>
