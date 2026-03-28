@@ -29,7 +29,7 @@ const Footer = () => (
     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
     
     <div className="container px-4 mx-auto relative">
-      <div className="grid md:grid-cols-[2fr_1fr_1fr_1fr] gap-16 mb-24">
+      <div className="grid grid-cols-2 md:grid-cols-[2fr_1fr_1fr_1fr] gap-8 md:gap-16 mb-16 md:mb-24">
         {/* Brand column */}
         <div className="space-y-8">
           <Link to="/" className="inline-block transition-transform hover:scale-105">
