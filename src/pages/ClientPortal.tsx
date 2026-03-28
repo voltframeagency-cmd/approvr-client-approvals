@@ -134,7 +134,7 @@ const ClientPortal = () => {
                   </div>
                   <div>
                     <p className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.1em] text-muted-foreground leading-none mb-0.5 sm:mb-1">Agency</p>
-                    <p className="text-[11px] sm:text-[14px] font-bold text-slate-900 dark:text-white leading-tight">Rivera Design</p>
+                    <p className="text-[11px] sm:text-[14px] font-bold text-slate-900 dark:text-white leading-tight">Approvr</p>
                   </div>
                 </div>
                 <div className="flex flex-col sm:flex-row items-center sm:items-center gap-1.5 sm:gap-2.5 text-center sm:text-left sm:border-l sm:pl-6">
