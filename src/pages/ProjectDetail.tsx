@@ -664,7 +664,7 @@ const ProjectDetail = () => {
                             <Label className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 ml-1">Action Label</Label>
                             <Input 
                               placeholder="e.g. Download final files" 
-                              className="h-10 sm:h-14 bg-slate-50 dark:bg-black/20 border-border/20 focus:ring-primary/10 transition-all rounded-xl sm:rounded-2xl text-[13px] sm:text-[15px] font-medium px-3 sm:px-5" 
+                              className="h-10 sm:h-14 bg-muted/50 border-border/20 focus:ring-primary/10 transition-all rounded-xl sm:rounded-2xl text-[13px] sm:text-[15px] font-medium px-3 sm:px-5" 
                               value={newAction.label}
                               onChange={e => setNewAction(prev => ({ ...prev, label: e.target.value }))}
                             />
@@ -673,7 +673,7 @@ const ProjectDetail = () => {
                             <Label className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 ml-1 text-primary">Destination URL</Label>
                             <Input 
                               placeholder="https://..." 
-                              className="h-10 sm:h-14 bg-slate-50 dark:bg-black/20 border-border/20 focus:ring-primary/10 transition-all rounded-xl sm:rounded-2xl text-[13px] sm:text-[15px] font-medium px-3 sm:px-5" 
+                              className="h-10 sm:h-14 bg-muted/50 border-border/20 focus:ring-primary/10 transition-all rounded-xl sm:rounded-2xl text-[13px] sm:text-[15px] font-medium px-3 sm:px-5"
                               value={newAction.url}
                               onChange={e => handleUrlChange(e.target.value)}
                             />
