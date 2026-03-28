@@ -126,7 +126,7 @@ const Settings = () => {
   };
 
   const currentUserRole = members?.find(m => m.user_id === user?.id)?.role;
-  const isAdminOrOwner = currentUserRole === 'owner' || currentUserRole === 'admin';
+  const isAdminOrOwner = isDemoMode ? true : (currentUserRole === 'owner' || currentUserRole === 'admin');
 
   const tabs = [
     { id: 'general', label: 'General', icon: Building2 },
