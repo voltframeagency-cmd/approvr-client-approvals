@@ -599,37 +599,37 @@ const Settings = () => {
 
               {/* Team Tab */}
               {activeTab === 'team' && (
-                <div className="space-y-6">
-                  <div className="card-elevated p-6 space-y-6">
-                    <div className="flex items-center justify-between">
+                <div className="space-y-4 sm:space-y-6">
+                  <div className="card-elevated p-4 sm:p-6 space-y-4 sm:space-y-6">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-0">
                       <div>
-                        <h2 className="font-semibold text-base">Team Management</h2>
-                        <p className="text-[13px] text-muted-foreground mt-1">Manage collaborators and permissions for this workspace.</p>
+                        <h2 className="font-semibold text-[15px] sm:text-base">Team Management</h2>
+                        <p className="text-[12px] sm:text-[13px] text-muted-foreground mt-0.5 sm:mt-1">Manage collaborators and permissions.</p>
                       </div>
-                      <Button variant="outline" size="sm" className="gap-1.5 text-xs">
+                      <Button variant="outline" size="sm" className="gap-1.5 text-xs w-full sm:w-auto">
                         <Plus className="h-3.5 w-3.5" /> Invite Member
                       </Button>
                     </div>
 
                     <div className="space-y-2">
                       {mockMembers.map((member) => (
-                        <div key={member.id} className="flex items-center gap-4 p-4 rounded-xl border hover:bg-muted/10 transition-colors">
-                          <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center font-semibold text-primary text-sm">
+                        <div key={member.id} className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl border hover:bg-muted/10 transition-colors">
+                          <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-primary/10 flex items-center justify-center font-semibold text-primary text-xs sm:text-sm">
                             {member.name.split(' ').map(n => n[0]).join('')}
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className="text-[13px] font-medium">{member.name}</p>
-                            <p className="text-[11px] text-muted-foreground">{member.email}</p>
+                            <p className="text-[12px] sm:text-[13px] font-medium">{member.name}</p>
+                            <p className="text-[10px] sm:text-[11px] text-muted-foreground truncate">{member.email}</p>
                           </div>
-                          <div className="flex items-center gap-6">
+                          <div className="flex items-center gap-2 sm:gap-6">
                             <span className={cn(
-                              "text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded-full",
+                              "text-[9px] sm:text-[10px] uppercase tracking-wider font-semibold px-1.5 sm:px-2 py-0.5 rounded-full",
                               member.role === 'owner' ? "bg-primary/10 text-primary" : "bg-muted text-muted-foreground"
                             )}>
                               {member.role}
                             </span>
-                            <button className="p-1.5 text-muted-foreground hover:text-foreground">
-                              <SettingsIcon className="h-4 w-4" />
+                            <button className="p-1 sm:p-1.5 text-muted-foreground hover:text-foreground">
+                              <SettingsIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                             </button>
                           </div>
                         </div>
@@ -637,7 +637,7 @@ const Settings = () => {
                     </div>
                   </div>
 
-                  <div className="card-elevated p-6 space-y-5">
+                  <div className="card-elevated p-4 sm:p-6 space-y-4 sm:space-y-5">
                     <div className="flex items-center gap-2">
                       <ShieldCheck className="h-5 w-5 text-primary" />
                       <h3 className="font-semibold text-base">Portal Access Security</h3>
