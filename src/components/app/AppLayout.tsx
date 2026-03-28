@@ -90,7 +90,7 @@ const AppLayout = () => {
             <div className="flex items-center gap-3 px-3 py-2 mb-2">
               <div className="h-8 w-8 rounded-xl bg-gradient-to-br from-primary via-primary/80 to-emerald-500 flex items-center justify-center text-[11px] font-bold text-white shadow-sm ring-1 ring-primary/20">AR</div>
               <div className="flex-1 min-w-0">
-                <p className="text-[12px] font-bold truncate tracking-tight text-slate-900 dark:text-white">Alex Rivera</p>
+                <p className="text-[12px] font-bold truncate tracking-tight text-foreground">Alex Rivera</p>
               </div>
             </div>
             <div className="flex items-center gap-1">
