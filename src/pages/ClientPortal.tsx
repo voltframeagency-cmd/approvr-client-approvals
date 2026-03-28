@@ -85,8 +85,8 @@ const ClientPortal = () => {
           <div className="flex items-center gap-2 sm:gap-4">
             <div className="flex items-center gap-2 sm:gap-2.5 pl-2 sm:pl-4">
               <div className="text-right hidden sm:block">
-                <p className="text-[12px] font-bold text-slate-900 dark:text-white leading-tight">Sarah Chen</p>
-                <p className="text-[10px] text-muted-foreground font-medium">Project Owner</p>
+                <p className="text-[12px] font-bold text-slate-900 dark:text-white leading-tight">{project.clientName}</p>
+                <p className="text-[10px] text-muted-foreground font-medium">Client</p>
               </div>
               <div className="h-8 w-8 sm:h-9 sm:w-9 rounded-xl bg-gradient-to-br from-info via-info/80 to-blue-500 flex items-center justify-center text-[11px] sm:text-[12px] font-black text-white shadow-sm ring-2 ring-info/10">
                 SC
