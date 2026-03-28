@@ -78,6 +78,9 @@ export const blogContent: Record<string, BlogSection[]> = {
   ],
 
   'filestage-alternative-small-agencies': [
+    // DEFINITION (AEO)
+    { type: 'definition', content: 'Filestage is an enterprise content review platform built for multi-step approval workflows. It supports sequential reviewer groups, due dates, notification rules, automation chains. Pricing starts at $199/mo. It\'s designed for 50+ person marketing departments — not 3-person creative agencies.' },
+
     // HOOK
     { type: 'p', content: 'Filestage costs $199 a month. It\'s built for marketing departments at Siemens. It requires your clients to create accounts.' },
     { type: 'p', content: 'You run a 3-person agency trying to get a logo approved by a bakery owner.' },
