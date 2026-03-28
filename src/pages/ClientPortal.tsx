@@ -471,14 +471,17 @@ const ClientPortal = () => {
                   </div>
 
                   {/* Premium Feedback Area */}
-                  <div className="card-elevated p-0 overflow-hidden border-none ring-1 ring-slate-200/60 dark:ring-white/5">
-                    <div className="p-4 sm:p-10 bg-slate-50/80 dark:bg-white/5 border-b flex items-center justify-between">
+                   <div className="card-elevated p-0 overflow-hidden border-none ring-1 ring-border/40">
+                    <button 
+                      onClick={() => setShowComments(!showComments)}
+                      className="w-full p-4 sm:p-6 flex items-center justify-between hover:bg-muted/30 transition-colors"
+                    >
                       <div className="flex items-center gap-2.5 sm:gap-3">
                         <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-xl sm:rounded-2xl bg-primary/10 flex items-center justify-center">
                           <MessageSquare className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
                         </div>
-                        <div>
-                          <h3 className="font-black text-[12px] sm:text-[13px] uppercase tracking-[0.15em] sm:tracking-[0.2em] text-slate-900 dark:text-white">
+                        <div className="text-left">
+                          <h3 className="font-black text-[12px] sm:text-[13px] uppercase tracking-[0.15em] sm:tracking-[0.2em] text-foreground">
                             Feedback
                           </h3>
                           <p className="text-[10px] sm:text-[11px] font-bold text-muted-foreground uppercase tracking-widest mt-0.5">
@@ -490,8 +493,9 @@ const ClientPortal = () => {
                         <Badge variant="outline" className="text-[9px] sm:text-[10px] font-bold border-emerald-500/20 text-emerald-600 bg-emerald-500/5 px-2 py-0.5">
                           {resolvedCommentIds.length + comments.filter(c => c.resolved).length} Resolved
                         </Badge>
+                        <ChevronDown className={cn("h-4 w-4 text-muted-foreground transition-transform", showComments && "rotate-180")} />
                       </div>
-                    </div>
+                    </button>
 
                     <div className="p-4 sm:p-10 space-y-6 sm:space-y-10">
                       {/* Version Revision Narrative */}
