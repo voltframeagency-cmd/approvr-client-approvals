@@ -366,7 +366,7 @@ const ProjectDetail = () => {
                             <p className="text-xs md:text-[13px] font-medium leading-relaxed text-muted-foreground">
                                {selectedDel.versions?.find(v => v.version === activeVersion)?.changeSummary || "Final production version."}
                             </p>
-                            <div className="flex items-center gap-4 mt-4 pt-4 border-t border-border/40">
+                            <div className="flex items-center gap-3 md:gap-4 mt-3 md:mt-4 pt-3 md:pt-4 border-t border-border/40">
                                <div className="flex items-center gap-1.5">
                                  <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
                                  <span className="text-[11px] font-bold">{selectedDel.versions?.find(v => v.version === activeVersion)?.resolvedCount || 0} Resolved</span>
