@@ -74,7 +74,7 @@ const Hero = () => (
             </ShinyButton>
           </Link>
           <div className="relative group">
-            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-3/4 h-4 bg-green-500/0 group-hover:bg-green-500/30 blur-xl rounded-full transition-all duration-300" />
+            <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-full h-1.5 bg-green-500/0 group-hover:bg-green-500/40 blur-md rounded-full transition-all duration-300" />
             <Button variant="outline" size="lg" className="relative h-13 px-8 text-base gap-2 bg-card/30 backdrop-blur-sm border-border/40 font-medium hover:bg-card/50 transition-all">
               <Play className="h-4 w-4 fill-current" />
               See it work
