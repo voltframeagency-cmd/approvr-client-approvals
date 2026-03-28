@@ -317,7 +317,7 @@ const Dashboard = () => {
 
             {/* Portal Preview Card */}
             <Card className="bg-card/40 backdrop-blur-sm border border-primary/10 rounded-2xl overflow-hidden relative group">
-              <CardContent className="p-6">
+              <CardContent className="p-5 md:p-6">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="p-2 bg-primary/5 rounded-lg">
                     <Eye className="h-4 w-4 text-primary" />

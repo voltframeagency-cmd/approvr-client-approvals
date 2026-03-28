@@ -119,7 +119,7 @@ const AppLayout = () => {
 
       {/* Main content */}
       <main className="flex-1 md:ml-[240px] min-h-screen bg-slate-50/30 dark:bg-transparent">
-        <div className="p-6 md:p-10 lg:p-12 pt-24 md:pt-10 max-w-7xl mx-auto">
+        <div className="px-4 py-4 md:p-10 lg:p-12 pt-[72px] md:pt-10 max-w-7xl mx-auto">
           <AnimatePresence mode="wait">
             <motion.div
               key={location.pathname}
