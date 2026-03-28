@@ -61,6 +61,7 @@ const Settings = () => {
   const handleSave = async (section: string) => {
     if (isDemoMode) { toast.success(`${section} updated (demo)`); return; }
     if (!workspace) return;
+    const updates: any = {};
     if (section === 'Identity') {
       if (workspaceName) updates.name = workspaceName;
       if (agencyName) updates.agency_name = agencyName;
