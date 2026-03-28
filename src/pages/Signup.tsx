@@ -174,7 +174,7 @@ const Signup = () => {
 
           <motion.p 
             variants={itemVariants}
-            className="text-sm text-center text-muted-foreground mt-8"
+            className="text-sm text-center text-muted-foreground mt-5 md:mt-8"
           >
             Already have an account?{' '}
             <Link to="/login" className="text-primary hover:text-primary/80 font-bold transition-colors">
