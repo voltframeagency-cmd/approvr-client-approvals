@@ -11,10 +11,10 @@ const logos = [
 ];
 
 const stats = [
-  { value: '2,400+', numericValue: 2400, suffix: '+', label: 'Approval cycles completed' },
-  { value: '380+', numericValue: 380, suffix: '+', label: 'Agencies & studios' },
-  { value: '12k+', numericValue: 12, suffix: 'k+', label: 'Deliverables signed off' },
-  { value: '4.9/5', numericValue: 4.9, suffix: '/5', label: 'Average rating', decimals: 1 },
+  { value: '2,400+', numericValue: 2400, suffix: '+', label: 'Sign-offs locked in' },
+  { value: '380+', numericValue: 380, suffix: '+', label: 'Agencies done chasing' },
+  { value: '12k+', numericValue: 12, suffix: 'k+', label: 'Files approved — no email' },
+  { value: '4.9/5', numericValue: 4.9, suffix: '/5', label: 'Avg. rating', decimals: 1 },
 ];
 
 const AnimatedNumber = ({ value, suffix, decimals = 0 }: { value: number; suffix: string; decimals?: number }) => {
