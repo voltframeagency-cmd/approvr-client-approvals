@@ -49,7 +49,7 @@ export const HowItWorks = () => {
       data-gsap-section
     >
       <div className="container px-4 mx-auto relative" data-gsap="section-reveal">
-        <div className="max-w-3xl mx-auto text-center mb-24">
+        <div className="max-w-3xl mx-auto text-center mb-14 md:mb-24">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
             <Sparkles className="h-4 w-4" />
             <span>Three steps. That's it.</span>
