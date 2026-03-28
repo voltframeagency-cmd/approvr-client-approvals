@@ -355,7 +355,7 @@ const ProjectDetail = () => {
                             <div className="absolute top-0 right-0 p-4 opacity-[0.03] group-hover/nar:opacity-[0.07] transition-opacity">
                               <Sparkles className="h-12 w-12 text-primary" />
                             </div>
-                            <div className="flex items-center justify-between mb-3">
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-2 md:mb-3 gap-1">
                                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary flex items-center gap-2">
                                  <Sparkles className="h-3 w-3" /> Revision Summary
                                </p>
