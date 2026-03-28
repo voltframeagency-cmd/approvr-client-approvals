@@ -761,7 +761,7 @@ const ProjectDetail = () => {
                                   <Icon className="h-4 w-4 sm:h-6 sm:w-6 text-muted-foreground" />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                  <p className="text-[12px] sm:text-[15px] font-bold text-slate-400 dark:text-slate-500 mb-0.5 truncate">{action.label}</p>
+                                  <p className="text-[12px] sm:text-[15px] font-bold text-muted-foreground mb-0.5 truncate">{action.label}</p>
                                   <p className="text-[10px] sm:text-[11px] text-muted-foreground font-medium truncate opacity-40">{action.url}</p>
                                 </div>
                                 <Badge variant="outline" className="text-[8px] sm:text-[10px] font-black uppercase tracking-widest px-1.5 sm:px-2.5 py-0.5 sm:py-1 border-slate-200 dark:border-white/5 text-slate-400 hidden sm:inline-flex">
