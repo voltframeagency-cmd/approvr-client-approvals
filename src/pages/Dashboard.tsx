@@ -254,7 +254,7 @@ const Dashboard = () => {
                 ))}
               </StaggerContainer>
             ) : (
-              <div className="card-elevated p-12 text-center border-none ring-1 ring-slate-200/40">
+              <div className="card-elevated p-12 text-center border-none ring-1 ring-border/40">
                 <FolderKanban className="h-10 w-10 mx-auto mb-4 text-muted-foreground/20" />
                 <p className="font-bold text-foreground">Start your first approval</p>
                 <p className="text-[13px] text-muted-foreground mt-2 max-w-xs mx-auto">Projects you create will appear here for tracking and client feedback.</p>
