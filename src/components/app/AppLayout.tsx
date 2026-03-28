@@ -26,9 +26,11 @@ const AppLayout = () => {
   const { data: workspace } = useWorkspace();
   const { data: notifications } = useNotifications();
 
-  const unreadCount = isDemoMode 
-    ? mockNotifications.filter(n => !n.read).length
-    : (notifications?.filter(n => !n.read).length || 0);
+  const unreadCount = isDemoMode && demoData
+    ? demoData.notifications.filter(n => !n.read).length
+    : isDemoMode
+      ? mockNotifications.filter(n => !n.read).length
+      : (notifications?.filter(n => !n.read).length || 0);
   const displayName = isDemoMode 
     ? demoUserName 
     : (user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'User');
