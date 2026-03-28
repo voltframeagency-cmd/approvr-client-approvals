@@ -129,7 +129,7 @@ const Pricing = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid md:grid-cols-3 gap-5 md:gap-8 max-w-6xl mx-auto items-stretch"
+          className="grid md:grid-cols-2 gap-5 md:gap-8 max-w-4xl mx-auto items-stretch"
         >
           {plans.map((plan, i) => {
             const Icon = plan.icon;

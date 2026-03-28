@@ -69,7 +69,7 @@ const Hero = () => (
         >
           <Link to="/signup">
             <ShinyButton className="h-13 px-10 text-base font-semibold shadow-xl shadow-primary/10">
-              Get early access
+              Start your free trial
               <ArrowRight className="h-4 w-4" />
             </ShinyButton>
           </Link>
