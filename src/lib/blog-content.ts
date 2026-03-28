@@ -263,6 +263,9 @@ export const blogContent: Record<string, BlogSection[]> = {
   ],
 
   'ziflow-alternative-small-teams': [
+    // DEFINITION (AEO)
+    { type: 'definition', content: 'Ziflow is an enterprise online proofing platform that supports 1,200+ file types with automated workflow routing, conditional approval chains, granular permissions. It uses custom pricing (no public tiers) aimed at large organizations managing compliance-heavy content review processes.' },
+
     // HOOK
     { type: 'p', content: 'Ziflow supports 1,200 file types. That number is on their homepage. It\'s in their pitch deck. It\'s the first thing their sales team mentions.' },
     { type: 'p', content: 'Here\'s a question worth sitting with — how many file types did your team use last month?' },
