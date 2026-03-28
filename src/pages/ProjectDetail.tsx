@@ -561,7 +561,7 @@ const ProjectDetail = () => {
                                 <Clock className="h-3 w-3" />
                                 <span>{new Date(v.submittedAt).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</span>
                               </div>
-                              <div className="bg-white dark:bg-slate-900 p-3 rounded-xl border border-border/40 shadow-sm italic text-[12px] text-slate-600 dark:text-slate-400 font-medium">
+                              <div className="bg-card p-2.5 md:p-3 rounded-lg md:rounded-xl border border-border/40 shadow-sm italic text-[11px] md:text-[12px] text-muted-foreground font-medium">
                                 "{v.note || 'No change summary provided.'}"
                               </div>
                             </div>
