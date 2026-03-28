@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button';
 
 const Login = () => {
   const { signIn } = useAuth();
+  const { enterDemo } = useDemo();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
