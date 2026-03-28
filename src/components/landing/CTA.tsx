@@ -76,7 +76,7 @@ const CTA = () => {
             <motion.div variants={itemVariants} className="mt-12 flex flex-wrap justify-center items-center gap-8 text-muted-foreground/60">
               <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest">
                 <Zap className="h-4 w-4 text-primary" />
-                2 Min Setup
+                Live in 2 minutes
               </div>
               <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest">
                 <ShieldCheck className="h-4 w-4 text-primary" />
