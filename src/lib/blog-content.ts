@@ -3,7 +3,7 @@
 
 export interface BlogSection {
   type: 'h2' | 'h3' | 'p' | 'ul' | 'table' | 'callout' | 'cta';
-  content: string; // required for all types; for ul/table, can be empty string
+  content?: string;
   items?: string[];
   rows?: string[][];
   headers?: string[];
