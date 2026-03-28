@@ -1,11 +1,10 @@
-import { mockProjects, type ProjectStatus, type Project } from '@/lib/mock-data';
+import { mockProjects, type ProjectStatus, type Project, type ProjectType } from '@/lib/mock-data';
 import { StatusBadge } from '@/components/app/StatusBadge';
 import { Link } from 'react-router-dom';
-import { Plus, Search, Eye, AlertCircle } from 'lucide-react';
+import { Plus, Search, Eye, AlertCircle, Palette, Globe, Video, Megaphone, MoreHorizontal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { StaggerContainer, StaggerItem } from '@/components/motion/Animations';
@@ -14,8 +13,26 @@ import { useFounderBeta } from '@/hooks/use-founder-beta';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { toast } from 'sonner';
+import { addDays, format } from 'date-fns';
 
 type FilterTab = 'all' | ProjectStatus | 'overdue';
+
+type DeadlinePreset = '1_week' | '2_weeks' | '30_days' | 'custom';
+
+const deadlinePresets: { key: DeadlinePreset; label: string; days?: number }[] = [
+  { key: '1_week', label: '1 week', days: 7 },
+  { key: '2_weeks', label: '2 weeks', days: 14 },
+  { key: '30_days', label: '30 days', days: 30 },
+  { key: 'custom', label: 'Custom' },
+];
+
+const projectTypes: { key: ProjectType; label: string; icon: React.ReactNode }[] = [
+  { key: 'branding', label: 'Branding', icon: <Palette className="h-3.5 w-3.5" /> },
+  { key: 'web_design', label: 'Web Design', icon: <Globe className="h-3.5 w-3.5" /> },
+  { key: 'video_motion', label: 'Video/Motion', icon: <Video className="h-3.5 w-3.5" /> },
+  { key: 'social_ads', label: 'Social/Ads', icon: <Megaphone className="h-3.5 w-3.5" /> },
+  { key: 'other', label: 'Other', icon: <MoreHorizontal className="h-3.5 w-3.5" /> },
+];
 
 function timeAgo(dateStr: string) {
   const diff = Date.now() - new Date(dateStr).getTime();
@@ -33,13 +50,54 @@ const Projects = () => {
   const [activeTab, setActiveTab] = useState<FilterTab>('all');
   const [projects, setProjects] = useState<Project[]>(mockProjects);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [newProject, setNewProject] = useState({
-    name: '',
-    clientName: '',
-    clientEmail: '',
-    description: '',
-    deadline: '',
-  });
+  const [projectName, setProjectName] = useState('');
+  const [clientName, setClientName] = useState('');
+  const [selectedType, setSelectedType] = useState<ProjectType | null>(null);
+  const [deadlinePreset, setDeadlinePreset] = useState<DeadlinePreset | null>(null);
+  const [customDeadline, setCustomDeadline] = useState('');
+
+  const computedDeadline = (() => {
+    if (!deadlinePreset) return '';
+    if (deadlinePreset === 'custom') return customDeadline;
+    const preset = deadlinePresets.find(p => p.key === deadlinePreset);
+    if (preset?.days) return format(addDays(new Date(), preset.days), 'yyyy-MM-dd');
+    return '';
+  })();
+
+  const canCreate = projectName.trim() && clientName.trim() && computedDeadline;
+
+  const resetForm = () => {
+    setProjectName('');
+    setClientName('');
+    setSelectedType(null);
+    setDeadlinePreset(null);
+    setCustomDeadline('');
+  };
+
+  const handleCreateProject = () => {
+    if (!canCreate) return;
+
+    const project: Project = {
+      id: `proj-${Date.now()}`,
+      name: projectName.trim(),
+      clientName: clientName.trim(),
+      clientEmail: `${clientName.trim().toLowerCase().replace(/\s/g, '.')}@example.com`,
+      status: 'draft',
+      deadline: computedDeadline,
+      description: '',
+      createdAt: new Date().toISOString(),
+      deliverableCount: 0,
+      approvedCount: 0,
+      projectType: selectedType || undefined,
+    };
+
+    setProjects(prev => [project, ...prev]);
+    resetForm();
+    setDialogOpen(false);
+    toast.success(`Project "${project.name}" created`, {
+      description: `Draft project for ${project.clientName}`,
+    });
+  };
 
   const tabs: { key: FilterTab; label: string; count: number }[] = [
     { key: 'all', label: 'All', count: projects.length },
@@ -59,30 +117,6 @@ const Projects = () => {
     return p.status === activeTab;
   });
 
-  const handleCreateProject = () => {
-    if (!newProject.name || !newProject.clientName || !newProject.deadline) return;
-
-    const project: Project = {
-      id: `proj-${Date.now()}`,
-      name: newProject.name,
-      clientName: newProject.clientName,
-      clientEmail: newProject.clientEmail || `${newProject.clientName.toLowerCase().replace(/\s/g, '.')}@example.com`,
-      status: 'draft',
-      deadline: newProject.deadline,
-      description: newProject.description,
-      createdAt: new Date().toISOString(),
-      deliverableCount: 0,
-      approvedCount: 0,
-    };
-
-    setProjects(prev => [project, ...prev]);
-    setNewProject({ name: '', clientName: '', clientEmail: '', description: '', deadline: '' });
-    setDialogOpen(false);
-    toast.success(`Project "${project.name}" created`, {
-      description: `Draft project for ${project.clientName}`,
-    });
-  };
-
   return (
     <div className="space-y-4 sm:space-y-6 overflow-hidden">
       <motion.div
@@ -92,7 +126,7 @@ const Projects = () => {
         className="flex items-center justify-between"
       >
         <h1 className="text-xl sm:text-2xl font-bold">Projects</h1>
-        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <Dialog open={dialogOpen} onOpenChange={(open) => { setDialogOpen(open); if (!open) resetForm(); }}>
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
@@ -118,58 +152,92 @@ const Projects = () => {
             <DialogHeader>
               <DialogTitle className="text-lg font-bold">Create New Project</DialogTitle>
             </DialogHeader>
-            <div className="space-y-4 mt-2">
+            <div className="space-y-5 mt-2">
+              {/* Project Name — hero field */}
               <div className="space-y-2">
                 <Label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Project Name *</Label>
                 <Input
-                  placeholder="e.g. Q2 Brand Campaign"
-                  value={newProject.name}
-                  onChange={e => setNewProject(prev => ({ ...prev, name: e.target.value }))}
-                  className="h-10"
+                  placeholder="e.g. Website Redesign, Brand Package..."
+                  value={projectName}
+                  onChange={e => setProjectName(e.target.value)}
+                  className="h-12 text-[15px] font-medium"
+                  autoFocus
                 />
               </div>
-              <div className="grid grid-cols-2 gap-3">
-                <div className="space-y-2">
-                  <Label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Client Name *</Label>
-                  <Input
-                    placeholder="e.g. Acme Corp"
-                    value={newProject.clientName}
-                    onChange={e => setNewProject(prev => ({ ...prev, clientName: e.target.value }))}
-                    className="h-10"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Client Email</Label>
-                  <Input
-                    placeholder="client@example.com"
-                    type="email"
-                    value={newProject.clientEmail}
-                    onChange={e => setNewProject(prev => ({ ...prev, clientEmail: e.target.value }))}
-                    className="h-10"
-                  />
-                </div>
-              </div>
+
+              {/* Client / Brand Name */}
               <div className="space-y-2">
-                <Label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Deadline *</Label>
+                <Label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Client / Brand Name *</Label>
                 <Input
-                  type="date"
-                  value={newProject.deadline}
-                  onChange={e => setNewProject(prev => ({ ...prev, deadline: e.target.value }))}
+                  placeholder="e.g. Acme Corp, Nike, Freelance Client"
+                  value={clientName}
+                  onChange={e => setClientName(e.target.value)}
                   className="h-10"
                 />
               </div>
+
+              {/* Project Type — optional chips */}
               <div className="space-y-2">
-                <Label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Description</Label>
-                <Textarea
-                  placeholder="Brief project description..."
-                  value={newProject.description}
-                  onChange={e => setNewProject(prev => ({ ...prev, description: e.target.value }))}
-                  className="min-h-[80px] resize-none"
-                />
+                <Label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Project Type</Label>
+                <div className="flex flex-wrap gap-1.5">
+                  {projectTypes.map(type => (
+                    <button
+                      key={type.key}
+                      type="button"
+                      onClick={() => setSelectedType(prev => prev === type.key ? null : type.key)}
+                      className={cn(
+                        'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-medium border transition-all duration-200',
+                        selectedType === type.key
+                          ? 'bg-primary/10 border-primary/30 text-primary'
+                          : 'border-border text-muted-foreground hover:border-foreground/20 hover:text-foreground'
+                      )}
+                    >
+                      {type.icon}
+                      {type.label}
+                    </button>
+                  ))}
+                </div>
               </div>
+
+              {/* Approval Deadline — preset chips */}
+              <div className="space-y-2">
+                <Label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Approval Deadline *</Label>
+                <div className="flex gap-1.5">
+                  {deadlinePresets.map(preset => (
+                    <button
+                      key={preset.key}
+                      type="button"
+                      onClick={() => { setDeadlinePreset(preset.key); if (preset.key !== 'custom') setCustomDeadline(''); }}
+                      className={cn(
+                        'px-3 py-1.5 rounded-full text-[12px] font-medium border transition-all duration-200',
+                        deadlinePreset === preset.key
+                          ? 'bg-primary/10 border-primary/30 text-primary'
+                          : 'border-border text-muted-foreground hover:border-foreground/20 hover:text-foreground'
+                      )}
+                    >
+                      {preset.label}
+                    </button>
+                  ))}
+                </div>
+                {deadlinePreset === 'custom' && (
+                  <Input
+                    type="date"
+                    value={customDeadline}
+                    onChange={e => setCustomDeadline(e.target.value)}
+                    className="h-10 mt-2"
+                    min={format(new Date(), 'yyyy-MM-dd')}
+                  />
+                )}
+                {deadlinePreset && deadlinePreset !== 'custom' && (
+                  <p className="text-[11px] text-muted-foreground mt-1">
+                    Due {format(new Date(computedDeadline), 'MMM d, yyyy')}
+                  </p>
+                )}
+              </div>
+
               <Button
                 onClick={handleCreateProject}
-                disabled={!newProject.name || !newProject.clientName || !newProject.deadline}
+                disabled={!canCreate}
                 className="w-full h-11 rounded-xl font-bold"
               >
                 Create Project
