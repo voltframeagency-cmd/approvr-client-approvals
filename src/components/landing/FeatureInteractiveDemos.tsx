@@ -159,15 +159,15 @@ export const ApprovalDemo = () => {
             exit={{ opacity: 0, y: -8 }}
             className="flex gap-3 w-full max-w-xs"
           >
-            <div className="flex-1 h-10 rounded-lg border border-border/60 flex items-center justify-center text-sm text-muted-foreground">
+            <div className="flex-1 h-12 rounded-lg border border-border/60 flex items-center justify-center text-base text-muted-foreground">
               Request changes
             </div>
             <motion.div
-              className="flex-1 h-10 rounded-lg bg-primary flex items-center justify-center text-sm text-primary-foreground gap-1.5 cursor-default"
+              className="flex-1 h-12 rounded-lg bg-primary flex items-center justify-center text-base text-primary-foreground gap-1.5 cursor-default"
               animate={{ scale: [1, 1.03, 1] }}
               transition={{ duration: 1.2, repeat: Infinity }}
             >
-              <Check className="h-4 w-4" />
+              <Check className="h-5 w-5" />
               Approve
             </motion.div>
           </motion.div>
