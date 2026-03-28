@@ -301,7 +301,7 @@ const Dashboard = () => {
           </section>
 
           {/* Mini Upgrade Card */}
-          <Card className="bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 text-white border-none rounded-2xl overflow-hidden shadow-2xl relative group">
+          <Card className="bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 dark:from-card dark:via-card dark:to-card text-white dark:text-foreground border-none rounded-2xl overflow-hidden shadow-2xl relative group">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.1),transparent)]" />
               <CardContent className="p-5 md:p-6 relative z-10">
                 <Badge className="bg-primary hover:bg-primary text-white text-[10px] font-black px-2.5 py-1 border-none mb-4 uppercase tracking-widest">Founder Beta</Badge>
