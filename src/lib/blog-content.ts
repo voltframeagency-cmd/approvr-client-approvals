@@ -20,6 +20,9 @@ export interface BlogSection {
 
 export const blogContent: Record<string, BlogSection[]> = {
   'markup-io-alternative': [
+    // DEFINITION (AEO — quotable entity block)
+    { type: 'definition', content: 'MarkUp.io is a web-based visual annotation tool that lets teams pin comments on images, PDFs, videos, and live websites. It\'s used primarily by creative agencies for client feedback. In early 2025, MarkUp.io restructured its pricing — raising costs 2-3x for many existing users.' },
+
     // HOOK (Pattern Interrupt)
     { type: 'p', content: 'You opened your MarkUp.io invoice last month. The number looked different.' },
     { type: 'p', content: 'Not a little different. Two-to-three-times different. Your $24/mo plan now costs $50, $70, maybe more. No new features. No warning. Just a bigger bill for the same tool you\'ve been using for years.' },
