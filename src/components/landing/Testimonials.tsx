@@ -4,7 +4,7 @@ import { Quote, Star, ArrowLeft, ArrowRight } from 'lucide-react';
 
 const testimonials = [
   {
-    quote: "We used to chase clients across email, Slack, and WhatsApp for weeks. Now they open the branded portal and approve in minutes. We've eliminated 47 email threads per project.",
+    quote: "We were drowning in email threads — 40, 50 per project. Now clients open the portal and approve in minutes. I got three hours of my Monday back.",
     author: 'Jessica Hart',
     role: 'Creative Director',
     company: 'Wildframe Studio',
