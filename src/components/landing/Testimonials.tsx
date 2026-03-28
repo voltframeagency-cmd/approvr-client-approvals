@@ -74,7 +74,7 @@ export const Testimonials = () => {
 
         <div className="max-w-5xl mx-auto relative px-2 md:px-12">
           <div className="relative overflow-hidden rounded-2xl md:rounded-[3rem] border border-primary/10 bg-card/40 backdrop-blur-2xl p-6 md:p-16 shadow-2xl">
-            <Quote className="absolute top-4 left-4 md:top-8 md:left-8 h-8 w-8 md:h-12 md:w-12 text-primary/10" />
+            <Quote className="absolute top-4 left-4 md:top-8 md:left-8 h-8 w-8 md:h-12 md:w-12 text-primary/10 dark:drop-shadow-[0_4px_12px_hsl(169_76%_48%/0.15)]" />
             
             <AnimatePresence mode="wait">
               <motion.div
