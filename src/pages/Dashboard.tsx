@@ -187,7 +187,7 @@ const Dashboard = () => {
           {/* Active Approvals */}
            <section className="space-y-4 md:space-y-6">
             <div className="flex items-center justify-between">
-               <h2 className="text-xl font-bold tracking-tight">Active Approvals</h2>
+               <h2 className="text-lg md:text-xl font-bold tracking-tight">Active Approvals</h2>
                <Link to="/dashboard/projects" className="text-[13px] font-bold text-primary hover:underline flex items-center gap-1.5 group">
                  View all <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
                </Link>
