@@ -497,6 +497,9 @@ const ClientPortal = () => {
                       </div>
                     </button>
 
+                    <AnimatePresence>
+                    {showComments && (
+                    <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3 }} className="overflow-hidden">
                     <div className="p-4 sm:p-10 space-y-6 sm:space-y-10">
                       {/* Version Revision Narrative */}
                       {currentDel.versions?.find(v => v.version === activeVersion) && (
