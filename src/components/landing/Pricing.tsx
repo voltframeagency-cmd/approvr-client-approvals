@@ -108,7 +108,11 @@ const Pricing = () => {
             </span>
             <button
               onClick={() => setBillingPeriod(billingPeriod === 'monthly' ? 'yearly' : 'monthly')}
-              className="relative w-14 h-7 rounded-full bg-muted border p-1 transition-colors duration-150 hover:border-primary/40 outline-none"
+              className="relative w-14 h-7 rounded-full border p-1 transition-colors duration-150 hover:border-primary/40 outline-none border-white/10"
+              style={{
+                background: 'linear-gradient(180deg, hsl(var(--muted)) 0%, hsl(var(--muted) / 0.7) 100%)',
+                boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.1), inset 0 -1px 1px rgba(255,255,255,0.15), 0 1px 3px rgba(0,0,0,0.08)',
+              }}
             >
               <motion.div
                 animate={{ x: billingPeriod === 'monthly' ? 0 : 28 }}
