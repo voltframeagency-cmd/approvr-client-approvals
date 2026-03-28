@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { ShinyButton } from '@/components/ui/shiny-button';
-import { Check, Sparkles, Zap, Building2, Lock, ArrowRight } from 'lucide-react';
+import { Check, Sparkles, Zap, Building2, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
