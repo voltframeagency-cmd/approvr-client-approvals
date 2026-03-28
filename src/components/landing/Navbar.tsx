@@ -98,7 +98,7 @@ const Navbar = () => {
             </Link>
             <Link to="/signup">
               <ShinyButton className="text-[11px] md:text-[12px] font-semibold h-8 md:h-9 px-3 md:px-5 shadow-sm shadow-primary/20">
-                Join Beta
+                Start Free Trial
               </ShinyButton>
             </Link>
           </div>
