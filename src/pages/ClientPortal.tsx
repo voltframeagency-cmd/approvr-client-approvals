@@ -433,19 +433,19 @@ const ClientPortal = () => {
                       </div>
 
                       {currentDel.status !== 'approved' ? (
-                        <div className="flex flex-col gap-4 sm:gap-6 mt-6 sm:mt-12 bg-slate-50/50 dark:bg-white/[0.02] p-4 sm:p-8 rounded-2xl sm:rounded-[32px] border border-border/40">
+                        <div className="flex flex-col gap-4 sm:gap-6 mt-6 sm:mt-12 bg-primary/[0.02] dark:bg-white/[0.02] p-5 sm:p-10 rounded-2xl sm:rounded-[32px] border-2 border-primary/20">
                           <div className="text-center space-y-1">
-                            <p className="text-[12px] sm:text-[14px] text-muted-foreground font-medium">Please review carefully before making a selection.</p>
+                            <h4 className="text-[14px] sm:text-[16px] font-black uppercase tracking-widest text-foreground">Your Decision</h4>
+                            <p className="text-[12px] sm:text-[14px] text-muted-foreground font-medium">Review carefully, then choose an action below.</p>
                           </div>
-                          <div className="grid grid-cols-2 gap-2 sm:gap-4">
-                            <Button variant="outline" className="h-11 sm:h-14 rounded-xl sm:rounded-2xl font-black text-[10px] sm:text-[12px] uppercase tracking-[0.1em] sm:tracking-[0.2em] border-slate-200 dark:border-white/10 hover:bg-white transition-all gap-1.5 sm:gap-3 group">
-                              <MessageSquare className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-muted-foreground group-hover:text-primary transition-colors" />
-                              <span className="hidden sm:inline">Request Changes</span>
-                              <span className="sm:hidden">Changes</span>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                            <Button variant="outline" className="h-14 sm:h-16 rounded-xl sm:rounded-2xl font-black text-[11px] sm:text-[13px] uppercase tracking-[0.1em] sm:tracking-[0.15em] border-2 border-border hover:border-primary/30 hover:bg-primary/5 transition-all gap-2 sm:gap-3 group">
+                              <MessageSquare className="h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                              Request Changes
                             </Button>
-                            <Button className="h-11 sm:h-14 rounded-xl sm:rounded-2xl font-black text-[10px] sm:text-[12px] uppercase tracking-[0.1em] sm:tracking-[0.2em] bg-slate-900 dark:bg-primary text-white hover:bg-slate-800 dark:hover:primary/90 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.2)] dark:shadow-[0_20px_40px_-10px_rgba(var(--primary),0.3)] transition-all gap-1.5 sm:gap-3 group">
-                              <ThumbsUp className="h-3.5 w-3.5 sm:h-4 sm:w-4 group-hover:scale-110 transition-transform" />
-                              Approve
+                            <Button className="h-14 sm:h-16 rounded-xl sm:rounded-2xl font-black text-[11px] sm:text-[13px] uppercase tracking-[0.1em] sm:tracking-[0.15em] bg-primary text-primary-foreground hover:bg-primary/90 shadow-[0_20px_40px_-10px_hsl(var(--primary)/0.4)] transition-all gap-2 sm:gap-3 group">
+                              <ThumbsUp className="h-4 w-4 sm:h-5 sm:w-5 group-hover:scale-110 transition-transform" />
+                              Approve This Version
                             </Button>
                           </div>
                         </div>
