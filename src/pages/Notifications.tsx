@@ -1,14 +1,15 @@
 import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { mockNotifications, Notification, providerTypeLabels } from '@/lib/mock-data';
+import { mockNotifications, Notification } from '@/lib/mock-data';
 import { useDemo } from '@/contexts/DemoContext';
+import { useNotifications } from '@/hooks/use-projects';
+import { supabase } from '@/integrations/supabase/client';
 import { 
   Bell, 
   CheckCircle2, 
   MessageSquare, 
   Upload, 
   Clock, 
-  Filter, 
   Check, 
   Archive, 
   ExternalLink,
@@ -27,6 +28,8 @@ import {
   DropdownMenuTrigger 
 } from '@/components/ui/dropdown-menu';
 import { toast } from 'sonner';
+import { useQueryClient } from '@tanstack/react-query';
+import { useAuth } from '@/contexts/AuthContext';
 
 const icons: Record<string, any> = {
   approval: CheckCircle2,
@@ -46,10 +49,43 @@ type FilterType = 'all' | 'unread' | 'approval' | 'comment' | 'reminder';
 
 const Notifications = () => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const { user } = useAuth();
   const { isDemoMode, demoData } = useDemo();
-  const initialNotifications = isDemoMode && demoData ? demoData.notifications : mockNotifications;
+  
+  // Real notifications from Supabase for authenticated users
+  const { data: realNotifications } = useNotifications();
+  
+  // Map real notifications to the Notification interface
+  const mappedRealNotifications: Notification[] = (realNotifications || []).map(n => ({
+    id: n.id,
+    title: n.title,
+    body: n.body || '',
+    read: n.read ?? false,
+    createdAt: n.created_at,
+    type: n.type as any,
+    urgency: n.urgency as any,
+    projectId: n.project_id || undefined,
+    deliverableId: n.deliverable_id || undefined,
+    archived: n.archived ?? false,
+  }));
+
+  const demoNotifications = isDemoMode && demoData ? demoData.notifications : [];
+  
+  // Use real data for auth users, demo data for demo mode, mock as fallback
+  const sourceNotifications = isDemoMode 
+    ? demoNotifications 
+    : mappedRealNotifications.length > 0 ? mappedRealNotifications : mockNotifications;
+
   const [filter, setFilter] = useState<FilterType>('all');
-  const [notifications, setNotifications] = useState<Notification[]>(initialNotifications);
+  const [localOverrides, setLocalOverrides] = useState<Record<string, { read?: boolean; archived?: boolean }>>({});
+
+  // Apply local overrides on top of source data
+  const notifications = sourceNotifications.map(n => ({
+    ...n,
+    read: localOverrides[n.id]?.read ?? n.read,
+    archived: localOverrides[n.id]?.archived ?? n.archived,
+  }));
 
   const filteredNotifications = useMemo(() => {
     return notifications.filter(n => {
@@ -65,7 +101,7 @@ const Notifications = () => {
     const yesterday = new Date(today);
     yesterday.setDate(yesterday.getDate() - 1);
 
-    const groups: Record<string, Notification[]> = {
+    const groups: Record<string, typeof notifications> = {
       Today: [],
       Yesterday: [],
       Earlier: [],
@@ -85,18 +121,32 @@ const Notifications = () => {
     return groups;
   }, [filteredNotifications]);
 
-  const handleMarkRead = (id: string) => {
-    setNotifications(prev => prev.map(n => n.id === id ? { ...n, read: true } : n));
+  const handleMarkRead = async (id: string) => {
+    setLocalOverrides(prev => ({ ...prev, [id]: { ...prev[id], read: true } }));
+    if (!isDemoMode) {
+      await supabase.from('notifications').update({ read: true }).eq('id', id);
+      queryClient.invalidateQueries({ queryKey: ['notifications'] });
+    }
     toast.success('Marked as read');
   };
 
-  const handleArchive = (id: string) => {
-    setNotifications(prev => prev.map(n => n.id === id ? { ...n, archived: true } : n));
+  const handleArchive = async (id: string) => {
+    setLocalOverrides(prev => ({ ...prev, [id]: { ...prev[id], archived: true } }));
+    if (!isDemoMode) {
+      await supabase.from('notifications').update({ archived: true }).eq('id', id);
+      queryClient.invalidateQueries({ queryKey: ['notifications'] });
+    }
     toast.success('Notification archived');
   };
 
-  const handleMarkAllRead = () => {
-    setNotifications(prev => prev.map(n => ({ ...n, read: true })));
+  const handleMarkAllRead = async () => {
+    const updates: Record<string, { read: boolean }> = {};
+    notifications.forEach(n => { updates[n.id] = { read: true }; });
+    setLocalOverrides(prev => ({ ...prev, ...Object.fromEntries(Object.entries(updates).map(([k, v]) => [k, { ...prev[k], ...v }])) }));
+    if (!isDemoMode && user) {
+      await supabase.from('notifications').update({ read: true }).eq('user_id', user.id).eq('read', false);
+      queryClient.invalidateQueries({ queryKey: ['notifications'] });
+    }
     toast.success('All notifications marked as read');
   };
 
@@ -152,7 +202,7 @@ const Notifications = () => {
               </h3>
               <div className="space-y-1.5 sm:space-y-2">
                 <AnimatePresence mode="popLayout">
-                  {items.map((n, i) => {
+                  {items.map((n) => {
                     const Icon = icons[n.type] || Bell;
                     const urgency = urgencyConfig[n.urgency];
                     
