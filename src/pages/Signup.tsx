@@ -118,7 +118,7 @@ const Signup = () => {
             className="glass-panel p-1 bg-gradient-to-br from-border/50 via-border/10 to-transparent rounded-xl md:rounded-2xl shadow-xl"
           >
             <div className="bg-background/80 backdrop-blur-xl p-5 md:p-8 rounded-xl md:rounded-2xl border border-border/50">
-              <div className="space-y-5">
+              <div className="space-y-4 md:space-y-5">
                 <div className="space-y-2">
                   <Label htmlFor="name" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground ml-1">
                     Full Name
