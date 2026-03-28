@@ -45,8 +45,8 @@ const Hero = () => (
         </motion.div>
 
         <h1 className="text-4xl md:text-[3.5rem] lg:text-[4.25rem] font-bold tracking-tighter leading-[1.05] mb-6">
-          Get client approvals <br className="hidden md:block" />
-          <span className="gradient-text italic">out of email.</span>
+          Your clients owe you an answer. <br className="hidden md:block" />
+          <span className="gradient-text italic">Stop waiting for it in email.</span>
         </h1>
         <motion.p
           initial={{ opacity: 0 }}
