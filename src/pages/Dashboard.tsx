@@ -74,7 +74,7 @@ const Dashboard = () => {
            animate={{ opacity: 1, y: 0 }}
            className="mb-8"
         >
-          <Alert variant={beta.isExpired || beta.isProjectLimitReached ? "destructive" : "default"} className="bg-white/50 dark:bg-slate-900 shadow-sm border-primary/10 backdrop-blur-sm rounded-2xl p-4 md:p-6 overflow-hidden relative">
+          <Alert variant={beta.isExpired || beta.isProjectLimitReached ? "destructive" : "default"} className="bg-card/50 shadow-sm border-primary/10 backdrop-blur-sm rounded-2xl p-4 md:p-6 overflow-hidden relative">
             <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none" />
             <Sparkles className="h-5 w-5 text-primary mb-2" />
             <AlertTitle className="text-base font-bold tracking-tight">
