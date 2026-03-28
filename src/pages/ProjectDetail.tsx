@@ -680,11 +680,11 @@ const ProjectDetail = () => {
                           </div>
                         </div>
                         
-                        <div className="grid sm:grid-cols-2 gap-8 mt-8">
-                          <div className="space-y-3">
-                            <Label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 ml-1">Show when</Label>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8 mt-4 sm:mt-8">
+                          <div className="space-y-2 sm:space-y-3">
+                            <Label className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 ml-1">Show when</Label>
                             <select 
-                              className="flex h-14 w-full rounded-2xl border border-border/20 bg-slate-50 dark:bg-black/20 px-5 py-2 text-[15px] font-medium ring-offset-background cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/10 transition-all appearance-none"
+                              className="flex h-10 sm:h-14 w-full rounded-xl sm:rounded-2xl border border-border/20 bg-slate-50 dark:bg-black/20 px-3 sm:px-5 py-2 text-[13px] sm:text-[15px] font-medium ring-offset-background cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/10 transition-all appearance-none"
                               value={newAction.showWhen}
                               onChange={e => setNewAction(prev => ({ ...prev, showWhen: e.target.value as 'on_approval' | 'always' }))}
                             >
@@ -693,17 +693,17 @@ const ProjectDetail = () => {
                             </select>
                           </div>
                           
-                          <div className="flex items-end justify-end gap-4 p-2">
+                          <div className="flex items-end justify-end gap-2 sm:gap-4">
                              <Button 
                               variant="ghost" 
-                              className="rounded-2xl px-6 h-14 text-[12px] font-black uppercase tracking-widest hover:bg-slate-100 dark:hover:bg-white/5" 
+                              className="rounded-xl sm:rounded-2xl px-4 sm:px-6 h-10 sm:h-14 text-[11px] sm:text-[12px] font-black uppercase tracking-widest hover:bg-slate-100 dark:hover:bg-white/5" 
                               onClick={() => setShowAddAction(false)}
                             >
                               Cancel
                             </Button>
                             <Button 
                               size="lg" 
-                              className="rounded-2xl px-10 h-14 bg-slate-900 dark:bg-primary text-white shadow-xl shadow-slate-200 dark:shadow-none hover:scale-[1.02] transition-all text-[12px] font-black uppercase tracking-widest"
+                              className="rounded-xl sm:rounded-2xl px-6 sm:px-10 h-10 sm:h-14 bg-slate-900 dark:bg-primary text-white shadow-xl shadow-slate-200 dark:shadow-none hover:scale-[1.02] transition-all text-[11px] sm:text-[12px] font-black uppercase tracking-widest"
                               onClick={handleAddAction}
                               disabled={!newAction.label || !newAction.url}
                             >
