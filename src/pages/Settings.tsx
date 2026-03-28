@@ -574,18 +574,18 @@ const Settings = () => {
                      {workspaceActions.map(action => {
                        const Icon = providerIcons[action.providerType];
                        return (
-                         <div key={action.id} className="flex items-center gap-3 rounded-xl border p-3.5 hover:shadow-sm transition-all">
-                           <div className="h-9 w-9 rounded-lg bg-primary/[0.06] flex items-center justify-center flex-shrink-0">
-                             <Icon className="h-4 w-4 text-primary" />
+                         <div key={action.id} className="flex items-center gap-2.5 sm:gap-3 rounded-xl border p-3 sm:p-3.5 hover:shadow-sm transition-all">
+                           <div className="h-8 w-8 sm:h-9 sm:w-9 rounded-lg bg-primary/[0.06] flex items-center justify-center flex-shrink-0">
+                             <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary" />
                            </div>
                            <div className="flex-1 min-w-0">
-                             <p className="text-[13px] font-medium">{action.label}</p>
-                             <p className="text-[11px] text-muted-foreground truncate flex items-center gap-1">
+                             <p className="text-[12px] sm:text-[13px] font-medium">{action.label}</p>
+                             <p className="text-[10px] sm:text-[11px] text-muted-foreground truncate flex items-center gap-1">
                                <ExternalLink className="h-2.5 w-2.5" />
                                {action.url}
                              </p>
                            </div>
-                           <span className="text-[10px] font-medium text-muted-foreground bg-muted px-2 py-0.5 rounded-full">{providerTypeLabels[action.providerType]}</span>
+                           <span className="text-[10px] font-medium text-muted-foreground bg-muted px-2 py-0.5 rounded-full hidden sm:inline">{providerTypeLabels[action.providerType]}</span>
                            <button className="p-1.5 rounded-md hover:bg-destructive/10 text-muted-foreground hover:text-destructive transition-colors">
                              <Trash2 className="h-3.5 w-3.5" />
                            </button>
