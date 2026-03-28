@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import HeroBackground from './HeroBackground';
 import HeroDemoMockup from './HeroDemoMockup';
 import { AvatarGroup } from '@/components/ui/avatar';
+import { EASING, DURATION } from '@/components/motion/Animations';
 
 const founderMembers = [
   { username: 'Sarah', src: 'https://i.pravatar.cc/80?img=1' },
@@ -28,13 +29,13 @@ const Hero = () => (
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+        transition={{ duration: DURATION.large, ease: EASING.enter }}
         className="max-w-3xl mx-auto text-center"
       >
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+          transition={{ duration: DURATION.structural, delay: 0.1, ease: EASING.enter }}
           className="inline-flex items-center gap-2 rounded-full border bg-card/80 backdrop-blur-sm px-4 py-1.5 text-[13px] text-muted-foreground mb-6 shadow-sm"
         >
           <span className="relative flex h-2 w-2">
@@ -51,15 +52,15 @@ const Hero = () => (
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          transition={{ duration: DURATION.structural, delay: 0.3, ease: EASING.standard }}
           className="text-lg md:text-xl text-muted-foreground max-w-[560px] mx-auto mb-10 leading-relaxed"
         >
-          Every week your team loses 6+ hours digging through inboxes for a one-word reply. One portal. Clients open it, review, and hit approve — done.
+          Every week your team loses 6+ hours digging through inboxes for a one-word reply. One portal. Clients open it. They review. They hit approve — done.
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.45 }}
+          transition={{ duration: DURATION.structural, delay: 0.45, ease: EASING.enter }}
           className="flex flex-col sm:flex-row items-center justify-center gap-3" style={{ filter: 'drop-shadow(0 4px 12px hsl(0 0% 0% / 0.15))' }}
         >
           <Link to="/signup">
@@ -79,7 +80,7 @@ const Hero = () => (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
+          transition={{ duration: DURATION.structural, delay: 0.6, ease: EASING.standard }}
           className="flex items-center justify-center gap-3 mt-8"
         >
           <AvatarGroup members={founderMembers} size={28} limit={4} />
@@ -93,7 +94,7 @@ const Hero = () => (
       <motion.div
         initial={{ opacity: 0, y: 48 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+        transition={{ duration: DURATION.large, delay: 0.5, ease: EASING.enter }}
         className="mt-14 md:mt-20 max-w-4xl mx-auto glow-primary rounded-2xl"
         data-gsap="mockup"
       >

@@ -36,7 +36,7 @@ const Footer = () => (
             <Logo />
           </Link>
           <p className="text-base text-muted-foreground leading-relaxed max-w-sm">
-            Expanding the boundaries of client approvals. Built for world-class agencies who prioritize velocity and professional delivery.
+            The approval tool agencies actually use. Fast. Clean. Done right.
           </p>
           <div className="flex items-center gap-6 text-muted-foreground/60">
             <a href="#" className="hover:text-primary transition-colors"><Twitter className="h-5 w-5" /></a>

@@ -1,6 +1,23 @@
 import { motion, type Variants } from 'framer-motion';
 import { type ReactNode } from 'react';
 
+// ── Shared motion constants ──────────────────────────────────
+export const EASING = {
+  standard:   [0.2, 0.0, 0, 1.0] as const,
+  enter:      [0.05, 0.7, 0.1, 1.0] as const,
+  exit:       [0.3, 0.0, 0.8, 0.15] as const,
+  expressive: [0.4, 0.14, 0.3, 1.0] as const,
+};
+
+export const DURATION = {
+  micro: 0.15,
+  structural: 0.35,
+  large: 0.5,
+};
+
+export const STAGGER = 0.05;
+
+// ── Variant presets ──────────────────────────────────────────
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 },
@@ -27,7 +44,7 @@ export const FadeUp = ({ children, delay = 0, className = '' }: { children: Reac
     initial="hidden"
     whileInView="visible"
     viewport={{ once: true, margin: '-40px' }}
-    transition={{ duration: 0.5, delay, ease: [0.25, 0.1, 0.25, 1] }}
+    transition={{ duration: DURATION.structural, delay, ease: EASING.enter }}
     className={className}
   >
     {children}
@@ -40,7 +57,7 @@ export const FadeIn = ({ children, delay = 0, className = '' }: { children: Reac
     initial="hidden"
     whileInView="visible"
     viewport={{ once: true }}
-    transition={{ duration: 0.6, delay, ease: 'easeOut' }}
+    transition={{ duration: DURATION.structural, delay, ease: EASING.standard }}
     className={className}
   >
     {children}
@@ -53,7 +70,7 @@ export const ScaleIn = ({ children, delay = 0, className = '' }: { children: Rea
     initial="hidden"
     whileInView="visible"
     viewport={{ once: true }}
-    transition={{ duration: 0.4, delay, ease: [0.25, 0.1, 0.25, 1] }}
+    transition={{ duration: DURATION.structural, delay, ease: EASING.enter }}
     className={className}
   >
     {children}
@@ -66,14 +83,14 @@ export const SlideInLeft = ({ children, delay = 0, className = '' }: { children:
     initial="hidden"
     whileInView="visible"
     viewport={{ once: true }}
-    transition={{ duration: 0.4, delay, ease: 'easeOut' }}
+    transition={{ duration: DURATION.structural, delay, ease: EASING.standard }}
     className={className}
   >
     {children}
   </motion.div>
 );
 
-export const StaggerContainer = ({ children, className = '', staggerDelay = 0.06 }: { children: ReactNode; className?: string; staggerDelay?: number }) => (
+export const StaggerContainer = ({ children, className = '', staggerDelay = STAGGER }: { children: ReactNode; className?: string; staggerDelay?: number }) => (
   <motion.div
     initial="hidden"
     whileInView="visible"
@@ -88,7 +105,7 @@ export const StaggerContainer = ({ children, className = '', staggerDelay = 0.06
 export const StaggerItem = ({ children, className = '' }: { children: ReactNode; className?: string }) => (
   <motion.div
     variants={fadeUp}
-    transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+    transition={{ duration: DURATION.structural, ease: EASING.enter }}
     className={className}
   >
     {children}

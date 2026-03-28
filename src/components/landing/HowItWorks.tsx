@@ -1,13 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { Upload, MessageSquare, CheckCircle2, ArrowRight, Sparkles } from 'lucide-react';
+import { EASING, DURATION } from '@/components/motion/Animations';
 
 const steps = [
   {
     number: '01',
     icon: Upload,
     title: 'Drop your files in',
-    description: 'Drag your designs, docs, or videos into the project. Pick the version. Hit send.',
+    description: 'Drag your designs into the project. Docs. Videos. Pick the version. Hit send.',
     detail: 'Figma, PDF, video — all of it.',
     color: 'primary',
   },
@@ -15,7 +16,7 @@ const steps = [
     number: '02',
     icon: MessageSquare,
     title: 'Clients review on their own',
-    description: 'Your client gets a branded link. No login, no app download. They open it and leave comments right on the work.',
+    description: 'Your client gets a branded link. No login, no app download. They open it, leave comments right on the work.',
     detail: 'Comments stay on the file — not buried in a thread.',
     color: 'primary',
   },
@@ -23,7 +24,7 @@ const steps = [
     number: '03',
     icon: CheckCircle2,
     title: 'One-click approved',
-    description: 'They tap approve. It\'s logged, timestamped, and tied to their name. No more "I never said yes to that."',
+    description: 'They tap approve. It\'s logged, timestamped, tied to their name. No more "I never said yes to that."',
     detail: 'Every "yes" has a paper trail.',
     color: 'primary',
   },
@@ -57,7 +58,7 @@ export const HowItWorks = () => {
             Upload. Review. Approved. <span className="italic bg-gradient-to-b from-primary via-primary to-primary/60 bg-clip-text text-transparent">Done before lunch.</span>
           </h2>
           <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-            No project management degree required. Three moves and you've got a signed-off deliverable.
+            No project management degree required. Three moves — signed-off deliverable.
           </p>
         </div>
 
@@ -86,12 +87,12 @@ export const HowItWorks = () => {
 
                   {/* Image/Visual Area */}
                   <div className="w-full md:w-1/2 group">
-                    <div className="aspect-video rounded-[3rem] border border-primary/20 bg-muted/20 backdrop-blur-md overflow-hidden p-6 md:p-10 flex items-center justify-center relative shadow-inner hover:bg-muted/30 transition-all duration-700">
+                    <div className="aspect-video rounded-[3rem] border border-primary/20 bg-muted/20 backdrop-blur-md overflow-hidden p-6 md:p-10 flex items-center justify-center relative shadow-inner hover:bg-muted/30 transition-colors duration-150">
                       <div className="absolute inset-0 bg-gradient-to-tr from-primary/[0.05] via-transparent to-transparent opacity-50" />
                       
                       {/* Premium Mockup Window Frame */}
                       <motion.div 
-                        className="w-full max-w-[90%] bg-card/90 backdrop-blur-3xl border border-primary/10 rounded-[2rem] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.2)] relative overflow-hidden group-hover:shadow-[0_45px_100px_-20px_rgba(0,0,0,0.15)] transition-all duration-700 will-change-transform"
+                        className="w-full max-w-[90%] bg-card/90 backdrop-blur-3xl border border-primary/10 rounded-[2rem] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.2)] relative overflow-hidden group-hover:shadow-[0_45px_100px_-20px_rgba(0,0,0,0.15)] transition-shadow duration-150 will-change-transform"
                       >
                         {/* Chrome / Window Header */}
                         <div className="h-10 border-b border-primary/5 px-6 flex items-center justify-between bg-muted/40">
@@ -104,7 +105,7 @@ export const HowItWorks = () => {
                           <div className="w-8 h-8 rounded-full bg-primary/5" />
                         </div>
                         
-                        {/* Content Area - Filling more space as requested */}
+                        {/* Content Area */}
                         <div className="p-8 flex items-center justify-center min-h-[160px] md:min-h-[200px]">
                           <StepVisual step={index} />
                         </div>
@@ -136,7 +137,7 @@ export const HowItWorks = () => {
   );
 };
 
-// Simplified but premium visuals
+// Simplified visuals
 const StepVisual = ({ step }: { step: number }) => {
   if (step === 0) return <UploadVisual />;
   if (step === 1) return <ReviewVisual />;
@@ -150,7 +151,7 @@ const UploadVisual = () => (
         key={i}
         initial={{ opacity: 0, x: -20 }}
         whileInView={{ opacity: 1, x: 0 }}
-        transition={{ delay: i * 0.15 }}
+        transition={{ delay: i * 0.05, duration: DURATION.structural, ease: EASING.enter as unknown as number[] }}
         className="w-full bg-card/60 backdrop-blur-md border rounded-xl p-4 flex items-center gap-4 shadow-md shadow-black/5 dark:shadow-black/20"
       >
         <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center relative overflow-hidden">
@@ -163,7 +164,7 @@ const UploadVisual = () => (
             className="h-1 bg-primary rounded-full"
             initial={{ width: "0%" }}
             whileInView={{ width: "100%" }}
-            transition={{ duration: 1, delay: 0.5 + i * 0.1 }}
+            transition={{ duration: DURATION.large, delay: 0.3 + i * 0.05, ease: EASING.standard as unknown as number[] }}
           />
         </div>
       </motion.div>
@@ -181,7 +182,7 @@ const ReviewVisual = () => (
         key={i}
         initial={{ opacity: 0, scale: 0.9, x: m.side === 'left' ? -20 : 20 }}
         whileInView={{ opacity: 1, scale: 1, x: 0 }}
-        transition={{ delay: i * 0.4 }}
+        transition={{ delay: i * 0.05, duration: DURATION.structural, ease: EASING.enter as unknown as number[] }}
         className={`flex ${m.side === 'left' ? 'justify-start' : 'justify-end'}`}
       >
         <div className={`relative p-4 rounded-2xl text-[11px] font-medium max-w-[80%] overflow-hidden ${
@@ -219,7 +220,7 @@ const ApproveVisual = () => (
           y: Math.sin((i / 8) * Math.PI * 2) * 80,
           scale: [0, 1, 0]
         }}
-        transition={{ duration: 1, delay: 0.4 }}
+        transition={{ duration: DURATION.large, delay: 0.4, ease: EASING.standard as unknown as number[] }}
       />
     ))}
   </div>

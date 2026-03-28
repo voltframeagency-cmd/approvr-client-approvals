@@ -1,5 +1,6 @@
 import { motion, useInView } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
+import { EASING, DURATION, STAGGER } from '@/components/motion/Animations';
 
 const logos = [
   { name: 'Stripe', svg: 'M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-7.076-2.18l-.891 5.534C5.326 22.88 8.382 24 12.062 24c2.589 0 4.777-.596 6.319-1.839 1.644-1.345 2.451-3.321 2.451-5.71 0-4.124-2.607-5.833-6.856-7.301' },
@@ -11,7 +12,7 @@ const logos = [
 ];
 
 const stats = [
-  { value: '2,400+', numericValue: 2400, suffix: '+', label: 'Sign-offs locked in' },
+  { value: '2400+', numericValue: 2400, suffix: '+', label: 'Sign-offs locked in' },
   { value: '380+', numericValue: 380, suffix: '+', label: 'Agencies done chasing' },
   { value: '12k+', numericValue: 12, suffix: 'k+', label: 'Files approved — no email' },
   { value: '4.9/5', numericValue: 4.9, suffix: '/5', label: 'Avg. rating', decimals: 1 },
@@ -38,7 +39,7 @@ const AnimatedNumber = ({ value, suffix, decimals = 0 }: { value: number; suffix
 
   const formatted = decimals > 0 
     ? display.toFixed(decimals) 
-    : display.toLocaleString();
+    : display.toString();
 
   return <span ref={ref}>{formatted}{suffix}</span>;
 };
@@ -49,7 +50,7 @@ const SocialProof = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
+        staggerChildren: STAGGER,
         delayChildren: 0.2
       }
     }
@@ -60,7 +61,7 @@ const SocialProof = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
+      transition: { duration: DURATION.structural, ease: EASING.enter as unknown as number[] }
     }
   };
 
@@ -77,7 +78,7 @@ const SocialProof = () => {
         >
           {stats.map((stat) => (
             <motion.div key={stat.label} variants={itemVariants} className="text-center group">
-              <p className="text-4xl md:text-5xl font-black tracking-tight text-primary mb-2 group-hover:scale-110 transition-transform duration-500" style={{ textShadow: '0 2px 8px hsl(169 76% 48% / 0.3), 0 1px 2px hsl(169 76% 48% / 0.15)', WebkitBackgroundClip: 'text', backgroundImage: 'linear-gradient(180deg, hsl(160, 84%, 50%) 0%, hsl(169, 76%, 48%) 50%, hsl(160, 84%, 30%) 100%)', WebkitTextFillColor: 'transparent', filter: 'drop-shadow(0 2px 4px hsl(169 76% 48% / 0.2))' }}>
+              <p className="text-4xl md:text-5xl font-black tracking-tight text-primary mb-2 group-hover:scale-110 transition-transform duration-150" style={{ textShadow: '0 2px 8px hsl(169 76% 48% / 0.3), 0 1px 2px hsl(169 76% 48% / 0.15)', WebkitBackgroundClip: 'text', backgroundImage: 'linear-gradient(180deg, hsl(160, 84%, 50%) 0%, hsl(169, 76%, 48%) 50%, hsl(160, 84%, 30%) 100%)', WebkitTextFillColor: 'transparent', filter: 'drop-shadow(0 2px 4px hsl(169 76% 48% / 0.2))' }}>
                 <AnimatedNumber value={stat.numericValue} suffix={stat.suffix} decimals={stat.decimals} />
               </p>
               <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">{stat.label}</p>
@@ -90,7 +91,7 @@ const SocialProof = () => {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.4 }}
+          transition={{ duration: DURATION.large, delay: 0.4, ease: EASING.standard as unknown as number[] }}
           className="relative pt-10 border-t border-border/20"
         >
           <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-muted/30 to-transparent z-10" />
@@ -103,7 +104,7 @@ const SocialProof = () => {
           <div className="flex gap-16 items-center justify-center overflow-hidden">
             <div className="flex gap-20 items-center animate-marquee whitespace-nowrap">
               {[...logos, ...logos].map((logo, i) => (
-                <div key={`${logo.name}-${i}`} className="flex items-center gap-3 opacity-30 hover:opacity-100 transition-all duration-500 cursor-default grayscale hover:grayscale-0 scale-90 hover:scale-100">
+                <div key={`${logo.name}-${i}`} className="flex items-center gap-3 opacity-30 hover:opacity-100 transition-all duration-150 cursor-default grayscale hover:grayscale-0 scale-90 hover:scale-100">
                   <svg viewBox="0 0 24 24" className="h-6 w-6 fill-current">
                     <path d={logo.svg} />
                   </svg>
