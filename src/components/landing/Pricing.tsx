@@ -172,9 +172,9 @@ const Pricing = () => {
                     </div>
                   )}
 
-                  <div className="mb-8 pt-2">
+                  <div className="mb-5 md:mb-8 pt-2">
                     <div className={cn(
-                      "inline-flex p-4 rounded-2xl mb-8 transition-colors duration-150",
+                      "inline-flex p-3 md:p-4 rounded-xl md:rounded-2xl mb-5 md:mb-8 transition-colors duration-150",
                       plan.popular ? "bg-primary/10 text-primary" : "bg-muted/50 text-muted-foreground"
                     )}>
                       <Icon size={28} strokeWidth={1.5} />
