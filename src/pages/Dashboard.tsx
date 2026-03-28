@@ -504,7 +504,7 @@ const Dashboard = () => {
                   <div className="h-2 w-3/4 bg-muted-foreground/20 rounded mx-auto" />
                   <div className="h-2 w-1/2 bg-muted-foreground/20 rounded mx-auto" />
                 </div>
-                <Button variant="ghost" size="sm" className="mt-4 h-8 text-[11px] font-bold uppercase tracking-wider text-primary hover:text-primary hover:bg-primary/5">
+                <Button variant="ghost" size="sm" className="mt-4 h-8 text-[11px] font-bold uppercase tracking-wider text-primary hover:text-primary hover:bg-primary/5" onClick={() => navigate('/portal')}>
                   Launch Preview
                 </Button>
               </div>
