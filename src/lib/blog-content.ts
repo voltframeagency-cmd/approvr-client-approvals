@@ -197,6 +197,14 @@ export const blogContent: Record<string, BlogSection[]> = {
 
     { type: 'callout', content: 'One tactical move: send the approval link in the same message as your project update. Don\'t make it a separate step. "Here\'s the latest version — review it here: [link]." One message. One action.', variant: 'tip' },
 
+    // FAQ (AEO/GEO)
+    { type: 'faq', faqs: [
+      { question: 'What is the best client approval workflow for agencies?', answer: 'The most effective workflow is three steps: upload your deliverable to a central location, send your client a branded magic link (no login required), let them approve with one click. This eliminates email back-and-forth, version confusion, accountability gaps.' },
+      { question: 'How do I get clients to approve faster?', answer: 'Remove friction. Stop sending attachments — send links. Remove login requirements. Let clients comment directly on the work. Make approval a single button click. These changes typically cut response times from 3-7 days to same-day.' },
+      { question: 'How do I prove a client approved my work?', answer: 'Use an approval tool that generates timestamped, attributed approval receipts. Approvr records exactly who approved, when, with a permanent audit trail.' },
+      { question: 'Do approval tools help with cash flow?', answer: 'Yes. Slow approvals delay invoicing. A project that drags 3 extra weeks in approval limbo is 3 weeks of deferred revenue. Faster approvals mean faster invoicing.' },
+    ]},
+
     // SOFT CTA (BYAF)
     { type: 'cta', content: 'If this workflow sounds like what you\'ve been looking for, Approvr gives you 14 days to try it. No card. No sales call. Worth a look if you\'re tired of chasing.' },
   ],
