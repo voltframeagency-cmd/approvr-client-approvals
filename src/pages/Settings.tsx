@@ -74,6 +74,15 @@ const Settings = () => {
 
   const handleInvite = async () => {
     if (!workspace || !inviteEmail) return;
+    
+    // Check team limit before inviting
+    const { checkTeamLimit } = await import('@/hooks/use-workspace-usage');
+    const teamCheck = checkTeamLimit(usageData, workspace.plan);
+    if (!teamCheck.allowed) {
+      toast.error('Team limit reached', { description: `Your plan allows ${teamCheck.limit} team members. Upgrade to add more.` });
+      return;
+    }
+    
     try {
       await inviteMember.mutateAsync({ workspaceId: workspace.id, email: inviteEmail, role: inviteRole });
       toast.success('Invitation sent', { description: `Invited ${inviteEmail} as ${inviteRole}` });
