@@ -53,7 +53,7 @@ const Hero = () => (
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: DURATION.structural, delay: 0.3, ease: EASING.standard }}
-          className="text-lg md:text-xl text-muted-foreground max-w-[560px] mx-auto mb-10 leading-relaxed"
+          className="text-base md:text-xl text-muted-foreground max-w-[560px] mx-auto mb-8 md:mb-10 leading-relaxed px-2"
         >
           Every week your team loses 6+ hours digging through inboxes for a one-word reply. One portal. Clients open it. They review. They hit approve — done.
         </motion.p>
