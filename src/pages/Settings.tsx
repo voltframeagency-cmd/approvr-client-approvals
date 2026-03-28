@@ -681,13 +681,13 @@ const Settings = () => {
               {/* Usage Tab */}
               {activeTab === 'usage' && (
                 <div className="space-y-6">
-                  <div className="card-elevated p-6 space-y-6">
+                  <div className="card-elevated p-4 sm:p-6 space-y-4 sm:space-y-6">
                     <div>
-                      <h2 className="font-semibold text-base">Plan & Usage Intelligence</h2>
-                      <p className="text-[13px] text-muted-foreground mt-1">Transparency on your Founder Beta status and usage counters.</p>
+                      <h2 className="font-semibold text-[15px] sm:text-base">Plan & Usage Intelligence</h2>
+                      <p className="text-[12px] sm:text-[13px] text-muted-foreground mt-0.5 sm:mt-1">Transparency on your Founder Beta status and usage counters.</p>
                     </div>
 
-                    <div className="bg-primary/[0.03] p-6 rounded-2xl border border-primary/10 relative overflow-hidden">
+                    <div className="bg-primary/[0.03] p-4 sm:p-6 rounded-2xl border border-primary/10 relative overflow-hidden">
                       <div className="absolute top-0 right-0 p-4">
                         <Zap className="h-24 w-24 text-primary/[0.03] rotate-12" />
                       </div>
