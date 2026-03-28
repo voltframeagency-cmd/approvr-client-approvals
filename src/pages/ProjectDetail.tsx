@@ -730,7 +730,7 @@ const ProjectDetail = () => {
                                   <p className="text-[10px] sm:text-[11px] text-muted-foreground font-medium truncate opacity-60">{action.url}</p>
                                 </div>
                                 <div className="flex items-center gap-1.5 sm:gap-3">
-                                  <Badge variant="secondary" className="text-[8px] sm:text-[10px] font-black uppercase tracking-widest px-1.5 sm:px-2.5 py-0.5 sm:py-1 bg-slate-100 dark:bg-white/5 text-muted-foreground border-none hidden sm:inline-flex">
+                                  <Badge variant="secondary" className="text-[8px] sm:text-[10px] font-black uppercase tracking-widest px-1.5 sm:px-2.5 py-0.5 sm:py-1 bg-muted text-muted-foreground border-none hidden sm:inline-flex">
                                     {providerTypeLabels[action.providerType]}
                                   </Badge>
                                   <button 
