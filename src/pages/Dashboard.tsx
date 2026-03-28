@@ -324,11 +324,11 @@ const Dashboard = () => {
                   </div>
                   <h3 className="font-bold text-sm tracking-tight">Portal Preview</h3>
                 </div>
-                <div className="aspect-video rounded-xl bg-slate-100 dark:bg-slate-800/50 border border-slate-200/50 dark:border-slate-700/50 flex flex-col items-center justify-center p-4 text-center group-hover:bg-slate-200/50 dark:group-hover:bg-slate-800 transition-colors">
+                <div className="aspect-video rounded-xl bg-muted border border-border/50 flex flex-col items-center justify-center p-4 text-center group-hover:bg-muted/80 transition-colors">
                   <div className="w-12 h-1 bg-primary/20 rounded-full mb-3" />
                   <div className="space-y-1.5 w-full">
-                    <div className="h-2 w-3/4 bg-slate-200 dark:bg-slate-700 rounded mx-auto" />
-                    <div className="h-2 w-1/2 bg-slate-200 dark:bg-slate-700 rounded mx-auto" />
+                    <div className="h-2 w-3/4 bg-muted-foreground/20 rounded mx-auto" />
+                    <div className="h-2 w-1/2 bg-muted-foreground/20 rounded mx-auto" />
                   </div>
                   <Button variant="ghost" size="sm" className="mt-4 h-8 text-[11px] font-bold uppercase tracking-wider text-primary hover:text-primary hover:bg-primary/5">
                     Launch Preview

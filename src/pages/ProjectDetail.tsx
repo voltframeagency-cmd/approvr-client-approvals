@@ -764,7 +764,7 @@ const ProjectDetail = () => {
                                   <p className="text-[12px] sm:text-[15px] font-bold text-muted-foreground mb-0.5 truncate">{action.label}</p>
                                   <p className="text-[10px] sm:text-[11px] text-muted-foreground font-medium truncate opacity-40">{action.url}</p>
                                 </div>
-                                <Badge variant="outline" className="text-[8px] sm:text-[10px] font-black uppercase tracking-widest px-1.5 sm:px-2.5 py-0.5 sm:py-1 border-slate-200 dark:border-white/5 text-slate-400 hidden sm:inline-flex">
+                                <Badge variant="outline" className="text-[8px] sm:text-[10px] font-black uppercase tracking-widest px-1.5 sm:px-2.5 py-0.5 sm:py-1 border-border text-muted-foreground hidden sm:inline-flex">
                                   {providerTypeLabels[action.providerType]}
                                 </Badge>
                               </div>

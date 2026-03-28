@@ -316,7 +316,7 @@ const Settings = () => {
                         <h3 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground/70 mb-4 flex items-center gap-2">
                            <Eye className="h-3 w-3" /> Live Preview
                         </h3>
-                        <div className="aspect-[4/3] rounded-xl border bg-white shadow-sm overflow-hidden flex flex-col">
+                        <div className="aspect-[4/3] rounded-xl border bg-card shadow-sm overflow-hidden flex flex-col">
                           <div className="h-10 border-b flex items-center px-4 justify-between bg-muted/5">
                             <div className="h-4 w-12 bg-muted/30 rounded" />
                             <div className="flex gap-1.5">
