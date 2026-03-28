@@ -137,7 +137,7 @@ const Signup = () => {
                     id="email" 
                     type="email" 
                     placeholder="alex@agency.com"
-                    className="h-11 md:h-12 bg-slate-100/50 border-border focus:border-primary/50 focus:ring-primary/20 transition-all rounded-xl text-sm"
+                    className="h-11 md:h-12 bg-muted/50 border-border focus:border-primary/50 focus:ring-primary/20 transition-all rounded-xl text-sm"
                   />
                 </div>
                 <div className="space-y-2">
@@ -147,7 +147,7 @@ const Signup = () => {
                   <Input 
                     id="workspace" 
                     placeholder="Rivera Design Co"
-                    className="h-11 md:h-12 bg-slate-100/50 border-border focus:border-primary/50 focus:ring-primary/20 transition-all rounded-xl text-sm"
+                    className="h-11 md:h-12 bg-muted/50 border-border focus:border-primary/50 focus:ring-primary/20 transition-all rounded-xl text-sm"
                   />
                 </div>
                 <div className="space-y-2">
@@ -158,7 +158,7 @@ const Signup = () => {
                     id="password" 
                     type="password" 
                     placeholder="••••••••"
-                    className="h-11 md:h-12 bg-slate-100/50 border-border focus:border-primary/50 focus:ring-primary/20 transition-all rounded-xl text-sm"
+                    className="h-11 md:h-12 bg-muted/50 border-border focus:border-primary/50 focus:ring-primary/20 transition-all rounded-xl text-sm"
                   />
                 </div>
                 
