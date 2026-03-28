@@ -3,6 +3,8 @@ import {
   mockProjects, mockDeliverables, mockComments, mockActivity, mockNextStepActions, providerTypeLabels, 
   type NextStepProviderType, type NextStepAction 
 } from '@/lib/mock-data';
+import { useDemo } from '@/contexts/DemoContext';
+import { FeatureGate } from '@/components/app/FeatureGate';
 import { StatusBadge } from '@/components/app/StatusBadge';
 import { ApprovalReceipt } from '@/components/app/ApprovalReceipt';
 import {
