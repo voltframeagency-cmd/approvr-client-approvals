@@ -99,7 +99,7 @@ const Hero = () => (
         initial={{ opacity: 0, y: 60 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: DURATION.large, delay: 0.5, ease: EASING.enter }}
-        className="mt-20 md:mt-28 max-w-5xl mx-auto rounded-[2.5rem] p-4 bg-card/30 border border-border/40 backdrop-blur-sm shadow-2xl relative group"
+        className="mt-20 md:mt-28 max-w-5xl mx-auto rounded-[2.5rem] p-4 bg-card/30 border border-border/40 backdrop-blur-sm shadow-2xl relative group glow-primary"
         data-gsap="mockup"
       >
         <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
