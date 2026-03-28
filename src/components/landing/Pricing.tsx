@@ -42,7 +42,7 @@ const plans = [
     popular: true,
     icon: Sparkles,
     badge: 'Growth choice',
-    note: 'No credit card required to start',
+    note: 'No card needed',
   },
   {
     name: 'Agency',
