@@ -89,7 +89,7 @@ const ClientPortal = () => {
                 <p className="text-[10px] text-muted-foreground font-medium">Client</p>
               </div>
               <div className="h-8 w-8 sm:h-9 sm:w-9 rounded-xl bg-gradient-to-br from-info via-info/80 to-blue-500 flex items-center justify-center text-[11px] sm:text-[12px] font-black text-white shadow-sm ring-2 ring-info/10">
-                SC
+                {project.clientName.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()}
               </div>
             </div>
           </div>
