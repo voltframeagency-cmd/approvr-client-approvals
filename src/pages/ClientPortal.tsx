@@ -43,6 +43,7 @@ const ClientPortal = () => {
   const [newComment, setNewComment] = useState('');
   const [resolvedCommentIds, setResolvedCommentIds] = useState<string[]>([]);
   const [isComparing, setIsComparing] = useState(false);
+  const [showComments, setShowComments] = useState(false);
 
   const toggleResolve = (id: string) => {
     setResolvedCommentIds(prev => 
@@ -77,11 +78,7 @@ const ClientPortal = () => {
             </div>
           </motion.div>
           <div className="flex items-center gap-2 sm:gap-4">
-            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-white/5 border border-border/40">
-              <ShieldCheck className="h-3.5 w-3.5 text-emerald-500" />
-              <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Secure Portal</span>
-            </div>
-            <div className="flex items-center gap-2 sm:gap-2.5 pl-2 sm:pl-4 border-l">
+            <div className="flex items-center gap-2 sm:gap-2.5 pl-2 sm:pl-4">
               <div className="text-right hidden sm:block">
                 <p className="text-[12px] font-bold text-slate-900 dark:text-white leading-tight">Sarah Chen</p>
                 <p className="text-[10px] text-muted-foreground font-medium">Project Owner</p>
@@ -436,19 +433,19 @@ const ClientPortal = () => {
                       </div>
 
                       {currentDel.status !== 'approved' ? (
-                        <div className="flex flex-col gap-4 sm:gap-6 mt-6 sm:mt-12 bg-slate-50/50 dark:bg-white/[0.02] p-4 sm:p-8 rounded-2xl sm:rounded-[32px] border border-border/40">
+                        <div className="flex flex-col gap-4 sm:gap-6 mt-6 sm:mt-12 bg-primary/[0.02] dark:bg-white/[0.02] p-5 sm:p-10 rounded-2xl sm:rounded-[32px] border-2 border-primary/20">
                           <div className="text-center space-y-1">
-                            <p className="text-[12px] sm:text-[14px] text-muted-foreground font-medium">Please review carefully before making a selection.</p>
+                            <h4 className="text-[14px] sm:text-[16px] font-black uppercase tracking-widest text-foreground">Your Decision</h4>
+                            <p className="text-[12px] sm:text-[14px] text-muted-foreground font-medium">Review carefully, then choose an action below.</p>
                           </div>
-                          <div className="grid grid-cols-2 gap-2 sm:gap-4">
-                            <Button variant="outline" className="h-11 sm:h-14 rounded-xl sm:rounded-2xl font-black text-[10px] sm:text-[12px] uppercase tracking-[0.1em] sm:tracking-[0.2em] border-slate-200 dark:border-white/10 hover:bg-white transition-all gap-1.5 sm:gap-3 group">
-                              <MessageSquare className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-muted-foreground group-hover:text-primary transition-colors" />
-                              <span className="hidden sm:inline">Request Changes</span>
-                              <span className="sm:hidden">Changes</span>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                            <Button variant="outline" className="h-14 sm:h-16 rounded-xl sm:rounded-2xl font-black text-[11px] sm:text-[13px] uppercase tracking-[0.1em] sm:tracking-[0.15em] border-2 border-border hover:border-primary/30 hover:bg-primary/5 transition-all gap-2 sm:gap-3 group">
+                              <MessageSquare className="h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                              Request Changes
                             </Button>
-                            <Button className="h-11 sm:h-14 rounded-xl sm:rounded-2xl font-black text-[10px] sm:text-[12px] uppercase tracking-[0.1em] sm:tracking-[0.2em] bg-slate-900 dark:bg-primary text-white hover:bg-slate-800 dark:hover:primary/90 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.2)] dark:shadow-[0_20px_40px_-10px_rgba(var(--primary),0.3)] transition-all gap-1.5 sm:gap-3 group">
-                              <ThumbsUp className="h-3.5 w-3.5 sm:h-4 sm:w-4 group-hover:scale-110 transition-transform" />
-                              Approve
+                            <Button className="h-14 sm:h-16 rounded-xl sm:rounded-2xl font-black text-[11px] sm:text-[13px] uppercase tracking-[0.1em] sm:tracking-[0.15em] bg-primary text-primary-foreground hover:bg-primary/90 shadow-[0_20px_40px_-10px_hsl(var(--primary)/0.4)] transition-all gap-2 sm:gap-3 group">
+                              <ThumbsUp className="h-4 w-4 sm:h-5 sm:w-5 group-hover:scale-110 transition-transform" />
+                              Approve This Version
                             </Button>
                           </div>
                         </div>
@@ -474,14 +471,17 @@ const ClientPortal = () => {
                   </div>
 
                   {/* Premium Feedback Area */}
-                  <div className="card-elevated p-0 overflow-hidden border-none ring-1 ring-slate-200/60 dark:ring-white/5">
-                    <div className="p-4 sm:p-10 bg-slate-50/80 dark:bg-white/5 border-b flex items-center justify-between">
+                   <div className="card-elevated p-0 overflow-hidden border-none ring-1 ring-border/40">
+                    <button 
+                      onClick={() => setShowComments(!showComments)}
+                      className="w-full p-4 sm:p-6 flex items-center justify-between hover:bg-muted/30 transition-colors"
+                    >
                       <div className="flex items-center gap-2.5 sm:gap-3">
                         <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-xl sm:rounded-2xl bg-primary/10 flex items-center justify-center">
                           <MessageSquare className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
                         </div>
-                        <div>
-                          <h3 className="font-black text-[12px] sm:text-[13px] uppercase tracking-[0.15em] sm:tracking-[0.2em] text-slate-900 dark:text-white">
+                        <div className="text-left">
+                          <h3 className="font-black text-[12px] sm:text-[13px] uppercase tracking-[0.15em] sm:tracking-[0.2em] text-foreground">
                             Feedback
                           </h3>
                           <p className="text-[10px] sm:text-[11px] font-bold text-muted-foreground uppercase tracking-widest mt-0.5">
@@ -493,9 +493,13 @@ const ClientPortal = () => {
                         <Badge variant="outline" className="text-[9px] sm:text-[10px] font-bold border-emerald-500/20 text-emerald-600 bg-emerald-500/5 px-2 py-0.5">
                           {resolvedCommentIds.length + comments.filter(c => c.resolved).length} Resolved
                         </Badge>
+                        <ChevronDown className={cn("h-4 w-4 text-muted-foreground transition-transform", showComments && "rotate-180")} />
                       </div>
-                    </div>
+                    </button>
 
+                    <AnimatePresence>
+                    {showComments && (
+                    <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3 }} className="overflow-hidden">
                     <div className="p-4 sm:p-10 space-y-6 sm:space-y-10">
                       {/* Version Revision Narrative */}
                       {currentDel.versions?.find(v => v.version === activeVersion) && (
@@ -654,6 +658,9 @@ const ClientPortal = () => {
                         </div>
                       </div>
                     </div>
+                    </motion.div>
+                    )}
+                    </AnimatePresence>
                   </div>
                 </motion.div>
               )}
@@ -775,6 +782,22 @@ const ClientPortal = () => {
           </div>
         </div>
       </footer>
+
+      {/* Sticky mobile approve bar */}
+      {currentDel && currentDel.status !== 'approved' && (
+        <div className="sm:hidden fixed bottom-0 left-0 right-0 z-50 p-3 bg-card/95 backdrop-blur-xl border-t shadow-[0_-4px_20px_rgba(0,0,0,0.1)]">
+          <div className="grid grid-cols-2 gap-2">
+            <Button variant="outline" className="h-12 rounded-xl font-black text-[10px] uppercase tracking-widest border-2">
+              <MessageSquare className="h-4 w-4 mr-1.5" />
+              Changes
+            </Button>
+            <Button className="h-12 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg shadow-primary/30">
+              <ThumbsUp className="h-4 w-4 mr-1.5" />
+              Approve
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

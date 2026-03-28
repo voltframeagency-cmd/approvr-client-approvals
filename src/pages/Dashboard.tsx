@@ -15,6 +15,9 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
+import { ClientActivityTracker } from '@/components/app/ClientActivityTracker';
+import { OnboardingChecklist, OnboardingWelcome } from '@/components/app/OnboardingChecklist';
+import { useOnboarding } from '@/hooks/use-onboarding';
 
 // Derive attention items
 const overdueProjects = mockProjects.filter(p => p.isOverdue && p.status !== 'approved');
@@ -63,10 +66,13 @@ function timeAgo(dateStr: string) {
 
 const Dashboard = () => {
   const beta = useFounderBeta();
+  const onboarding = useOnboarding();
   const activeApprovals = mockProjects.filter(p => p.status !== 'draft' && p.status !== 'approved');
 
   return (
     <div className="space-y-6 lg:space-y-12">
+      {/* Welcome dialog for first-time users */}
+      {onboarding.showWelcome && <OnboardingWelcome onDismiss={onboarding.dismissWelcome} />}
       {/* Beta Usage Banner */}
       {(beta.isProjectLimitReached || beta.isEventLimitReached || beta.daysRemaining < 7) && (
         <motion.div
@@ -134,6 +140,14 @@ const Dashboard = () => {
           </StaggerItem>
         ))}
       </StaggerContainer>
+
+      {/* Onboarding Checklist */}
+      {onboarding.isVisible && (
+        <OnboardingChecklist />
+      )}
+
+      {/* Client Activity Tracker */}
+      <ClientActivityTracker />
 
       {/* Main Grid */}
       <div className="grid lg:grid-cols-5 gap-6 lg:gap-12">

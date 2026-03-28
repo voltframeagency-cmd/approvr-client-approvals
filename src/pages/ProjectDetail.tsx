@@ -4,6 +4,7 @@ import {
   type NextStepProviderType, type NextStepAction 
 } from '@/lib/mock-data';
 import { StatusBadge } from '@/components/app/StatusBadge';
+import { ApprovalReceipt } from '@/components/app/ApprovalReceipt';
 import {
   ArrowLeft, FileText, MessageSquare, Upload, Clock, Send, CheckCircle2,
   Eye, History, ExternalLink, AlertCircle, Zap, Plus, Trash2, Building2,
@@ -201,9 +202,7 @@ const ProjectDetail = () => {
             <span className="flex items-center gap-1.5"><Send className="h-3 w-3" /> Nudge Client</span>
           )}
         </Button>
-        <Button variant="outline" size="sm" className="h-8 text-[10px] md:text-[11px] font-bold uppercase tracking-wider rounded-lg flex-1 min-w-0 sm:flex-none">
-           Download Summary
-        </Button>
+        <ApprovalReceipt project={project} deliverables={deliverables} />
       </div>
 
       {project.description && (
