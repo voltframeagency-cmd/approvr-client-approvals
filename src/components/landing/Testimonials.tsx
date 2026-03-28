@@ -117,13 +117,13 @@ export const Testimonials = () => {
           <div className="flex justify-center gap-3 mt-4 md:hidden">
             <button 
               onClick={prev}
-              className="h-11 w-11 rounded-full bg-card border border-primary/10 flex items-center justify-center text-primary active:bg-primary active:text-primary-foreground transition-colors duration-150 shadow-lg"
+              className="h-11 w-11 rounded-full bg-card border border-primary/10 flex items-center justify-center text-primary active:bg-primary active:text-primary-foreground transition-colors duration-150 shadow-lg dark:shadow-[0_8px_24px_-4px_hsl(169_76%_48%/0.15)]"
             >
               <ArrowLeft className="h-5 w-5" />
             </button>
             <button 
               onClick={next}
-              className="h-11 w-11 rounded-full bg-card border border-primary/10 flex items-center justify-center text-primary active:bg-primary active:text-primary-foreground transition-colors duration-150 shadow-lg"
+              className="h-11 w-11 rounded-full bg-card border border-primary/10 flex items-center justify-center text-primary active:bg-primary active:text-primary-foreground transition-colors duration-150 shadow-lg dark:shadow-[0_8px_24px_-4px_hsl(169_76%_48%/0.15)]"
             >
               <ArrowRight className="h-5 w-5" />
             </button>
