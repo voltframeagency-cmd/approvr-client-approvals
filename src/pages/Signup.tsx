@@ -84,7 +84,7 @@ const Signup = () => {
       </div>
 
       {/* Right side: Signup Form */}
-      <div className="flex-1 flex items-center justify-center px-5 py-6 md:p-8 bg-white lg:bg-background relative">
+      <div className="flex-1 flex items-center justify-center px-5 py-6 md:p-8 bg-card lg:bg-background relative">
         {/* Mobile Logo */}
         <div className="absolute top-5 left-5 md:top-8 md:left-8 lg:hidden">
           <Link to="/">
