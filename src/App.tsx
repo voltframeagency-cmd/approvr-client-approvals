@@ -15,6 +15,9 @@ import ClientPortal from "./pages/ClientPortal";
 import PricingPage from "./pages/PricingPage";
 import AppLayout from "./components/app/AppLayout";
 import NotFound from "./pages/NotFound";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
+import Trust from "./pages/Trust";
 import { SmoothScroll } from "./components/motion/SmoothScroll";
 
 const queryClient = new QueryClient();
