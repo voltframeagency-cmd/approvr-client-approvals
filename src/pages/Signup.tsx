@@ -31,11 +31,11 @@ const Signup = () => {
   return (
     <div className="min-h-screen flex bg-background selection:bg-primary/20">
       {/* Left side: Atmospheric Branding */}
-      <div className="hidden lg:flex lg:w-[45%] relative border-r border-border/50 overflow-hidden bg-slate-50">
+      <div className="hidden lg:flex lg:w-[45%] relative border-r border-border/50 overflow-hidden bg-muted/30">
         <div className="absolute inset-0 z-0">
           <HeroBackground />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-br from-white/80 via-transparent to-primary/5 z-0" />
+        <div className="absolute inset-0 bg-gradient-to-br from-background/80 via-transparent to-primary/5 z-0" />
         
         <div className="relative z-10 w-full h-full p-16 flex flex-col justify-between">
           <Link to="/" className="inline-block">
@@ -55,7 +55,7 @@ const Signup = () => {
               <h2 className="text-4xl lg:text-[2.75rem] font-bold tracking-tighter leading-tight mb-6 font-display">
                 Join the <span className="gradient-text italic">Founder Beta.</span>
               </h2>
-              <p className="text-lg text-slate-600 leading-relaxed mb-8">
+              <p className="text-lg text-muted-foreground leading-relaxed mb-8">
                 Get early access, help shape the product, and lock in founding-member pricing when we launch.
               </p>
 
@@ -66,7 +66,7 @@ const Signup = () => {
                   "Early access to all features",
                   "Direct line to the team"
                 ].map((feature, i) => (
-                  <div key={i} className="flex items-center gap-3 text-slate-700">
+                  <div key={i} className="flex items-center gap-3 text-foreground/80">
                     <div className="h-5 w-5 rounded-full bg-primary/20 flex items-center justify-center">
                       <ShieldCheck className="h-3.5 w-3.5 text-primary" />
                     </div>
@@ -77,14 +77,14 @@ const Signup = () => {
             </motion.div>
           </div>
 
-          <div className="text-sm text-slate-400">
+          <div className="text-sm text-muted-foreground/50">
             © 2024 Approvr. All rights reserved.
           </div>
         </div>
       </div>
 
       {/* Right side: Signup Form */}
-      <div className="flex-1 flex items-center justify-center px-5 py-6 md:p-8 bg-white lg:bg-background relative">
+      <div className="flex-1 flex items-center justify-center px-5 py-6 md:p-8 bg-card lg:bg-background relative">
         {/* Mobile Logo */}
         <div className="absolute top-5 left-5 md:top-8 md:left-8 lg:hidden">
           <Link to="/">
@@ -126,7 +126,7 @@ const Signup = () => {
                   <Input 
                     id="name" 
                     placeholder="Alex Rivera"
-                    className="h-11 md:h-12 bg-slate-100/50 border-border focus:border-primary/50 focus:ring-primary/20 transition-all rounded-xl text-sm"
+                    className="h-11 md:h-12 bg-muted/50 border-border focus:border-primary/50 focus:ring-primary/20 transition-all rounded-xl text-sm"
                   />
                 </div>
                 <div className="space-y-2">
@@ -137,7 +137,7 @@ const Signup = () => {
                     id="email" 
                     type="email" 
                     placeholder="alex@agency.com"
-                    className="h-11 md:h-12 bg-slate-100/50 border-border focus:border-primary/50 focus:ring-primary/20 transition-all rounded-xl text-sm"
+                    className="h-11 md:h-12 bg-muted/50 border-border focus:border-primary/50 focus:ring-primary/20 transition-all rounded-xl text-sm"
                   />
                 </div>
                 <div className="space-y-2">
@@ -147,7 +147,7 @@ const Signup = () => {
                   <Input 
                     id="workspace" 
                     placeholder="Rivera Design Co"
-                    className="h-11 md:h-12 bg-slate-100/50 border-border focus:border-primary/50 focus:ring-primary/20 transition-all rounded-xl text-sm"
+                    className="h-11 md:h-12 bg-muted/50 border-border focus:border-primary/50 focus:ring-primary/20 transition-all rounded-xl text-sm"
                   />
                 </div>
                 <div className="space-y-2">
@@ -158,7 +158,7 @@ const Signup = () => {
                     id="password" 
                     type="password" 
                     placeholder="••••••••"
-                    className="h-11 md:h-12 bg-slate-100/50 border-border focus:border-primary/50 focus:ring-primary/20 transition-all rounded-xl text-sm"
+                    className="h-11 md:h-12 bg-muted/50 border-border focus:border-primary/50 focus:ring-primary/20 transition-all rounded-xl text-sm"
                   />
                 </div>
                 
