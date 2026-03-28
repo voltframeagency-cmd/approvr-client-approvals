@@ -1,16 +1,19 @@
 
 
-## Add bright dark-mode shadows to Testimonials buttons and quote icon
+## Fix logo rendering in SocialProof marquee
 
-Apply the same teal-glow dark-mode shadow treatment from HowItWorks to the selected elements in Testimonials.
+**Problem**: The SVG logo paths are from Simple Icons (official), but some (Figma, Notion, Slack) have complex paths that need `fill-rule="evenodd"` to render correctly. Without it, the "holes" in logos fill in solid, making them look malformed.
 
-### Changes in `src/components/landing/Testimonials.tsx`
+**Changes in `src/components/landing/SocialProof.tsx`**:
 
-1. **Mobile nav buttons (lines 119-131)** — add `dark:shadow-[0_8px_24px_-4px_hsl(169_76%_48%/0.15)]` alongside existing `shadow-lg`
+1. Add a `fillRule` property to each logo entry -- Figma, Notion, and Slack need `evenodd`; Stripe, Linear, and Vercel work fine with the default `nonzero`.
 
-2. **Desktop nav buttons (lines 134-148)** — add `dark:shadow-[0_12px_32px_-6px_hsl(169_76%_48%/0.2)]` alongside existing `shadow-xl`, plus `dark:hover:shadow-[0_16px_48px_-8px_hsl(169_76%_48%/0.3)]` for hover state
+2. Update the `<path>` element to apply the fill rule:
+   ```tsx
+   <path d={logo.svg} fillRule={logo.fillRule || 'nonzero'} />
+   ```
 
-3. **Quote icon (line 77)** — add a subtle dark-mode glow via `dark:drop-shadow-[0_4px_12px_hsl(169_76%_48%/0.15)]` or wrap with a filter style
+3. Increase icon size from `h-6 w-6` to `h-7 w-7` for better clarity at the rendered size.
 
-All changes in one file, class-only modifications.
+Single file change, minimal diff.
 

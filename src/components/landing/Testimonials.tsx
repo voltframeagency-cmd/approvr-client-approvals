@@ -74,7 +74,7 @@ export const Testimonials = () => {
 
         <div className="max-w-5xl mx-auto relative px-2 md:px-12">
           <div className="relative overflow-hidden rounded-2xl md:rounded-[3rem] border border-primary/10 bg-card/40 backdrop-blur-2xl p-6 md:p-16 shadow-2xl">
-            <Quote className="absolute top-4 left-4 md:top-8 md:left-8 h-8 w-8 md:h-12 md:w-12 text-primary/10 dark:drop-shadow-[0_4px_12px_hsl(169_76%_48%/0.15)]" />
+            <Quote className="absolute top-4 left-4 md:top-8 md:left-8 h-8 w-8 md:h-12 md:w-12 text-primary/10" />
             
             <AnimatePresence mode="wait">
               <motion.div
@@ -117,13 +117,13 @@ export const Testimonials = () => {
           <div className="flex justify-center gap-3 mt-4 md:hidden">
             <button 
               onClick={prev}
-              className="h-11 w-11 rounded-full bg-card border border-primary/10 flex items-center justify-center text-primary active:bg-primary active:text-primary-foreground transition-colors duration-150 shadow-lg dark:shadow-[0_8px_24px_-4px_hsl(169_76%_48%/0.15)]"
+              className="h-11 w-11 rounded-full bg-card border border-primary/10 flex items-center justify-center text-primary active:bg-primary active:text-primary-foreground transition-colors duration-150 shadow-lg"
             >
               <ArrowLeft className="h-5 w-5" />
             </button>
             <button 
               onClick={next}
-              className="h-11 w-11 rounded-full bg-card border border-primary/10 flex items-center justify-center text-primary active:bg-primary active:text-primary-foreground transition-colors duration-150 shadow-lg dark:shadow-[0_8px_24px_-4px_hsl(169_76%_48%/0.15)]"
+              className="h-11 w-11 rounded-full bg-card border border-primary/10 flex items-center justify-center text-primary active:bg-primary active:text-primary-foreground transition-colors duration-150 shadow-lg"
             >
               <ArrowRight className="h-5 w-5" />
             </button>
@@ -131,13 +131,13 @@ export const Testimonials = () => {
           {/* Desktop nav buttons */}
           <button 
             onClick={prev}
-            className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 h-14 w-14 rounded-full bg-card border border-primary/10 items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-150 shadow-xl dark:shadow-[0_12px_32px_-6px_hsl(169_76%_48%/0.2)] dark:hover:shadow-[0_16px_48px_-8px_hsl(169_76%_48%/0.3)] z-20"
+            className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 h-14 w-14 rounded-full bg-card border border-primary/10 items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-colors duration-150 shadow-xl z-20"
           >
             <ArrowLeft className="h-6 w-6" />
           </button>
           <button 
             onClick={next}
-            className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 h-14 w-14 rounded-full bg-card border border-primary/10 items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-150 shadow-xl dark:shadow-[0_12px_32px_-6px_hsl(169_76%_48%/0.2)] dark:hover:shadow-[0_16px_48px_-8px_hsl(169_76%_48%/0.3)] z-20"
+            className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 h-14 w-14 rounded-full bg-card border border-primary/10 items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-colors duration-150 shadow-xl z-20"
           >
             <ArrowRight className="h-6 w-6" />
           </button>
