@@ -84,11 +84,11 @@ const Signup = () => {
       </div>
 
       {/* Right side: Signup Form */}
-      <div className="flex-1 flex items-center justify-center p-8 bg-white lg:bg-background relative">
+      <div className="flex-1 flex items-center justify-center px-5 py-6 md:p-8 bg-white lg:bg-background relative">
         {/* Mobile Logo */}
-        <div className="absolute top-8 left-8 lg:hidden">
+        <div className="absolute top-5 left-5 md:top-8 md:left-8 lg:hidden">
           <Link to="/">
-            <Logo />
+            <Logo className="h-6" />
           </Link>
         </div>
 
@@ -98,16 +98,16 @@ const Signup = () => {
           initial="hidden"
           animate="visible"
         >
-          <div className="mb-10 text-center lg:text-left">
+          <div className="mb-6 md:mb-10 text-center lg:text-left pt-8 md:pt-0">
             <motion.h1 
               variants={itemVariants}
-              className="text-3xl font-bold tracking-tighter mb-2"
+              className="text-2xl md:text-3xl font-bold tracking-tighter mb-1.5 md:mb-2"
             >
               Create your account
             </motion.h1>
             <motion.p 
               variants={itemVariants}
-              className="text-muted-foreground"
+              className="text-sm md:text-base text-muted-foreground"
             >
               No credit card required. Start approving in minutes.
             </motion.p>
@@ -115,9 +115,9 @@ const Signup = () => {
 
           <motion.div 
             variants={itemVariants}
-            className="glass-panel p-1 bg-gradient-to-br from-border/50 via-border/10 to-transparent rounded-2xl shadow-xl"
+            className="glass-panel p-1 bg-gradient-to-br from-border/50 via-border/10 to-transparent rounded-xl md:rounded-2xl shadow-xl"
           >
-            <div className="bg-background/80 backdrop-blur-xl p-8 rounded-2xl border border-border/50">
+            <div className="bg-background/80 backdrop-blur-xl p-5 md:p-8 rounded-xl md:rounded-2xl border border-border/50">
               <div className="space-y-5">
                 <div className="space-y-2">
                   <Label htmlFor="name" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground ml-1">
