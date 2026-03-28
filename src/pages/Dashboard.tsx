@@ -238,7 +238,7 @@ const Dashboard = () => {
                                   <span className="font-mono">{Math.round((project.approvedCount / project.deliverableCount) * 100)}%</span>
                                </div>
                             </div>
-                            <div className="h-1.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+                            <div className="h-1.5 rounded-full bg-muted overflow-hidden">
                               <motion.div
                                 initial={{ width: 0 }}
                                 animate={{ width: `${(project.approvedCount / project.deliverableCount) * 100}%` }}
