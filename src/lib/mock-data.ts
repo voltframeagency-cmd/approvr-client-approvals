@@ -1,6 +1,8 @@
 export type ProjectStatus = 'draft' | 'in_review' | 'changes_requested' | 'approved';
 export type DeliverableStatus = 'draft' | 'in_review' | 'changes_requested' | 'approved';
 
+export type ProjectType = 'branding' | 'web_design' | 'video_motion' | 'social_ads' | 'other';
+
 export interface Project {
   id: string;
   name: string;
@@ -15,6 +17,7 @@ export interface Project {
   lastViewedByClient?: string;
   lastClientActivity?: string;
   isOverdue?: boolean;
+  projectType?: ProjectType;
 }
 
 export interface DeliverableVersion {
