@@ -469,7 +469,7 @@ const ClientPortal = () => {
                           </div>
                           <div>
                             <h4 className="text-lg sm:text-xl font-black tracking-tight text-slate-900 dark:text-white uppercase tracking-[0.1em]">Officially Approved</h4>
-                            <p className="text-[12px] sm:text-[14px] text-muted-foreground font-medium mt-1">This version was locked in by Sarah Chen on Mar 27, 2024</p>
+                            <p className="text-[12px] sm:text-[14px] text-muted-foreground font-medium mt-1">This version has been officially approved and locked</p>
                           </div>
                           <Button variant="ghost" className="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/10 mt-1 sm:mt-2 px-6 sm:px-8 h-8 sm:h-10 rounded-xl">
                             View Audit Trail
