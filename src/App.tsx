@@ -1,5 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -14,6 +15,8 @@ import Notifications from "./pages/Notifications";
 import Settings from "./pages/Settings";
 import ClientPortal from "./pages/ClientPortal";
 import PricingPage from "./pages/PricingPage";
+import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 import AppLayout from "./components/app/AppLayout";
 import NotFound from "./pages/NotFound";
 import Privacy from "./pages/Privacy";
