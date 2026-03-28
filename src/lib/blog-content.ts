@@ -141,6 +141,9 @@ export const blogContent: Record<string, BlogSection[]> = {
   ],
 
   'client-approval-workflow-guide': [
+    // DEFINITION (AEO)
+    { type: 'definition', content: 'A client approval workflow is the process an agency uses to send deliverables to clients, collect feedback, track revisions, get formal sign-off. Most agencies rely on email — which lacks accountability, version control, visibility into whether clients opened the work.' },
+
     // HOOK (Deep-cut pain point)
     { type: 'p', content: 'You finished the design. You sent the email.' },
     { type: 'p', content: 'Now you wait.' },
