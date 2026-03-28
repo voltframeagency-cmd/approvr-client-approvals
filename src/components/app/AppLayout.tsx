@@ -145,6 +145,19 @@ const AppLayout = () => {
 
       {/* Main content */}
       <main className="flex-1 md:ml-[240px] min-h-screen bg-muted/30 overflow-x-hidden">
+        {isDemoMode && (
+          <div className="bg-primary/10 border-b border-primary/20 px-4 py-2 flex items-center justify-center gap-3 text-sm">
+            <Play className="h-3.5 w-3.5 text-primary" />
+            <span className="font-bold text-primary">Demo Mode</span>
+            <span className="text-muted-foreground">— Exploring <strong className="text-foreground">{planLabel}</strong> plan</span>
+            <button
+              onClick={() => { exitDemo(); navigate('/login'); }}
+              className="ml-4 inline-flex items-center gap-1 text-xs font-bold text-muted-foreground hover:text-destructive transition-colors"
+            >
+              <X className="h-3 w-3" /> Exit
+            </button>
+          </div>
+        )}
         <div className="px-4 py-4 md:p-10 lg:p-12 pt-[72px] md:pt-10 max-w-7xl mx-auto">
           <AnimatePresence mode="wait">
             <motion.div
