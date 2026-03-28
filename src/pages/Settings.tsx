@@ -223,6 +223,8 @@ const Settings = () => {
                           <span className="text-[13px]">{rule.label}</span>
                           <input type="checkbox" checked={(workspace as any)?.[rule.key] ?? true}
                             onChange={async (e) => {
+                              if (isDemoMode) { toast.success('Preference updated (demo)'); return; }
+                              if (!workspace) return;
                               await supabase.from('workspaces').update({ [rule.key]: e.target.checked }).eq('id', workspace.id);
                               refetchWorkspace();
                             }}
