@@ -250,7 +250,7 @@ const ProjectDetail = () => {
                     {d.fileType.toUpperCase()}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-medium text-[13px] truncate">{d.title}</p>
+                    <p className="font-medium text-xs md:text-[13px] truncate">{d.title}</p>
                     <p className="text-[11px] text-muted-foreground flex items-center gap-1.5">
                       v{d.version}
                       {d.versions && d.versions.length > 1 && (
