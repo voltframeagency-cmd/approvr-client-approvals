@@ -471,8 +471,8 @@ const Settings = () => {
                         <h3 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground/70 flex items-center gap-2">
                           <Clock className="h-3.5 w-3.5" /> Client Reminder Defaults
                         </h3>
-                        <div className="flex items-center gap-4 bg-muted/20 p-4 rounded-xl border border-dashed">
-                          <div className="space-y-1 flex-1">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 bg-muted/20 p-3 sm:p-4 rounded-xl border border-dashed">
+                           <div className="space-y-0.5 sm:space-y-1 flex-1">
                             <Label className="text-[13px]">Inactivity Reminder Trigger</Label>
                             <p className="text-[11px] text-muted-foreground">Clients receive a "Gentle Nudge" if inactive for X days.</p>
                           </div>
