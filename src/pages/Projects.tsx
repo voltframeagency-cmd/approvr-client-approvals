@@ -47,21 +47,22 @@ const Projects = () => {
   });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
         className="flex items-center justify-between"
       >
-        <h1 className="text-2xl font-bold">Projects</h1>
+        <h1 className="text-xl sm:text-2xl font-bold">Projects</h1>
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
               <div className={cn(!beta.canCreateProject && "cursor-not-allowed")}>
-                <Button className="gap-2" disabled={!beta.canCreateProject}>
-                  <Plus className="h-4 w-4" />
-                  New project
+                <Button className="gap-1.5 sm:gap-2 h-9 sm:h-10 text-[13px] px-3 sm:px-4" disabled={!beta.canCreateProject}>
+                  <Plus className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                  <span className="hidden sm:inline">New project</span>
+                  <span className="sm:hidden">New</span>
                 </Button>
               </div>
             </TooltipTrigger>
@@ -74,19 +75,19 @@ const Projects = () => {
         </TooltipProvider>
       </motion.div>
 
-      {/* Filter tabs */}
+      {/* Filter tabs - horizontal scroll on mobile */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.08 }}
-        className="flex items-center gap-1 overflow-x-auto pb-1"
+        className="flex items-center gap-1 overflow-x-auto pb-1 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-hide"
       >
         {tabs.map(tab => (
           <button
             key={tab.key}
             onClick={() => setActiveTab(tab.key)}
             className={cn(
-              'px-3 py-1.5 rounded-lg text-[13px] font-medium transition-all duration-200 whitespace-nowrap flex items-center gap-1.5',
+              'px-2.5 sm:px-3 py-1.5 rounded-lg text-[12px] sm:text-[13px] font-medium transition-all duration-200 whitespace-nowrap flex items-center gap-1 sm:gap-1.5 flex-shrink-0',
               activeTab === tab.key
                 ? 'bg-primary/[0.08] text-primary'
                 : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
@@ -95,7 +96,7 @@ const Projects = () => {
             {tab.key === 'overdue' && <AlertCircle className="h-3 w-3" />}
             {tab.label}
             <span className={cn(
-              'text-[11px] min-w-[18px] h-[18px] rounded-full flex items-center justify-center',
+              'text-[10px] sm:text-[11px] min-w-[16px] sm:min-w-[18px] h-[16px] sm:h-[18px] rounded-full flex items-center justify-center',
               activeTab === tab.key ? 'bg-primary/15 text-primary' : 'bg-muted text-muted-foreground'
             )}>
               {tab.count}
@@ -111,10 +112,11 @@ const Projects = () => {
         className="relative max-w-sm"
       >
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-        <Input placeholder="Search projects..." className="pl-9" value={search} onChange={e => setSearch(e.target.value)} />
+        <Input placeholder="Search projects..." className="pl-9 h-9 sm:h-10 text-[13px]" value={search} onChange={e => setSearch(e.target.value)} />
       </motion.div>
 
-      <div className="card-elevated overflow-hidden">
+      {/* Desktop table view */}
+      <div className="card-elevated overflow-hidden hidden sm:block">
         <div className="grid grid-cols-[1fr_auto_auto_auto_auto] gap-4 px-5 py-3 border-b text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">
           <span>Project</span>
           <span className="hidden sm:block">Status</span>
@@ -164,6 +166,47 @@ const Projects = () => {
           <div className="py-16 text-center">
             <Search className="h-8 w-8 mx-auto mb-3 text-muted-foreground/30" />
             <p className="text-sm text-muted-foreground">No projects found.</p>
+          </div>
+        )}
+      </div>
+
+      {/* Mobile card view */}
+      <div className="sm:hidden space-y-2">
+        <StaggerContainer staggerDelay={0.04}>
+          {filtered.map(project => (
+            <StaggerItem key={project.id}>
+              <Link
+                to={`/dashboard/projects/${project.id}`}
+                className="block card-elevated p-3.5 hover:bg-muted/30 transition-colors"
+              >
+                <div className="flex items-start justify-between gap-2 mb-2">
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-1.5">
+                      {project.isOverdue && project.status !== 'approved' && (
+                        <AlertCircle className="h-3.5 w-3.5 text-destructive flex-shrink-0" />
+                      )}
+                      <p className="font-medium text-[13px] truncate">{project.name}</p>
+                    </div>
+                    <p className="text-[12px] text-muted-foreground truncate mt-0.5">{project.clientName}</p>
+                  </div>
+                  <StatusBadge status={project.status} />
+                </div>
+                <div className="flex items-center justify-between text-[11px] text-muted-foreground pt-2 border-t border-border/40">
+                  <span className="font-mono">{project.approvedCount}/{project.deliverableCount} approved</span>
+                  <span className={cn(
+                    project.isOverdue && project.status !== 'approved' ? 'text-destructive font-medium' : ''
+                  )}>
+                    {new Date(project.deadline).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                  </span>
+                </div>
+              </Link>
+            </StaggerItem>
+          ))}
+        </StaggerContainer>
+        {filtered.length === 0 && (
+          <div className="py-12 text-center">
+            <Search className="h-6 w-6 mx-auto mb-2 text-muted-foreground/30" />
+            <p className="text-[13px] text-muted-foreground">No projects found.</p>
           </div>
         )}
       </div>
