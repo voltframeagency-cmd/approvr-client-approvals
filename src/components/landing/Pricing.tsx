@@ -160,15 +160,10 @@ const Pricing = () => {
                     : "hover:border-primary/20 hover:bg-card/60"
                 )}>
                   {plan.popular && (
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 text-primary-foreground text-[10px] font-black tracking-widest px-5 py-2.5 rounded-full flex items-center gap-1.5 whitespace-nowrap uppercase"
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 text-primary-foreground text-[10px] font-black tracking-widest px-5 py-2 rounded-full flex items-center gap-1.5 whitespace-nowrap uppercase border border-white/20"
                       style={{
-                        background: 'linear-gradient(170deg, hsl(var(--primary) / 0.95) 0%, hsl(var(--primary)) 35%, hsl(var(--primary) / 0.7) 100%)',
-                        borderTop: '1px solid rgba(255,255,255,0.35)',
-                        borderLeft: '1px solid rgba(255,255,255,0.15)',
-                        borderRight: '1px solid rgba(0,0,0,0.08)',
-                        borderBottom: '1px solid rgba(0,0,0,0.2)',
-                        boxShadow: 'inset 0 1.5px 0 rgba(255,255,255,0.25), inset 0 -1.5px 3px rgba(0,0,0,0.2), 0 1px 0 rgba(255,255,255,0.05), 0 4px 8px -2px hsl(var(--primary) / 0.35), 0 8px 20px -4px hsl(var(--primary) / 0.2), 0 12px 32px -8px rgba(0,0,0,0.15)',
-                        textShadow: '0 1px 2px rgba(0,0,0,0.2)',
+                        background: 'linear-gradient(180deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.75) 100%)',
+                        boxShadow: 'inset 0 1px 1px rgba(255,255,255,0.3), inset 0 -2px 4px rgba(0,0,0,0.15), 0 4px 12px -2px hsl(var(--primary) / 0.4), 0 8px 24px -4px hsl(var(--primary) / 0.2)',
                       }}>
                       <Sparkles className="h-3 w-3 drop-shadow-sm" />
                       MOST POPULAR
