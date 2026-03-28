@@ -79,7 +79,7 @@ const ClientPortal = () => {
             <div className="h-4 w-px bg-border/60 hidden sm:block" />
             <div className="flex flex-col">
               <span className="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.15em] text-primary">Secure Portal</span>
-              <span className="text-[13px] sm:text-[14px] font-bold text-slate-900 dark:text-white leading-none">Rivera Design Co</span>
+              <span className="text-[13px] sm:text-[14px] font-bold text-slate-900 dark:text-white leading-none">{project.clientName}</span>
             </div>
           </motion.div>
           <div className="flex items-center gap-2 sm:gap-4">
