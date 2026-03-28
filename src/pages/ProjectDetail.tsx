@@ -634,9 +634,9 @@ const ProjectDetail = () => {
                         animate={{ opacity: 1, y: 0 }}
                         className="border border-border rounded-xl sm:rounded-2xl md:rounded-[32px] p-4 sm:p-5 md:p-10 mb-4 sm:mb-6 md:mb-10 bg-card shadow-xl relative overflow-hidden"
                       >
-                        <div className="mb-10">
-                          <Label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 ml-1 mb-4 block">Select Provider Type</Label>
-                          <div className="flex flex-wrap gap-3">
+                        <div className="mb-5 sm:mb-10">
+                          <Label className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 ml-1 mb-3 sm:mb-4 block">Select Provider Type</Label>
+                          <div className="grid grid-cols-3 sm:flex sm:flex-wrap gap-2 sm:gap-3">
                             {Object.entries(providerTypeLabels).map(([key, label]) => {
                               const Icon = providerIcons[key as NextStepProviderType];
                               const isSelected = newAction.providerType === key;
