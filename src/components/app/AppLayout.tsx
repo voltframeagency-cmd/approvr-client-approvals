@@ -46,11 +46,6 @@ const AppLayout = () => {
     navigate('/login');
   };
 
-  const handleSignOut = async () => {
-    await signOut();
-    navigate('/login');
-  };
-
   return (
     <div className="min-h-screen flex bg-background">
       {/* Sidebar */}
