@@ -176,44 +176,44 @@ const Settings = () => {
             >
               {/* General Tab */}
               {activeTab === 'general' && (
-                <div className="space-y-6">
-                  <div className="card-elevated p-6 space-y-6">
+                <div className="space-y-4 sm:space-y-6">
+                  <div className="card-elevated p-4 sm:p-6 space-y-4 sm:space-y-6">
                     <div>
-                      <h2 className="font-semibold text-base">Workspace Identity</h2>
-                      <p className="text-[13px] text-muted-foreground mt-1">Foundational details for your workspace presence.</p>
+                      <h2 className="font-semibold text-[15px] sm:text-base">Workspace Identity</h2>
+                      <p className="text-[12px] sm:text-[13px] text-muted-foreground mt-0.5 sm:mt-1">Foundational details for your workspace presence.</p>
                     </div>
                     
-                    <div className="grid sm:grid-cols-2 gap-5">
-                      <div className="space-y-2">
-                        <Label className="text-[12px] uppercase tracking-wider text-muted-foreground/80">Workspace Name</Label>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+                      <div className="space-y-1.5 sm:space-y-2">
+                        <Label className="text-[11px] sm:text-[12px] uppercase tracking-wider text-muted-foreground/80">Workspace Name</Label>
                         <Input 
                           value={workspace.name} 
                           onChange={(e) => handleUpdateWorkspace('name', e.target.value)}
-                          className="h-10 text-[13px]" 
+                          className="h-9 sm:h-10 text-[13px]" 
                         />
                       </div>
-                      <div className="space-y-2">
-                        <Label className="text-[12px] uppercase tracking-wider text-muted-foreground/80">Agency Name (Public)</Label>
+                      <div className="space-y-1.5 sm:space-y-2">
+                        <Label className="text-[11px] sm:text-[12px] uppercase tracking-wider text-muted-foreground/80">Agency Name (Public)</Label>
                         <Input 
                           value={workspace.agencyName} 
                           onChange={(e) => handleUpdateWorkspace('agencyName', e.target.value)}
-                          className="h-10 text-[13px]" 
+                          className="h-9 sm:h-10 text-[13px]" 
                         />
                       </div>
-                      <div className="space-y-2">
-                        <Label className="text-[12px] uppercase tracking-wider text-muted-foreground/80">Support Email</Label>
+                      <div className="space-y-1.5 sm:space-y-2">
+                        <Label className="text-[11px] sm:text-[12px] uppercase tracking-wider text-muted-foreground/80">Support Email</Label>
                         <Input 
                           value={workspace.supportEmail} 
                           onChange={(e) => handleUpdateWorkspace('supportEmail', e.target.value)}
-                          className="h-10 text-[13px]" 
+                          className="h-9 sm:h-10 text-[13px]" 
                         />
                       </div>
-                      <div className="space-y-2">
-                        <Label className="text-[12px] uppercase tracking-wider text-muted-foreground/80">Default Timezone</Label>
+                      <div className="space-y-1.5 sm:space-y-2">
+                        <Label className="text-[11px] sm:text-[12px] uppercase tracking-wider text-muted-foreground/80">Default Timezone</Label>
                         <select 
                           value={workspace.timezone}
                           onChange={(e) => handleUpdateWorkspace('timezone', e.target.value)}
-                          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-[13px] ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                          className="flex h-9 sm:h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-[13px] ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                         >
                           <option value="America/New_York">Eastern Time (ET)</option>
                           <option value="Europe/London">London (GMT)</option>
@@ -222,8 +222,8 @@ const Settings = () => {
                       </div>
                     </div>
 
-                    <div className="space-y-2 pt-2">
-                      <Label className="text-[12px] uppercase tracking-wider text-muted-foreground/80">Agency Short Description</Label>
+                    <div className="space-y-1.5 sm:space-y-2 pt-1 sm:pt-2">
+                      <Label className="text-[11px] sm:text-[12px] uppercase tracking-wider text-muted-foreground/80">Agency Short Description</Label>
                       <Textarea 
                         value={workspace.brandDescription} 
                         onChange={(e) => handleUpdateWorkspace('brandDescription', e.target.value)}
@@ -233,8 +233,8 @@ const Settings = () => {
                       <p className="text-[11px] text-muted-foreground italic">This appears in emails and portal headers when appropriate.</p>
                     </div>
 
-                    <div className="pt-4 flex justify-end">
-                      <Button onClick={() => handleSave('Identity')} className="h-9 px-6 text-[13px]">Save Changes</Button>
+                    <div className="pt-3 sm:pt-4 flex justify-end">
+                      <Button onClick={() => handleSave('Identity')} className="h-9 px-6 text-[13px] w-full sm:w-auto">Save Changes</Button>
                     </div>
                   </div>
                 </div>
