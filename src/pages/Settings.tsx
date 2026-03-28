@@ -13,6 +13,7 @@ import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 import { useAuth } from '@/contexts/AuthContext';
+import { useDemo } from '@/contexts/DemoContext';
 import { useWorkspace, useWorkspaceMembers, useInviteMember, useUpdateMemberRole, useRemoveMember, usePendingInvitations } from '@/hooks/use-workspace';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -21,14 +22,24 @@ import { useWorkspaceUsage, getWorkspacePlanConfig } from '@/hooks/use-workspace
 
 const Settings = () => {
   const { user } = useAuth();
+  const { isDemoMode, demoPlan, demoUserName, demoAgencyName, planConfig: demoPlanConfig, demoData, usage: demoUsage } = useDemo();
   const { data: workspace, refetch: refetchWorkspace } = useWorkspace();
   const { data: usageData } = useWorkspaceUsage(workspace?.id);
-  const wsPlanConfig = workspace ? getWorkspacePlanConfig(workspace.plan) : null;
+  const wsPlanConfig = isDemoMode ? demoPlanConfig : (workspace ? getWorkspacePlanConfig(workspace.plan) : null);
   const { data: members, refetch: refetchMembers } = useWorkspaceMembers(workspace?.id);
   const { data: pendingInvitations } = usePendingInvitations(workspace?.id);
   const inviteMember = useInviteMember();
   const updateRole = useUpdateMemberRole();
   const removeMember = useRemoveMember();
+
+  // In demo mode, use demo data for usage and members
+  const effectiveUsage = isDemoMode && demoUsage ? {
+    projectCount: demoUsage.projectsUsed,
+    storageGB: demoUsage.storageUsedGB,
+    teamMemberCount: demoUsage.teamMembersUsed,
+    storageBytes: demoUsage.storageUsedGB * 1024 * 1024 * 1024,
+  } : usageData;
+  const effectiveMembers = isDemoMode ? (demoData?.members ?? []) : members;
 
   const [activeTab, setActiveTab] = useState<'general' | 'branding' | 'notifications' | 'team' | 'usage'>('general');
   
@@ -43,12 +54,12 @@ const Settings = () => {
   const [inviteRole, setInviteRole] = useState<'admin' | 'member'>('member');
 
   // Sync form state with workspace data
-  const ws = workspace;
-  const displayName = ws?.name || '';
-  const displayAgency = ws?.agency_name || '';
-  const displaySupportEmail = ws?.support_email || '';
+  const displayName = isDemoMode ? (demoAgencyName || '') : (workspace?.name || '');
+  const displayAgency = isDemoMode ? (demoAgencyName || '') : (workspace?.agency_name || '');
+  const displaySupportEmail = isDemoMode ? `support@${demoAgencyName.toLowerCase().replace(/\s+/g, '')}.com` : (workspace?.support_email || '');
 
   const handleSave = async (section: string) => {
+    if (isDemoMode) { toast.success(`${section} updated (demo)`); return; }
     if (!workspace) return;
     const updates: any = {};
     if (section === 'Identity') {
@@ -73,6 +84,7 @@ const Settings = () => {
   };
 
   const handleInvite = async () => {
+    if (isDemoMode) { toast.success('Invitation sent (demo)'); setInviteDialogOpen(false); return; }
     if (!workspace || !inviteEmail) return;
     
     // Check team limit before inviting
@@ -114,7 +126,7 @@ const Settings = () => {
   };
 
   const currentUserRole = members?.find(m => m.user_id === user?.id)?.role;
-  const isAdminOrOwner = currentUserRole === 'owner' || currentUserRole === 'admin';
+  const isAdminOrOwner = isDemoMode ? true : (currentUserRole === 'owner' || currentUserRole === 'admin');
 
   const tabs = [
     { id: 'general', label: 'General', icon: Building2 },
@@ -123,7 +135,7 @@ const Settings = () => {
     { id: 'usage', label: 'Plan & Usage', icon: CreditCard },
   ];
 
-  if (!workspace) {
+  if (!isDemoMode && !workspace) {
     return (
       <div className="flex items-center justify-center py-20">
         <div className="flex flex-col items-center gap-4">
@@ -211,6 +223,8 @@ const Settings = () => {
                           <span className="text-[13px]">{rule.label}</span>
                           <input type="checkbox" checked={(workspace as any)?.[rule.key] ?? true}
                             onChange={async (e) => {
+                              if (isDemoMode) { toast.success('Preference updated (demo)'); return; }
+                              if (!workspace) return;
                               await supabase.from('workspaces').update({ [rule.key]: e.target.checked }).eq('id', workspace.id);
                               refetchWorkspace();
                             }}
@@ -267,14 +281,14 @@ const Settings = () => {
                     </div>
 
                     <div className="space-y-2">
-                      {members?.map((member) => (
+                      {(isDemoMode ? (effectiveMembers ?? []).map((m: any) => ({ id: m.id, full_name: m.name, user_id: m.id, role: m.role })) : members)?.map((member: any) => (
                         <div key={member.id} className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl border hover:bg-muted/10 transition-colors">
                           <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-primary/10 flex items-center justify-center font-semibold text-primary text-xs sm:text-sm">
                             {(member.full_name || 'U').split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2)}
                           </div>
                           <div className="flex-1 min-w-0">
                             <p className="text-[12px] sm:text-[13px] font-medium">{member.full_name || 'Unknown'}</p>
-                            <p className="text-[10px] sm:text-[11px] text-muted-foreground truncate">{member.user_id === user?.id ? user.email : ''}</p>
+                            <p className="text-[10px] sm:text-[11px] text-muted-foreground truncate">{isDemoMode ? '' : (member.user_id === user?.id ? user?.email : '')}</p>
                           </div>
                           <div className="flex items-center gap-2 sm:gap-4">
                             {isAdminOrOwner && member.role !== 'owner' && member.user_id !== user?.id ? (
@@ -358,7 +372,7 @@ const Settings = () => {
                   </div>
                   
                   {/* Usage meters */}
-                  {usageData && wsPlanConfig && (
+                  {effectiveUsage && wsPlanConfig && (
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
                       <div className="p-4 rounded-xl border space-y-2">
                         <div className="flex items-center justify-between">
@@ -366,11 +380,11 @@ const Settings = () => {
                             <FolderOpen className="h-3 w-3" /> Projects
                           </span>
                           <span className="text-[11px] font-bold text-foreground">
-                            {usageData.projectCount}/{wsPlanConfig.limits.maxProjects ?? '∞'}
+                            {effectiveUsage.projectCount}/{wsPlanConfig.limits.maxProjects ?? '∞'}
                           </span>
                         </div>
                         <Progress 
-                          value={wsPlanConfig.limits.maxProjects ? (usageData.projectCount / wsPlanConfig.limits.maxProjects) * 100 : 15} 
+                          value={wsPlanConfig.limits.maxProjects ? (effectiveUsage.projectCount / wsPlanConfig.limits.maxProjects) * 100 : 15} 
                           className="h-1.5"
                         />
                       </div>
@@ -380,11 +394,11 @@ const Settings = () => {
                             <HardDrive className="h-3 w-3" /> Storage
                           </span>
                           <span className="text-[11px] font-bold text-foreground">
-                            {usageData.storageGB} GB / {wsPlanConfig.limits.maxStorageGB} GB
+                            {effectiveUsage.storageGB} GB / {wsPlanConfig.limits.maxStorageGB} GB
                           </span>
                         </div>
                         <Progress 
-                          value={(usageData.storageGB / wsPlanConfig.limits.maxStorageGB) * 100} 
+                          value={(effectiveUsage.storageGB / wsPlanConfig.limits.maxStorageGB) * 100} 
                           className="h-1.5"
                         />
                       </div>
@@ -394,11 +408,11 @@ const Settings = () => {
                             <Users className="h-3 w-3" /> Team Seats
                           </span>
                           <span className="text-[11px] font-bold text-foreground">
-                            {usageData.teamMemberCount}/{wsPlanConfig.limits.maxTeamMembers}
+                            {effectiveUsage.teamMemberCount}/{wsPlanConfig.limits.maxTeamMembers}
                           </span>
                         </div>
                         <Progress 
-                          value={(usageData.teamMemberCount / wsPlanConfig.limits.maxTeamMembers) * 100} 
+                          value={(effectiveUsage.teamMemberCount / wsPlanConfig.limits.maxTeamMembers) * 100} 
                           className="h-1.5"
                         />
                       </div>
