@@ -61,12 +61,17 @@ const Login = () => {
                 The high-velocity approval engine designed for modern agencies.
               </p>
               <div className="space-y-4">
-                {["Centralized approval portal", "One-click client sign-offs", "Automatic follow-ups", "Legal-grade audit trails"].map((feature, i) => (
+                {[
+                  { text: "Centralized approval portal", icon: <LayoutDashboard className="h-3.5 w-3.5 text-primary" /> },
+                  { text: "One-click client sign-offs", icon: <CheckCircle className="h-3.5 w-3.5 text-primary" /> },
+                  { text: "Automatic follow-ups", icon: <Bell className="h-3.5 w-3.5 text-primary" /> },
+                  { text: "Legal-grade audit trails", icon: <ShieldCheck className="h-3.5 w-3.5 text-primary" /> },
+                ].map((feature, i) => (
                   <div key={i} className="flex items-center gap-3 text-foreground/80">
                     <div className="h-5 w-5 rounded-full bg-primary/20 flex items-center justify-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 32 32" fill="currentColor" stroke="currentColor" className="text-primary"><path d="M26,16H22a2.002,2.002,0,0,0-2,2V30h2V25h4v5h2V18A2.002,2.002,0,0,0,26,16Zm-4,7V18h4v5Z"/><path d="M16,27a10.9862,10.9862,0,0,1-9.2156-5H12V20H4v8H6V24.3149A13.0239,13.0239,0,0,0,16,29Z"/><path d="M20,10h5.2155A10.9973,10.9973,0,0,0,5,16H3A13.0048,13.0048,0,0,1,26,7.6849V4h2v8H20Z"/></svg>
+                      {feature.icon}
                     </div>
-                    <span>{feature}</span>
+                    <span>{feature.text}</span>
                   </div>
                 ))}
               </div>
