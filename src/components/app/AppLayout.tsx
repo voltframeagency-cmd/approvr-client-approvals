@@ -93,10 +93,13 @@ const AppLayout = () => {
                 <p className="text-[12px] font-bold truncate tracking-tight text-slate-900 dark:text-white">Alex Rivera</p>
               </div>
             </div>
-            <Link to="/login" className="flex items-center gap-3 px-3 py-2 rounded-xl text-[12px] text-muted-foreground hover:text-destructive hover:bg-destructive/[0.04] transition-all duration-200 group">
-              <LogOut className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
-              <span>Sign out</span>
-            </Link>
+            <div className="flex items-center gap-1">
+              <ThemeToggle className="h-8 w-8 rounded-lg text-muted-foreground" />
+              <Link to="/login" className="flex items-center gap-3 px-3 py-2 rounded-xl text-[12px] text-muted-foreground hover:text-destructive hover:bg-destructive/[0.04] transition-all duration-200 group">
+                <LogOut className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
+                <span>Sign out</span>
+              </Link>
+            </div>
           </div>
         </div>
       </aside>
