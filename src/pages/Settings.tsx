@@ -59,8 +59,8 @@ const Settings = () => {
   const displaySupportEmail = isDemoMode ? `support@${demoAgencyName.toLowerCase().replace(/\s+/g, '')}.com` : (workspace?.support_email || '');
 
   const handleSave = async (section: string) => {
+    if (isDemoMode) { toast.success(`${section} updated (demo)`); return; }
     if (!workspace) return;
-    const updates: any = {};
     if (section === 'Identity') {
       if (workspaceName) updates.name = workspaceName;
       if (agencyName) updates.agency_name = agencyName;
