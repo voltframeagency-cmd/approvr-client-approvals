@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { StatusBadge } from '@/components/app/StatusBadge';
 import { mockProjects, mockActivity } from '@/lib/mock-data';
+import { useDemo } from '@/contexts/DemoContext';
 import { Link } from 'react-router-dom';
 import {
   FolderKanban, Clock, CheckCircle, AlertTriangle, ArrowRight,
