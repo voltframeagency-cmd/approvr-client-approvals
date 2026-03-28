@@ -351,7 +351,7 @@ const ProjectDetail = () => {
 
                         {/* Revision Narrative */}
                         {selectedDel.versions?.find(v => v.version === activeVersion) && (
-                          <div className="mt-6 p-5 rounded-2xl bg-white dark:bg-slate-900 border border-border/40 relative overflow-hidden group/nar">
+                          <div className="mt-4 md:mt-6 p-4 md:p-5 rounded-xl md:rounded-2xl bg-card border border-border/40 relative overflow-hidden group/nar">
                             <div className="absolute top-0 right-0 p-4 opacity-[0.03] group-hover/nar:opacity-[0.07] transition-opacity">
                               <Sparkles className="h-12 w-12 text-primary" />
                             </div>
