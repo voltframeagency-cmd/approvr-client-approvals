@@ -92,7 +92,7 @@ const Hero = () => (
         >
           <AvatarGroup members={founderMembers} size={32} limit={4} />
           <span className="text-sm text-muted-foreground/80 font-medium">
-            <span className="text-foreground font-bold">380+</span> agencies stopped chasing
+            Join agencies already in early access
           </span>
         </motion.div>
       </motion.div>
