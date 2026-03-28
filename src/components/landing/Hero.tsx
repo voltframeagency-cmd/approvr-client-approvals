@@ -41,7 +41,7 @@ const Hero = () => (
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" style={{ animationDuration: '2s' }} />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
           </span>
-          Founder Beta — Limited early access
+          Founder Beta — 380 spots gone
         </motion.div>
 
         <h1 className="text-4xl md:text-[3.5rem] lg:text-[4.25rem] font-bold tracking-tighter leading-[1.05] mb-6">
