@@ -78,11 +78,7 @@ const ClientPortal = () => {
             </div>
           </motion.div>
           <div className="flex items-center gap-2 sm:gap-4">
-            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-white/5 border border-border/40">
-              <ShieldCheck className="h-3.5 w-3.5 text-emerald-500" />
-              <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Secure Portal</span>
-            </div>
-            <div className="flex items-center gap-2 sm:gap-2.5 pl-2 sm:pl-4 border-l">
+            <div className="flex items-center gap-2 sm:gap-2.5 pl-2 sm:pl-4">
               <div className="text-right hidden sm:block">
                 <p className="text-[12px] font-bold text-slate-900 dark:text-white leading-tight">Sarah Chen</p>
                 <p className="text-[10px] text-muted-foreground font-medium">Project Owner</p>
