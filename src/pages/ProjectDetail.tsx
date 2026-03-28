@@ -363,7 +363,7 @@ const ProjectDetail = () => {
                                  By {selectedDel.versions?.find(v => v.version === activeVersion)?.submittedBy}
                                </span>
                             </div>
-                            <p className="text-[13px] font-medium leading-relaxed text-slate-700 dark:text-slate-300">
+                            <p className="text-xs md:text-[13px] font-medium leading-relaxed text-muted-foreground">
                                {selectedDel.versions?.find(v => v.version === activeVersion)?.changeSummary || "Final production version."}
                             </p>
                             <div className="flex items-center gap-4 mt-4 pt-4 border-t border-border/40">
