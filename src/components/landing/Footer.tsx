@@ -24,18 +24,18 @@ const footerLinks = {
 };
 
 const Footer = () => (
-  <footer className="border-t border-border/40 bg-card/10 pt-24 pb-12 relative overflow-hidden">
+  <footer className="border-t border-border/40 bg-card/10 pt-16 md:pt-24 pb-10 md:pb-12 relative overflow-hidden">
     {/* Subtle Glow */}
     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
     
     <div className="container px-4 mx-auto relative">
-      <div className="grid md:grid-cols-[2fr_1fr_1fr_1fr] gap-16 mb-24">
+      <div className="grid grid-cols-2 md:grid-cols-[2fr_1fr_1fr_1fr] gap-10 md:gap-16 mb-16 md:mb-24">
         {/* Brand column */}
-        <div className="space-y-8">
+        <div className="space-y-6 col-span-2 md:col-span-1">
           <Link to="/" className="inline-block transition-transform hover:scale-105">
             <Logo />
           </Link>
-          <p className="text-base text-muted-foreground leading-relaxed max-w-sm">
+          <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-sm">
             The approval tool agencies actually use. Fast. Clean. Done right.
           </p>
           <div className="flex items-center gap-6 text-muted-foreground/60">

@@ -45,19 +45,19 @@ export const HowItWorks = () => {
     <section 
       id="how-it-works" 
       ref={sectionRef} 
-      className="py-32 relative overflow-hidden bg-card/10"
+      className="py-20 md:py-32 relative overflow-hidden bg-card/10"
       data-gsap-section
     >
       <div className="container px-4 mx-auto relative" data-gsap="section-reveal">
-        <div className="max-w-3xl mx-auto text-center mb-24">
+        <div className="max-w-3xl mx-auto text-center mb-14 md:mb-24">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
             <Sparkles className="h-4 w-4" />
             <span>Three steps. That's it.</span>
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold mb-8 tracking-tighter leading-[1.1]" style={{ textShadow: '0 4px 12px hsl(0 0% 0% / 0.15)' }}>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-bold mb-6 md:mb-8 tracking-tighter leading-[1.1]" style={{ textShadow: '0 4px 12px hsl(0 0% 0% / 0.15)' }}>
             Upload. Review. Approved. <span className="italic bg-gradient-to-b from-primary via-primary to-primary/60 bg-clip-text text-transparent">Done before lunch.</span>
           </h2>
-          <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+          <p className="text-base md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto px-2">
             No project management degree required. Three moves — signed-off deliverable.
           </p>
         </div>
@@ -70,17 +70,17 @@ export const HowItWorks = () => {
             style={{ height: lineHeight }}
           />
 
-          <div className="space-y-24 md:space-y-32">
+          <div className="space-y-16 md:space-y-32">
             {steps.map((step, index) => {
               const isEven = index % 2 === 0;
               return (
                 <div
                   key={step.number}
-                  className={`relative flex flex-col md:flex-row items-center gap-12 md:gap-20 ${isEven ? '' : 'md:flex-row-reverse'}`}
+                  className={`relative flex flex-col md:flex-row items-center gap-8 md:gap-20 pl-16 md:pl-0 ${isEven ? '' : 'md:flex-row-reverse'}`}
                 >
                   {/* Step Number Badge */}
-                  <div className="absolute left-0 md:left-1/2 top-0 md:top-1/2 -translate-x-1/2 md:-translate-y-1/2 z-10">
-                    <div className="w-14 h-14 rounded-full bg-card border-2 border-primary flex items-center justify-center text-primary font-black text-xl shadow-[0_0_20px_rgba(var(--primary),0.2)]">
+                  <div className="absolute left-0 md:left-1/2 top-0 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 z-10">
+                    <div className="w-11 h-11 md:w-14 md:h-14 rounded-full bg-card border-2 border-primary flex items-center justify-center text-primary font-black text-base md:text-xl shadow-[0_0_20px_rgba(var(--primary),0.2)]">
                       {step.number}
                     </div>
                   </div>
@@ -119,8 +119,8 @@ export const HowItWorks = () => {
                       <step.icon className="h-4 w-4" />
                       <span>{step.detail}</span>
                     </div>
-                    <h3 className="text-3xl font-bold mb-4 tracking-tight">{step.title}</h3>
-                    <p className="text-lg text-muted-foreground leading-relaxed max-w-md mx-auto md:mx-0">
+                    <h3 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4 tracking-tight">{step.title}</h3>
+                    <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-md mx-auto md:mx-0">
                       {step.description}
                     </p>
                     <div className={`mt-8 flex items-center gap-2 font-black text-primary ${isEven ? 'justify-center md:justify-start' : 'justify-center md:justify-end'}`} style={{ textShadow: '0 4px 12px hsl(0 0% 0% / 0.15)' }}>

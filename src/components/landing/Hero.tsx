@@ -17,7 +17,7 @@ const founderMembers = [
 ];
 
 const Hero = () => (
-  <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
+  <section className="relative pt-28 pb-16 md:pt-40 md:pb-28 overflow-hidden">
     <div className="absolute inset-0 surface-sunken" />
     <HeroBackground />
 
@@ -45,7 +45,7 @@ const Hero = () => (
           Founder Beta — 380 spots gone
         </motion.div>
 
-        <h1 className="text-4xl md:text-[3.5rem] lg:text-[4.25rem] font-bold tracking-tighter leading-[1.05] mb-6">
+        <h1 className="text-3xl sm:text-4xl md:text-[3.5rem] lg:text-[4.25rem] font-bold tracking-tighter leading-[1.05] mb-5 md:mb-6">
           Your clients owe you an answer. <br className="hidden md:block" />
           <span className="gradient-text italic">Stop waiting for it in email.</span>
         </h1>
@@ -53,7 +53,7 @@ const Hero = () => (
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: DURATION.structural, delay: 0.3, ease: EASING.standard }}
-          className="text-lg md:text-xl text-muted-foreground max-w-[560px] mx-auto mb-10 leading-relaxed"
+          className="text-base md:text-xl text-muted-foreground max-w-[560px] mx-auto mb-8 md:mb-10 leading-relaxed px-2"
         >
           Every week your team loses 6+ hours digging through inboxes for a one-word reply. One portal. Clients open it. They review. They hit approve — done.
         </motion.p>
@@ -95,7 +95,7 @@ const Hero = () => (
         initial={{ opacity: 0, y: 48 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: DURATION.large, delay: 0.5, ease: EASING.enter }}
-        className="mt-14 md:mt-20 max-w-4xl mx-auto glow-primary rounded-2xl"
+        className="mt-10 md:mt-20 max-w-4xl mx-auto glow-primary rounded-2xl"
         data-gsap="mockup"
       >
         <HeroDemoMockup />

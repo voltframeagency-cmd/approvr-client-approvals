@@ -94,7 +94,7 @@ const Pricing = () => {
   };
 
   return (
-    <section id="pricing" className="py-32 relative overflow-hidden">
+    <section id="pricing" className="py-20 md:py-32 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
 
@@ -110,7 +110,7 @@ const Pricing = () => {
             <Zap className="h-4 w-4" />
             <span>Pick your plan</span>
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold tracking-tighter mb-8 leading-[1.1]" style={{ textShadow: '0 4px 12px hsl(0 0% 0% / 0.15)' }}>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-bold tracking-tighter mb-6 md:mb-8 leading-[1.1]" style={{ textShadow: '0 4px 12px hsl(0 0% 0% / 0.15)' }}>
             Simple pricing. <br className="hidden md:block" />
             <span className="italic bg-gradient-to-b from-primary via-primary to-primary/60 bg-clip-text text-transparent">No gotchas.</span>
           </h2>
@@ -146,7 +146,7 @@ const Pricing = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto items-stretch"
+          className="grid md:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto items-stretch"
         >
           {plans.map((plan, i) => {
             const Icon = plan.icon;
@@ -159,10 +159,10 @@ const Pricing = () => {
                 className="flex flex-col h-full"
               >
                 <div className={cn(
-                  "relative rounded-[2.5rem] p-8 flex flex-col h-full transition-colors duration-150",
+                  "relative rounded-2xl md:rounded-[2.5rem] p-6 md:p-8 flex flex-col h-full transition-colors duration-150",
                   "bg-card/40 backdrop-blur-2xl border border-primary/10 shadow-sm",
                   plan.popular 
-                    ? "ring-1 ring-primary border-primary/20 shadow-[0_20px_50px_-12px_rgba(var(--primary),0.15)] scale-[1.02] z-10" 
+                    ? "ring-1 ring-primary border-primary/20 shadow-[0_20px_50px_-12px_rgba(var(--primary),0.15)] md:scale-[1.02] z-10" 
                     : "hover:border-primary/20 hover:bg-card/60"
                 )}>
                   {plan.popular && (
@@ -258,7 +258,7 @@ const Pricing = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: DURATION.large, delay: 0.3, ease: EASING.standard as unknown as number[] }}
-          className="mt-32 text-center"
+          className="mt-20 md:mt-32 text-center"
         >
           <p className="text-sm font-bold text-muted-foreground/60 uppercase tracking-[0.2em] mb-10">
             Used by agencies who got tired of chasing emails

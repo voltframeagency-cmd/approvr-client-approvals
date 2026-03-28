@@ -50,7 +50,7 @@ export const Testimonials = () => {
   };
 
   return (
-    <section id="testimonials" className="py-32 relative overflow-hidden bg-muted/20">
+    <section id="testimonials" className="py-20 md:py-32 relative overflow-hidden bg-muted/20">
       {/* Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
 
@@ -67,13 +67,13 @@ export const Testimonials = () => {
               <Star key={i} className="h-4 w-4 fill-primary text-primary" />
             ))}
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold mb-6 tracking-tighter leading-[1.1]" style={{ textShadow: '0 4px 12px hsl(0 0% 0% / 0.15)' }}>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-bold mb-6 tracking-tighter leading-[1.1]" style={{ textShadow: '0 4px 12px hsl(0 0% 0% / 0.15)' }}>
             Don't take our <span className="italic bg-gradient-to-b from-primary via-primary to-primary/60 bg-clip-text text-transparent">word for it.</span>
           </h2>
         </motion.div>
 
-        <div className="max-w-5xl mx-auto relative px-12">
-          <div className="relative overflow-hidden rounded-[3rem] border border-primary/10 bg-card/40 backdrop-blur-2xl p-8 md:p-16 shadow-2xl">
+        <div className="max-w-5xl mx-auto relative px-0 md:px-12">
+          <div className="relative overflow-hidden rounded-2xl md:rounded-[3rem] border border-primary/10 bg-card/40 backdrop-blur-2xl p-6 md:p-16 shadow-2xl">
             <Quote className="absolute top-8 left-8 h-12 w-12 text-primary/10" />
             
             <AnimatePresence mode="wait">
@@ -85,7 +85,7 @@ export const Testimonials = () => {
                 transition={{ duration: DURATION.structural, ease: EASING.standard as unknown as number[] }}
                 className="relative"
               >
-                <blockquote className="text-2xl md:text-3xl font-medium leading-relaxed mb-12 text-foreground/90 tracking-tight italic">
+                <blockquote className="text-lg sm:text-2xl md:text-3xl font-medium leading-relaxed mb-8 md:mb-12 text-foreground/90 tracking-tight italic">
                   "{testimonials[active].quote}"
                 </blockquote>
                 
@@ -114,18 +114,21 @@ export const Testimonials = () => {
           </div>
 
           {/* Navigation Controls */}
-          <button 
-            onClick={prev}
-            className="absolute left-0 top-1/2 -translate-y-1/2 h-14 w-14 rounded-full bg-card border border-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-colors duration-150 shadow-xl z-20"
-          >
-            <ArrowLeft className="h-6 w-6" />
-          </button>
-          <button 
-            onClick={next}
-            className="absolute right-0 top-1/2 -translate-y-1/2 h-14 w-14 rounded-full bg-card border border-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-colors duration-150 shadow-xl z-20"
-          >
-            <ArrowRight className="h-6 w-6" />
-          </button>
+          {/* Navigation — inline on mobile, absolute on desktop */}
+          <div className="flex justify-center gap-3 mt-6 md:mt-0">
+            <button 
+              onClick={prev}
+              className="md:absolute md:left-0 md:top-1/2 md:-translate-y-1/2 h-11 w-11 md:h-14 md:w-14 rounded-full bg-card border border-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-colors duration-150 shadow-xl z-20"
+            >
+              <ArrowLeft className="h-5 w-5 md:h-6 md:w-6" />
+            </button>
+            <button 
+              onClick={next}
+              className="md:absolute md:right-0 md:top-1/2 md:-translate-y-1/2 h-11 w-11 md:h-14 md:w-14 rounded-full bg-card border border-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-colors duration-150 shadow-xl z-20"
+            >
+              <ArrowRight className="h-5 w-5 md:h-6 md:w-6" />
+            </button>
+          </div>
         </div>
       </div>
     </section>
