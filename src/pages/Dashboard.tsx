@@ -120,16 +120,16 @@ const Dashboard = () => {
               whileHover={{ y: -4 }}
               transition={{ type: 'spring', stiffness: 300, damping: 25 }}
               className={cn(
-                "card-elevated p-6 relative overflow-hidden group border-none ring-1 ring-slate-200/60 dark:ring-slate-800/60",
+                "card-elevated p-4 md:p-6 relative overflow-hidden group border-none ring-1 ring-slate-200/60 dark:ring-slate-800/60",
                 "before:absolute before:top-0 before:left-0 before:right-0 before:h-1 before:bg-transparent hover:before:bg-current transition-all",
                 card.color
               )}
             >
-              <div className={cn("h-10 w-10 rounded-xl flex items-center justify-center mb-5 transition-transform group-hover:scale-110", card.bg)}>
-                <card.icon className="h-5 w-5" />
+              <div className={cn("h-8 w-8 md:h-10 md:w-10 rounded-lg md:rounded-xl flex items-center justify-center mb-3 md:mb-5 transition-transform group-hover:scale-110", card.bg)}>
+                <card.icon className="h-4 w-4 md:h-5 md:w-5" />
               </div>
-              <p className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">{card.value}</p>
-              <p className="text-[12px] font-bold text-muted-foreground/80 mt-1 uppercase tracking-widest">{card.label}</p>
+              <p className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">{card.value}</p>
+              <p className="text-[10px] md:text-[12px] font-bold text-muted-foreground/80 mt-0.5 md:mt-1 uppercase tracking-widest">{card.label}</p>
             </motion.div>
           </StaggerItem>
         ))}
