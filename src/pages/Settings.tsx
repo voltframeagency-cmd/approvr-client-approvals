@@ -4,8 +4,10 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { 
   Palette, Zap, Plus, Trash2, ExternalLink, Building2, ShieldCheck, Bell, Users, CreditCard,
-  Settings as SettingsIcon, CheckCircle2, Clock, History, Mail, Eye, MailWarning
+  Settings as SettingsIcon, CheckCircle2, Clock, History, Mail, Eye, MailWarning,
+  HardDrive, FolderOpen
 } from 'lucide-react';
+import { Progress } from '@/components/ui/progress';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
