@@ -120,7 +120,7 @@ const Dashboard = () => {
               whileHover={{ y: -4 }}
               transition={{ type: 'spring', stiffness: 300, damping: 25 }}
               className={cn(
-                "card-elevated p-4 md:p-6 relative overflow-hidden group border-none ring-1 ring-slate-200/60 dark:ring-slate-800/60",
+                "card-elevated p-4 md:p-6 relative overflow-hidden group border-none ring-1 ring-border/60",
                 "before:absolute before:top-0 before:left-0 before:right-0 before:h-1 before:bg-transparent hover:before:bg-current transition-all",
                 card.color
               )}
