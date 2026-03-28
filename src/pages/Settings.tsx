@@ -522,17 +522,17 @@ const Settings = () => {
               {/* Actions Tab (Next Steps) */}
               {activeTab === 'actions' && (
                  <div className="space-y-6">
-                 <div className="card-elevated p-6 space-y-5">
-                   <div className="flex items-center justify-between">
+                 <div className="card-elevated p-4 sm:p-6 space-y-4 sm:space-y-5">
+                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-0">
                      <div>
-                       <h2 className="font-semibold text-base flex items-center gap-2">
+                       <h2 className="font-semibold text-[15px] sm:text-base flex items-center gap-2">
                          Default Next Step Actions
                        </h2>
-                       <p className="text-[13px] text-muted-foreground mt-1.5 ">
-                         These actions appear in all client portals after approval. Override per-project in project settings.
+                       <p className="text-[12px] sm:text-[13px] text-muted-foreground mt-1 sm:mt-1.5">
+                         These actions appear in all client portals after approval.
                        </p>
                      </div>
-                     <Button variant="outline" size="sm" className="gap-1 text-xs flex-shrink-0" onClick={() => setShowAddAction(!showAddAction)}>
+                     <Button variant="outline" size="sm" className="gap-1 text-xs flex-shrink-0 w-full sm:w-auto" onClick={() => setShowAddAction(!showAddAction)}>
                        <Plus className="h-3 w-3" /> Add Template
                      </Button>
                    </div>
