@@ -53,7 +53,7 @@ const Navbar = () => {
         } as any}
         className="relative pointer-events-auto backdrop-blur-xl border flex items-center h-[52px] md:h-16 transition-all duration-500 ease-out"
       >
-        <div className="flex items-center w-full h-full max-w-7xl mx-auto px-6 md:px-10">
+        <div className="flex items-center w-full h-full max-w-7xl mx-auto px-3 md:px-10">
           <div className="flex-1 flex items-center">
             <Link to="/" className="group">
               <Logo className="h-7 md:h-8" />
