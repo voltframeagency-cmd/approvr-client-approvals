@@ -782,6 +782,22 @@ const ClientPortal = () => {
           </div>
         </div>
       </footer>
+
+      {/* Sticky mobile approve bar */}
+      {currentDel && currentDel.status !== 'approved' && (
+        <div className="sm:hidden fixed bottom-0 left-0 right-0 z-50 p-3 bg-card/95 backdrop-blur-xl border-t shadow-[0_-4px_20px_rgba(0,0,0,0.1)]">
+          <div className="grid grid-cols-2 gap-2">
+            <Button variant="outline" className="h-12 rounded-xl font-black text-[10px] uppercase tracking-widest border-2">
+              <MessageSquare className="h-4 w-4 mr-1.5" />
+              Changes
+            </Button>
+            <Button className="h-12 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg shadow-primary/30">
+              <ThumbsUp className="h-4 w-4 mr-1.5" />
+              Approve
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
