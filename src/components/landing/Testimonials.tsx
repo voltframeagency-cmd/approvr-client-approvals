@@ -9,21 +9,21 @@ const testimonials = [
     author: 'Jessica Hart',
     role: 'Creative Director',
     company: 'Wildframe Studio',
-    initials: 'JH',
+    avatar: 'https://tabler.io/_next/image?url=%2Favatars%2Ftransparent%2F94f5ac7e7b78495be7df7e5ca427fd5c.png&w=400&q=85&dpl=dpl_FqTLS4JsZv3g2HdjZrLt2S9fV7iF',
   },
   {
     quote: "Two scope disputes last quarter almost cost us a client. Both times, we pulled up the audit trail. Timestamped. Case closed.",
     author: 'Marcus Cole',
     role: 'Agency Partner',
     company: 'Cole & Partners',
-    initials: 'MC',
+    avatar: 'https://tabler.io/_next/image?url=%2Favatars%2Ftransparent%2Fbaa928fef9b0f2e838263dd88eefc707.png&w=400&q=85&dpl=dpl_FqTLS4JsZv3g2HdjZrLt2S9fV7iF',
   },
   {
     quote: "Our clients actually said it looks like we built it. That's the point — it's our brand, not some third-party tool.",
     author: 'Priya Sharma',
     role: 'Founder',
     company: 'Luma Design Co',
-    initials: 'PS',
+    avatar: 'https://tabler.io/_next/image?url=%2Favatars%2Ftransparent%2F622e4c7767d4eb0307179d6dfda9248b.png&w=400&q=85&dpl=dpl_FqTLS4JsZv3g2HdjZrLt2S9fV7iF',
   },
 ];
 
@@ -90,8 +90,8 @@ export const Testimonials = () => {
                 </blockquote>
                 
                 <div className="flex items-center gap-3 md:gap-4">
-                  <div className="h-11 w-11 md:h-14 md:w-14 rounded-xl md:rounded-2xl bg-primary/10 flex items-center justify-center text-primary font-black text-base md:text-xl border border-primary/20">
-                    {testimonials[active].initials}
+                  <div className="h-11 w-11 md:h-14 md:w-14 rounded-xl md:rounded-2xl overflow-hidden bg-primary/10 flex items-center justify-center border border-primary/20">
+                    <img src={testimonials[active].avatar} alt={testimonials[active].author} className="h-full w-full object-cover" />
                   </div>
                   <div>
                     <p className="text-base md:text-lg font-bold">{testimonials[active].author}</p>
