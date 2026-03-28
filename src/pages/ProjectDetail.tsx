@@ -51,10 +51,17 @@ const activityIcons: Record<string, typeof FileText> = {
 
 const ProjectDetail = () => {
   const beta = useFounderBeta();
+  const { isDemoMode, demoData } = useDemo();
   const { id } = useParams();
-  const project = mockProjects.find(p => p.id === id);
-  const deliverables = mockDeliverables.filter(d => d.projectId === id);
-  const projectActivity = mockActivity.filter(a => a.projectId === id);
+  
+  const allProjects = isDemoMode && demoData ? demoData.projects : mockProjects;
+  const allDeliverables = isDemoMode && demoData ? demoData.deliverables : mockDeliverables;
+  const allComments = isDemoMode && demoData ? demoData.comments : mockComments;
+  const allActivity = isDemoMode && demoData ? demoData.activity : mockActivity;
+  
+  const project = allProjects.find(p => p.id === id);
+  const deliverables = allDeliverables.filter(d => d.projectId === id);
+  const projectActivity = allActivity.filter(a => a.projectId === id);
   
   const [selectedDeliverableId, setSelectedDeliverableId] = useState(deliverables[0]?.id);
   const selectedDel = deliverables.find(d => d.id === selectedDeliverableId);
