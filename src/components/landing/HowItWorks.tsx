@@ -45,7 +45,7 @@ export const HowItWorks = () => {
     <section 
       id="how-it-works" 
       ref={sectionRef} 
-      className="py-32 relative overflow-hidden bg-card/10"
+      className="py-20 md:py-32 relative overflow-hidden bg-card/10"
       data-gsap-section
     >
       <div className="container px-4 mx-auto relative" data-gsap="section-reveal">
