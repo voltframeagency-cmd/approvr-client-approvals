@@ -202,9 +202,9 @@ const Dashboard = () => {
                            className="card-elevated p-4 md:p-6 border-none ring-1 ring-slate-200/60 dark:ring-slate-800/60 group"
                          >
                            <div className="flex items-start justify-between gap-3 md:gap-4 mb-4 md:mb-6">
-                            <div className="min-w-0">
-                              <p className="font-bold text-[16px] truncate group-hover:text-primary transition-colors duration-300 text-slate-900 dark:text-white">{project.name}</p>
-                              <p className="text-[13px] text-muted-foreground font-medium mt-0.5">{project.clientName}</p>
+                             <div className="min-w-0">
+                               <p className="font-bold text-sm md:text-[16px] truncate group-hover:text-primary transition-colors duration-300 text-slate-900 dark:text-white">{project.name}</p>
+                               <p className="text-xs md:text-[13px] text-muted-foreground font-medium mt-0.5">{project.clientName}</p>
                             </div>
                             <div className="flex items-center gap-2">
                               <StatusBadge status={project.status} />
