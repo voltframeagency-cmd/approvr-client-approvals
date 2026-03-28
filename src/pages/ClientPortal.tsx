@@ -653,8 +653,8 @@ const ClientPortal = () => {
                         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
                           <div className="flex items-center gap-2">
                             <ShieldCheck className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-emerald-500/60" />
-                            <p className="text-[10px] sm:text-[11px] text-muted-foreground font-bold uppercase tracking-widest">
-                              Reviewing as <span className="text-slate-900 dark:text-white">Sarah Chen</span>
+                             <p className="text-[10px] sm:text-[11px] text-muted-foreground font-bold uppercase tracking-widest">
+                               Reviewing as <span className="text-slate-900 dark:text-white">{project.clientName}</span>
                             </p>
                           </div>
                           <Button 
