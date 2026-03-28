@@ -1,11 +1,10 @@
-import { mockProjects, type ProjectStatus, type Project } from '@/lib/mock-data';
+import { mockProjects, type ProjectStatus, type Project, type ProjectType } from '@/lib/mock-data';
 import { StatusBadge } from '@/components/app/StatusBadge';
 import { Link } from 'react-router-dom';
-import { Plus, Search, Eye, AlertCircle } from 'lucide-react';
+import { Plus, Search, Eye, AlertCircle, Palette, Globe, Video, Megaphone, MoreHorizontal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { StaggerContainer, StaggerItem } from '@/components/motion/Animations';
@@ -14,8 +13,26 @@ import { useFounderBeta } from '@/hooks/use-founder-beta';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { toast } from 'sonner';
+import { addDays, format } from 'date-fns';
 
 type FilterTab = 'all' | ProjectStatus | 'overdue';
+
+type DeadlinePreset = '1_week' | '2_weeks' | '30_days' | 'custom';
+
+const deadlinePresets: { key: DeadlinePreset; label: string; days?: number }[] = [
+  { key: '1_week', label: '1 week', days: 7 },
+  { key: '2_weeks', label: '2 weeks', days: 14 },
+  { key: '30_days', label: '30 days', days: 30 },
+  { key: 'custom', label: 'Custom' },
+];
+
+const projectTypes: { key: ProjectType; label: string; icon: React.ReactNode }[] = [
+  { key: 'branding', label: 'Branding', icon: <Palette className="h-3.5 w-3.5" /> },
+  { key: 'web_design', label: 'Web Design', icon: <Globe className="h-3.5 w-3.5" /> },
+  { key: 'video_motion', label: 'Video/Motion', icon: <Video className="h-3.5 w-3.5" /> },
+  { key: 'social_ads', label: 'Social/Ads', icon: <Megaphone className="h-3.5 w-3.5" /> },
+  { key: 'other', label: 'Other', icon: <MoreHorizontal className="h-3.5 w-3.5" /> },
+];
 
 function timeAgo(dateStr: string) {
   const diff = Date.now() - new Date(dateStr).getTime();
@@ -33,50 +50,49 @@ const Projects = () => {
   const [activeTab, setActiveTab] = useState<FilterTab>('all');
   const [projects, setProjects] = useState<Project[]>(mockProjects);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [newProject, setNewProject] = useState({
-    name: '',
-    clientName: '',
-    clientEmail: '',
-    description: '',
-    deadline: '',
-  });
+  const [projectName, setProjectName] = useState('');
+  const [clientName, setClientName] = useState('');
+  const [selectedType, setSelectedType] = useState<ProjectType | null>(null);
+  const [deadlinePreset, setDeadlinePreset] = useState<DeadlinePreset | null>(null);
+  const [customDeadline, setCustomDeadline] = useState('');
 
-  const tabs: { key: FilterTab; label: string; count: number }[] = [
-    { key: 'all', label: 'All', count: projects.length },
-    { key: 'in_review', label: 'In Review', count: projects.filter(p => p.status === 'in_review').length },
-    { key: 'changes_requested', label: 'Changes Requested', count: projects.filter(p => p.status === 'changes_requested').length },
-    { key: 'overdue', label: 'Overdue', count: projects.filter(p => p.isOverdue && p.status !== 'approved').length },
-    { key: 'approved', label: 'Approved', count: projects.filter(p => p.status === 'approved').length },
-    { key: 'draft', label: 'Draft', count: projects.filter(p => p.status === 'draft').length },
-  ];
+  const computedDeadline = (() => {
+    if (!deadlinePreset) return '';
+    if (deadlinePreset === 'custom') return customDeadline;
+    const preset = deadlinePresets.find(p => p.key === deadlinePreset);
+    if (preset?.days) return format(addDays(new Date(), preset.days), 'yyyy-MM-dd');
+    return '';
+  })();
 
-  const filtered = projects.filter(p => {
-    const matchesSearch = p.name.toLowerCase().includes(search.toLowerCase()) ||
-      p.clientName.toLowerCase().includes(search.toLowerCase());
-    if (!matchesSearch) return false;
-    if (activeTab === 'all') return true;
-    if (activeTab === 'overdue') return p.isOverdue && p.status !== 'approved';
-    return p.status === activeTab;
-  });
+  const canCreate = projectName.trim() && clientName.trim() && computedDeadline;
+
+  const resetForm = () => {
+    setProjectName('');
+    setClientName('');
+    setSelectedType(null);
+    setDeadlinePreset(null);
+    setCustomDeadline('');
+  };
 
   const handleCreateProject = () => {
-    if (!newProject.name || !newProject.clientName || !newProject.deadline) return;
+    if (!canCreate) return;
 
     const project: Project = {
       id: `proj-${Date.now()}`,
-      name: newProject.name,
-      clientName: newProject.clientName,
-      clientEmail: newProject.clientEmail || `${newProject.clientName.toLowerCase().replace(/\s/g, '.')}@example.com`,
+      name: projectName.trim(),
+      clientName: clientName.trim(),
+      clientEmail: `${clientName.trim().toLowerCase().replace(/\s/g, '.')}@example.com`,
       status: 'draft',
-      deadline: newProject.deadline,
-      description: newProject.description,
+      deadline: computedDeadline,
+      description: '',
       createdAt: new Date().toISOString(),
       deliverableCount: 0,
       approvedCount: 0,
+      projectType: selectedType || undefined,
     };
 
     setProjects(prev => [project, ...prev]);
-    setNewProject({ name: '', clientName: '', clientEmail: '', description: '', deadline: '' });
+    resetForm();
     setDialogOpen(false);
     toast.success(`Project "${project.name}" created`, {
       description: `Draft project for ${project.clientName}`,
