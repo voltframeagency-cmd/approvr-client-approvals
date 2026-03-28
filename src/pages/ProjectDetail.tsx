@@ -579,6 +579,7 @@ const ProjectDetail = () => {
                       </div>
                     </div>
                   </div>
+                  </FeatureGate>
                 )}
 
                 {/* Timeline tab */}
