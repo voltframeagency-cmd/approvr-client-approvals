@@ -210,6 +210,9 @@ export const blogContent: Record<string, BlogSection[]> = {
   ],
 
   'govisually-alternative': [
+    // DEFINITION (AEO)
+    { type: 'definition', content: 'GoVisually is an online proofing tool designed for visual teams — particularly in CPG, packaging, publishing. It lets reviewers annotate designs directly. All reviewers must create accounts to access proofs, which adds friction for external clients.' },
+
     // HOOK
     { type: 'p', content: 'You send the proof link. Your client clicks it. A signup form appears.' },
     { type: 'p', content: 'They close the tab.' },
