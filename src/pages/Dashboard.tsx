@@ -270,7 +270,7 @@ const Dashboard = () => {
         <div className="lg:col-span-2 space-y-6 md:space-y-10">
           <section className="space-y-4 md:space-y-6">
             <h2 className="text-lg md:text-xl font-bold tracking-tight">Recent Activity</h2>
-            <div className="relative pl-10 space-y-8 before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[1.5px] before:bg-slate-100 dark:before:bg-slate-800">
+            <div className="relative pl-8 md:pl-10 space-y-6 md:space-y-8 before:absolute before:left-[9px] md:before:left-[11px] before:top-2 before:bottom-2 before:w-[1.5px] before:bg-slate-100 dark:before:bg-slate-800">
               {mockActivity.slice(0, 8).map((item, i) => {
                 const Icon = activityIcons[item.type] || FileText;
                 return (
