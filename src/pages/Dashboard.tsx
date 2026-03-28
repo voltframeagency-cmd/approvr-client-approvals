@@ -66,7 +66,7 @@ const Dashboard = () => {
   const activeApprovals = mockProjects.filter(p => p.status !== 'draft' && p.status !== 'approved');
 
   return (
-    <div className="space-y-10 lg:space-y-12">
+    <div className="space-y-6 lg:space-y-12">
       {/* Beta Usage Banner */}
       {(beta.isProjectLimitReached || beta.isEventLimitReached || beta.daysRemaining < 7) && (
         <motion.div
@@ -99,13 +99,13 @@ const Dashboard = () => {
         </motion.div>
       )}
 
-      <header className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <header className="flex flex-col md:flex-row md:items-end justify-between gap-4 md:gap-6">
         <div>
-          <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-2">Dashboard</h1>
-          <p className="text-muted-foreground text-sm md:text-base font-medium">Welcome back, Alex Rivera. Here's your operations overview.</p>
+          <h1 className="text-2xl md:text-4xl font-extrabold tracking-tight mb-1 md:mb-2">Dashboard</h1>
+          <p className="text-muted-foreground text-xs md:text-base font-medium">Welcome back, Alex Rivera.</p>
         </div>
         <Link to="/dashboard/projects">
-          <Button className="rounded-xl shadow-lg shadow-primary/20 px-6 font-bold gap-2 h-11 border-none">
+          <Button className="rounded-xl shadow-lg shadow-primary/20 px-5 md:px-6 font-bold gap-2 h-10 md:h-11 border-none text-sm w-full md:w-auto">
             <FolderKanban className="h-4 w-4" />
             New Project
           </Button>
@@ -113,35 +113,35 @@ const Dashboard = () => {
       </header>
 
       {/* Stat cards */}
-      <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" staggerDelay={0.06}>
+      <StaggerContainer className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6" staggerDelay={0.06}>
         {statCards.map(card => (
           <StaggerItem key={card.label}>
             <motion.div
               whileHover={{ y: -4 }}
               transition={{ type: 'spring', stiffness: 300, damping: 25 }}
               className={cn(
-                "card-elevated p-6 relative overflow-hidden group border-none ring-1 ring-slate-200/60 dark:ring-slate-800/60",
+                "card-elevated p-4 md:p-6 relative overflow-hidden group border-none ring-1 ring-slate-200/60 dark:ring-slate-800/60",
                 "before:absolute before:top-0 before:left-0 before:right-0 before:h-1 before:bg-transparent hover:before:bg-current transition-all",
                 card.color
               )}
             >
-              <div className={cn("h-10 w-10 rounded-xl flex items-center justify-center mb-5 transition-transform group-hover:scale-110", card.bg)}>
-                <card.icon className="h-5 w-5" />
+              <div className={cn("h-8 w-8 md:h-10 md:w-10 rounded-lg md:rounded-xl flex items-center justify-center mb-3 md:mb-5 transition-transform group-hover:scale-110", card.bg)}>
+                <card.icon className="h-4 w-4 md:h-5 md:w-5" />
               </div>
-              <p className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">{card.value}</p>
-              <p className="text-[12px] font-bold text-muted-foreground/80 mt-1 uppercase tracking-widest">{card.label}</p>
+              <p className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">{card.value}</p>
+              <p className="text-[10px] md:text-[12px] font-bold text-muted-foreground/80 mt-0.5 md:mt-1 uppercase tracking-widest">{card.label}</p>
             </motion.div>
           </StaggerItem>
         ))}
       </StaggerContainer>
 
       {/* Main Grid */}
-      <div className="grid lg:grid-cols-5 gap-8 lg:gap-12">
+      <div className="grid lg:grid-cols-5 gap-6 lg:gap-12">
         {/* Left Column: Projects & Attention */}
-        <div className="lg:col-span-3 space-y-12">
+        <div className="lg:col-span-3 space-y-8 md:space-y-12">
           {/* Attention queue */}
           {attentionItems.length > 0 && (
-            <section className="space-y-6">
+            <section className="space-y-4 md:space-y-6">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
                   <div className="p-1.5 bg-destructive/10 rounded-lg">
@@ -157,15 +157,15 @@ const Dashboard = () => {
                 {attentionItems.map(item => (
                   <StaggerItem key={item.id}>
                     <Link to={`/dashboard/projects/${item.id}`}>
-                      <motion.div
-                        whileHover={{ x: 4 }}
-                        className="card-elevated p-5 flex items-center gap-5 border-none ring-1 ring-slate-200/60 dark:ring-slate-800/60 hover:ring-2 hover:ring-primary/20"
+                       <motion.div
+                          whileHover={{ x: 4 }}
+                          className="card-elevated p-3.5 md:p-5 flex items-center gap-3 md:gap-5 border-none ring-1 ring-slate-200/60 dark:ring-slate-800/60 hover:ring-2 hover:ring-primary/20"
                       >
-                        <div className={cn("px-3 py-1 rounded-full text-[10px] uppercase font-extrabold tracking-wider whitespace-nowrap", item.urgencyColor)}>
+                        <div className={cn("px-2 md:px-3 py-0.5 md:py-1 rounded-full text-[9px] md:text-[10px] uppercase font-extrabold tracking-wider whitespace-nowrap", item.urgencyColor)}>
                           {item.urgencyLabel}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="font-bold text-[15px] truncate text-slate-900 dark:text-white">{item.name}</p>
+                          <p className="font-bold text-sm md:text-[15px] truncate text-slate-900 dark:text-white">{item.name}</p>
                           <p className="text-[12px] text-muted-foreground font-medium">{item.clientName}</p>
                         </div>
                         <div className="hidden sm:flex flex-col items-end gap-1.5">
@@ -185,26 +185,26 @@ const Dashboard = () => {
           )}
 
           {/* Active Approvals */}
-          <section className="space-y-6">
+           <section className="space-y-4 md:space-y-6">
             <div className="flex items-center justify-between">
-               <h2 className="text-xl font-bold tracking-tight">Active Approvals</h2>
+               <h2 className="text-lg md:text-xl font-bold tracking-tight">Active Approvals</h2>
                <Link to="/dashboard/projects" className="text-[13px] font-bold text-primary hover:underline flex items-center gap-1.5 group">
                  View all <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
                </Link>
             </div>
             {activeApprovals.length > 0 ? (
-              <StaggerContainer className="grid gap-4" staggerDelay={0.05}>
+              <StaggerContainer className="grid gap-3 md:gap-4" staggerDelay={0.05}>
                 {activeApprovals.slice(0, 5).map(project => (
                   <StaggerItem key={project.id}>
                     <div className="relative group/card">
                       <Link to={`/dashboard/projects/${project.id}`}>
-                        <motion.div
-                          className="card-elevated p-6 border-none ring-1 ring-slate-200/60 dark:ring-slate-800/60 group"
-                        >
-                          <div className="flex items-start justify-between gap-4 mb-6">
-                            <div className="min-w-0">
-                              <p className="font-bold text-[16px] truncate group-hover:text-primary transition-colors duration-300 text-slate-900 dark:text-white">{project.name}</p>
-                              <p className="text-[13px] text-muted-foreground font-medium mt-0.5">{project.clientName}</p>
+                         <motion.div
+                           className="card-elevated p-4 md:p-6 border-none ring-1 ring-slate-200/60 dark:ring-slate-800/60 group"
+                         >
+                           <div className="flex items-start justify-between gap-3 md:gap-4 mb-4 md:mb-6">
+                             <div className="min-w-0">
+                               <p className="font-bold text-sm md:text-[16px] truncate group-hover:text-primary transition-colors duration-300 text-slate-900 dark:text-white">{project.name}</p>
+                               <p className="text-xs md:text-[13px] text-muted-foreground font-medium mt-0.5">{project.clientName}</p>
                             </div>
                             <div className="flex items-center gap-2">
                               <StatusBadge status={project.status} />
@@ -225,7 +225,7 @@ const Dashboard = () => {
                               </Button>
                             </div>
                           </div>
-                          <div className="space-y-3">
+                          <div className="space-y-2 md:space-y-3">
                             <div className="flex items-center justify-between text-[11px] font-bold uppercase tracking-widest text-muted-foreground/60">
                                <span>Progress</span>
                                <div className="flex items-center gap-4 text-right">
@@ -267,10 +267,10 @@ const Dashboard = () => {
         </div>
 
         {/* Right Column: Activity Feed */}
-        <div className="lg:col-span-2 space-y-10">
-          <section className="space-y-6">
-            <h2 className="text-xl font-bold tracking-tight">Recent Activity</h2>
-            <div className="relative pl-10 space-y-8 before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[1.5px] before:bg-slate-100 dark:before:bg-slate-800">
+        <div className="lg:col-span-2 space-y-6 md:space-y-10">
+          <section className="space-y-4 md:space-y-6">
+            <h2 className="text-lg md:text-xl font-bold tracking-tight">Recent Activity</h2>
+            <div className="relative pl-8 md:pl-10 space-y-6 md:space-y-8 before:absolute before:left-[9px] md:before:left-[11px] before:top-2 before:bottom-2 before:w-[1.5px] before:bg-slate-100 dark:before:bg-slate-800">
               {mockActivity.slice(0, 8).map((item, i) => {
                 const Icon = activityIcons[item.type] || FileText;
                 return (
@@ -281,13 +281,13 @@ const Dashboard = () => {
                     transition={{ delay: 0.2 + i * 0.05, duration: 0.4 }}
                     className="relative"
                   >
-                    <div className="absolute -left-[41px] top-0 h-6 w-6 rounded-full bg-white dark:bg-slate-900 flex items-center justify-center ring-4 ring-white dark:ring-background z-10 scale-90 sm:scale-100">
-                      <div className="h-5 w-5 rounded-full bg-slate-50 dark:bg-slate-900 border flex items-center justify-center text-primary group-hover:border-primary/40 transition-colors">
+                    <div className="absolute -left-[33px] md:-left-[41px] top-0 h-5 w-5 md:h-6 md:w-6 rounded-full bg-white dark:bg-slate-900 flex items-center justify-center ring-4 ring-white dark:ring-background z-10">
+                      <div className="h-4 w-4 md:h-5 md:w-5 rounded-full bg-slate-50 dark:bg-slate-900 border flex items-center justify-center text-primary group-hover:border-primary/40 transition-colors">
                         <Icon className="h-2.5 w-2.5" />
                       </div>
                     </div>
                     <div className="flex flex-col gap-1">
-                      <p className="text-[13px] leading-relaxed text-slate-900 dark:text-slate-100">
+                      <p className="text-xs md:text-[13px] leading-relaxed text-slate-900 dark:text-slate-100">
                         <span className="font-bold">{item.actor}</span>{' '}
                         <span className="text-muted-foreground font-medium">{item.action}</span>{' '}
                         <span className="font-bold text-primary/90 hover:underline cursor-pointer transition-all">{item.projectName}</span>
@@ -303,7 +303,7 @@ const Dashboard = () => {
           {/* Mini Upgrade Card */}
           <Card className="bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 text-white border-none rounded-2xl overflow-hidden shadow-2xl relative group">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.1),transparent)]" />
-              <CardContent className="p-6 relative z-10">
+              <CardContent className="p-5 md:p-6 relative z-10">
                 <Badge className="bg-primary hover:bg-primary text-white text-[10px] font-black px-2.5 py-1 border-none mb-4 uppercase tracking-widest">Founder Beta</Badge>
                 <h3 className="text-lg font-extrabold mb-2 tracking-tight">Upgrade to Pro</h3>
                 <p className="text-[12px] text-slate-300 mb-6 leading-relaxed font-semibold">Get unlimited projects, custom domains, and white-labeled client portals for your agency.</p>
@@ -317,7 +317,7 @@ const Dashboard = () => {
 
             {/* Portal Preview Card */}
             <Card className="bg-card/40 backdrop-blur-sm border border-primary/10 rounded-2xl overflow-hidden relative group">
-              <CardContent className="p-6">
+              <CardContent className="p-5 md:p-6">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="p-2 bg-primary/5 rounded-lg">
                     <Eye className="h-4 w-4 text-primary" />
