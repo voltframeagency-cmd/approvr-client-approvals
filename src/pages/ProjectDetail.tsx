@@ -632,7 +632,7 @@ const ProjectDetail = () => {
                       <motion.div
                         initial={{ opacity: 0, y: 12 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="border border-slate-200 dark:border-white/10 rounded-[32px] p-10 mb-10 bg-white dark:bg-slate-900 shadow-2xl shadow-slate-200/50 dark:shadow-none relative overflow-hidden"
+                        className="border border-border rounded-2xl md:rounded-[32px] p-5 md:p-10 mb-6 md:mb-10 bg-card shadow-xl relative overflow-hidden"
                       >
                         <div className="mb-10">
                           <Label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 ml-1 mb-4 block">Select Provider Type</Label>
