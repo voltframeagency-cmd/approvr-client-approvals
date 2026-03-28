@@ -63,30 +63,30 @@ const ClientPortal = () => {
     <div className="min-h-screen bg-slate-50/50 dark:bg-slate-900/50">
       {/* Branded header */}
       <header className="bg-white/80 dark:bg-card/80 backdrop-blur-xl border-b sticky top-0 z-50">
-        <div className="container max-w-7xl flex items-center justify-between h-18 py-4">
+        <div className="container max-w-7xl flex items-center justify-between h-14 sm:h-18 py-3 sm:py-4 px-3 sm:px-4">
           <motion.div
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
-            className="flex items-center gap-4"
+            className="flex items-center gap-2.5 sm:gap-4"
           >
             <Logo variant="small" />
             <div className="h-4 w-px bg-border/60 hidden sm:block" />
             <div className="flex flex-col">
-              <span className="text-[11px] font-black uppercase tracking-[0.15em] text-primary">Secure Portal</span>
-              <span className="text-[14px] font-bold text-slate-900 dark:text-white leading-none">Rivera Design Co</span>
+              <span className="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.15em] text-primary">Secure Portal</span>
+              <span className="text-[13px] sm:text-[14px] font-bold text-slate-900 dark:text-white leading-none">Rivera Design Co</span>
             </div>
           </motion.div>
-                    <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
             <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-white/5 border border-border/40">
               <ShieldCheck className="h-3.5 w-3.5 text-emerald-500" />
               <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Secure Portal</span>
             </div>
-            <div className="flex items-center gap-2.5 pl-4 border-l">
-              <div className="text-right hidden xs:block">
+            <div className="flex items-center gap-2 sm:gap-2.5 pl-2 sm:pl-4 border-l">
+              <div className="text-right hidden sm:block">
                 <p className="text-[12px] font-bold text-slate-900 dark:text-white leading-tight">Sarah Chen</p>
                 <p className="text-[10px] text-muted-foreground font-medium">Project Owner</p>
               </div>
-              <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-info via-info/80 to-blue-500 flex items-center justify-center text-[12px] font-black text-white shadow-sm ring-2 ring-info/10">
+              <div className="h-8 w-8 sm:h-9 sm:w-9 rounded-xl bg-gradient-to-br from-info via-info/80 to-blue-500 flex items-center justify-center text-[11px] sm:text-[12px] font-black text-white shadow-sm ring-2 ring-info/10">
                 SC
               </div>
             </div>
