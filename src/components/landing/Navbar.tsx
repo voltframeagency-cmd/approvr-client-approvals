@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { ShinyButton } from '@/components/ui/shiny-button';
 import { CheckCircle2 } from 'lucide-react';
 import { Logo } from '@/components/brand/Logo';
+import { ThemeToggle } from '@/components/app/ThemeToggle';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { getLenis } from '@/hooks/use-smooth-scroll';
 
