@@ -43,6 +43,7 @@ const ClientPortal = () => {
   const [newComment, setNewComment] = useState('');
   const [resolvedCommentIds, setResolvedCommentIds] = useState<string[]>([]);
   const [isComparing, setIsComparing] = useState(false);
+  const [showComments, setShowComments] = useState(false);
 
   const toggleResolve = (id: string) => {
     setResolvedCommentIds(prev => 
