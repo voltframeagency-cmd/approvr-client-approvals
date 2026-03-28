@@ -438,6 +438,7 @@ export type Database = {
           notify_on_approval: boolean | null
           notify_on_changes_requested: boolean | null
           notify_on_comment: boolean | null
+          plan: string
           portal_footer_text: string | null
           portal_help_url: string | null
           portal_success_message: string | null
@@ -458,6 +459,7 @@ export type Database = {
           notify_on_approval?: boolean | null
           notify_on_changes_requested?: boolean | null
           notify_on_comment?: boolean | null
+          plan?: string
           portal_footer_text?: string | null
           portal_help_url?: string | null
           portal_success_message?: string | null
@@ -478,6 +480,7 @@ export type Database = {
           notify_on_approval?: boolean | null
           notify_on_changes_requested?: boolean | null
           notify_on_comment?: boolean | null
+          plan?: string
           portal_footer_text?: string | null
           portal_help_url?: string | null
           portal_success_message?: string | null
@@ -494,6 +497,18 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_workspace_storage_bytes: {
+        Args: { _workspace_id: string }
+        Returns: number
+      }
+      get_workspace_usage: {
+        Args: { _workspace_id: string }
+        Returns: {
+          project_count: number
+          storage_bytes: number
+          team_member_count: number
+        }[]
+      }
       has_workspace_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
