@@ -306,7 +306,7 @@ const Settings = () => {
                         </div>
                       </div>
 
-                      <div className="pt-4">
+                      <div className="pt-3 sm:pt-4">
                         <Button onClick={() => handleSave('Branding')} className="w-full h-9 text-xs">Save Branding</Button>
                       </div>
                     </div>
