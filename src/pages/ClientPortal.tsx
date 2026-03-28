@@ -729,9 +729,9 @@ const ClientPortal = () => {
               <p className="text-[11px] font-black uppercase tracking-[0.2em] text-muted-foreground">Premium Client Portal</p>
             </div>
             <div className="flex items-center gap-8">
-              <button className="text-[11px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">Privacy</button>
-              <button className="text-[11px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">Support</button>
-              <button className="text-[11px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">Terms</button>
+              <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-[11px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">Privacy</a>
+              <a href="mailto:hello@approvr.com" className="text-[11px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">Support</a>
+              <a href="/terms" target="_blank" rel="noopener noreferrer" className="text-[11px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">Terms</a>
             </div>
             <p className="text-[11px] text-muted-foreground font-bold uppercase tracking-widest italic opacity-40">
               © 2024 Rivera Design Co

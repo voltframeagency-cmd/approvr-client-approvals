@@ -167,6 +167,12 @@ const Login = () => {
               Claim your Founder Beta invite
             </Link>
           </motion.p>
+
+          <motion.div variants={itemVariants} className="flex items-center justify-center gap-4 mt-6 text-[11px] text-muted-foreground/50">
+            <Link to="/privacy" className="hover:text-primary transition-colors">Privacy</Link>
+            <span>·</span>
+            <Link to="/terms" className="hover:text-primary transition-colors">Terms</Link>
+          </motion.div>
         </motion.div>
       </div>
     </div>

@@ -17,9 +17,9 @@ const footerLinks = {
     { label: 'Contact', href: '#' },
   ],
   Legal: [
-    { label: 'Privacy', href: '#' },
-    { label: 'Terms', href: '#' },
-    { label: 'Security', href: '#' },
+    { label: 'Privacy', href: '/privacy' },
+    { label: 'Terms', href: '/terms' },
+    { label: 'Trust & Security', href: '/trust' },
   ],
 };
 
@@ -72,8 +72,9 @@ const Footer = () => (
       </div>
 
       {/* Bottom bar */}
-      <div className="pt-12 border-t border-border/20 flex items-center justify-center">
+      <div className="pt-12 border-t border-border/20 flex flex-col sm:flex-row items-center justify-between gap-4">
         <p className="text-sm text-muted-foreground/60">© 2026 Approvr, Inc. All rights reserved.</p>
+        <a href="mailto:privacy@approvr.com" className="text-sm text-muted-foreground/60 hover:text-primary transition-colors">privacy@approvr.com</a>
       </div>
     </div>
   </footer>
