@@ -135,7 +135,7 @@ const Settings = () => {
     { id: 'usage', label: 'Plan & Usage', icon: CreditCard },
   ];
 
-  if (!workspace) {
+  if (!isDemoMode && !workspace) {
     return (
       <div className="flex items-center justify-center py-20">
         <div className="flex flex-col items-center gap-4">
