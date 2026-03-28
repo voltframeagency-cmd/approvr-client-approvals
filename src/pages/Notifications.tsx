@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { mockNotifications, Notification, providerTypeLabels } from '@/lib/mock-data';
+import { useDemo } from '@/contexts/DemoContext';
 import { 
   Bell, 
   CheckCircle2, 
@@ -45,8 +46,10 @@ type FilterType = 'all' | 'unread' | 'approval' | 'comment' | 'reminder';
 
 const Notifications = () => {
   const navigate = useNavigate();
+  const { isDemoMode, demoData } = useDemo();
+  const initialNotifications = isDemoMode && demoData ? demoData.notifications : mockNotifications;
   const [filter, setFilter] = useState<FilterType>('all');
-  const [notifications, setNotifications] = useState<Notification[]>(mockNotifications);
+  const [notifications, setNotifications] = useState<Notification[]>(initialNotifications);
 
   const filteredNotifications = useMemo(() => {
     return notifications.filter(n => {

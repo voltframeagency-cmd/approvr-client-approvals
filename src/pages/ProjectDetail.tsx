@@ -3,6 +3,8 @@ import {
   mockProjects, mockDeliverables, mockComments, mockActivity, mockNextStepActions, providerTypeLabels, 
   type NextStepProviderType, type NextStepAction 
 } from '@/lib/mock-data';
+import { useDemo } from '@/contexts/DemoContext';
+import { FeatureGate } from '@/components/app/FeatureGate';
 import { StatusBadge } from '@/components/app/StatusBadge';
 import { ApprovalReceipt } from '@/components/app/ApprovalReceipt';
 import {
@@ -49,10 +51,17 @@ const activityIcons: Record<string, typeof FileText> = {
 
 const ProjectDetail = () => {
   const beta = useFounderBeta();
+  const { isDemoMode, demoData } = useDemo();
   const { id } = useParams();
-  const project = mockProjects.find(p => p.id === id);
-  const deliverables = mockDeliverables.filter(d => d.projectId === id);
-  const projectActivity = mockActivity.filter(a => a.projectId === id);
+  
+  const allProjects = isDemoMode && demoData ? demoData.projects : mockProjects;
+  const allDeliverables = isDemoMode && demoData ? demoData.deliverables : mockDeliverables;
+  const allComments = isDemoMode && demoData ? demoData.comments : mockComments;
+  const allActivity = isDemoMode && demoData ? demoData.activity : mockActivity;
+  
+  const project = allProjects.find(p => p.id === id);
+  const deliverables = allDeliverables.filter(d => d.projectId === id);
+  const projectActivity = allActivity.filter(a => a.projectId === id);
   
   const [selectedDeliverableId, setSelectedDeliverableId] = useState(deliverables[0]?.id);
   const selectedDel = deliverables.find(d => d.id === selectedDeliverableId);
@@ -82,7 +91,7 @@ const ProjectDetail = () => {
     }
   }, [selectedDeliverableId]);
 
-  const comments = mockComments.filter(c => 
+  const comments = allComments.filter(c => 
     c.deliverableId === selectedDeliverableId && 
     c.versionNumber === activeVersion
   );
@@ -522,6 +531,7 @@ const ProjectDetail = () => {
 
                 {/* Version history tab */}
                 {activeTab === 'versions' && (
+                  <FeatureGate feature="versionHistory">
                   <div className="card-elevated p-5 md:p-8">
                     <div className="flex items-center justify-between mb-5 md:mb-8">
                       <h3 className="font-bold text-xs md:text-[15px] flex items-center gap-2 md:gap-2.5 uppercase tracking-widest text-foreground">
@@ -569,6 +579,7 @@ const ProjectDetail = () => {
                       </div>
                     </div>
                   </div>
+                  </FeatureGate>
                 )}
 
                 {/* Timeline tab */}

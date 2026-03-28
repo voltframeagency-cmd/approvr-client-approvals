@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useState } from 'react';
+import { useDemo } from '@/contexts/DemoContext';
 import { motion } from 'framer-motion';
 import { StaggerContainer, StaggerItem } from '@/components/motion/Animations';
 import { cn } from '@/lib/utils';
@@ -46,9 +47,15 @@ function timeAgo(dateStr: string) {
 
 const Projects = () => {
   const beta = useFounderBeta();
+  const { isDemoMode, demoData, planConfig } = useDemo();
+  const initialProjects = isDemoMode && demoData ? demoData.projects : mockProjects;
   const [search, setSearch] = useState('');
   const [activeTab, setActiveTab] = useState<FilterTab>('all');
-  const [projects, setProjects] = useState<Project[]>(mockProjects);
+  const [projects, setProjects] = useState<Project[]>(initialProjects);
+
+  const projectLimitReached = isDemoMode && planConfig?.limits.maxProjects 
+    ? projects.length >= planConfig.limits.maxProjects 
+    : false;
   const [dialogOpen, setDialogOpen] = useState(false);
   const [projectName, setProjectName] = useState('');
   const [clientName, setClientName] = useState('');

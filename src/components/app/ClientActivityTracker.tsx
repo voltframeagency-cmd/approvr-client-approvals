@@ -3,6 +3,7 @@ import { Eye, Monitor, Smartphone, Clock } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { mockClientViewEvents, type ClientViewEvent } from '@/lib/mock-data';
 import { StaggerContainer, StaggerItem } from '@/components/motion/Animations';
+import { useDemo } from '@/contexts/DemoContext';
 
 function timeAgo(dateStr: string) {
   const diff = Date.now() - new Date(dateStr).getTime();
@@ -27,13 +28,17 @@ const DeviceIcon = ({ device }: { device: string }) => {
 };
 
 export const ClientActivityTracker = () => {
-  const recentEvents = mockClientViewEvents
+  const { isDemoMode, demoData } = useDemo();
+  
+  const events = isDemoMode && demoData ? demoData.clientViewEvents : mockClientViewEvents;
+  
+  const recentEvents = [...events]
     .sort((a, b) => new Date(b.viewedAt).getTime() - new Date(a.viewedAt).getTime())
     .slice(0, 5);
 
   const hasRecentActivity = recentEvents.some(e => {
     const diff = Date.now() - new Date(e.viewedAt).getTime();
-    return diff < 3600000; // within last hour
+    return diff < 3600000;
   });
 
   return (

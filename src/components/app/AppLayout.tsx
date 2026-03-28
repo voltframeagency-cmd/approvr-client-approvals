@@ -22,13 +22,15 @@ const AppLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { user, signOut } = useAuth();
-  const { isDemoMode, demoPlan, demoUserName, demoAgencyName, exitDemo } = useDemo();
+  const { isDemoMode, demoPlan, demoUserName, demoAgencyName, demoData, exitDemo } = useDemo();
   const { data: workspace } = useWorkspace();
   const { data: notifications } = useNotifications();
 
-  const unreadCount = isDemoMode 
-    ? mockNotifications.filter(n => !n.read).length
-    : (notifications?.filter(n => !n.read).length || 0);
+  const unreadCount = isDemoMode && demoData
+    ? demoData.notifications.filter(n => !n.read).length
+    : isDemoMode
+      ? mockNotifications.filter(n => !n.read).length
+      : (notifications?.filter(n => !n.read).length || 0);
   const displayName = isDemoMode 
     ? demoUserName 
     : (user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'User');

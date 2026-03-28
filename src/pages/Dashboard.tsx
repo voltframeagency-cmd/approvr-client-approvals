@@ -5,7 +5,8 @@ import { useDemo } from '@/contexts/DemoContext';
 import { Link } from 'react-router-dom';
 import {
   FolderKanban, Clock, CheckCircle, AlertTriangle, ArrowRight,
-  FileText, MessageSquare, Upload, UserPlus, Eye, AlertCircle, ArrowUpRight, Sparkles, Bell
+  FileText, MessageSquare, Upload, UserPlus, Eye, AlertCircle, ArrowUpRight, Sparkles, Bell,
+  HardDrive, Users, FolderOpen
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
@@ -19,25 +20,8 @@ import { toast } from 'sonner';
 import { ClientActivityTracker } from '@/components/app/ClientActivityTracker';
 import { OnboardingChecklist, OnboardingWelcome } from '@/components/app/OnboardingChecklist';
 import { useOnboarding } from '@/hooks/use-onboarding';
-
-// Derive attention items
-const overdueProjects = mockProjects.filter(p => p.isOverdue && p.status !== 'approved');
-const changesRequested = mockProjects.filter(p => p.status === 'changes_requested');
-const pendingReview = mockProjects.filter(p => p.status === 'in_review');
-const recentApprovals = mockProjects.filter(p => p.status === 'approved');
-
-const attentionItems = [
-  ...overdueProjects.map(p => ({ ...p, urgency: 'overdue' as const, urgencyLabel: 'Overdue', urgencyColor: 'text-destructive bg-destructive/5 dark:bg-destructive/10' })),
-  ...changesRequested.filter(p => !p.isOverdue).map(p => ({ ...p, urgency: 'changes' as const, urgencyLabel: 'Changes requested', urgencyColor: 'text-warning bg-warning/5 dark:bg-warning/10' })),
-  ...pendingReview.filter(p => !p.isOverdue).map(p => ({ ...p, urgency: 'pending' as const, urgencyLabel: 'Awaiting client', urgencyColor: 'text-primary bg-primary/5 dark:bg-primary/10' })),
-];
-
-const statCards = [
-  { label: 'Requires Attention', value: attentionItems.length, icon: AlertCircle, color: 'text-destructive', bg: 'bg-destructive/5', borderColor: 'border-destructive' },
-  { label: 'Feedback Received', value: changesRequested.length, icon: AlertTriangle, color: 'text-warning', bg: 'bg-warning/5', borderColor: 'border-warning' },
-  { label: 'Pending Review', value: pendingReview.length, icon: Clock, color: 'text-primary', bg: 'bg-primary/5', borderColor: 'border-primary' },
-  { label: 'Approved this week', value: recentApprovals.length, icon: CheckCircle, color: 'text-emerald-500', bg: 'bg-emerald-500/5', borderColor: 'border-emerald-500' },
-];
+import { FeatureGate } from '@/components/app/FeatureGate';
+import { Progress } from '@/components/ui/progress';
 
 const activityIcons: Record<string, typeof FileText> = {
   approval: CheckCircle,
@@ -68,20 +52,39 @@ function timeAgo(dateStr: string) {
 const Dashboard = () => {
   const beta = useFounderBeta();
   const onboarding = useOnboarding();
-  const { isDemoMode, demoUserName } = useDemo();
-  const activeApprovals = mockProjects.filter(p => p.status !== 'draft' && p.status !== 'approved');
+  const { isDemoMode, demoUserName, demoData, planConfig, usage } = useDemo();
+  
+  // Use demo data when in demo mode, otherwise fall back to mock data
+  const projects = isDemoMode && demoData ? demoData.projects : mockProjects;
+  const activity = isDemoMode && demoData ? demoData.activity : mockActivity;
+
+  const overdueProjects = projects.filter(p => p.isOverdue && p.status !== 'approved');
+  const changesRequested = projects.filter(p => p.status === 'changes_requested');
+  const pendingReview = projects.filter(p => p.status === 'in_review');
+  const recentApprovals = projects.filter(p => p.status === 'approved');
+  const activeApprovals = projects.filter(p => p.status !== 'draft' && p.status !== 'approved');
+
+  const attentionItems = [
+    ...overdueProjects.map(p => ({ ...p, urgency: 'overdue' as const, urgencyLabel: 'Overdue', urgencyColor: 'text-destructive bg-destructive/5 dark:bg-destructive/10' })),
+    ...changesRequested.filter(p => !p.isOverdue).map(p => ({ ...p, urgency: 'changes' as const, urgencyLabel: 'Changes requested', urgencyColor: 'text-warning bg-warning/5 dark:bg-warning/10' })),
+    ...pendingReview.filter(p => !p.isOverdue).map(p => ({ ...p, urgency: 'pending' as const, urgencyLabel: 'Awaiting client', urgencyColor: 'text-primary bg-primary/5 dark:bg-primary/10' })),
+  ];
+
+  const statCards = [
+    { label: 'Requires Attention', value: attentionItems.length, icon: AlertCircle, color: 'text-destructive', bg: 'bg-destructive/5', borderColor: 'border-destructive' },
+    { label: 'Feedback Received', value: changesRequested.length, icon: AlertTriangle, color: 'text-warning', bg: 'bg-warning/5', borderColor: 'border-warning' },
+    { label: 'Pending Review', value: pendingReview.length, icon: Clock, color: 'text-primary', bg: 'bg-primary/5', borderColor: 'border-primary' },
+    { label: 'Approved this week', value: recentApprovals.length, icon: CheckCircle, color: 'text-emerald-500', bg: 'bg-emerald-500/5', borderColor: 'border-emerald-500' },
+  ];
 
   return (
     <div className="space-y-6 lg:space-y-12">
       {/* Welcome dialog for first-time users */}
-      {onboarding.showWelcome && <OnboardingWelcome onDismiss={onboarding.dismissWelcome} />}
-      {/* Beta Usage Banner */}
-      {(beta.isProjectLimitReached || beta.isEventLimitReached || beta.daysRemaining < 7) && (
-        <motion.div
-           initial={{ opacity: 0, y: -10 }}
-           animate={{ opacity: 1, y: 0 }}
-           className="mb-8"
-        >
+      {!isDemoMode && onboarding.showWelcome && <OnboardingWelcome onDismiss={onboarding.dismissWelcome} />}
+      
+      {/* Beta Usage Banner — only show outside demo */}
+      {!isDemoMode && (beta.isProjectLimitReached || beta.isEventLimitReached || beta.daysRemaining < 7) && (
+        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
           <Alert variant={beta.isExpired || beta.isProjectLimitReached ? "destructive" : "default"} className="bg-card/50 shadow-sm border-primary/10 backdrop-blur-sm rounded-2xl p-4 md:p-6 overflow-hidden relative">
             <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none" />
             <Sparkles className="h-5 w-5 text-primary mb-2" />
@@ -107,10 +110,73 @@ const Dashboard = () => {
         </motion.div>
       )}
 
+      {/* Demo Plan Usage Indicators */}
+      {isDemoMode && planConfig && usage && (
+        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="mb-2">
+          <div className="card-elevated p-4 md:p-6 border-none ring-1 ring-primary/20 bg-gradient-to-r from-card via-card to-primary/[0.02]">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2.5">
+                <Badge className="bg-primary/10 text-primary border-none text-[10px] font-black uppercase tracking-widest px-2 py-0.5">
+                  {planConfig.name}
+                </Badge>
+                <span className="text-[12px] font-bold text-muted-foreground">${planConfig.price}/mo</span>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {/* Projects */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5">
+                    <FolderOpen className="h-3 w-3" /> Projects
+                  </span>
+                  <span className="text-[11px] font-bold text-foreground">
+                    {usage.projectsUsed}/{planConfig.limits.maxProjects ?? '∞'}
+                  </span>
+                </div>
+                <Progress 
+                  value={planConfig.limits.maxProjects ? (usage.projectsUsed / planConfig.limits.maxProjects) * 100 : 15} 
+                  className="h-1.5"
+                />
+              </div>
+              {/* Storage */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5">
+                    <HardDrive className="h-3 w-3" /> Storage
+                  </span>
+                  <span className="text-[11px] font-bold text-foreground">
+                    {usage.storageUsedGB} GB / {planConfig.limits.maxStorageGB} GB
+                  </span>
+                </div>
+                <Progress 
+                  value={(usage.storageUsedGB / planConfig.limits.maxStorageGB) * 100} 
+                  className="h-1.5"
+                />
+              </div>
+              {/* Team */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5">
+                    <Users className="h-3 w-3" /> Team Seats
+                  </span>
+                  <span className="text-[11px] font-bold text-foreground">
+                    {usage.teamMembersUsed}/{planConfig.limits.maxTeamMembers}
+                  </span>
+                </div>
+                <Progress 
+                  value={(usage.teamMembersUsed / planConfig.limits.maxTeamMembers) * 100} 
+                  className="h-1.5"
+                />
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      )}
+
       <header className="flex flex-col md:flex-row md:items-end justify-between gap-4 md:gap-6">
         <div>
           <h1 className="text-2xl md:text-4xl font-extrabold tracking-tight mb-1 md:mb-2">Dashboard</h1>
-          <p className="text-muted-foreground text-xs md:text-base font-medium">Welcome back, {isDemoMode ? demoUserName.split(' ')[0] : 'Alex Rivera'}.</p>
+          <p className="text-muted-foreground text-xs md:text-base font-medium">Welcome back, {isDemoMode ? demoUserName.split(' ')[0] : 'there'}.</p>
         </div>
         <Link to="/dashboard/projects">
           <Button className="rounded-xl shadow-lg shadow-primary/20 px-5 md:px-6 font-bold gap-2 h-10 md:h-11 border-none text-sm w-full md:w-auto">
@@ -143,9 +209,14 @@ const Dashboard = () => {
         ))}
       </StaggerContainer>
 
-      {/* Onboarding Checklist */}
-      {onboarding.isVisible && (
-        <OnboardingChecklist />
+      {/* Onboarding Checklist — only outside demo */}
+      {!isDemoMode && onboarding.isVisible && <OnboardingChecklist />}
+
+      {/* Onboarding Checklist — gated in demo for Scaler */}
+      {isDemoMode && (
+        <FeatureGate feature="onboardingChecklists">
+          <OnboardingChecklist />
+        </FeatureGate>
       )}
 
       {/* Client Activity Tracker */}
@@ -287,7 +358,7 @@ const Dashboard = () => {
           <section className="space-y-4 md:space-y-6">
             <h2 className="text-lg md:text-xl font-bold tracking-tight">Recent Activity</h2>
             <div className="relative pl-8 md:pl-10 space-y-6 md:space-y-8 before:absolute before:left-[9px] md:before:left-[11px] before:top-2 before:bottom-2 before:w-[1.5px] before:bg-border">
-              {mockActivity.slice(0, 8).map((item, i) => {
+              {activity.slice(0, 8).map((item, i) => {
                 const Icon = activityIcons[item.type] || FileText;
                 return (
                   <motion.div
@@ -316,8 +387,9 @@ const Dashboard = () => {
             </div>
           </section>
 
-          {/* Mini Upgrade Card */}
-          <Card className="bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 dark:from-card dark:via-card dark:to-card text-white dark:text-foreground border-none rounded-2xl overflow-hidden shadow-2xl relative group">
+          {/* Upgrade Card — only show outside demo */}
+          {!isDemoMode && (
+            <Card className="bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 dark:from-card dark:via-card dark:to-card text-white dark:text-foreground border-none rounded-2xl overflow-hidden shadow-2xl relative group">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.1),transparent)]" />
               <CardContent className="p-5 md:p-6 relative z-10">
                 <Badge className="bg-primary hover:bg-primary text-white text-[10px] font-black px-2.5 py-1 border-none mb-4 uppercase tracking-widest">Founder Beta</Badge>
@@ -330,29 +402,57 @@ const Dashboard = () => {
                 </Link>
               </CardContent>
             </Card>
+          )}
 
-            {/* Portal Preview Card */}
-            <Card className="bg-card/40 backdrop-blur-sm border border-primary/10 rounded-2xl overflow-hidden relative group">
-              <CardContent className="p-5 md:p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-2 bg-primary/5 rounded-lg">
-                    <Eye className="h-4 w-4 text-primary" />
+          {/* Version History gate — show locked for Scaler */}
+          {isDemoMode && (
+            <FeatureGate feature="versionHistory">
+              <Card className="bg-card/40 backdrop-blur-sm border border-primary/10 rounded-2xl overflow-hidden">
+                <CardContent className="p-5 md:p-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2 bg-primary/5 rounded-lg">
+                      <FileText className="h-4 w-4 text-primary" />
+                    </div>
+                    <h3 className="font-bold text-sm tracking-tight">Version History & Change Logs</h3>
                   </div>
-                  <h3 className="font-bold text-sm tracking-tight">Portal Preview</h3>
-                </div>
-                <div className="aspect-video rounded-xl bg-muted border border-border/50 flex flex-col items-center justify-center p-4 text-center group-hover:bg-muted/80 transition-colors">
-                  <div className="w-12 h-1 bg-primary/20 rounded-full mb-3" />
-                  <div className="space-y-1.5 w-full">
-                    <div className="h-2 w-3/4 bg-muted-foreground/20 rounded mx-auto" />
-                    <div className="h-2 w-1/2 bg-muted-foreground/20 rounded mx-auto" />
+                  <div className="space-y-2">
+                    {[1,2,3].map(i => (
+                      <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-muted/30">
+                        <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center text-[10px] font-bold text-primary">v{i}</div>
+                        <div className="flex-1">
+                          <div className="h-2 w-3/4 bg-muted-foreground/10 rounded" />
+                          <div className="h-2 w-1/2 bg-muted-foreground/10 rounded mt-1" />
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                  <Button variant="ghost" size="sm" className="mt-4 h-8 text-[11px] font-bold uppercase tracking-wider text-primary hover:text-primary hover:bg-primary/5">
-                    Launch Preview
-                  </Button>
+                </CardContent>
+              </Card>
+            </FeatureGate>
+          )}
+
+          {/* Portal Preview Card */}
+          <Card className="bg-card/40 backdrop-blur-sm border border-primary/10 rounded-2xl overflow-hidden relative group">
+            <CardContent className="p-5 md:p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-2 bg-primary/5 rounded-lg">
+                  <Eye className="h-4 w-4 text-primary" />
                 </div>
-                <p className="text-[11px] text-muted-foreground mt-4 font-medium italic">"Ensure your client's first impression is perfect."</p>
-              </CardContent>
-            </Card>
+                <h3 className="font-bold text-sm tracking-tight">Portal Preview</h3>
+              </div>
+              <div className="aspect-video rounded-xl bg-muted border border-border/50 flex flex-col items-center justify-center p-4 text-center group-hover:bg-muted/80 transition-colors">
+                <div className="w-12 h-1 bg-primary/20 rounded-full mb-3" />
+                <div className="space-y-1.5 w-full">
+                  <div className="h-2 w-3/4 bg-muted-foreground/20 rounded mx-auto" />
+                  <div className="h-2 w-1/2 bg-muted-foreground/20 rounded mx-auto" />
+                </div>
+                <Button variant="ghost" size="sm" className="mt-4 h-8 text-[11px] font-bold uppercase tracking-wider text-primary hover:text-primary hover:bg-primary/5">
+                  Launch Preview
+                </Button>
+              </div>
+              <p className="text-[11px] text-muted-foreground mt-4 font-medium italic">"Ensure your client's first impression is perfect."</p>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>
