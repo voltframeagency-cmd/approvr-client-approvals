@@ -165,7 +165,7 @@ const Dashboard = () => {
                           {item.urgencyLabel}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="font-bold text-[15px] truncate text-slate-900 dark:text-white">{item.name}</p>
+                          <p className="font-bold text-sm md:text-[15px] truncate text-slate-900 dark:text-white">{item.name}</p>
                           <p className="text-[12px] text-muted-foreground font-medium">{item.clientName}</p>
                         </div>
                         <div className="hidden sm:flex flex-col items-end gap-1.5">
