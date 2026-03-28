@@ -96,13 +96,17 @@ const Hero = () => (
 
       {/* Interactive demo mockup */}
       <motion.div
-        initial={{ opacity: 0, y: 48 }}
+        initial={{ opacity: 0, y: 60 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: DURATION.large, delay: 0.5, ease: EASING.enter }}
-        className="mt-14 md:mt-20 max-w-4xl mx-auto glow-primary rounded-2xl"
+        className="mt-20 md:mt-28 max-w-5xl mx-auto rounded-[2.5rem] p-4 bg-card/30 border border-border/40 backdrop-blur-sm shadow-2xl relative group glow-primary"
         data-gsap="mockup"
       >
-        <HeroDemoMockup />
+        <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+        <div className="absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-transparent via-primary/10 to-transparent" />
+        <div className="rounded-[2rem] overflow-hidden border border-border/40 shadow-inner">
+          <HeroDemoMockup />
+        </div>
       </motion.div>
     </div>
   </section>
