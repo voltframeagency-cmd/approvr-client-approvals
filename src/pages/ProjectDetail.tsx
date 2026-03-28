@@ -323,8 +323,8 @@ const ProjectDetail = () => {
                                <div className="h-1 w-1 rounded-full bg-border" />
                                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-widest">Version {activeVersion}</span>
                             </div>
-                            <h2 className="text-xl font-bold tracking-tight">{selectedDel.title}</h2>
-                            <p className="text-[13px] text-muted-foreground font-medium">{selectedDel.fileName}</p>
+                            <h2 className="text-base md:text-xl font-bold tracking-tight">{selectedDel.title}</h2>
+                            <p className="text-xs md:text-[13px] text-muted-foreground font-medium">{selectedDel.fileName}</p>
                           </div>
                           <div className="flex items-center gap-2">
                             {selectedDel.versions && selectedDel.versions.length > 1 && (
