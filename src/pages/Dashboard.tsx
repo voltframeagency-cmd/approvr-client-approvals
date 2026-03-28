@@ -199,7 +199,7 @@ const Dashboard = () => {
                     <div className="relative group/card">
                       <Link to={`/dashboard/projects/${project.id}`}>
                          <motion.div
-                           className="card-elevated p-4 md:p-6 border-none ring-1 ring-slate-200/60 dark:ring-slate-800/60 group"
+                           className="card-elevated p-4 md:p-6 border-none ring-1 ring-border/60 group"
                          >
                            <div className="flex items-start justify-between gap-3 md:gap-4 mb-4 md:mb-6">
                              <div className="min-w-0">
