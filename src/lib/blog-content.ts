@@ -168,4 +168,153 @@ export const blogContent: Record<string, BlogSection[]> = {
     // SOFT CTA (BYAF)
     { type: 'cta', content: 'If this workflow sounds like what you\'ve been looking for, Approvr gives you 14 days to try it. No card. No sales call. Worth a look if you\'re tired of chasing.' },
   ],
+
+  'govisually-alternative': [
+    // HOOK
+    { type: 'p', content: 'You send the proof link. Your client clicks it. A signup form appears.' },
+    { type: 'p', content: 'They close the tab.' },
+    { type: 'p', content: 'You don\'t hear back for five days. When you do, it\'s a reply to your original email — not a comment on the proof. They never made it past the login screen.' },
+
+    // AGITATION
+    { type: 'h2', content: 'The invisible wall between your client\'s intent to approve' },
+    { type: 'p', content: 'GoVisually does one thing well — visual proofing. Pin a comment on a design. Draw an annotation. Compare versions side by side.' },
+    { type: 'p', content: 'The problem is what happens before any of that. Your client needs to create an account. Pick a password. Verify their email. Log in.' },
+    { type: 'p', content: 'That\'s four steps before they see your work. Each step is an exit point. Each exit point costs you days.' },
+    { type: 'ul', items: [
+      'Account creation adds 2-3 minutes of friction. Enough time for your client to switch tabs, get distracted, forget.',
+      'Password requirements create frustration. "Must include uppercase, number, special character" — for reviewing a logo.',
+      'Verification emails land in spam. Your client never sees them. You never know why they didn\'t respond.',
+    ]},
+
+    // MECHANISM
+    { type: 'h2', content: 'What "no login required" actually means for your approval speed' },
+    { type: 'p', content: 'Approvr uses magic links. Your client gets a URL. They click it. The deliverable opens immediately in a branded portal.' },
+    { type: 'p', content: 'No account. No password. No verification step.' },
+    { type: 'p', content: 'The time between "client receives link" to "client sees your work" drops from 3-5 minutes to about 4 seconds.' },
+
+    // PROOF
+    { type: 'h2', content: 'Feature comparison' },
+    { type: 'table', headers: ['', 'GoVisually', 'Approvr'], rows: [
+      ['Client needs account', 'Yes', 'No — magic link'],
+      ['White-label portal', 'Limited', 'Full branding on all plans'],
+      ['Starting price', '$20/mo', '$39/mo'],
+      ['Approval receipts', 'No', 'Yes — timestamped'],
+      ['Version history', 'Yes', 'Yes'],
+      ['Best for', 'Visual proofing teams', 'Agencies wanting zero-friction approvals'],
+    ]},
+
+    // OBJECTION HANDLING
+    { type: 'h2', content: 'When GoVisually makes sense' },
+    { type: 'p', content: 'GoVisually\'s annotation tools are solid. If your reviewers are internal team members who log in daily, the account requirement isn\'t a problem.' },
+    { type: 'p', content: 'If your reviewers are external clients who touch your proofing tool once a month — that login wall is costing you more than you think.' },
+
+    // SOFT CTA
+    { type: 'cta', content: 'Curious what happens when you remove the login step? Approvr gives you 14 days free. Send one link to a real client. See how fast they respond.' },
+  ],
+
+  'ziflow-alternative-small-teams': [
+    // HOOK
+    { type: 'p', content: 'Ziflow supports 1,200 file types. That number is on their homepage. It\'s in their pitch deck. It\'s the first thing their sales team mentions.' },
+    { type: 'p', content: 'Here\'s a question worth sitting with — how many file types did your team use last month?' },
+    { type: 'p', content: 'Probably three. Maybe four.' },
+
+    // AGITATION
+    { type: 'h2', content: 'The complexity tax you\'re paying every month' },
+    { type: 'p', content: 'Ziflow is an enterprise proofing platform. It\'s built for pharmaceutical companies reviewing regulatory documents. For media conglomerates managing broadcast assets across legal teams.' },
+    { type: 'p', content: 'The feature list reflects that audience.' },
+    { type: 'ul', items: [
+      'Automated proofing workflows with conditional logic — powerful if you have 8 approval stages. Noise if you have one.',
+      'Granular permission systems — necessary for 200-person departments. Overhead for a team of 5.',
+      'Custom pricing with no public tiers — means a sales call. Means a demo. Means a follow-up email chain before you can even test it.',
+    ]},
+    { type: 'p', content: 'Every feature you don\'t use is still part of the interface. It\'s still cluttering the screen. It\'s still making your client\'s experience more complex than it needs to be.' },
+
+    // MECHANISM
+    { type: 'h2', content: 'What a proofing tool for small teams actually looks like' },
+    { type: 'p', content: 'Approvr was built for teams under 15 people. The entire workflow is three steps.' },
+    { type: 'ul', items: [
+      'Upload your deliverable. Add version notes if you want.',
+      'Send a magic link. Your client opens it without creating an account.',
+      'They approve — or leave pinned feedback. You\'re notified instantly.',
+    ]},
+    { type: 'p', content: 'That\'s the whole product. No conditional logic. No permission hierarchies. No sales calls.' },
+
+    // PROOF
+    { type: 'h2', content: 'The numbers, side by side' },
+    { type: 'table', headers: ['', 'Ziflow', 'Approvr Scaler'], rows: [
+      ['Monthly price', 'Custom (sales call)', '$39/mo'],
+      ['Client needs account', 'Yes', 'No — magic link'],
+      ['White-label', 'No', 'Full branding'],
+      ['Setup time', 'Days (with onboarding)', 'Under 5 min'],
+      ['File types', '1,200+', 'Images, PDFs, video'],
+      ['Best for', 'Enterprise proofing pipelines', 'Small creative teams'],
+    ]},
+
+    // OBJECTION HANDLING
+    { type: 'h2', content: 'When Ziflow earns its price' },
+    { type: 'p', content: 'If you manage regulated content across multiple departments with compliance requirements — Ziflow is built for that. It\'s a serious tool for serious enterprise workflows.' },
+    { type: 'p', content: 'If your workflow is "send design → get feedback → get approval," you\'re driving a semi-truck to the grocery store.' },
+
+    // SOFT CTA
+    { type: 'cta', content: 'Worth seeing the difference? Approvr takes 5 minutes to set up. 14 days free. No card required.' },
+  ],
+
+  'how-to-get-client-feedback-faster': [
+    // HOOK
+    { type: 'p', content: 'You followed up three times. No reply.' },
+    { type: 'p', content: 'The project sits in limbo. Your invoice waits. Your next project can\'t start because this one won\'t end.' },
+    { type: 'p', content: 'Your client isn\'t ignoring you. They\'re overwhelmed by the number of steps between seeing your message to giving you a response.' },
+
+    // AGITATION
+    { type: 'h2', content: 'The real reason clients delay feedback' },
+    { type: 'p', content: 'It\'s not laziness. It\'s not disrespect. It\'s friction.' },
+    { type: 'p', content: 'Think about what you\'re asking your client to do when you send a "please review" email.' },
+    { type: 'ul', items: [
+      'Open the email. Find the attachment. Download it.',
+      'Open the file in the right application. Realize they don\'t have the right application.',
+      'Try to articulate feedback in a reply. Struggle to describe which part of the design they mean.',
+      'Give up. Close the tab. Promise themselves they\'ll do it later.',
+    ]},
+    { type: 'p', content: 'Later never comes. Not because they don\'t care. Because the process demands too much cognitive effort for something that should take 90 seconds.' },
+
+    // MECHANISM
+    { type: 'h2', content: '5 changes that cut response times in half' },
+
+    { type: 'h3', content: '1. Kill the attachment' },
+    { type: 'p', content: 'Stop sending files. Send links. A link opens instantly in any browser. No downloads. No "which app do I use?" No compatibility issues.' },
+    { type: 'p', content: 'Your deliverable should render in the browser the moment they click.' },
+
+    { type: 'h3', content: '2. Remove the login' },
+    { type: 'p', content: 'Every login screen is a dropout point. If your client needs to create an account, pick a password, verify an email — you\'ve already lost 30-40% of them at that step alone.' },
+    { type: 'p', content: 'Use tools that support magic links. Click → see the work. That\'s the entire interaction.' },
+
+    { type: 'h3', content: '3. Let them point, not describe' },
+    { type: 'p', content: '"The thing on the left, kind of near the top, the blue part" — you\'ve gotten this feedback before. It wastes your time decoding what they mean.' },
+    { type: 'p', content: 'Give them a way to click directly on the design to leave a comment. Pinned, contextual feedback eliminates the translation layer.' },
+
+    { type: 'h3', content: '4. Make approval a single action' },
+    { type: 'p', content: 'Don\'t ask clients to reply with "approved." Don\'t ask them to sign a PDF. Don\'t ask them to forward to their boss.' },
+    { type: 'p', content: 'Give them one button. "Approve." Timestamped. Attributed. Done.' },
+
+    { type: 'h3', content: '5. Send the link inside your project update' },
+    { type: 'callout', content: 'Don\'t send the review link as a separate message. Embed it in your project update: "Here\'s the latest version — review it here: [link]." One message. One action. No context switching.', variant: 'tip' },
+
+    // PROOF
+    { type: 'h2', content: 'What these changes look like in practice' },
+    { type: 'table', headers: ['Before', 'After'], rows: [
+      ['Email with PDF attachment', 'One branded link — opens in browser'],
+      ['Client creates account to review', 'Magic link — no login needed'],
+      ['"Can you change the blue thing?"', 'Pinned comment on the exact element'],
+      ['"Approved" buried in email thread', 'One-click approval with timestamp'],
+      ['3-7 day feedback cycle', 'Same-day responses become normal'],
+    ]},
+
+    { type: 'h2', content: 'The compounding effect nobody mentions' },
+    { type: 'p', content: 'Faster feedback doesn\'t just close projects sooner. It changes the relationship.' },
+    { type: 'p', content: 'When clients can respond in 90 seconds instead of 20 minutes, they stop dreading your review requests. They respond the same day. They feel more involved. They refer you to other businesses.' },
+    { type: 'p', content: 'The friction you remove from their experience compounds into trust. Trust compounds into retention. Retention compounds into referrals.' },
+
+    // SOFT CTA
+    { type: 'cta', content: 'If you want to see what a frictionless feedback loop feels like, Approvr gives you 14 days to try it. No card. No onboarding call. Just send a link to a real client.' },
+  ],
 };
