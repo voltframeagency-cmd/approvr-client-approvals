@@ -54,7 +54,20 @@ function timeAgo(dateStr: string) {
 const Dashboard = () => {
   const beta = useFounderBeta();
   const onboarding = useOnboarding();
-  const { isDemoMode, demoUserName, demoData, planConfig, usage } = useDemo();
+  const { isDemoMode, demoUserName, demoData, planConfig: demoPlanConfig, usage: demoUsage } = useDemo();
+  
+  // Real workspace data for authenticated users
+  const { data: workspace } = useWorkspace();
+  const { data: realUsage } = useWorkspaceUsage(isDemoMode ? undefined : workspace?.id);
+  const realPlanConfig = !isDemoMode && workspace ? getWorkspacePlanConfig(workspace.plan) : null;
+  
+  // Unified usage values: demo or real
+  const activePlanConfig = isDemoMode ? demoPlanConfig : realPlanConfig;
+  const usageStats = isDemoMode && demoUsage
+    ? { projectsUsed: demoUsage.projectsUsed, storageUsedGB: demoUsage.storageUsedGB, teamMembersUsed: demoUsage.teamMembersUsed }
+    : realUsage
+      ? { projectsUsed: realUsage.projectCount, storageUsedGB: realUsage.storageGB, teamMembersUsed: realUsage.teamMemberCount }
+      : null;
   
   // Use demo data when in demo mode, otherwise fall back to mock data
   const projects = isDemoMode && demoData ? demoData.projects : mockProjects;
