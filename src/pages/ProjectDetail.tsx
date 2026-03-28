@@ -4,6 +4,7 @@ import {
   type NextStepProviderType, type NextStepAction 
 } from '@/lib/mock-data';
 import { StatusBadge } from '@/components/app/StatusBadge';
+import { ApprovalReceipt } from '@/components/app/ApprovalReceipt';
 import {
   ArrowLeft, FileText, MessageSquare, Upload, Clock, Send, CheckCircle2,
   Eye, History, ExternalLink, AlertCircle, Zap, Plus, Trash2, Building2,
