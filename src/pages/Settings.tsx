@@ -707,12 +707,12 @@ const Settings = () => {
                       </div>
                     </div>
 
-                    <div className="grid sm:grid-cols-2 gap-4 pt-2">
-                      <div className="p-5 rounded-2xl border bg-card">
-                        <Label className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">Projects Created</Label>
-                        <div className="mt-4 flex items-end justify-between">
+                    <div className="grid grid-cols-2 gap-3 sm:gap-4 pt-2">
+                      <div className="p-3.5 sm:p-5 rounded-2xl border bg-card">
+                        <Label className="text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wider font-semibold">Projects Created</Label>
+                        <div className="mt-3 sm:mt-4 flex items-end justify-between">
                           <div>
-                            <span className="text-3xl font-bold">{mockFounderBeta.lifetimeProjectsCreated}</span>
+                            <span className="text-2xl sm:text-3xl font-bold">{mockFounderBeta.lifetimeProjectsCreated}</span>
                             <span className="text-muted-foreground text-[14px] ml-1">/ 10</span>
                           </div>
                           <div className="h-2 w-24 bg-muted rounded-full overflow-hidden">
