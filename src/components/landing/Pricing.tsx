@@ -11,7 +11,7 @@ const plans = [
     name: 'Founder Beta',
     price: { monthly: 0, yearly: 0 },
     period: '/mo',
-    description: 'Limited early access for founding users.',
+    description: 'Free for founding members. Limited.',
     features: [
       '3 projects (lifetime total)',
       '10 approval events total',
