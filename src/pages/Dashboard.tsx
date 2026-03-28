@@ -193,7 +193,7 @@ const Dashboard = () => {
                </Link>
             </div>
             {activeApprovals.length > 0 ? (
-              <StaggerContainer className="grid gap-4" staggerDelay={0.05}>
+              <StaggerContainer className="grid gap-3 md:gap-4" staggerDelay={0.05}>
                 {activeApprovals.slice(0, 5).map(project => (
                   <StaggerItem key={project.id}>
                     <div className="relative group/card">
