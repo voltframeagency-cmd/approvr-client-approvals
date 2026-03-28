@@ -6,12 +6,15 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Logo } from '@/components/brand/Logo';
 import HeroBackground from '@/components/landing/HeroBackground';
-import { ShieldCheck, ArrowRight, Sparkles } from 'lucide-react';
+import { ShieldCheck, ArrowRight, Sparkles, Zap, Building2, Play } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
+import { useDemo } from '@/contexts/DemoContext';
 import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
 
 const Login = () => {
   const { signIn } = useAuth();
+  const { enterDemo } = useDemo();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -107,6 +110,35 @@ const Login = () => {
           <motion.p variants={itemVariants} className="text-sm text-center text-muted-foreground mt-8">
             New to Approvr?{' '}<Link to="/signup" className="text-primary hover:text-primary/80 font-bold transition-colors">Claim your Founder Beta invite</Link>
           </motion.p>
+
+          {/* Demo Accounts */}
+          <motion.div variants={itemVariants} className="mt-8 pt-6 border-t border-border/50">
+            <div className="flex items-center gap-2 justify-center mb-4">
+              <Play className="h-3.5 w-3.5 text-primary" />
+              <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Try a live demo</p>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <Button
+                variant="outline"
+                className="h-auto py-3 px-4 rounded-xl border-border/60 hover:border-primary/30 hover:bg-primary/5 flex flex-col items-center gap-1.5 transition-all"
+                onClick={() => { enterDemo('scaler'); navigate('/dashboard'); }}
+              >
+                <Zap className="h-4 w-4 text-primary" />
+                <span className="text-xs font-bold">The Scaler</span>
+                <span className="text-[10px] text-muted-foreground">$39/mo plan</span>
+              </Button>
+              <Button
+                variant="outline"
+                className="h-auto py-3 px-4 rounded-xl border-primary/20 hover:border-primary/40 hover:bg-primary/5 flex flex-col items-center gap-1.5 transition-all ring-1 ring-primary/10"
+                onClick={() => { enterDemo('studio'); navigate('/dashboard'); }}
+              >
+                <Building2 className="h-4 w-4 text-primary" />
+                <span className="text-xs font-bold">The Studio</span>
+                <span className="text-[10px] text-muted-foreground">$79/mo plan</span>
+              </Button>
+            </div>
+          </motion.div>
+
           <motion.div variants={itemVariants} className="flex items-center justify-center gap-4 mt-6 text-[11px] text-muted-foreground/50">
             <Link to="/privacy" className="hover:text-primary transition-colors">Privacy</Link><span>·</span>
             <Link to="/terms" className="hover:text-primary transition-colors">Terms</Link>

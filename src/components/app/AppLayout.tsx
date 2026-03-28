@@ -1,13 +1,15 @@
 import { Link, useLocation, Outlet, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, FolderKanban, Bell, Settings, LogOut } from 'lucide-react';
+import { LayoutDashboard, FolderKanban, Bell, Settings, LogOut, Play, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Logo } from '@/components/brand/Logo';
 import { ThemeToggle } from '@/components/app/ThemeToggle';
 import { useAuth } from '@/contexts/AuthContext';
+import { useDemo } from '@/contexts/DemoContext';
 import { useWorkspace } from '@/hooks/use-workspace';
 import { useNotifications } from '@/hooks/use-projects';
+import { mockNotifications } from '@/lib/mock-data';
 
 const navItems = [
   { to: '/dashboard', icon: LayoutDashboard, label: 'Overview' },
@@ -20,14 +22,26 @@ const AppLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { user, signOut } = useAuth();
+  const { isDemoMode, demoPlan, demoUserName, demoAgencyName, exitDemo } = useDemo();
   const { data: workspace } = useWorkspace();
   const { data: notifications } = useNotifications();
 
-  const unreadCount = notifications?.filter(n => !n.read).length || 0;
-  const displayName = user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'User';
+  const unreadCount = isDemoMode 
+    ? mockNotifications.filter(n => !n.read).length
+    : (notifications?.filter(n => !n.read).length || 0);
+  const displayName = isDemoMode 
+    ? demoUserName 
+    : (user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'User');
   const initials = displayName.split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2);
+  const workspaceName = isDemoMode ? demoAgencyName : workspace?.name;
+  const planLabel = demoPlan === 'studio' ? 'The Studio' : 'The Scaler';
 
   const handleSignOut = async () => {
+    if (isDemoMode) {
+      exitDemo();
+      navigate('/login');
+      return;
+    }
     await signOut();
     navigate('/login');
   };
@@ -78,12 +92,14 @@ const AppLayout = () => {
         </nav>
         
         <div className="px-3 pb-6 space-y-4">
-          {workspace && (
+          {(workspace || isDemoMode) && (
             <div className="px-4 py-4 rounded-2xl bg-gradient-to-br from-card via-card to-card text-foreground shadow-xl relative overflow-hidden group border border-border/10">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.1),transparent)]" />
               <div className="relative z-10 flex flex-col gap-2">
-                <Badge className="w-fit bg-primary/20 text-primary hover:bg-primary/30 border-none text-[8px] font-black tracking-widest px-1.5 py-0 uppercase">Founder Beta</Badge>
-                <p className="text-[11px] font-bold tracking-tight truncate">{workspace.name}</p>
+                <Badge className="w-fit bg-primary/20 text-primary hover:bg-primary/30 border-none text-[8px] font-black tracking-widest px-1.5 py-0 uppercase">
+                  {isDemoMode ? planLabel : 'Founder Beta'}
+                </Badge>
+                <p className="text-[11px] font-bold tracking-tight truncate">{workspaceName || workspace?.name}</p>
               </div>
             </div>
           )}
@@ -129,6 +145,19 @@ const AppLayout = () => {
 
       {/* Main content */}
       <main className="flex-1 md:ml-[240px] min-h-screen bg-muted/30 overflow-x-hidden">
+        {isDemoMode && (
+          <div className="bg-primary/10 border-b border-primary/20 px-4 py-2 flex items-center justify-center gap-3 text-sm">
+            <Play className="h-3.5 w-3.5 text-primary" />
+            <span className="font-bold text-primary">Demo Mode</span>
+            <span className="text-muted-foreground">— Exploring <strong className="text-foreground">{planLabel}</strong> plan</span>
+            <button
+              onClick={() => { exitDemo(); navigate('/login'); }}
+              className="ml-4 inline-flex items-center gap-1 text-xs font-bold text-muted-foreground hover:text-destructive transition-colors"
+            >
+              <X className="h-3 w-3" /> Exit
+            </button>
+          </div>
+        )}
         <div className="px-4 py-4 md:p-10 lg:p-12 pt-[72px] md:pt-10 max-w-7xl mx-auto">
           <AnimatePresence mode="wait">
             <motion.div

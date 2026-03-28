@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "next-themes";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { DemoProvider } from "@/contexts/DemoContext";
 import { ProtectedRoute } from "@/components/app/ProtectedRoute";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
@@ -33,6 +34,7 @@ const App = () => (
     <HelmetProvider>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
         <AuthProvider>
+          <DemoProvider>
           <TooltipProvider>
             <SmoothScroll>
               <Toaster />
@@ -61,6 +63,7 @@ const App = () => (
               </BrowserRouter>
             </SmoothScroll>
           </TooltipProvider>
+          </DemoProvider>
         </AuthProvider>
       </ThemeProvider>
     </HelmetProvider>
