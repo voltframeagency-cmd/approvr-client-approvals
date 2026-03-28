@@ -42,7 +42,7 @@ const CTA = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="max-w-5xl mx-auto relative rounded-[3rem] border border-primary/20 bg-card/40 backdrop-blur-3xl p-12 md:p-24 overflow-hidden shadow-2xl"
+          className="max-w-5xl mx-auto relative rounded-2xl md:rounded-[3rem] border border-primary/20 bg-card/40 backdrop-blur-3xl p-8 md:p-24 overflow-hidden shadow-2xl"
         >
           {/* Internal Glow */}
           <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/20 rounded-full blur-[80px]" />
