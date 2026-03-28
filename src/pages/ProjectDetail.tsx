@@ -528,7 +528,7 @@ const ProjectDetail = () => {
                       <h3 className="font-bold text-xs md:text-[15px] flex items-center gap-2 md:gap-2.5 uppercase tracking-widest text-foreground">
                         <History className="h-4 w-4 text-primary" /> Version history
                       </h3>
-                      <Badge variant="outline" className="text-[10px] font-bold border-slate-200 text-muted-foreground bg-white">
+                      <Badge variant="outline" className="text-[10px] font-bold border-border text-muted-foreground bg-card">
                         {selectedDel.versions?.length || 1} Versions
                       </Badge>
                     </div>
