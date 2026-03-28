@@ -209,7 +209,7 @@ const Pricing = () => {
                     )}
                   </div>
 
-                  <div className="space-y-4 mb-10 flex-1">
+                  <div className="space-y-3 md:space-y-4 mb-6 md:mb-10 flex-1">
                     {plan.features.map((feature) => (
                       <div key={feature} className="flex items-start gap-3 group/item">
                         <div className={cn(
