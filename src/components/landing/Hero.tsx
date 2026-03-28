@@ -17,7 +17,7 @@ const founderMembers = [
 ];
 
 const Hero = () => (
-  <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
+  <section className="relative pt-36 pb-24 md:pt-48 md:pb-32 overflow-hidden">
     <div className="absolute inset-0 surface-sunken" />
     <HeroBackground />
 
@@ -30,13 +30,13 @@ const Hero = () => (
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: DURATION.large, ease: EASING.enter }}
-        className="max-w-3xl mx-auto text-center"
+        className="max-w-4xl mx-auto text-center"
       >
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: DURATION.structural, delay: 0.1, ease: EASING.enter }}
-          className="inline-flex items-center gap-2 rounded-full border bg-card/80 backdrop-blur-sm px-4 py-1.5 text-[13px] text-muted-foreground mb-6 shadow-sm"
+          className="inline-flex items-center gap-2 rounded-full border border-border/40 bg-card/50 backdrop-blur-md px-4 py-1.5 text-[13px] font-medium text-muted-foreground mb-8 shadow-sm"
         >
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" style={{ animationDuration: '2s' }} />
@@ -45,34 +45,38 @@ const Hero = () => (
           Founder Beta — 380 spots gone
         </motion.div>
 
-        <h1 className="text-4xl md:text-[3.5rem] lg:text-[4.25rem] font-bold tracking-tighter leading-[1.05] mb-6">
-          Your clients owe you an answer. <br className="hidden md:block" />
-          <span className="gradient-text italic">Stop waiting for it in email.</span>
+        <h1 className="text-4xl md:text-6xl lg:text-[4.75rem] font-bold tracking-tight leading-[1.02] mb-8">
+          Your clients aren't ignoring you. <br className="hidden md:block" />
+          <span className="gradient-text italic font-serif">They're just losing your emails.</span>
         </h1>
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: DURATION.structural, delay: 0.3, ease: EASING.standard }}
-          className="text-lg md:text-xl text-muted-foreground max-w-[560px] mx-auto mb-10 leading-relaxed"
-        >
-          Every week your team loses 6+ hours digging through inboxes for a one-word reply. One portal. Clients open it. They review. They hit approve — done.
-        </motion.p>
+        
+        <div className="max-w-[640px] mx-auto mb-12">
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: DURATION.structural, delay: 0.3, ease: EASING.standard }}
+            className="text-lg md:text-xl text-muted-foreground/80 leading-relaxed"
+          >
+            Agency teams lose 6+ hours every week to inbox friction. It's a hidden tax on your growth. Approvr centralizes every deliverable into a single, branded portal. No login required for clients. They open the link, leave feedback, and hit approve. Done.
+          </motion.p>
+        </div>
+
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: DURATION.structural, delay: 0.45, ease: EASING.enter }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-3" style={{ filter: 'drop-shadow(0 4px 12px hsl(0 0% 0% / 0.15))' }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <Link to="/signup">
-            <ShinyButton className="h-12 px-8 text-[15px] font-medium">
+            <ShinyButton className="h-13 px-10 text-base font-semibold shadow-xl shadow-primary/10">
               Get early access
               <ArrowRight className="h-4 w-4" />
             </ShinyButton>
           </Link>
-          <Button variant="outline" size="lg" className="h-12 px-8 text-[15px] gap-2 bg-card/50 backdrop-blur-sm font-medium">
-            <Play className="h-4 w-4" />
+          <Button variant="outline" size="lg" className="h-13 px-8 text-base gap-2 bg-card/30 backdrop-blur-sm border-border/40 font-medium hover:bg-card/50 transition-all">
+            <Play className="h-4 w-4 fill-current" />
             See it work
-            <span className="text-muted-foreground text-[12px]">2 min</span>
+            <span className="text-muted-foreground text-[12px] ml-1">2 min</span>
           </Button>
         </motion.div>
 
@@ -81,27 +85,32 @@ const Hero = () => (
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: DURATION.structural, delay: 0.6, ease: EASING.standard }}
-          className="flex items-center justify-center gap-3 mt-8"
+          className="flex items-center justify-center gap-3 mt-12"
         >
-          <AvatarGroup members={founderMembers} size={28} limit={4} />
-          <span className="text-sm text-muted-foreground">
-            <span className="font-semibold text-foreground">380+</span> agencies stopped chasing
+          <AvatarGroup members={founderMembers} size={32} limit={4} />
+          <span className="text-sm text-muted-foreground/80 font-medium">
+            <span className="text-foreground font-bold">380+</span> agencies stopped chasing
           </span>
         </motion.div>
       </motion.div>
 
       {/* Interactive demo mockup */}
       <motion.div
-        initial={{ opacity: 0, y: 48 }}
+        initial={{ opacity: 0, y: 60 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: DURATION.large, delay: 0.5, ease: EASING.enter }}
-        className="mt-14 md:mt-20 max-w-4xl mx-auto glow-primary rounded-2xl"
+        className="mt-20 md:mt-28 max-w-5xl mx-auto rounded-[2.5rem] p-4 bg-card/30 border border-border/40 backdrop-blur-sm shadow-2xl relative group"
         data-gsap="mockup"
       >
-        <HeroDemoMockup />
+        <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+        <div className="absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-transparent via-primary/10 to-transparent" />
+        <div className="rounded-[2rem] overflow-hidden border border-border/40 shadow-inner">
+          <HeroDemoMockup />
+        </div>
       </motion.div>
     </div>
   </section>
+
 );
 
 export default Hero;

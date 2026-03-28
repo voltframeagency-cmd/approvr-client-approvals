@@ -15,44 +15,44 @@ const features = [
   { 
     id: 1,
     demo: UploadDemo, 
-    title: 'All your files, one place', 
-    description: 'Designs, docs, videos — organized by version from day one. No more digging.',
-    tag: 'Organization'
+    title: 'Stop digging through Drive', 
+    description: 'Designs, docs, and assets organized by session and version. Every file has a home, and it\'s not your inbox.',
+    tag: 'Version Control'
   },
   { 
     id: 2,
     demo: FeedbackDemo, 
-    title: 'Feedback where it belongs', 
-    description: 'Clients comment right on the work. You\'ll never hear "which version?" again.',
-    tag: 'Feedback'
+    title: 'No more "Which version?"', 
+    description: 'Clients leave feedback directly on the deliverable. Context is preserved, and ambiguity is eliminated.',
+    tag: 'Contextual Feedback'
   },
   { 
     id: 3,
     demo: ApprovalDemo, 
-    title: 'The fastest "yes" you\'ll get', 
-    description: 'One button. Client taps it. Decision logged. That\'s the whole process.',
-    tag: 'Approvals'
+    title: 'One-click client "Yes"', 
+    description: 'One button. No login required. Clients open, review, and approve in seconds. That\'s the whole flow.',
+    tag: 'Instant Sign-off'
   },
   { 
     id: 4,
     demo: TimelineDemo, 
-    title: 'Know where everything stands', 
-    description: 'Every comment, every approval — visible in real time. Nothing slips.',
-    tag: 'Real-time'
+    title: 'Follow the momentum', 
+    description: 'A live feed of client interactions. Know exactly when they opened the link and what they\'re looking at.',
+    tag: 'Live Signaling'
   },
   { 
     id: 5,
     demo: BrandingDemo, 
-    title: 'Looks like yours, not ours', 
-    description: 'Your logo, your colors. Clients see your brand — not some random tool.',
-    tag: 'White-label'
+    title: 'Your brand, their portal', 
+    description: 'Fully white-labeled. Your logo, your domain, and your fonts. Professionalism that scales with you.',
+    tag: 'White-Label'
   },
   { 
     id: 6,
     demo: AuditDemo, 
-    title: 'Proof when you need it', 
-    description: 'Every approval is timestamped, attributed. When a client says "I never approved that" — you\'ve got receipts.',
-    tag: 'Security'
+    title: 'Audit-ready receipts', 
+    description: 'Every decision is timestamped and attributed. When projects go sideways, you\'ve got the paper trail.',
+    tag: 'Liability Protection'
   },
 ];
 

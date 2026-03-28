@@ -49,18 +49,18 @@ const CTA = () => {
           
           <div className="relative z-10 text-center max-w-3xl mx-auto">
             <motion.h2 variants={itemVariants} className="text-3xl md:text-6xl lg:text-[4.25rem] font-bold mb-6 md:mb-8 tracking-tighter leading-[1.05] drop-shadow-md">
-              Stop chasing. <br />
-              <span className="italic bg-gradient-to-b from-primary via-primary to-primary/60 bg-clip-text text-transparent">Start approving.</span>
+              Stop chasing clients. <br />
+              <span className="italic bg-gradient-to-b from-primary via-primary to-primary/60 bg-clip-text text-transparent">Start locking in "Yes".</span>
             </motion.h2>
             
             <motion.p variants={itemVariants} className="text-base md:text-xl text-muted-foreground mb-8 md:mb-12 max-w-xl mx-auto leading-relaxed">
-              Every week you don't switch, your team loses another 6 hours to inbox chaos. That's 300+ hours a year — gone.
+              Every week you wait, your team loses another 6 hours to inbox friction. That's 300+ hours a year — gone.
             </motion.p>
             
             <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <Link to="/signup" className="w-full sm:w-auto">
-                <ShinyButton className="h-14 md:h-16 px-8 md:px-10 text-base md:text-lg font-black">
-                    Get early access
+                <ShinyButton className="h-14 md:h-16 px-10 text-base md:text-lg font-black">
+                    Get started for free
                     <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </ShinyButton>
               </Link>
