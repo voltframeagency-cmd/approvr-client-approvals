@@ -48,7 +48,7 @@ const plans = [
     name: 'Agency',
     price: { monthly: 79, yearly: 64 },
     period: '/mo',
-    description: 'For teams managing multiple clients.',
+    description: 'For teams running 10+ client accounts.',
     features: [
       'Everything in Pro, plus:',
       'Unlimited workspaces',
