@@ -37,7 +37,7 @@ html.lenis, html.lenis body {
 
 @layer base {
   :root {
-    --background: 0 0% 99%;
+    --background: 168 100% 98%;
     --ds-gray-100: hsla(0, 0%, 95%, 1);
     --ds-gray-400: hsla(0, 0%, 82%, 1);
     --ds-gray-1000: hsla(0, 0%, 7%, 1);
