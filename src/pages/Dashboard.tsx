@@ -283,7 +283,7 @@ const Dashboard = () => {
                   >
                     <div className="absolute -left-[37px] md:-left-[45px] top-0 h-7 w-7 md:h-8 md:w-8 rounded-full bg-card flex items-center justify-center ring-4 ring-background z-10">
                       <div className="h-5 w-5 md:h-6 md:w-6 rounded-full bg-muted/50 border flex items-center justify-center text-primary group-hover:border-primary/40 transition-colors">
-                        <Icon className="h-3 w-3" />
+                        <Icon className="h-3.5 w-3.5" />
                       </div>
                     </div>
                     <div className="flex flex-col gap-1">
