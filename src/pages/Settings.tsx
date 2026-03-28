@@ -17,6 +17,7 @@ import { useWorkspace, useWorkspaceMembers, useInviteMember, useUpdateMemberRole
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { supabase } from '@/integrations/supabase/client';
+import { useWorkspaceUsage, getWorkspacePlanConfig } from '@/hooks/use-workspace-usage';
 
 const Settings = () => {
   const { user } = useAuth();
