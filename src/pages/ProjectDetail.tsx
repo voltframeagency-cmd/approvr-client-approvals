@@ -138,24 +138,24 @@ const ProjectDetail = () => {
   );
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="flex items-center gap-3"
+        className="flex items-start gap-2 md:gap-3"
       >
-        <Link to="/dashboard/projects" className="p-2 rounded-lg hover:bg-muted transition-colors">
+        <Link to="/dashboard/projects" className="p-1.5 md:p-2 rounded-lg hover:bg-muted transition-colors mt-0.5">
           <ArrowLeft className="h-4 w-4" />
         </Link>
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-3">
-            <h1 className="text-xl font-bold truncate">{project.name}</h1>
+          <div className="flex items-center gap-2 md:gap-3 flex-wrap">
+            <h1 className="text-lg md:text-xl font-bold truncate">{project.name}</h1>
             {project.isOverdue && project.status !== 'approved' && (
-              <span className="text-[11px] font-semibold text-destructive bg-destructive/[0.08] px-2 py-0.5 rounded-full">Overdue</span>
+              <span className="text-[10px] md:text-[11px] font-semibold text-destructive bg-destructive/[0.08] px-2 py-0.5 rounded-full">Overdue</span>
             )}
           </div>
-          <p className="text-[13px] text-muted-foreground">{project.clientName} · Due {new Date(project.deadline).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+          <p className="text-xs md:text-[13px] text-muted-foreground">{project.clientName} · Due {new Date(project.deadline).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
         </div>
         <StatusBadge status={project.status} animated />
       </motion.div>
@@ -165,12 +165,12 @@ const ProjectDetail = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.08 }}
-        className="flex items-center gap-6 text-[13px] text-muted-foreground"
+        className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs md:text-[13px] text-muted-foreground"
       >
         <span className="font-mono">{project.approvedCount}/{project.deliverableCount} approved</span>
         {project.lastViewedByClient && (
           <span className="flex items-center gap-1.5">
-            <Eye className="h-3.5 w-3.5" />
+            <Eye className="h-3 w-3" />
             Client last viewed {timeAgo(project.lastViewedByClient)}
           </span>
         )}
@@ -178,33 +178,33 @@ const ProjectDetail = () => {
           <ExternalLink className="h-3 w-3" />
           Preview portal
         </Link>
-        <div className="flex items-center gap-2 ml-auto">
-          <Button 
-            variant="outline" 
-            size="sm" 
-            className="h-8 text-[11px] font-bold uppercase tracking-wider rounded-lg"
-            onClick={() => {
-              setIsReminderSending(true);
-              setTimeout(() => {
-                setIsReminderSending(false);
-                setReminderStatus('sent');
-              }, 1500);
-            }}
-            disabled={isReminderSending || reminderStatus === 'sent' || project.status === 'approved'}
-          >
-            {isReminderSending ? (
-              <span className="flex items-center gap-1.5"><Clock className="h-3 w-3 animate-spin" /> Sending...</span>
-            ) : reminderStatus === 'sent' ? (
-              <span className="flex items-center gap-1.5 text-success"><CheckCircle2 className="h-3 w-3" /> Reminder Sent</span>
-            ) : (
-              <span className="flex items-center gap-1.5"><Send className="h-3 w-3" /> Nudge Client</span>
-            )}
-          </Button>
-          <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold uppercase tracking-wider rounded-lg">
-             Download Summary
-          </Button>
-        </div>
       </motion.div>
+      <div className="flex flex-wrap gap-2">
+        <Button 
+          variant="outline" 
+          size="sm" 
+          className="h-8 text-[10px] md:text-[11px] font-bold uppercase tracking-wider rounded-lg flex-1 min-w-0 sm:flex-none"
+          onClick={() => {
+            setIsReminderSending(true);
+            setTimeout(() => {
+              setIsReminderSending(false);
+              setReminderStatus('sent');
+            }, 1500);
+          }}
+          disabled={isReminderSending || reminderStatus === 'sent' || project.status === 'approved'}
+        >
+          {isReminderSending ? (
+            <span className="flex items-center gap-1.5"><Clock className="h-3 w-3 animate-spin" /> Sending...</span>
+          ) : reminderStatus === 'sent' ? (
+            <span className="flex items-center gap-1.5 text-success"><CheckCircle2 className="h-3 w-3" /> Sent</span>
+          ) : (
+            <span className="flex items-center gap-1.5"><Send className="h-3 w-3" /> Nudge Client</span>
+          )}
+        </Button>
+        <Button variant="outline" size="sm" className="h-8 text-[10px] md:text-[11px] font-bold uppercase tracking-wider rounded-lg flex-1 min-w-0 sm:flex-none">
+           Download Summary
+        </Button>
+      </div>
 
       {project.description && (
         <motion.p
@@ -217,7 +217,7 @@ const ProjectDetail = () => {
         </motion.p>
       )}
 
-      <div className="grid lg:grid-cols-3 gap-6">
+      <div className="grid lg:grid-cols-3 gap-4 md:gap-6">
         {/* Deliverables sidebar */}
         <motion.div
           initial={{ opacity: 0, x: -12 }}
@@ -238,19 +238,19 @@ const ProjectDetail = () => {
                 transition={{ delay: 0.2 + i * 0.05 }}
                 onClick={() => { setSelectedDeliverableId(d.id); setActiveTab('preview'); }}
                 className={cn(
-                  'w-full text-left rounded-xl border p-4 transition-all duration-200',
+                  'w-full text-left rounded-xl border p-3 md:p-4 transition-all duration-200',
                   selectedDeliverableId === d.id ? 'ring-2 ring-primary shadow-sm bg-card' : 'hover:bg-muted/30 bg-card'
                 )}
               >
                 <div className="flex items-center gap-3">
                   <div className={cn(
-                    'h-10 w-10 rounded-lg flex items-center justify-center text-[10px] font-mono font-bold',
+                    'h-8 w-8 md:h-10 md:w-10 rounded-lg flex items-center justify-center text-[9px] md:text-[10px] font-mono font-bold',
                     fileTypeColors[d.fileType] || 'bg-muted text-muted-foreground'
                   )}>
                     {d.fileType.toUpperCase()}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-medium text-[13px] truncate">{d.title}</p>
+                    <p className="font-medium text-xs md:text-[13px] truncate">{d.title}</p>
                     <p className="text-[11px] text-muted-foreground flex items-center gap-1.5">
                       v{d.version}
                       {d.versions && d.versions.length > 1 && (
@@ -293,13 +293,13 @@ const ProjectDetail = () => {
                 className="space-y-5"
               >
                 {/* Tab navigation */}
-                <div className="flex items-center gap-1 border-b">
+                <div className="flex items-center gap-0 overflow-x-auto border-b -mx-1 px-1">
                   {(['preview', 'versions', 'timeline', 'next_steps'] as const).map(tab => (
                     <button
                       key={tab}
                       onClick={() => setActiveTab(tab)}
                       className={cn(
-                        'px-4 py-2.5 text-[13px] font-medium transition-colors border-b-2 -mb-px capitalize',
+                        'px-3 md:px-4 py-2 md:py-2.5 text-[11px] md:text-[13px] font-medium transition-colors border-b-2 -mb-px capitalize whitespace-nowrap',
                         activeTab === tab
                           ? 'border-primary text-primary'
                           : 'border-transparent text-muted-foreground hover:text-foreground'
@@ -313,8 +313,8 @@ const ProjectDetail = () => {
                 {activeTab === 'preview' && (
                   <div className="space-y-6">
                     <div className="card-elevated p-0 overflow-hidden">
-                      <div className="p-6 border-b border-border/40 bg-slate-50/50 dark:bg-white/5">
-                        <div className="flex items-start justify-between">
+                      <div className="p-4 md:p-6 border-b border-border/40 bg-muted/30">
+                        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
                           <div className="space-y-1">
                             <div className="flex items-center gap-2 mb-2">
                                <Badge variant="outline" className="text-[9px] font-black uppercase tracking-widest border-primary/20 text-primary bg-primary/5">
@@ -323,12 +323,12 @@ const ProjectDetail = () => {
                                <div className="h-1 w-1 rounded-full bg-border" />
                                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-widest">Version {activeVersion}</span>
                             </div>
-                            <h2 className="text-xl font-bold tracking-tight">{selectedDel.title}</h2>
-                            <p className="text-[13px] text-muted-foreground font-medium">{selectedDel.fileName}</p>
+                            <h2 className="text-base md:text-xl font-bold tracking-tight">{selectedDel.title}</h2>
+                            <p className="text-xs md:text-[13px] text-muted-foreground font-medium">{selectedDel.fileName}</p>
                           </div>
                           <div className="flex items-center gap-2">
                             {selectedDel.versions && selectedDel.versions.length > 1 && (
-                              <div className="flex bg-white dark:bg-slate-800 p-1 rounded-xl border shadow-sm mr-2">
+                              <div className="flex bg-card p-1 rounded-xl border shadow-sm mr-2">
                                 {selectedDel.versions.map(v => (
                                   <button
                                     key={v.version}
@@ -351,11 +351,11 @@ const ProjectDetail = () => {
 
                         {/* Revision Narrative */}
                         {selectedDel.versions?.find(v => v.version === activeVersion) && (
-                          <div className="mt-6 p-5 rounded-2xl bg-white dark:bg-slate-900 border border-border/40 relative overflow-hidden group/nar">
+                          <div className="mt-4 md:mt-6 p-4 md:p-5 rounded-xl md:rounded-2xl bg-card border border-border/40 relative overflow-hidden group/nar">
                             <div className="absolute top-0 right-0 p-4 opacity-[0.03] group-hover/nar:opacity-[0.07] transition-opacity">
                               <Sparkles className="h-12 w-12 text-primary" />
                             </div>
-                            <div className="flex items-center justify-between mb-3">
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-2 md:mb-3 gap-1">
                                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary flex items-center gap-2">
                                  <Sparkles className="h-3 w-3" /> Revision Summary
                                </p>
@@ -363,10 +363,10 @@ const ProjectDetail = () => {
                                  By {selectedDel.versions?.find(v => v.version === activeVersion)?.submittedBy}
                                </span>
                             </div>
-                            <p className="text-[13px] font-medium leading-relaxed text-slate-700 dark:text-slate-300">
+                            <p className="text-xs md:text-[13px] font-medium leading-relaxed text-muted-foreground">
                                {selectedDel.versions?.find(v => v.version === activeVersion)?.changeSummary || "Final production version."}
                             </p>
-                            <div className="flex items-center gap-4 mt-4 pt-4 border-t border-border/40">
+                            <div className="flex items-center gap-3 md:gap-4 mt-3 md:mt-4 pt-3 md:pt-4 border-t border-border/40">
                                <div className="flex items-center gap-1.5">
                                  <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
                                  <span className="text-[11px] font-bold">{selectedDel.versions?.find(v => v.version === activeVersion)?.resolvedCount || 0} Resolved</span>
@@ -380,11 +380,11 @@ const ProjectDetail = () => {
                         )}
                       </div>
 
-                      <div className="p-6 space-y-6">
-                        <div className="h-64 rounded-2xl bg-slate-50 dark:bg-black/20 border border-dashed flex flex-col items-center justify-center text-sm text-muted-foreground transition-colors hover:bg-slate-100 dark:hover:bg-white/5">
-                          <FileText className="h-10 w-10 mb-3 text-muted-foreground/20" />
-                          <p className="font-bold text-slate-900 dark:text-white">{selectedDel.fileName}</p>
-                          <p className="text-[12px] mt-1 uppercase tracking-widest font-black opacity-40">{selectedDel.fileType} Deliverable</p>
+                      <div className="p-4 md:p-6 space-y-4 md:space-y-6">
+                        <div className="h-48 md:h-64 rounded-xl md:rounded-2xl bg-muted/30 border border-dashed flex flex-col items-center justify-center text-sm text-muted-foreground transition-colors hover:bg-muted/50">
+                          <FileText className="h-8 w-8 md:h-10 md:w-10 mb-2 md:mb-3 text-muted-foreground/20" />
+                          <p className="font-bold text-foreground text-sm">{selectedDel.fileName}</p>
+                          <p className="text-[11px] md:text-[12px] mt-1 uppercase tracking-widest font-black opacity-40">{selectedDel.fileType} Deliverable</p>
                         </div>
                         {selectedDel.status !== 'approved' && (
                           <div className="flex gap-3 mt-5">
@@ -428,9 +428,9 @@ const ProjectDetail = () => {
                     </div>
 
                     {/* Comments */}
-                    <div className="card-elevated p-6">
-                      <div className="flex items-center justify-between mb-4">
-                        <h3 className="font-semibold text-[14px] flex items-center gap-2">
+                    <div className="card-elevated p-4 md:p-6">
+                      <div className="flex items-center justify-between mb-3 md:mb-4">
+                        <h3 className="font-semibold text-xs md:text-[14px] flex items-center gap-2">
                           <MessageSquare className="h-4 w-4" /> Comments ({comments.length})
                         </h3>
                         <div className="flex bg-muted/40 p-0.5 rounded-lg border border-border/40">
@@ -441,7 +441,7 @@ const ProjectDetail = () => {
                               className={cn(
                                 "px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-md transition-all",
                                 commentFilter === f 
-                                  ? "bg-white dark:bg-slate-800 text-primary shadow-sm"
+                                  ? "bg-card text-primary shadow-sm"
                                   : "text-muted-foreground hover:text-foreground"
                               )}
                             >
@@ -475,7 +475,7 @@ const ProjectDetail = () => {
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-2">
-                                  <span className="text-[13px] font-bold text-slate-900 dark:text-white">{c.authorName}</span>
+                                  <span className="text-[12px] md:text-[13px] font-bold text-foreground">{c.authorName}</span>
                                   <span className="text-[11px] text-muted-foreground font-medium">
                                     {new Date(c.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} · {new Date(c.createdAt).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}
                                   </span>
@@ -523,30 +523,30 @@ const ProjectDetail = () => {
 
                 {/* Version history tab */}
                 {activeTab === 'versions' && (
-                  <div className="card-elevated p-8">
-                    <div className="flex items-center justify-between mb-8">
-                      <h3 className="font-bold text-[15px] flex items-center gap-2.5 uppercase tracking-widest text-slate-900 dark:text-white">
+                  <div className="card-elevated p-5 md:p-8">
+                    <div className="flex items-center justify-between mb-5 md:mb-8">
+                      <h3 className="font-bold text-xs md:text-[15px] flex items-center gap-2 md:gap-2.5 uppercase tracking-widest text-foreground">
                         <History className="h-4 w-4 text-primary" /> Version history
                       </h3>
-                      <Badge variant="outline" className="text-[10px] font-bold border-slate-200 text-muted-foreground bg-white">
+                      <Badge variant="outline" className="text-[10px] font-bold border-border text-muted-foreground bg-card">
                         {selectedDel.versions?.length || 1} Versions
                       </Badge>
                     </div>
                     <div className="relative">
                       <div className="absolute left-[15px] top-6 bottom-6 w-[1.5px] bg-slate-100 dark:bg-slate-800" />
-                      <div className="space-y-8">
+                      <div className="space-y-6 md:space-y-8">
                         {(selectedDel.versions || [{ version: selectedDel.version, submittedAt: selectedDel.submittedAt, note: 'Initial submission' }])
                           .slice().reverse().map((v, i) => (
-                          <div key={v.version} className="flex items-start gap-6 relative group/v">
+                          <div key={v.version} className="flex items-start gap-3 md:gap-6 relative group/v">
                             <div className={cn(
-                              'h-8 w-8 rounded-full flex items-center justify-center text-[11px] font-black flex-shrink-0 z-10 shadow-sm ring-4 ring-white dark:ring-slate-900 transition-all group-hover/v:scale-110',
-                              i === 0 ? 'bg-primary text-white' : 'bg-slate-100 dark:bg-slate-800 text-muted-foreground'
+                              'h-7 w-7 md:h-8 md:w-8 rounded-full flex items-center justify-center text-[10px] md:text-[11px] font-black flex-shrink-0 z-10 shadow-sm ring-4 ring-background transition-all group-hover/v:scale-110',
+                              i === 0 ? 'bg-primary text-white' : 'bg-muted text-muted-foreground'
                             )}>
                               {v.version}
                             </div>
-                            <div className="flex-1 min-w-0 bg-slate-50/50 dark:bg-white/5 p-4 rounded-2xl border border-transparent hover:border-slate-200 dark:hover:border-white/10 transition-all">
-                              <div className="flex items-center justify-between mb-1.5">
-                                <p className="text-[14px] font-bold text-slate-900 dark:text-white">
+                            <div className="flex-1 min-w-0 bg-muted/30 p-3 md:p-4 rounded-xl md:rounded-2xl border border-transparent hover:border-border transition-all">
+                              <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-1.5 gap-1">
+                                <p className="text-xs md:text-[14px] font-bold text-foreground">
                                   Version {v.version}
                                   {i === 0 && <span className="ml-2 text-[10px] text-primary bg-primary/10 px-2 py-0.5 rounded-full font-black uppercase tracking-widest">Latest</span>}
                                 </p>
@@ -561,7 +561,7 @@ const ProjectDetail = () => {
                                 <Clock className="h-3 w-3" />
                                 <span>{new Date(v.submittedAt).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</span>
                               </div>
-                              <div className="bg-white dark:bg-slate-900 p-3 rounded-xl border border-border/40 shadow-sm italic text-[12px] text-slate-600 dark:text-slate-400 font-medium">
+                              <div className="bg-card p-2.5 md:p-3 rounded-lg md:rounded-xl border border-border/40 shadow-sm italic text-[11px] md:text-[12px] text-muted-foreground font-medium">
                                 "{v.note || 'No change summary provided.'}"
                               </div>
                             </div>
@@ -574,7 +574,7 @@ const ProjectDetail = () => {
 
                 {/* Timeline tab */}
                 {activeTab === 'timeline' && (
-                  <div className="card-elevated p-6">
+                  <div className="card-elevated p-4 md:p-6">
                     <h3 className="font-semibold text-[14px] flex items-center gap-2 mb-5">
                       <Clock className="h-4 w-4" /> Project timeline
                     </h3>
@@ -618,7 +618,7 @@ const ProjectDetail = () => {
 
                 {/* Next Steps tab */}
                 {activeTab === 'next_steps' && (
-                  <div className="card-elevated p-6">
+                  <div className="card-elevated p-4 md:p-6">
                     <div className="flex items-center justify-between mb-5">
                       <h3 className="font-semibold text-[14px] flex items-center gap-2">
                         <Zap className="h-4 w-4" /> Next step actions
@@ -632,7 +632,7 @@ const ProjectDetail = () => {
                       <motion.div
                         initial={{ opacity: 0, y: 12 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="border border-slate-200 dark:border-white/10 rounded-[32px] p-10 mb-10 bg-white dark:bg-slate-900 shadow-2xl shadow-slate-200/50 dark:shadow-none relative overflow-hidden"
+                        className="border border-border rounded-2xl md:rounded-[32px] p-5 md:p-10 mb-6 md:mb-10 bg-card shadow-xl relative overflow-hidden"
                       >
                         <div className="mb-10">
                           <Label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 ml-1 mb-4 block">Select Provider Type</Label>
