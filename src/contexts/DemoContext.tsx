@@ -1,4 +1,6 @@
-import { createContext, useContext, useState, type ReactNode } from 'react';
+import { createContext, useContext, useState, useMemo, type ReactNode } from 'react';
+import { planConfigs, type PlanConfig, type PlanFeatures } from '@/lib/plan-config';
+import { demoDataSets, type DemoDataSet, type DemoUsageStats } from '@/lib/demo-data';
 
 export type DemoPlan = 'scaler' | 'studio' | null;
 
@@ -7,6 +9,10 @@ interface DemoContextType {
   demoPlan: DemoPlan;
   demoUserName: string;
   demoAgencyName: string;
+  planConfig: PlanConfig | null;
+  demoData: DemoDataSet | null;
+  usage: DemoUsageStats | null;
+  hasFeature: (feature: keyof PlanFeatures) => boolean;
   enterDemo: (plan: 'scaler' | 'studio') => void;
   exitDemo: () => void;
 }
@@ -30,6 +36,16 @@ export const DemoProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const profile = demoPlan ? demoProfiles[demoPlan] : { userName: '', agencyName: '' };
+  const planConfig = demoPlan ? planConfigs[demoPlan] : null;
+  const demoData = demoPlan ? demoDataSets[demoPlan] : null;
+  const usage = demoData?.usage ?? null;
+
+  const hasFeature = useMemo(() => {
+    return (feature: keyof PlanFeatures): boolean => {
+      if (!planConfig) return false;
+      return planConfig.features[feature];
+    };
+  }, [planConfig]);
 
   return (
     <DemoContext.Provider value={{
@@ -37,6 +53,10 @@ export const DemoProvider = ({ children }: { children: ReactNode }) => {
       demoPlan,
       demoUserName: profile.userName,
       demoAgencyName: profile.agencyName,
+      planConfig,
+      demoData,
+      usage,
+      hasFeature,
       enterDemo,
       exitDemo,
     }}>
