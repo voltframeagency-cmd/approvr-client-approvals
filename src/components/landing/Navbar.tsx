@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { ShinyButton } from '@/components/ui/shiny-button';
 import { CheckCircle2 } from 'lucide-react';
 import { Logo } from '@/components/brand/Logo';
+import { ThemeToggle } from '@/components/app/ThemeToggle';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { getLenis } from '@/hooks/use-smooth-scroll';
 
@@ -87,7 +88,8 @@ const Navbar = () => {
             ))}
           </div>
 
-          <div className="flex-1 flex items-center justify-end gap-3">
+          <div className="flex-1 flex items-center justify-end gap-2">
+            <ThemeToggle className="h-8 w-8 rounded-lg text-muted-foreground/80 hover:text-foreground" />
             <Link to="/login">
               <Button variant="ghost" size="sm" className="hidden sm:flex text-[12px] font-medium h-8 md:h-9 hover:bg-muted/60 transition-colors">
                 Log in
