@@ -1,15 +1,15 @@
 
 
-## Add Theme Toggle to Landing Page Navbar
+## Add adaptive blur edges to logo marquee
 
-**What**: Add a dark/light mode toggle button to the landing page `Navbar` component, matching the style already used in the dashboard sidebar (`ThemeToggle`).
+**What**: Improve the left/right gradient fade overlays on the logo marquee strip so they blend seamlessly in both light and dark modes.
 
-### Changes
+**Changes in `src/components/landing/SocialProof.tsx`**:
 
-**`src/components/landing/Navbar.tsx`**
-- Import `ThemeToggle` from `@/components/app/ThemeToggle`
-- Add `<ThemeToggle />` in the right-side button group, before the "Log in" button
-- Style it to match navbar aesthetics: `h-8 w-8 rounded-lg text-muted-foreground/80 hover:text-foreground` with ghost-like hover
+- Replace the two gradient overlay `div`s (lines 89-90) with updated versions that use `from-background` instead of `from-muted/30`. This leverages the theme-aware `background` CSS variable, ensuring proper blending in both light and dark modes.
+- Increase the overlay width from `w-32` to `w-40` for a more pronounced fade effect.
+- The left overlay: `bg-gradient-to-r from-background via-background/80 to-transparent`
+- The right overlay: `bg-gradient-to-l from-background via-background/80 to-transparent`
 
-This is a single-file, single-line addition since `ThemeToggle` already exists and handles all toggle logic.
+This is a minimal two-line change in one file.
 
