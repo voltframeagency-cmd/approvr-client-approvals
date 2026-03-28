@@ -1,13 +1,15 @@
 import { Link, useLocation, Outlet, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, FolderKanban, Bell, Settings, LogOut } from 'lucide-react';
+import { LayoutDashboard, FolderKanban, Bell, Settings, LogOut, Play, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Logo } from '@/components/brand/Logo';
 import { ThemeToggle } from '@/components/app/ThemeToggle';
 import { useAuth } from '@/contexts/AuthContext';
+import { useDemo } from '@/contexts/DemoContext';
 import { useWorkspace } from '@/hooks/use-workspace';
 import { useNotifications } from '@/hooks/use-projects';
+import { mockNotifications } from '@/lib/mock-data';
 
 const navItems = [
   { to: '/dashboard', icon: LayoutDashboard, label: 'Overview' },
