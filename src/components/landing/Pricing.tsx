@@ -113,7 +113,11 @@ const Pricing = () => {
               <motion.div
                 animate={{ x: billingPeriod === 'monthly' ? 0 : 28 }}
                 transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-                className="w-5 h-5 rounded-full bg-primary shadow-sm"
+                className="w-5 h-5 rounded-full border border-white/20"
+                style={{
+                  background: 'linear-gradient(180deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.75) 100%)',
+                  boxShadow: 'inset 0 1px 1px rgba(255,255,255,0.3), inset 0 -2px 4px rgba(0,0,0,0.15), 0 2px 6px -1px hsl(var(--primary) / 0.4)',
+                }}
               />
             </button>
             <div className="flex items-center gap-2">
