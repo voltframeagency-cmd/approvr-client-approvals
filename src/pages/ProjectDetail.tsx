@@ -618,12 +618,12 @@ const ProjectDetail = () => {
 
                 {/* Next Steps tab */}
                 {activeTab === 'next_steps' && (
-                  <div className="card-elevated p-4 md:p-6">
-                    <div className="flex items-center justify-between mb-5">
-                      <h3 className="font-semibold text-[14px] flex items-center gap-2">
-                        <Zap className="h-4 w-4" /> Next step actions
+                  <div className="card-elevated p-3 sm:p-4 md:p-6">
+                    <div className="flex items-center justify-between mb-4 sm:mb-5">
+                      <h3 className="font-semibold text-[13px] sm:text-[14px] flex items-center gap-1.5 sm:gap-2">
+                        <Zap className="h-3.5 w-3.5 sm:h-4 sm:w-4" /> Next step actions
                       </h3>
-                      <Button variant="outline" size="sm" className="gap-1 text-xs" onClick={() => setShowAddAction(!showAddAction)}>
+                      <Button variant="outline" size="sm" className="gap-1 text-[11px] sm:text-xs h-7 sm:h-8 px-2 sm:px-3" onClick={() => setShowAddAction(!showAddAction)}>
                         <Plus className="h-3 w-3" /> Add action
                       </Button>
                     </div>
