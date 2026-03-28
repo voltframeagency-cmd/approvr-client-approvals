@@ -106,7 +106,7 @@ const SocialProof = () => {
               {[...logos, ...logos].map((logo, i) => (
                 <div key={`${logo.name}-${i}`} className="flex items-center gap-3 opacity-30 hover:opacity-100 transition-all duration-150 cursor-default grayscale hover:grayscale-0 scale-90 hover:scale-100">
                   <svg viewBox="0 0 24 24" className="h-7 w-7 fill-current">
-                    <path d={logo.svg} fillRule={logo.fillRule || 'nonzero'} />
+                    <path d={logo.svg} />
                   </svg>
                   <span className="text-sm font-bold tracking-tight">{logo.name}</span>
                 </div>
