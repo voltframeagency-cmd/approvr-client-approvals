@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ShinyButton } from '@/components/ui/shiny-button';
-import { ArrowRight, Sparkles, Zap, ShieldCheck } from 'lucide-react';
+import { ArrowRight, Zap, ShieldCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { EASING, DURATION, STAGGER } from '@/components/motion/Animations';
 
 const CTA = () => {
   const containerVariants = {
@@ -12,10 +13,10 @@ const CTA = () => {
       scale: 1,
       y: 0,
       transition: {
-        duration: 1,
-        ease: [0.22, 1, 0.36, 1],
-        staggerChildren: 0.2,
-        delayChildren: 0.3
+        duration: DURATION.large,
+        ease: EASING.enter as unknown as number[],
+        staggerChildren: STAGGER,
+        delayChildren: 0.2
       }
     }
   };
@@ -25,7 +26,7 @@ const CTA = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: "easeOut" }
+      transition: { duration: DURATION.structural, ease: EASING.enter as unknown as number[] }
     }
   };
 
@@ -47,9 +48,6 @@ const CTA = () => {
           <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/20 rounded-full blur-[80px]" />
           
           <div className="relative z-10 text-center max-w-3xl mx-auto">
-
-
-            
             <motion.h2 variants={itemVariants} className="text-4xl md:text-6xl lg:text-[4.25rem] font-bold mb-8 tracking-tighter leading-[1.05] drop-shadow-md">
               Stop chasing. <br />
               <span className="italic bg-gradient-to-b from-primary via-primary to-primary/60 bg-clip-text text-transparent">Start approving.</span>
@@ -67,7 +65,7 @@ const CTA = () => {
                 </ShinyButton>
               </Link>
               <a href="#pricing" className="w-full sm:w-auto">
-                <Button variant="outline" size="lg" className="h-16 px-10 text-lg rounded-2xl font-bold bg-muted/50 border-primary/10 hover:border-primary/30 transition-all">
+                <Button variant="outline" size="lg" className="h-16 px-10 text-lg rounded-2xl font-bold bg-muted/50 border-primary/10 hover:border-primary/30 transition-colors duration-150">
                   View Pricing
                 </Button>
               </a>

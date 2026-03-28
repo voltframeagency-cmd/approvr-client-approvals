@@ -9,6 +9,7 @@ import {
   BrandingDemo,
   AuditDemo,
 } from './FeatureInteractiveDemos';
+import { EASING, DURATION, STAGGER } from '@/components/motion/Animations';
 
 const features = [
   { 
@@ -50,7 +51,7 @@ const features = [
     id: 6,
     demo: AuditDemo, 
     title: 'Proof when you need it', 
-    description: 'Every approval is timestamped and attributed. When a client says "I never approved that" — you\'ve got receipts.',
+    description: 'Every approval is timestamped, attributed. When a client says "I never approved that" — you\'ve got receipts.',
     tag: 'Security'
   },
 ];
@@ -58,7 +59,6 @@ const features = [
 export const Features = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  // Auto-cycle when idle
   useEffect(() => {
     const timer = setInterval(() => {
       setActiveIndex(i => (i + 1) % features.length);
@@ -77,7 +77,7 @@ export const Features = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, ease: [0.21, 0.47, 0.32, 0.98] }}
+          transition={{ duration: DURATION.large, ease: EASING.enter as unknown as number[] }}
           className="max-w-3xl mx-auto text-center mb-24"
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
@@ -98,7 +98,7 @@ export const Features = () => {
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: DURATION.large, delay: 0.2, ease: EASING.enter as unknown as number[] }}
             className="flex flex-col gap-2"
           >
             {features.map((feature, i) => {
@@ -107,20 +107,20 @@ export const Features = () => {
                 <button
                   key={feature.id}
                   onClick={() => setActiveIndex(i)}
-                  className={`group relative p-6 rounded-2xl text-left transition-all duration-500 overflow-hidden ${
+                  className={`group relative p-6 rounded-2xl text-left transition-colors duration-150 overflow-hidden ${
                     isActive 
                       ? 'bg-primary/[0.03] border-primary/20 border shadow-[0_10px_30px_-15px_rgba(var(--primary),0.1)]' 
                       : 'hover:bg-muted/50 border-transparent border'
                   }`}
                 >
                   <div className="relative z-10 flex items-start gap-4">
-                    <div className={`mt-1 font-mono text-xs tabular-nums transition-colors duration-300 ${
+                    <div className={`mt-1 font-mono text-xs tabular-nums transition-colors duration-150 ${
                       isActive ? 'text-primary' : 'text-muted-foreground'
                     }`}>
                       {String(i + 1).padStart(2, '0')}
                     </div>
                     <div>
-                      <h3 className={`text-lg font-bold mb-2 transition-colors duration-300 ${
+                      <h3 className={`text-lg font-bold mb-2 transition-colors duration-150 ${
                         isActive ? 'text-foreground' : 'text-muted-foreground group-hover:text-foreground'
                       }`}>
                         {feature.title}
@@ -131,7 +131,7 @@ export const Features = () => {
                             initial={{ height: 0, opacity: 0 }}
                             animate={{ height: 'auto', opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                            transition={{ duration: DURATION.structural, ease: EASING.standard as unknown as number[] }}
                             className="overflow-hidden"
                           >
                             <p className="text-muted-foreground text-sm leading-relaxed mb-4">
@@ -155,7 +155,7 @@ export const Features = () => {
             initial={{ opacity: 0, scale: 0.95, x: 40 }}
             whileInView={{ opacity: 1, scale: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
+            transition={{ duration: DURATION.large, ease: EASING.enter as unknown as number[], delay: 0.3 }}
             className="relative"
           >
             {/* Glossy Mockup Container */}
@@ -168,7 +168,7 @@ export const Features = () => {
                   initial={{ opacity: 0, scale: 0.98, filter: 'blur(10px)' }}
                   animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
                   exit={{ opacity: 0, scale: 1.02, filter: 'blur(10px)' }}
-                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: DURATION.structural, ease: EASING.standard as unknown as number[] }}
                   className="w-full h-full flex items-center justify-center p-8 lg:p-12"
                 >
                   <div className="w-full max-w-2xl aspect-video bg-muted/20 rounded-xl border border-border/40 flex items-center justify-center relative shadow-inner overflow-hidden">
@@ -189,8 +189,8 @@ export const Features = () => {
             </div>
 
             {/* Glowing accent dots */}
-            <div className="absolute -top-12 -right-12 w-64 h-64 bg-primary/10 rounded-full blur-[80px] pointer-events-none group-hover:bg-primary/20 transition-colors duration-1000" />
-            <div className="absolute -bottom-12 -left-12 w-64 h-64 bg-primary/5 rounded-full blur-[80px] pointer-events-none group-hover:bg-primary/10 transition-colors duration-1000" />
+            <div className="absolute -top-12 -right-12 w-64 h-64 bg-primary/10 rounded-full blur-[80px] pointer-events-none group-hover:bg-primary/20 transition-colors duration-150" />
+            <div className="absolute -bottom-12 -left-12 w-64 h-64 bg-primary/5 rounded-full blur-[80px] pointer-events-none group-hover:bg-primary/10 transition-colors duration-150" />
           </motion.div>
         </div>
       </div>

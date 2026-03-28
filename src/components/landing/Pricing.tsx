@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
+import { EASING, DURATION, STAGGER } from '@/components/motion/Animations';
 
 const plans = [
   {
@@ -53,7 +54,7 @@ const plans = [
       'Everything in Pro, plus:',
       'Unlimited workspaces',
       'White-label client portal',
-      'API & webhook access',
+      'API access',
       '100 GB storage',
       'Priority dedicated support',
     ],
@@ -61,7 +62,7 @@ const plans = [
     popular: false,
     icon: Building2,
     badge: null,
-    note: 'Onboarding & migration included',
+    note: 'Onboarding included',
   },
 ];
 
@@ -73,7 +74,7 @@ const Pricing = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
+        staggerChildren: STAGGER,
         delayChildren: 0.2
       }
     }
@@ -86,8 +87,8 @@ const Pricing = () => {
       y: 0,
       scale: 1,
       transition: {
-        duration: 0.8,
-        ease: [0.22, 1, 0.36, 1]
+        duration: DURATION.large,
+        ease: EASING.enter as unknown as number[]
       }
     }
   };
@@ -102,7 +103,7 @@ const Pricing = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.21, 0.47, 0.32, 0.98] }}
+          transition={{ duration: DURATION.large, ease: EASING.enter as unknown as number[] }}
           className="text-center max-w-3xl mx-auto mb-20"
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
@@ -116,12 +117,12 @@ const Pricing = () => {
           
           {/* Pricing Toggle */}
           <div className="flex items-center justify-center gap-4 mt-8">
-            <span className={`text-sm font-medium transition-colors ${billingPeriod === 'monthly' ? 'text-foreground' : 'text-muted-foreground'}`}>
+            <span className={`text-sm font-medium transition-colors duration-150 ${billingPeriod === 'monthly' ? 'text-foreground' : 'text-muted-foreground'}`}>
               Monthly
             </span>
             <button
               onClick={() => setBillingPeriod(billingPeriod === 'monthly' ? 'yearly' : 'monthly')}
-              className="relative w-14 h-7 rounded-full bg-muted border p-1 transition-all duration-300 hover:border-primary/40 outline-none"
+              className="relative w-14 h-7 rounded-full bg-muted border p-1 transition-colors duration-150 hover:border-primary/40 outline-none"
             >
               <motion.div
                 animate={{ x: billingPeriod === 'monthly' ? 0 : 28 }}
@@ -130,7 +131,7 @@ const Pricing = () => {
               />
             </button>
             <div className="flex items-center gap-2">
-              <span className={`text-sm font-medium transition-colors ${billingPeriod === 'yearly' ? 'text-foreground' : 'text-muted-foreground'}`}>
+              <span className={`text-sm font-medium transition-colors duration-150 ${billingPeriod === 'yearly' ? 'text-foreground' : 'text-muted-foreground'}`}>
                 Yearly
               </span>
               <span className="text-[10px] bg-primary/20 text-primary px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">
@@ -158,7 +159,7 @@ const Pricing = () => {
                 className="flex flex-col h-full"
               >
                 <div className={cn(
-                  "relative rounded-[2.5rem] p-8 flex flex-col h-full transition-all duration-500",
+                  "relative rounded-[2.5rem] p-8 flex flex-col h-full transition-colors duration-150",
                   "bg-card/40 backdrop-blur-2xl border border-primary/10 shadow-sm",
                   plan.popular 
                     ? "ring-1 ring-primary border-primary/20 shadow-[0_20px_50px_-12px_rgba(var(--primary),0.15)] scale-[1.02] z-10" 
@@ -173,7 +174,7 @@ const Pricing = () => {
 
                   <div className="mb-8 pt-2">
                     <div className={cn(
-                      "inline-flex p-4 rounded-2xl mb-8 transition-colors",
+                      "inline-flex p-4 rounded-2xl mb-8 transition-colors duration-150",
                       plan.popular ? "bg-primary/10 text-primary" : "bg-muted/50 text-muted-foreground"
                     )}>
                       <Icon size={28} strokeWidth={1.5} />
@@ -195,7 +196,7 @@ const Pricing = () => {
                           initial={{ opacity: 0, y: 12, filter: 'blur(8px)' }}
                           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                           exit={{ opacity: 0, y: -12, filter: 'blur(8px)' }}
-                          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                          transition={{ duration: DURATION.structural, ease: EASING.standard as unknown as number[] }}
                           className="text-5xl font-bold tracking-tighter"
                         >
                           ${price}
@@ -212,12 +213,12 @@ const Pricing = () => {
                     {plan.features.map((feature) => (
                       <div key={feature} className="flex items-start gap-3 group/item">
                         <div className={cn(
-                          "mt-1 w-5 h-5 rounded-full flex items-center justify-center transition-colors shrink-0",
+                          "mt-1 w-5 h-5 rounded-full flex items-center justify-center transition-colors duration-150 shrink-0",
                           plan.popular ? "text-primary bg-primary/10" : "text-muted-foreground/60 bg-muted/50"
                         )}>
                           <Check size={12} strokeWidth={3} />
                         </div>
-                        <span className="text-[14px] text-foreground/70 leading-snug group-hover/item:text-foreground transition-colors">{feature}</span>
+                        <span className="text-[14px] text-foreground/70 leading-snug group-hover/item:text-foreground transition-colors duration-150">{feature}</span>
                       </div>
                     ))}
                   </div>
@@ -231,7 +232,7 @@ const Pricing = () => {
                         </ShinyButton>
                       ) : (
                         <Button 
-                          className="w-full h-14 rounded-2xl text-base font-bold transition-all duration-500 bg-secondary/50 text-secondary-foreground hover:bg-secondary hover:border-primary/20"
+                          className="w-full h-14 rounded-2xl text-base font-bold transition-colors duration-150 bg-secondary/50 text-secondary-foreground hover:bg-secondary hover:border-primary/20"
                           variant="outline"
                         >
                           <span className="relative z-10 flex items-center justify-center gap-2">
@@ -256,13 +257,13 @@ const Pricing = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.6 }}
+          transition={{ duration: DURATION.large, delay: 0.3, ease: EASING.standard as unknown as number[] }}
           className="mt-32 text-center"
         >
           <p className="text-sm font-bold text-muted-foreground/60 uppercase tracking-[0.2em] mb-10">
             Used by agencies who got tired of chasing emails
           </p>
-          <div className="flex flex-wrap justify-center items-center gap-x-16 gap-y-10 opacity-30 grayscale hover:grayscale-0 transition-all duration-1000">
+          <div className="flex flex-wrap justify-center items-center gap-x-16 gap-y-10 opacity-30 grayscale hover:grayscale-0 transition-all duration-150">
             <span className="text-xl font-black tracking-tighter">AGENCY_X</span>
             <span className="text-xl font-black tracking-tighter">STUDIO.M</span>
             <span className="text-xl font-black tracking-tighter">CREATIVE.CO</span>

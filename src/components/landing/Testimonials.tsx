@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Quote, Star, ArrowLeft, ArrowRight } from 'lucide-react';
+import { EASING, DURATION } from '@/components/motion/Animations';
 
 const testimonials = [
   {
-    quote: "We were drowning in email threads — 40, 50 per project. Now clients open the portal and approve in minutes. I got three hours of my Monday back.",
+    quote: "We were drowning in email threads — 40, 50 per project. Now clients open the portal, approve in minutes. I got three hours of my Monday back.",
     author: 'Jessica Hart',
     role: 'Creative Director',
     company: 'Wildframe Studio',
@@ -58,7 +59,7 @@ export const Testimonials = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: DURATION.large, ease: EASING.enter as unknown as number[] }}
           className="max-w-3xl mx-auto text-center mb-20"
         >
           <div className="flex items-center justify-center gap-1 mb-6" style={{ filter: 'drop-shadow(0 4px 12px hsl(0 0% 0% / 0.15))' }}>
@@ -81,7 +82,7 @@ export const Testimonials = () => {
                 initial={{ opacity: 0, x: 20, filter: 'blur(10px)' }}
                 animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
                 exit={{ opacity: 0, x: -20, filter: 'blur(10px)' }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: DURATION.structural, ease: EASING.standard as unknown as number[] }}
                 className="relative"
               >
                 <blockquote className="text-2xl md:text-3xl font-medium leading-relaxed mb-12 text-foreground/90 tracking-tight italic">
@@ -106,7 +107,7 @@ export const Testimonials = () => {
                 key={active + (isAutoPlaying ? '-playing' : '-stopped')}
                 initial={{ width: "0%" }}
                 animate={{ width: isAutoPlaying ? "100%" : "0%" }}
-                transition={{ duration: isAutoPlaying ? 6 : 0, ease: "linear" }}
+                transition={{ duration: isAutoPlaying ? 6 : 0, ease: EASING.standard as unknown as number[] }}
                 className="h-full bg-primary"
               />
             </div>
@@ -115,13 +116,13 @@ export const Testimonials = () => {
           {/* Navigation Controls */}
           <button 
             onClick={prev}
-            className="absolute left-0 top-1/2 -translate-y-1/2 h-14 w-14 rounded-full bg-card border border-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-all shadow-xl z-20"
+            className="absolute left-0 top-1/2 -translate-y-1/2 h-14 w-14 rounded-full bg-card border border-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-colors duration-150 shadow-xl z-20"
           >
             <ArrowLeft className="h-6 w-6" />
           </button>
           <button 
             onClick={next}
-            className="absolute right-0 top-1/2 -translate-y-1/2 h-14 w-14 rounded-full bg-card border border-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-all shadow-xl z-20"
+            className="absolute right-0 top-1/2 -translate-y-1/2 h-14 w-14 rounded-full bg-card border border-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-colors duration-150 shadow-xl z-20"
           >
             <ArrowRight className="h-6 w-6" />
           </button>
