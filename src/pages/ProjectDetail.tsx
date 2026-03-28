@@ -533,7 +533,7 @@ const ProjectDetail = () => {
                       </Badge>
                     </div>
                     <div className="relative">
-                      <div className="absolute left-[15px] top-6 bottom-6 w-[1.5px] bg-slate-100 dark:bg-slate-800" />
+                      <div className="absolute left-[15px] top-6 bottom-6 w-[1.5px] bg-border" />
                       <div className="space-y-6 md:space-y-8">
                         {(selectedDel.versions || [{ version: selectedDel.version, submittedAt: selectedDel.submittedAt, note: 'Initial submission' }])
                           .slice().reverse().map((v, i) => (
