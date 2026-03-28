@@ -544,9 +544,9 @@ const ProjectDetail = () => {
                             )}>
                               {v.version}
                             </div>
-                            <div className="flex-1 min-w-0 bg-slate-50/50 dark:bg-white/5 p-4 rounded-2xl border border-transparent hover:border-slate-200 dark:hover:border-white/10 transition-all">
-                              <div className="flex items-center justify-between mb-1.5">
-                                <p className="text-[14px] font-bold text-slate-900 dark:text-white">
+                            <div className="flex-1 min-w-0 bg-muted/30 p-3 md:p-4 rounded-xl md:rounded-2xl border border-transparent hover:border-border transition-all">
+                              <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-1.5 gap-1">
+                                <p className="text-xs md:text-[14px] font-bold text-foreground">
                                   Version {v.version}
                                   {i === 0 && <span className="ml-2 text-[10px] text-primary bg-primary/10 px-2 py-0.5 rounded-full font-black uppercase tracking-widest">Latest</span>}
                                 </p>
