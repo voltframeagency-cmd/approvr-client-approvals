@@ -225,7 +225,7 @@ const Dashboard = () => {
                               </Button>
                             </div>
                           </div>
-                          <div className="space-y-3">
+                          <div className="space-y-2 md:space-y-3">
                             <div className="flex items-center justify-between text-[11px] font-bold uppercase tracking-widest text-muted-foreground/60">
                                <span>Progress</span>
                                <div className="flex items-center gap-4 text-right">
