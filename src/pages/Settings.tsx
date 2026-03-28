@@ -459,11 +459,11 @@ const Settings = () => {
 
               {/* Notifications Tab */}
               {activeTab === 'notifications' && (
-                <div className="space-y-6">
-                  <div className="card-elevated p-6 space-y-6">
+                <div className="space-y-4 sm:space-y-6">
+                  <div className="card-elevated p-4 sm:p-6 space-y-4 sm:space-y-6">
                     <div>
-                      <h2 className="font-semibold text-base">Operational Intelligence</h2>
-                      <p className="text-[13px] text-muted-foreground mt-1">Configure automated reminders and team alertness settings.</p>
+                      <h2 className="font-semibold text-[15px] sm:text-base">Operational Intelligence</h2>
+                      <p className="text-[12px] sm:text-[13px] text-muted-foreground mt-0.5 sm:mt-1">Configure automated reminders and team alertness settings.</p>
                     </div>
 
                     <div className="space-y-6">
