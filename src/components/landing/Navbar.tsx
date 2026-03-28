@@ -65,6 +65,7 @@ const Navbar = () => {
             {[
               { label: 'Features', href: '#features', onClick: location.pathname === '/' ? scrollToFeatures : undefined },
               { label: 'Pricing', href: '#pricing', onClick: location.pathname === '/' ? (e: React.MouseEvent) => { e.preventDefault(); const lenis = getLenis(); const el = document.getElementById('pricing'); if (lenis && el) { lenis.scrollTo(el, { offset: -80 }); } else if (el) { el.scrollIntoView({ behavior: 'smooth' }); } } : undefined },
+              { label: 'Blog', href: '/blog' },
             ].map(item => (
               <div key={item.label} className="relative group/nav">
                 {item.href.startsWith('#') ? (
