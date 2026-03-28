@@ -703,7 +703,7 @@ const Settings = () => {
                             You're on our early-believer lifetime plan. High-touch support and unlimited future "Revision Intelligence" modules are included.
                           </p>
                         </div>
-                        <Button className="h-10 px-6 font-semibold">Contact Founder</Button>
+                        <Button className="h-9 sm:h-10 px-6 font-semibold w-full sm:w-auto">Contact Founder</Button>
                       </div>
                     </div>
 
