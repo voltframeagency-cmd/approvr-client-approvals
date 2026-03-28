@@ -92,7 +92,7 @@ export const HowItWorks = () => {
                       
                       {/* Premium Mockup Window Frame */}
                       <motion.div 
-                        className="w-full max-w-[90%] bg-card/90 backdrop-blur-3xl border border-primary/10 rounded-[2rem] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.2)] relative overflow-hidden group-hover:shadow-[0_45px_100px_-20px_rgba(0,0,0,0.15)] transition-shadow duration-150 will-change-transform"
+                        className="w-full max-w-[90%] bg-card/90 backdrop-blur-3xl border border-primary/10 rounded-[2rem] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.2)] dark:shadow-[0_25px_50px_-12px_hsl(169_76%_48%/0.15)] relative overflow-hidden group-hover:shadow-[0_45px_100px_-20px_rgba(0,0,0,0.15)] dark:group-hover:shadow-[0_45px_100px_-20px_hsl(169_76%_48%/0.2)] transition-shadow duration-150 will-change-transform"
                       >
                         {/* Chrome / Window Header */}
                         <div className="h-10 border-b border-primary/5 px-6 flex items-center justify-between bg-muted/40">
