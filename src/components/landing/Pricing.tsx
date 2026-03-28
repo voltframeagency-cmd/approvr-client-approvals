@@ -110,7 +110,7 @@ const Pricing = () => {
             <Zap className="h-4 w-4" />
             <span>Pick your plan</span>
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold tracking-tighter mb-8 leading-[1.1]" style={{ textShadow: '0 4px 12px hsl(0 0% 0% / 0.15)' }}>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-bold tracking-tighter mb-6 md:mb-8 leading-[1.1]" style={{ textShadow: '0 4px 12px hsl(0 0% 0% / 0.15)' }}>
             Simple pricing. <br className="hidden md:block" />
             <span className="italic bg-gradient-to-b from-primary via-primary to-primary/60 bg-clip-text text-transparent">No gotchas.</span>
           </h2>
