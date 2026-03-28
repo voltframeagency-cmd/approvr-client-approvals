@@ -91,7 +91,7 @@ export const Testimonials = () => {
                 
                 <div className="flex items-center gap-3 md:gap-4">
                   <div className="h-11 w-11 md:h-14 md:w-14 rounded-xl md:rounded-2xl overflow-hidden bg-primary/10 flex items-center justify-center border border-primary/20">
-                    <img src={testimonials[active].avatar} alt={testimonials[active].author} className="h-full w-full object-cover" />
+                    <img src={testimonials[active].avatar} alt={testimonials[active].author} className="h-full w-full object-cover grayscale" />
                   </div>
                   <div>
                     <p className="text-base md:text-lg font-bold">{testimonials[active].author}</p>
