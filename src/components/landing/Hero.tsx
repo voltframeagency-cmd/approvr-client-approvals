@@ -54,7 +54,7 @@ const Hero = () => (
           transition={{ duration: 0.6, delay: 0.3 }}
           className="text-lg md:text-xl text-muted-foreground max-w-[560px] mx-auto mb-10 leading-relaxed"
         >
-          Approvr brings sanity to the sign-off loop. One branded portal where clients review, comment, and approve in seconds. No more hunting through Slack threads or chasing email chains for a simple "yes."
+          Every week your team loses 6+ hours digging through inboxes for a one-word reply. One portal. Clients open it, review, and hit approve — done.
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 12 }}
