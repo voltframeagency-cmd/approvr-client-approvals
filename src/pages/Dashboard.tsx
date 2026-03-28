@@ -281,9 +281,9 @@ const Dashboard = () => {
                     transition={{ delay: 0.2 + i * 0.05, duration: 0.4 }}
                     className="relative"
                   >
-                    <div className="absolute -left-[33px] md:-left-[41px] top-0 h-5 w-5 md:h-6 md:w-6 rounded-full bg-card flex items-center justify-center ring-4 ring-background z-10">
-                      <div className="h-4 w-4 md:h-5 md:w-5 rounded-full bg-muted/50 border flex items-center justify-center text-primary group-hover:border-primary/40 transition-colors">
-                        <Icon className="h-2.5 w-2.5" />
+                    <div className="absolute -left-[37px] md:-left-[45px] top-0 h-7 w-7 md:h-8 md:w-8 rounded-full bg-card flex items-center justify-center ring-4 ring-background z-10">
+                      <div className="h-5 w-5 md:h-6 md:w-6 rounded-full bg-muted/50 border flex items-center justify-center text-primary group-hover:border-primary/40 transition-colors">
+                        <Icon className="h-3 w-3" />
                       </div>
                     </div>
                     <div className="flex flex-col gap-1">
