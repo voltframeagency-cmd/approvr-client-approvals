@@ -325,21 +325,76 @@ const Settings = () => {
                 <div className="card-elevated p-4 sm:p-6 space-y-4 sm:space-y-6">
                   <div>
                     <h2 className="font-semibold text-[15px] sm:text-base">Plan & Usage</h2>
-                    <p className="text-[12px] sm:text-[13px] text-muted-foreground mt-0.5">Your Founder Beta status.</p>
+                    <p className="text-[12px] sm:text-[13px] text-muted-foreground mt-0.5">Your current plan and resource usage.</p>
                   </div>
                   <div className="bg-primary/[0.03] p-4 sm:p-6 rounded-2xl border border-primary/10 relative overflow-hidden">
                     <div className="absolute top-0 right-0 p-4"><Zap className="h-24 w-24 text-primary/[0.03] rotate-12" /></div>
                     <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
-                          <span className="text-sm font-bold text-primary px-2 py-0.5 rounded bg-primary/10">FOUNDER BETA</span>
+                          <span className="text-sm font-bold text-primary px-2 py-0.5 rounded bg-primary/10 uppercase tracking-wider">
+                            {wsPlanConfig?.name ?? 'FOUNDER BETA'}
+                          </span>
+                          {wsPlanConfig && (
+                            <span className="text-[12px] font-bold text-muted-foreground">${wsPlanConfig.price}/mo</span>
+                          )}
                         </div>
                         <p className="text-[13px] text-muted-foreground max-w-sm pt-1">
-                          Early-believer lifetime plan with unlimited features.
+                          {wsPlanConfig?.id === 'studio' 
+                            ? 'Full-featured plan for agencies running high-volume client work.'
+                            : 'Core plan for solo creatives and small teams.'}
                         </p>
                       </div>
                     </div>
                   </div>
+                  
+                  {/* Usage meters */}
+                  {usageData && wsPlanConfig && (
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                      <div className="p-4 rounded-xl border space-y-2">
+                        <div className="flex items-center justify-between">
+                          <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5">
+                            <FolderOpen className="h-3 w-3" /> Projects
+                          </span>
+                          <span className="text-[11px] font-bold text-foreground">
+                            {usageData.projectCount}/{wsPlanConfig.limits.maxProjects ?? '∞'}
+                          </span>
+                        </div>
+                        <Progress 
+                          value={wsPlanConfig.limits.maxProjects ? (usageData.projectCount / wsPlanConfig.limits.maxProjects) * 100 : 15} 
+                          className="h-1.5"
+                        />
+                      </div>
+                      <div className="p-4 rounded-xl border space-y-2">
+                        <div className="flex items-center justify-between">
+                          <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5">
+                            <HardDrive className="h-3 w-3" /> Storage
+                          </span>
+                          <span className="text-[11px] font-bold text-foreground">
+                            {usageData.storageGB} GB / {wsPlanConfig.limits.maxStorageGB} GB
+                          </span>
+                        </div>
+                        <Progress 
+                          value={(usageData.storageGB / wsPlanConfig.limits.maxStorageGB) * 100} 
+                          className="h-1.5"
+                        />
+                      </div>
+                      <div className="p-4 rounded-xl border space-y-2">
+                        <div className="flex items-center justify-between">
+                          <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5">
+                            <Users className="h-3 w-3" /> Team Seats
+                          </span>
+                          <span className="text-[11px] font-bold text-foreground">
+                            {usageData.teamMemberCount}/{wsPlanConfig.limits.maxTeamMembers}
+                          </span>
+                        </div>
+                        <Progress 
+                          value={(usageData.teamMemberCount / wsPlanConfig.limits.maxTeamMembers) * 100} 
+                          className="h-1.5"
+                        />
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
 
