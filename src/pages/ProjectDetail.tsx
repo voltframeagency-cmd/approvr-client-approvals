@@ -533,7 +533,7 @@ const ProjectDetail = () => {
                       </Badge>
                     </div>
                     <div className="relative">
-                      <div className="absolute left-[15px] top-6 bottom-6 w-[1.5px] bg-slate-100 dark:bg-slate-800" />
+                      <div className="absolute left-[15px] top-6 bottom-6 w-[1.5px] bg-border" />
                       <div className="space-y-6 md:space-y-8">
                         {(selectedDel.versions || [{ version: selectedDel.version, submittedAt: selectedDel.submittedAt, note: 'Initial submission' }])
                           .slice().reverse().map((v, i) => (
@@ -648,7 +648,7 @@ const ProjectDetail = () => {
                                     "flex flex-col items-center justify-center p-2 sm:p-3 rounded-xl sm:rounded-2xl border transition-all gap-1 sm:gap-2 min-w-0 sm:min-w-[80px]",
                                     isSelected 
                                       ? "border-primary bg-primary/[0.04] text-primary ring-1 ring-primary" 
-                                      : "border-border/40 hover:border-border hover:bg-slate-50 dark:hover:bg-white/5 text-muted-foreground/60"
+                                      : "border-border/40 hover:border-border hover:bg-muted/50 text-muted-foreground/60"
                                   )}
                                 >
                                   <Icon className={cn("h-4 w-4 sm:h-6 sm:w-6", isSelected ? "text-primary" : "text-muted-foreground/40")} />
@@ -664,7 +664,7 @@ const ProjectDetail = () => {
                             <Label className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 ml-1">Action Label</Label>
                             <Input 
                               placeholder="e.g. Download final files" 
-                              className="h-10 sm:h-14 bg-slate-50 dark:bg-black/20 border-border/20 focus:ring-primary/10 transition-all rounded-xl sm:rounded-2xl text-[13px] sm:text-[15px] font-medium px-3 sm:px-5" 
+                              className="h-10 sm:h-14 bg-muted/50 border-border/20 focus:ring-primary/10 transition-all rounded-xl sm:rounded-2xl text-[13px] sm:text-[15px] font-medium px-3 sm:px-5" 
                               value={newAction.label}
                               onChange={e => setNewAction(prev => ({ ...prev, label: e.target.value }))}
                             />
@@ -673,7 +673,7 @@ const ProjectDetail = () => {
                             <Label className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 ml-1 text-primary">Destination URL</Label>
                             <Input 
                               placeholder="https://..." 
-                              className="h-10 sm:h-14 bg-slate-50 dark:bg-black/20 border-border/20 focus:ring-primary/10 transition-all rounded-xl sm:rounded-2xl text-[13px] sm:text-[15px] font-medium px-3 sm:px-5" 
+                              className="h-10 sm:h-14 bg-muted/50 border-border/20 focus:ring-primary/10 transition-all rounded-xl sm:rounded-2xl text-[13px] sm:text-[15px] font-medium px-3 sm:px-5"
                               value={newAction.url}
                               onChange={e => handleUrlChange(e.target.value)}
                             />
@@ -684,7 +684,7 @@ const ProjectDetail = () => {
                           <div className="space-y-2 sm:space-y-3">
                             <Label className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 ml-1">Show when</Label>
                             <select 
-                              className="flex h-10 sm:h-14 w-full rounded-xl sm:rounded-2xl border border-border/20 bg-slate-50 dark:bg-black/20 px-3 sm:px-5 py-2 text-[13px] sm:text-[15px] font-medium ring-offset-background cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/10 transition-all appearance-none"
+                              className="flex h-10 sm:h-14 w-full rounded-xl sm:rounded-2xl border border-border/20 bg-muted/50 px-3 sm:px-5 py-2 text-[13px] sm:text-[15px] font-medium ring-offset-background cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/10 transition-all appearance-none"
                               value={newAction.showWhen}
                               onChange={e => setNewAction(prev => ({ ...prev, showWhen: e.target.value as 'on_approval' | 'always' }))}
                             >
@@ -696,14 +696,14 @@ const ProjectDetail = () => {
                           <div className="flex items-end justify-end gap-2 sm:gap-4">
                              <Button 
                               variant="ghost" 
-                              className="rounded-xl sm:rounded-2xl px-4 sm:px-6 h-10 sm:h-14 text-[11px] sm:text-[12px] font-black uppercase tracking-widest hover:bg-slate-100 dark:hover:bg-white/5" 
+                              className="rounded-xl sm:rounded-2xl px-4 sm:px-6 h-10 sm:h-14 text-[11px] sm:text-[12px] font-black uppercase tracking-widest hover:bg-muted" 
                               onClick={() => setShowAddAction(false)}
                             >
                               Cancel
                             </Button>
                             <Button 
                               size="lg" 
-                              className="rounded-xl sm:rounded-2xl px-6 sm:px-10 h-10 sm:h-14 bg-slate-900 dark:bg-primary text-white shadow-xl shadow-slate-200 dark:shadow-none hover:scale-[1.02] transition-all text-[11px] sm:text-[12px] font-black uppercase tracking-widest"
+                              className="rounded-xl sm:rounded-2xl px-6 sm:px-10 h-10 sm:h-14 bg-primary text-white shadow-xl shadow-primary/20 hover:scale-[1.02] transition-all text-[11px] sm:text-[12px] font-black uppercase tracking-widest"
                               onClick={handleAddAction}
                               disabled={!newAction.label || !newAction.url}
                             >
@@ -721,16 +721,16 @@ const ProjectDetail = () => {
                           {projectActions.map(action => {
                             const Icon = providerIcons[action.providerType];
                             return (
-                              <div key={action.id} className="flex items-center gap-2.5 sm:gap-5 rounded-xl sm:rounded-[24px] border border-slate-200 dark:border-white/5 p-3 sm:p-5 bg-white dark:bg-slate-900 group/item transition-all hover:bg-slate-50 dark:hover:bg-white/[0.02] hover:shadow-lg hover:shadow-slate-200/50 dark:hover:shadow-none">
-                                <div className="h-9 w-9 sm:h-14 sm:w-14 rounded-lg sm:rounded-2xl bg-slate-50 dark:bg-white/5 flex items-center justify-center flex-shrink-0 group-hover/item:scale-110 transition-transform shadow-sm ring-1 ring-border/20">
-                                  <Icon className="h-4 w-4 sm:h-6 sm:w-6 text-slate-700 dark:text-slate-200" />
+                              <div key={action.id} className="flex items-center gap-2.5 sm:gap-5 rounded-xl sm:rounded-[24px] border border-border p-3 sm:p-5 bg-card group/item transition-all hover:bg-muted/50 hover:shadow-lg hover:shadow-border/20">
+                                <div className="h-9 w-9 sm:h-14 sm:w-14 rounded-lg sm:rounded-2xl bg-muted flex items-center justify-center flex-shrink-0 group-hover/item:scale-110 transition-transform shadow-sm ring-1 ring-border/20">
+                                  <Icon className="h-4 w-4 sm:h-6 sm:w-6 text-foreground" />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                  <p className="text-[12px] sm:text-[15px] font-bold text-slate-900 dark:text-white mb-0.5 truncate">{action.label}</p>
+                                  <p className="text-[12px] sm:text-[15px] font-bold text-foreground mb-0.5 truncate">{action.label}</p>
                                   <p className="text-[10px] sm:text-[11px] text-muted-foreground font-medium truncate opacity-60">{action.url}</p>
                                 </div>
                                 <div className="flex items-center gap-1.5 sm:gap-3">
-                                  <Badge variant="secondary" className="text-[8px] sm:text-[10px] font-black uppercase tracking-widest px-1.5 sm:px-2.5 py-0.5 sm:py-1 bg-slate-100 dark:bg-white/5 text-muted-foreground border-none hidden sm:inline-flex">
+                                  <Badge variant="secondary" className="text-[8px] sm:text-[10px] font-black uppercase tracking-widest px-1.5 sm:px-2.5 py-0.5 sm:py-1 bg-muted text-muted-foreground border-none hidden sm:inline-flex">
                                     {providerTypeLabels[action.providerType]}
                                   </Badge>
                                   <button 
@@ -756,15 +756,15 @@ const ProjectDetail = () => {
                           {workspaceActions.map(action => {
                             const Icon = providerIcons[action.providerType];
                             return (
-                              <div key={action.id} className="flex items-center gap-2.5 sm:gap-5 rounded-xl sm:rounded-[24px] border border-dashed border-slate-200 dark:border-white/10 p-3 sm:p-5 bg-slate-50/20 dark:bg-transparent transition-all">
-                                <div className="h-9 w-9 sm:h-14 sm:w-14 rounded-lg sm:rounded-2xl bg-white dark:bg-white/5 flex items-center justify-center flex-shrink-0 shadow-sm ring-1 ring-border/20">
-                                  <Icon className="h-4 w-4 sm:h-6 sm:w-6 text-slate-400 dark:text-slate-500" />
+                              <div key={action.id} className="flex items-center gap-2.5 sm:gap-5 rounded-xl sm:rounded-[24px] border border-dashed border-border p-3 sm:p-5 bg-muted/20 transition-all">
+                                <div className="h-9 w-9 sm:h-14 sm:w-14 rounded-lg sm:rounded-2xl bg-card flex items-center justify-center flex-shrink-0 shadow-sm ring-1 ring-border/20">
+                                  <Icon className="h-4 w-4 sm:h-6 sm:w-6 text-muted-foreground" />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                  <p className="text-[12px] sm:text-[15px] font-bold text-slate-400 dark:text-slate-500 mb-0.5 truncate">{action.label}</p>
+                                  <p className="text-[12px] sm:text-[15px] font-bold text-muted-foreground mb-0.5 truncate">{action.label}</p>
                                   <p className="text-[10px] sm:text-[11px] text-muted-foreground font-medium truncate opacity-40">{action.url}</p>
                                 </div>
-                                <Badge variant="outline" className="text-[8px] sm:text-[10px] font-black uppercase tracking-widest px-1.5 sm:px-2.5 py-0.5 sm:py-1 border-slate-200 dark:border-white/5 text-slate-400 hidden sm:inline-flex">
+                                <Badge variant="outline" className="text-[8px] sm:text-[10px] font-black uppercase tracking-widest px-1.5 sm:px-2.5 py-0.5 sm:py-1 border-border text-muted-foreground hidden sm:inline-flex">
                                   {providerTypeLabels[action.providerType]}
                                 </Badge>
                               </div>

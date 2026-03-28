@@ -120,7 +120,7 @@ const Dashboard = () => {
               whileHover={{ y: -4 }}
               transition={{ type: 'spring', stiffness: 300, damping: 25 }}
               className={cn(
-                "card-elevated p-4 md:p-6 relative overflow-hidden group border-none ring-1 ring-slate-200/60 dark:ring-slate-800/60",
+                "card-elevated p-4 md:p-6 relative overflow-hidden group border-none ring-1 ring-border/60",
                 "before:absolute before:top-0 before:left-0 before:right-0 before:h-1 before:bg-transparent hover:before:bg-current transition-all",
                 card.color
               )}
@@ -159,7 +159,7 @@ const Dashboard = () => {
                     <Link to={`/dashboard/projects/${item.id}`}>
                        <motion.div
                           whileHover={{ x: 4 }}
-                          className="card-elevated p-3.5 md:p-5 flex items-center gap-3 md:gap-5 border-none ring-1 ring-slate-200/60 dark:ring-slate-800/60 hover:ring-2 hover:ring-primary/20"
+                          className="card-elevated p-3.5 md:p-5 flex items-center gap-3 md:gap-5 border-none ring-1 ring-border/60 hover:ring-2 hover:ring-primary/20"
                       >
                         <div className={cn("px-2 md:px-3 py-0.5 md:py-1 rounded-full text-[9px] md:text-[10px] uppercase font-extrabold tracking-wider whitespace-nowrap", item.urgencyColor)}>
                           {item.urgencyLabel}
@@ -170,7 +170,7 @@ const Dashboard = () => {
                         </div>
                         <div className="hidden sm:flex flex-col items-end gap-1.5">
                           <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">{item.approvedCount}/{item.deliverableCount} Approved</span>
-                          <div className="flex items-center gap-1.5 text-[11px] font-bold text-slate-500">
+                          <div className="flex items-center gap-1.5 text-[11px] font-bold text-muted-foreground">
                              <Clock className="h-3 w-3" />
                              Due {new Date(item.deadline).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                           </div>
@@ -199,7 +199,7 @@ const Dashboard = () => {
                     <div className="relative group/card">
                       <Link to={`/dashboard/projects/${project.id}`}>
                          <motion.div
-                           className="card-elevated p-4 md:p-6 border-none ring-1 ring-slate-200/60 dark:ring-slate-800/60 group"
+                           className="card-elevated p-4 md:p-6 border-none ring-1 ring-border/60 group"
                          >
                            <div className="flex items-start justify-between gap-3 md:gap-4 mb-4 md:mb-6">
                              <div className="min-w-0">
@@ -238,7 +238,7 @@ const Dashboard = () => {
                                   <span className="font-mono">{Math.round((project.approvedCount / project.deliverableCount) * 100)}%</span>
                                </div>
                             </div>
-                            <div className="h-1.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+                            <div className="h-1.5 rounded-full bg-muted overflow-hidden">
                               <motion.div
                                 initial={{ width: 0 }}
                                 animate={{ width: `${(project.approvedCount / project.deliverableCount) * 100}%` }}
@@ -254,7 +254,7 @@ const Dashboard = () => {
                 ))}
               </StaggerContainer>
             ) : (
-              <div className="card-elevated p-12 text-center border-none ring-1 ring-slate-200/40">
+              <div className="card-elevated p-12 text-center border-none ring-1 ring-border/40">
                 <FolderKanban className="h-10 w-10 mx-auto mb-4 text-muted-foreground/20" />
                 <p className="font-bold text-foreground">Start your first approval</p>
                 <p className="text-[13px] text-muted-foreground mt-2 max-w-xs mx-auto">Projects you create will appear here for tracking and client feedback.</p>
@@ -270,7 +270,7 @@ const Dashboard = () => {
         <div className="lg:col-span-2 space-y-6 md:space-y-10">
           <section className="space-y-4 md:space-y-6">
             <h2 className="text-lg md:text-xl font-bold tracking-tight">Recent Activity</h2>
-            <div className="relative pl-8 md:pl-10 space-y-6 md:space-y-8 before:absolute before:left-[9px] md:before:left-[11px] before:top-2 before:bottom-2 before:w-[1.5px] before:bg-slate-100 dark:before:bg-slate-800">
+            <div className="relative pl-8 md:pl-10 space-y-6 md:space-y-8 before:absolute before:left-[9px] md:before:left-[11px] before:top-2 before:bottom-2 before:w-[1.5px] before:bg-border">
               {mockActivity.slice(0, 8).map((item, i) => {
                 const Icon = activityIcons[item.type] || FileText;
                 return (
@@ -301,12 +301,12 @@ const Dashboard = () => {
           </section>
 
           {/* Mini Upgrade Card */}
-          <Card className="bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 text-white border-none rounded-2xl overflow-hidden shadow-2xl relative group">
+          <Card className="bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 dark:from-card dark:via-card dark:to-card text-white dark:text-foreground border-none rounded-2xl overflow-hidden shadow-2xl relative group">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.1),transparent)]" />
               <CardContent className="p-5 md:p-6 relative z-10">
                 <Badge className="bg-primary hover:bg-primary text-white text-[10px] font-black px-2.5 py-1 border-none mb-4 uppercase tracking-widest">Founder Beta</Badge>
                 <h3 className="text-lg font-extrabold mb-2 tracking-tight">Upgrade to Pro</h3>
-                <p className="text-[12px] text-slate-300 mb-6 leading-relaxed font-semibold">Get unlimited projects, custom domains, and white-labeled client portals for your agency.</p>
+                <p className="text-[12px] text-slate-300 dark:text-muted-foreground mb-6 leading-relaxed font-semibold">Get unlimited projects, custom domains, and white-labeled client portals for your agency.</p>
                 <Link to="/dashboard/settings">
                   <Button variant="secondary" className="w-full rounded-xl font-black transition-all h-10 text-[13px] uppercase tracking-wider">
                     View Pricing Plans
@@ -324,11 +324,11 @@ const Dashboard = () => {
                   </div>
                   <h3 className="font-bold text-sm tracking-tight">Portal Preview</h3>
                 </div>
-                <div className="aspect-video rounded-xl bg-slate-100 dark:bg-slate-800/50 border border-slate-200/50 dark:border-slate-700/50 flex flex-col items-center justify-center p-4 text-center group-hover:bg-slate-200/50 dark:group-hover:bg-slate-800 transition-colors">
+                <div className="aspect-video rounded-xl bg-muted border border-border/50 flex flex-col items-center justify-center p-4 text-center group-hover:bg-muted/80 transition-colors">
                   <div className="w-12 h-1 bg-primary/20 rounded-full mb-3" />
                   <div className="space-y-1.5 w-full">
-                    <div className="h-2 w-3/4 bg-slate-200 dark:bg-slate-700 rounded mx-auto" />
-                    <div className="h-2 w-1/2 bg-slate-200 dark:bg-slate-700 rounded mx-auto" />
+                    <div className="h-2 w-3/4 bg-muted-foreground/20 rounded mx-auto" />
+                    <div className="h-2 w-1/2 bg-muted-foreground/20 rounded mx-auto" />
                   </div>
                   <Button variant="ghost" size="sm" className="mt-4 h-8 text-[11px] font-bold uppercase tracking-wider text-primary hover:text-primary hover:bg-primary/5">
                     Launch Preview
