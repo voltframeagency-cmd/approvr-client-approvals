@@ -3,13 +3,19 @@
 // banned jargon eliminated, "You/Your" as primary subject, 1-3-1 rhythm,
 // Hook→Agitation→Mechanism→Proof→CTA structure, BYAF soft CTAs
 
+export interface BlogFAQ {
+  question: string;
+  answer: string;
+}
+
 export interface BlogSection {
-  type: 'h2' | 'h3' | 'p' | 'ul' | 'table' | 'callout' | 'cta';
+  type: 'h2' | 'h3' | 'p' | 'ul' | 'table' | 'callout' | 'cta' | 'definition' | 'faq';
   content?: string;
   items?: string[];
   rows?: string[][];
   headers?: string[];
   variant?: 'tip' | 'warning';
+  faqs?: BlogFAQ[];
 }
 
 export const blogContent: Record<string, BlogSection[]> = {
