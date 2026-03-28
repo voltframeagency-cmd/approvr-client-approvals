@@ -107,7 +107,7 @@ export const Features = () => {
                 <button
                   key={feature.id}
                   onClick={() => setActiveIndex(i)}
-                  className={`group relative p-6 rounded-2xl text-left transition-colors duration-150 overflow-hidden ${
+                  className={`group relative p-4 md:p-6 rounded-xl md:rounded-2xl text-left transition-colors duration-150 overflow-hidden ${
                     isActive 
                       ? 'bg-primary/[0.03] border-primary/20 border shadow-[0_10px_30px_-15px_rgba(var(--primary),0.1)]' 
                       : 'hover:bg-muted/50 border-transparent border'
