@@ -97,7 +97,7 @@ const SocialProof = () => {
           <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-muted/30 to-transparent z-10" />
           
           <p className="text-center text-[10px] font-black text-muted-foreground/50 uppercase tracking-[0.3em] mb-12">
-            Integrated with the tools you love
+            Works with what you already use
           </p>
           
           <div className="flex gap-16 items-center justify-center overflow-hidden">

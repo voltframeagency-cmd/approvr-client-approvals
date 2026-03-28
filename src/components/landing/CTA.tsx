@@ -80,7 +80,7 @@ const CTA = () => {
               </div>
               <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest">
                 <ShieldCheck className="h-4 w-4 text-primary" />
-                No Card Required
+                No card needed
               </div>
             </motion.div>
           </div>

@@ -260,7 +260,7 @@ const Pricing = () => {
           className="mt-32 text-center"
         >
           <p className="text-sm font-bold text-muted-foreground/60 uppercase tracking-[0.2em] mb-10">
-            Trusted by world-class creative teams
+            Used by agencies who got tired of chasing emails
           </p>
           <div className="flex flex-wrap justify-center items-center gap-x-16 gap-y-10 opacity-30 grayscale hover:grayscale-0 transition-all duration-1000">
             <span className="text-xl font-black tracking-tighter">AGENCY_X</span>

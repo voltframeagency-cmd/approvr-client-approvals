@@ -84,7 +84,7 @@ const Hero = () => (
         >
           <AvatarGroup members={founderMembers} size={28} limit={4} />
           <span className="text-sm text-muted-foreground">
-            Join <span className="font-semibold text-foreground">380+</span> agencies already in
+            <span className="font-semibold text-foreground">380+</span> agencies stopped chasing
           </span>
         </motion.div>
       </motion.div>
