@@ -17,7 +17,7 @@ const founderMembers = [
 ];
 
 const Hero = () => (
-  <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
+  <section className="relative pt-28 pb-16 md:pt-40 md:pb-28 overflow-hidden">
     <div className="absolute inset-0 surface-sunken" />
     <HeroBackground />
 
