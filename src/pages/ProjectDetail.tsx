@@ -534,7 +534,7 @@ const ProjectDetail = () => {
                     </div>
                     <div className="relative">
                       <div className="absolute left-[15px] top-6 bottom-6 w-[1.5px] bg-slate-100 dark:bg-slate-800" />
-                      <div className="space-y-8">
+                      <div className="space-y-6 md:space-y-8">
                         {(selectedDel.versions || [{ version: selectedDel.version, submittedAt: selectedDel.submittedAt, note: 'Initial submission' }])
                           .slice().reverse().map((v, i) => (
                           <div key={v.version} className="flex items-start gap-6 relative group/v">
