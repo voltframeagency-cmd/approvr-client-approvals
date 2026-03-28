@@ -77,7 +77,7 @@ const Signup = () => {
             </motion.div>
           </div>
 
-          <div className="text-sm text-slate-400">
+          <div className="text-sm text-muted-foreground/50">
             © 2024 Approvr. All rights reserved.
           </div>
         </div>
