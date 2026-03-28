@@ -87,7 +87,7 @@ export const Features = () => {
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-bold mb-6 md:mb-8 tracking-tighter leading-[1.1]" style={{ textShadow: '0 4px 12px hsl(0 0% 0% / 0.15)' }}>
             Six problems you <span className="italic bg-gradient-to-b from-primary via-primary to-primary/60 bg-clip-text text-transparent">won't have anymore</span>
           </h2>
-          <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+          <p className="text-base md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto px-2">
             We didn't build another project manager. We built the thing that gets clients to say "yes" — fast.
           </p>
         </motion.div>
