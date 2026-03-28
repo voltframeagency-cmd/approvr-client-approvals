@@ -293,13 +293,13 @@ const ProjectDetail = () => {
                 className="space-y-5"
               >
                 {/* Tab navigation */}
-                <div className="flex items-center gap-1 border-b">
+                <div className="flex items-center gap-0 overflow-x-auto border-b -mx-1 px-1">
                   {(['preview', 'versions', 'timeline', 'next_steps'] as const).map(tab => (
                     <button
                       key={tab}
                       onClick={() => setActiveTab(tab)}
                       className={cn(
-                        'px-4 py-2.5 text-[13px] font-medium transition-colors border-b-2 -mb-px capitalize',
+                        'px-3 md:px-4 py-2 md:py-2.5 text-[11px] md:text-[13px] font-medium transition-colors border-b-2 -mb-px capitalize whitespace-nowrap',
                         activeTab === tab
                           ? 'border-primary text-primary'
                           : 'border-transparent text-muted-foreground hover:text-foreground'
