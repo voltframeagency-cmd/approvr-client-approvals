@@ -85,7 +85,7 @@ export const Testimonials = () => {
                 transition={{ duration: DURATION.structural, ease: EASING.standard as unknown as number[] }}
                 className="relative"
               >
-                <blockquote className="text-2xl md:text-3xl font-medium leading-relaxed mb-12 text-foreground/90 tracking-tight italic">
+                <blockquote className="text-lg sm:text-2xl md:text-3xl font-medium leading-relaxed mb-8 md:mb-12 text-foreground/90 tracking-tight italic">
                   "{testimonials[active].quote}"
                 </blockquote>
                 
