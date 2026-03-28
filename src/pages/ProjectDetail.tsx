@@ -684,7 +684,7 @@ const ProjectDetail = () => {
                           <div className="space-y-2 sm:space-y-3">
                             <Label className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 ml-1">Show when</Label>
                             <select 
-                              className="flex h-10 sm:h-14 w-full rounded-xl sm:rounded-2xl border border-border/20 bg-slate-50 dark:bg-black/20 px-3 sm:px-5 py-2 text-[13px] sm:text-[15px] font-medium ring-offset-background cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/10 transition-all appearance-none"
+                              className="flex h-10 sm:h-14 w-full rounded-xl sm:rounded-2xl border border-border/20 bg-muted/50 px-3 sm:px-5 py-2 text-[13px] sm:text-[15px] font-medium ring-offset-background cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/10 transition-all appearance-none"
                               value={newAction.showWhen}
                               onChange={e => setNewAction(prev => ({ ...prev, showWhen: e.target.value as 'on_approval' | 'always' }))}
                             >
