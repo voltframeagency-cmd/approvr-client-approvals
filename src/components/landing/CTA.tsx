@@ -53,7 +53,7 @@ const CTA = () => {
               <span className="italic bg-gradient-to-b from-primary via-primary to-primary/60 bg-clip-text text-transparent">Start approving.</span>
             </motion.h2>
             
-            <motion.p variants={itemVariants} className="text-xl text-muted-foreground mb-12 max-w-xl mx-auto leading-relaxed">
+            <motion.p variants={itemVariants} className="text-base md:text-xl text-muted-foreground mb-8 md:mb-12 max-w-xl mx-auto leading-relaxed">
               Every week you don't switch, your team loses another 6 hours to inbox chaos. That's 300+ hours a year — gone.
             </motion.p>
             
