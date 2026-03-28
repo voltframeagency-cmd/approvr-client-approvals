@@ -57,7 +57,7 @@ export const HowItWorks = () => {
             Upload. Review. Approved. <span className="italic bg-gradient-to-b from-primary via-primary to-primary/60 bg-clip-text text-transparent">Done before lunch.</span>
           </h2>
           <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-            We’ve stripped away the overhead. No logic puzzles, no complex Jira tickets. Just a direct path from work to win.
+            No project management degree required. Three moves and you've got a signed-off deliverable.
           </p>
         </div>
 
