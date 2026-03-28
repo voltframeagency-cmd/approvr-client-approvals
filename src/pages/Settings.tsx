@@ -543,7 +543,7 @@ const Settings = () => {
                        animate={{ opacity: 1, height: 'auto' }}
                        className="border rounded-xl p-4 space-y-3 bg-muted/20"
                      >
-                       <div className="grid sm:grid-cols-2 gap-3">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                          <div className="space-y-1.5">
                            <Label className="text-[12px]">Label</Label>
                            <Input 
