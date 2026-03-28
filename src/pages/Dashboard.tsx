@@ -306,7 +306,7 @@ const Dashboard = () => {
               <CardContent className="p-5 md:p-6 relative z-10">
                 <Badge className="bg-primary hover:bg-primary text-white text-[10px] font-black px-2.5 py-1 border-none mb-4 uppercase tracking-widest">Founder Beta</Badge>
                 <h3 className="text-lg font-extrabold mb-2 tracking-tight">Upgrade to Pro</h3>
-                <p className="text-[12px] text-slate-300 mb-6 leading-relaxed font-semibold">Get unlimited projects, custom domains, and white-labeled client portals for your agency.</p>
+                <p className="text-[12px] text-slate-300 dark:text-muted-foreground mb-6 leading-relaxed font-semibold">Get unlimited projects, custom domains, and white-labeled client portals for your agency.</p>
                 <Link to="/dashboard/settings">
                   <Button variant="secondary" className="w-full rounded-xl font-black transition-all h-10 text-[13px] uppercase tracking-wider">
                     View Pricing Plans
