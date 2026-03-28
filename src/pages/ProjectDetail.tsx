@@ -428,7 +428,7 @@ const ProjectDetail = () => {
                     </div>
 
                     {/* Comments */}
-                    <div className="card-elevated p-6">
+                    <div className="card-elevated p-4 md:p-6">
                       <div className="flex items-center justify-between mb-4">
                         <h3 className="font-semibold text-[14px] flex items-center gap-2">
                           <MessageSquare className="h-4 w-4" /> Comments ({comments.length})
