@@ -74,7 +74,7 @@ const Dashboard = () => {
            animate={{ opacity: 1, y: 0 }}
            className="mb-8"
         >
-          <Alert variant={beta.isExpired || beta.isProjectLimitReached ? "destructive" : "default"} className="bg-white/50 dark:bg-slate-900 shadow-sm border-primary/10 backdrop-blur-sm rounded-2xl p-4 md:p-6 overflow-hidden relative">
+          <Alert variant={beta.isExpired || beta.isProjectLimitReached ? "destructive" : "default"} className="bg-card/50 shadow-sm border-primary/10 backdrop-blur-sm rounded-2xl p-4 md:p-6 overflow-hidden relative">
             <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none" />
             <Sparkles className="h-5 w-5 text-primary mb-2" />
             <AlertTitle className="text-base font-bold tracking-tight">
@@ -128,7 +128,7 @@ const Dashboard = () => {
               <div className={cn("h-8 w-8 md:h-10 md:w-10 rounded-lg md:rounded-xl flex items-center justify-center mb-3 md:mb-5 transition-transform group-hover:scale-110", card.bg)}>
                 <card.icon className="h-4 w-4 md:h-5 md:w-5" />
               </div>
-              <p className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">{card.value}</p>
+              <p className="text-2xl md:text-3xl font-extrabold tracking-tight text-foreground">{card.value}</p>
               <p className="text-[10px] md:text-[12px] font-bold text-muted-foreground/80 mt-0.5 md:mt-1 uppercase tracking-widest">{card.label}</p>
             </motion.div>
           </StaggerItem>
@@ -165,7 +165,7 @@ const Dashboard = () => {
                           {item.urgencyLabel}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="font-bold text-sm md:text-[15px] truncate text-slate-900 dark:text-white">{item.name}</p>
+                          <p className="font-bold text-sm md:text-[15px] truncate text-foreground">{item.name}</p>
                           <p className="text-[12px] text-muted-foreground font-medium">{item.clientName}</p>
                         </div>
                         <div className="hidden sm:flex flex-col items-end gap-1.5">
@@ -203,7 +203,7 @@ const Dashboard = () => {
                          >
                            <div className="flex items-start justify-between gap-3 md:gap-4 mb-4 md:mb-6">
                              <div className="min-w-0">
-                               <p className="font-bold text-sm md:text-[16px] truncate group-hover:text-primary transition-colors duration-300 text-slate-900 dark:text-white">{project.name}</p>
+                               <p className="font-bold text-sm md:text-[16px] truncate group-hover:text-primary transition-colors duration-300 text-foreground">{project.name}</p>
                                <p className="text-xs md:text-[13px] text-muted-foreground font-medium mt-0.5">{project.clientName}</p>
                             </div>
                             <div className="flex items-center gap-2">
@@ -256,7 +256,7 @@ const Dashboard = () => {
             ) : (
               <div className="card-elevated p-12 text-center border-none ring-1 ring-slate-200/40">
                 <FolderKanban className="h-10 w-10 mx-auto mb-4 text-muted-foreground/20" />
-                <p className="font-bold text-slate-900 dark:text-white">Start your first approval</p>
+                <p className="font-bold text-foreground">Start your first approval</p>
                 <p className="text-[13px] text-muted-foreground mt-2 max-w-xs mx-auto">Projects you create will appear here for tracking and client feedback.</p>
                 <Link to="/dashboard/projects" className="inline-block mt-6">
                    <Button size="sm" className="rounded-xl font-bold px-6">Create Project</Button>
@@ -281,13 +281,13 @@ const Dashboard = () => {
                     transition={{ delay: 0.2 + i * 0.05, duration: 0.4 }}
                     className="relative"
                   >
-                    <div className="absolute -left-[33px] md:-left-[41px] top-0 h-5 w-5 md:h-6 md:w-6 rounded-full bg-white dark:bg-slate-900 flex items-center justify-center ring-4 ring-white dark:ring-background z-10">
-                      <div className="h-4 w-4 md:h-5 md:w-5 rounded-full bg-slate-50 dark:bg-slate-900 border flex items-center justify-center text-primary group-hover:border-primary/40 transition-colors">
+                    <div className="absolute -left-[33px] md:-left-[41px] top-0 h-5 w-5 md:h-6 md:w-6 rounded-full bg-card flex items-center justify-center ring-4 ring-background z-10">
+                      <div className="h-4 w-4 md:h-5 md:w-5 rounded-full bg-muted/50 border flex items-center justify-center text-primary group-hover:border-primary/40 transition-colors">
                         <Icon className="h-2.5 w-2.5" />
                       </div>
                     </div>
                     <div className="flex flex-col gap-1">
-                      <p className="text-xs md:text-[13px] leading-relaxed text-slate-900 dark:text-slate-100">
+                      <p className="text-xs md:text-[13px] leading-relaxed text-foreground">
                         <span className="font-bold">{item.actor}</span>{' '}
                         <span className="text-muted-foreground font-medium">{item.action}</span>{' '}
                         <span className="font-bold text-primary/90 hover:underline cursor-pointer transition-all">{item.projectName}</span>
@@ -308,7 +308,7 @@ const Dashboard = () => {
                 <h3 className="text-lg font-extrabold mb-2 tracking-tight">Upgrade to Pro</h3>
                 <p className="text-[12px] text-slate-300 mb-6 leading-relaxed font-semibold">Get unlimited projects, custom domains, and white-labeled client portals for your agency.</p>
                 <Link to="/dashboard/settings">
-                  <Button variant="secondary" className="w-full rounded-xl font-black hover:bg-white hover:text-black transition-all h-10 text-[13px] uppercase tracking-wider">
+                  <Button variant="secondary" className="w-full rounded-xl font-black transition-all h-10 text-[13px] uppercase tracking-wider">
                     View Pricing Plans
                   </Button>
                 </Link>

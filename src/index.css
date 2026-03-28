@@ -117,7 +117,7 @@ html.lenis, html.lenis body {
   * {
     @apply border-border;
   }
-  body {
+  body, html {
     @apply bg-background text-foreground antialiased;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     font-feature-settings: 'cv11', 'ss01', 'ss03';
