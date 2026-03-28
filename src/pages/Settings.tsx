@@ -242,9 +242,9 @@ const Settings = () => {
 
               {/* Branding Tab */}
               {activeTab === 'branding' && (
-                <div className="space-y-6">
-                  <div className="grid lg:grid-cols-2 gap-6">
-                    <div className="card-elevated p-6 space-y-5">
+                <div className="space-y-4 sm:space-y-6">
+                  <div className="grid lg:grid-cols-2 gap-4 sm:gap-6">
+                    <div className="card-elevated p-4 sm:p-6 space-y-4 sm:space-y-5">
                       <div>
                         <h2 className="font-semibold text-base">Portal Brand Identity</h2>
                         <p className="text-[13px] text-muted-foreground mt-1">How clients perceive your agency within Approvr.</p>
