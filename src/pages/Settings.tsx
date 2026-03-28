@@ -127,38 +127,40 @@ const Settings = () => {
   ];
 
   return (
-    <div className="space-y-8 max-w-5xl">
-      <div className="flex flex-col gap-1">
+    <div className="space-y-5 sm:space-y-8 max-w-5xl">
+      <div className="flex flex-col gap-0.5 sm:gap-1">
         <motion.h1
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-2xl font-bold tracking-tight"
+          className="text-xl sm:text-2xl font-bold tracking-tight"
         >
           Workspace Control Center
         </motion.h1>
-        <p className="text-muted-foreground text-[14px]">
+        <p className="text-muted-foreground text-[13px] sm:text-[14px]">
           Define how Approvr behaves across every project and client portal.
         </p>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-8">
-        {/* Sidebar Navigation */}
-        <aside className="lg:w-64 space-y-1">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id as any)}
-              className={cn(
-                "w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-medium transition-all duration-200",
-                activeTab === tab.id 
-                  ? "bg-primary/[0.06] text-primary shadow-sm" 
-                  : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
-              )}
-            >
-              <tab.icon className={cn("h-4 w-4", activeTab === tab.id ? "text-primary" : "text-muted-foreground")} />
-              {tab.label}
-            </button>
-          ))}
+      <div className="flex flex-col lg:flex-row gap-5 sm:gap-8">
+        {/* Sidebar Navigation - horizontal scroll on mobile, vertical on desktop */}
+        <aside className="lg:w-64 -mx-4 px-4 sm:mx-0 sm:px-0">
+          <div className="flex lg:flex-col gap-1 overflow-x-auto pb-2 lg:pb-0 scrollbar-hide">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id as any)}
+                className={cn(
+                  "flex items-center gap-2 lg:gap-3 px-3 py-2 lg:py-2.5 rounded-xl text-[12px] lg:text-[13px] font-medium transition-all duration-200 whitespace-nowrap flex-shrink-0 lg:w-full",
+                  activeTab === tab.id 
+                    ? "bg-primary/[0.06] text-primary shadow-sm" 
+                    : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
+                )}
+              >
+                <tab.icon className={cn("h-3.5 w-3.5 lg:h-4 lg:w-4", activeTab === tab.id ? "text-primary" : "text-muted-foreground")} />
+                {tab.label}
+              </button>
+            ))}
+          </div>
         </aside>
 
         {/* Content Area */}
