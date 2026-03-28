@@ -237,11 +237,11 @@ export const TimelineDemo = () => {
                 transition={{ type: 'spring', damping: 12 }}
                 className="flex items-center gap-4 py-2.5"
               >
-                <div className={`h-7 w-7 rounded-full flex items-center justify-center ${ev.color} bg-current/10`}>
-                  <ev.icon className={`h-4 w-4 ${ev.color}`} />
+                <div className={`h-9 w-9 rounded-full flex items-center justify-center ${ev.color} bg-current/10`}>
+                  <ev.icon className={`h-5 w-5 ${ev.color}`} />
                 </div>
-                <span className="text-base text-muted-foreground">{ev.label}</span>
-                <span className="text-sm text-muted-foreground/50">just now</span>
+                <span className="text-lg text-muted-foreground">{ev.label}</span>
+                <span className="text-base text-muted-foreground/50">just now</span>
               </motion.div>
             )}
           </AnimatePresence>
