@@ -66,7 +66,7 @@ const Signup = () => {
                   "Early access to all features",
                   "Direct line to the team"
                 ].map((feature, i) => (
-                  <div key={i} className="flex items-center gap-3 text-slate-700">
+                  <div key={i} className="flex items-center gap-3 text-foreground/80">
                     <div className="h-5 w-5 rounded-full bg-primary/20 flex items-center justify-center">
                       <ShieldCheck className="h-3.5 w-3.5 text-primary" />
                     </div>
