@@ -67,7 +67,7 @@ export const Features = () => {
   }, []);
 
   return (
-    <section id="features" className="py-32 relative overflow-hidden">
+    <section id="features" className="py-16 md:py-32 relative overflow-hidden">
       {/* Background ambient glow */}
       <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
