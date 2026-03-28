@@ -51,7 +51,7 @@ export const HowItWorks = () => {
         <div className="max-w-3xl mx-auto text-center mb-24">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
             <Sparkles className="h-4 w-4" />
-            <span>High-Velocity Workflow</span>
+            <span>Three steps. That's it.</span>
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold mb-8 tracking-tighter leading-[1.1]" style={{ textShadow: '0 4px 12px hsl(0 0% 0% / 0.15)' }}>
             From deliverable to sign-off <span className="italic bg-gradient-to-b from-primary via-primary to-primary/60 bg-clip-text text-transparent">in seconds.</span>
