@@ -101,10 +101,10 @@ export const FeedbackDemo = () => {
             animate={{ opacity: 1, x: 0, scale: 1 }}
             className={`flex items-start gap-2.5 ${m.side === 'right' ? 'flex-row-reverse' : ''}`}
           >
-            <div className={`h-8 w-8 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 ${m.side === 'left' ? 'bg-info/10 text-info' : 'bg-primary/10 text-primary'}`}>
+            <div className={`h-10 w-10 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 ${m.side === 'left' ? 'bg-info/10 text-info' : 'bg-primary/10 text-primary'}`}>
               {m.author}
             </div>
-            <div className={`rounded-xl px-4 py-2 text-sm max-w-[70%] ${m.side === 'left' ? 'bg-muted/40' : 'bg-primary/[0.06]'}`}>
+            <div className={`rounded-xl px-4 py-2.5 text-base max-w-[70%] ${m.side === 'left' ? 'bg-muted/40' : 'bg-primary/[0.06]'}`}>
               {m.text}
             </div>
           </motion.div>
