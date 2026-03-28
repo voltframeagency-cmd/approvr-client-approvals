@@ -92,7 +92,7 @@ export const Features = () => {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-[1fr,1.4fr] gap-12 lg:gap-20 items-center">
+        <div className="grid lg:grid-cols-[1fr,1.4fr] gap-8 lg:gap-20 items-center">
           {/* Left: Interactive feature list */}
           <motion.div 
             initial={{ opacity: 0, x: -30 }}
