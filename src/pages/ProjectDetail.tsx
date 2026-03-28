@@ -380,11 +380,11 @@ const ProjectDetail = () => {
                         )}
                       </div>
 
-                      <div className="p-6 space-y-6">
-                        <div className="h-64 rounded-2xl bg-slate-50 dark:bg-black/20 border border-dashed flex flex-col items-center justify-center text-sm text-muted-foreground transition-colors hover:bg-slate-100 dark:hover:bg-white/5">
-                          <FileText className="h-10 w-10 mb-3 text-muted-foreground/20" />
-                          <p className="font-bold text-slate-900 dark:text-white">{selectedDel.fileName}</p>
-                          <p className="text-[12px] mt-1 uppercase tracking-widest font-black opacity-40">{selectedDel.fileType} Deliverable</p>
+                      <div className="p-4 md:p-6 space-y-4 md:space-y-6">
+                        <div className="h-48 md:h-64 rounded-xl md:rounded-2xl bg-muted/30 border border-dashed flex flex-col items-center justify-center text-sm text-muted-foreground transition-colors hover:bg-muted/50">
+                          <FileText className="h-8 w-8 md:h-10 md:w-10 mb-2 md:mb-3 text-muted-foreground/20" />
+                          <p className="font-bold text-foreground text-sm">{selectedDel.fileName}</p>
+                          <p className="text-[11px] md:text-[12px] mt-1 uppercase tracking-widest font-black opacity-40">{selectedDel.fileType} Deliverable</p>
                         </div>
                         {selectedDel.status !== 'approved' && (
                           <div className="flex gap-3 mt-5">
