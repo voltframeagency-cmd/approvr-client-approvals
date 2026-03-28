@@ -78,7 +78,7 @@ export const Features = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: DURATION.large, ease: EASING.enter as unknown as number[] }}
-          className="max-w-3xl mx-auto text-center mb-24"
+          className="max-w-3xl mx-auto text-center mb-14 md:mb-24"
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
             <Sparkles className="h-4 w-4" />
