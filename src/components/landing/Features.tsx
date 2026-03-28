@@ -120,7 +120,7 @@ export const Features = () => {
                       {String(i + 1).padStart(2, '0')}
                     </div>
                     <div>
-                      <h3 className={`text-lg font-bold mb-2 transition-colors duration-150 ${
+                      <h3 className={`text-base md:text-lg font-bold mb-1 md:mb-2 transition-colors duration-150 ${
                         isActive ? 'text-foreground' : 'text-muted-foreground group-hover:text-foreground'
                       }`}>
                         {feature.title}
