@@ -110,7 +110,7 @@ const Dashboard = () => {
       <header className="flex flex-col md:flex-row md:items-end justify-between gap-4 md:gap-6">
         <div>
           <h1 className="text-2xl md:text-4xl font-extrabold tracking-tight mb-1 md:mb-2">Dashboard</h1>
-          <p className="text-muted-foreground text-xs md:text-base font-medium">Welcome back, Alex Rivera.</p>
+          <p className="text-muted-foreground text-xs md:text-base font-medium">Welcome back, {isDemoMode ? demoUserName.split(' ')[0] : 'Alex Rivera'}.</p>
         </div>
         <Link to="/dashboard/projects">
           <Button className="rounded-xl shadow-lg shadow-primary/20 px-5 md:px-6 font-bold gap-2 h-10 md:h-11 border-none text-sm w-full md:w-auto">
