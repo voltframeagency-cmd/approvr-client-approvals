@@ -84,6 +84,7 @@ const Settings = () => {
   };
 
   const handleInvite = async () => {
+    if (isDemoMode) { toast.success('Invitation sent (demo)'); setInviteDialogOpen(false); return; }
     if (!workspace || !inviteEmail) return;
     
     // Check team limit before inviting
