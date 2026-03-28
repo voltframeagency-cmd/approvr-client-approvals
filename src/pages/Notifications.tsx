@@ -98,7 +98,7 @@ const Notifications = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto pb-12 sm:pb-20">
+    <div className="max-w-4xl mx-auto pb-12 sm:pb-20 overflow-hidden">
       <div className="flex items-center justify-between gap-3 mb-5 sm:mb-8">
         <div>
           <motion.h1
