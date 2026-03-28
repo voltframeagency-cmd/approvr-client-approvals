@@ -715,29 +715,29 @@ const ProjectDetail = () => {
                     )}
 
                     {projectActions.length > 0 && (
-                      <div className="mb-10">
-                        <p className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em] mb-4 ml-1">Project Actions</p>
-                        <div className="grid gap-3">
+                      <div className="mb-5 sm:mb-10">
+                        <p className="text-[10px] sm:text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em] mb-3 sm:mb-4 ml-1">Project Actions</p>
+                        <div className="grid gap-2 sm:gap-3">
                           {projectActions.map(action => {
                             const Icon = providerIcons[action.providerType];
                             return (
-                              <div key={action.id} className="flex items-center gap-5 rounded-[24px] border border-slate-200 dark:border-white/5 p-5 bg-white dark:bg-slate-900 group/item transition-all hover:bg-slate-50 dark:hover:bg-white/[0.02] hover:shadow-lg hover:shadow-slate-200/50 dark:hover:shadow-none">
-                                <div className="h-14 w-14 rounded-2xl bg-slate-50 dark:bg-white/5 flex items-center justify-center flex-shrink-0 group-hover/item:scale-110 transition-transform shadow-sm ring-1 ring-border/20">
-                                  <Icon className="h-6 w-6 text-slate-700 dark:text-slate-200" />
+                              <div key={action.id} className="flex items-center gap-2.5 sm:gap-5 rounded-xl sm:rounded-[24px] border border-slate-200 dark:border-white/5 p-3 sm:p-5 bg-white dark:bg-slate-900 group/item transition-all hover:bg-slate-50 dark:hover:bg-white/[0.02] hover:shadow-lg hover:shadow-slate-200/50 dark:hover:shadow-none">
+                                <div className="h-9 w-9 sm:h-14 sm:w-14 rounded-lg sm:rounded-2xl bg-slate-50 dark:bg-white/5 flex items-center justify-center flex-shrink-0 group-hover/item:scale-110 transition-transform shadow-sm ring-1 ring-border/20">
+                                  <Icon className="h-4 w-4 sm:h-6 sm:w-6 text-slate-700 dark:text-slate-200" />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                  <p className="text-[15px] font-bold text-slate-900 dark:text-white mb-0.5">{action.label}</p>
-                                  <p className="text-[11px] text-muted-foreground font-medium truncate opacity-60">{action.url}</p>
+                                  <p className="text-[12px] sm:text-[15px] font-bold text-slate-900 dark:text-white mb-0.5 truncate">{action.label}</p>
+                                  <p className="text-[10px] sm:text-[11px] text-muted-foreground font-medium truncate opacity-60">{action.url}</p>
                                 </div>
-                                <div className="flex items-center gap-3">
-                                  <Badge variant="secondary" className="text-[10px] font-black uppercase tracking-widest px-2.5 py-1 bg-slate-100 dark:bg-white/5 text-muted-foreground border-none">
+                                <div className="flex items-center gap-1.5 sm:gap-3">
+                                  <Badge variant="secondary" className="text-[8px] sm:text-[10px] font-black uppercase tracking-widest px-1.5 sm:px-2.5 py-0.5 sm:py-1 bg-slate-100 dark:bg-white/5 text-muted-foreground border-none hidden sm:inline-flex">
                                     {providerTypeLabels[action.providerType]}
                                   </Badge>
                                   <button 
                                     onClick={() => handleDeleteAction(action.id)}
-                                    className="p-2.5 rounded-xl hover:bg-destructive/10 text-muted-foreground/40 hover:text-destructive transition-all group-hover/item:opacity-100"
+                                    className="p-1.5 sm:p-2.5 rounded-lg sm:rounded-xl hover:bg-destructive/10 text-muted-foreground/40 hover:text-destructive transition-all"
                                   >
-                                    <Trash2 className="h-4 w-4" />
+                                    <Trash2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                                   </button>
                                 </div>
                               </div>
