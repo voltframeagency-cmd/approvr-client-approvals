@@ -726,7 +726,7 @@ const ProjectDetail = () => {
                                   <Icon className="h-4 w-4 sm:h-6 sm:w-6 text-foreground" />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                  <p className="text-[12px] sm:text-[15px] font-bold text-slate-900 dark:text-white mb-0.5 truncate">{action.label}</p>
+                                  <p className="text-[12px] sm:text-[15px] font-bold text-foreground mb-0.5 truncate">{action.label}</p>
                                   <p className="text-[10px] sm:text-[11px] text-muted-foreground font-medium truncate opacity-60">{action.url}</p>
                                 </div>
                                 <div className="flex items-center gap-1.5 sm:gap-3">
