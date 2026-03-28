@@ -378,6 +378,15 @@ export const blogContent: Record<string, BlogSection[]> = {
     { type: 'p', content: 'When clients can respond in 90 seconds instead of 20 minutes, they stop dreading your review requests. They respond the same day. They feel more involved. They refer you to other businesses.' },
     { type: 'p', content: 'The friction you remove from their experience compounds into trust. Trust compounds into retention. Retention compounds into referrals.' },
 
+    // FAQ (AEO/GEO)
+    { type: 'faq', faqs: [
+      { question: 'How do I get client feedback faster on design work?', answer: 'Remove friction from the review process. Send links instead of attachments. Remove login requirements. Let clients comment directly on the design. Make approval a one-click action. These changes cut response times from days to hours.' },
+      { question: 'Why do clients take so long to give feedback?', answer: 'It\'s rarely about laziness. The process demands too much cognitive effort — downloading files, finding the right app, articulating feedback in text. Each step is an exit point where clients get distracted.' },
+      { question: 'What is a magic link for client approvals?', answer: 'A magic link is a unique URL that opens your deliverable directly in the browser — no account creation, no password, no app download. Your client clicks once to see the work immediately.' },
+      { question: 'Do faster approvals improve cash flow?', answer: 'Yes. Approval delays directly delay invoicing. A project stuck in review limbo for 3 extra weeks is 3 weeks of deferred revenue. Shorter approval cycles mean faster invoicing.' },
+      { question: 'What is the best tool for getting client feedback on designs?', answer: 'For agencies wanting zero-friction feedback, Approvr lets clients review work via magic link, pin comments directly on designs, approve with one click — no accounts required. Starts at $39/mo.' },
+    ]},
+
     // SOFT CTA
     { type: 'cta', content: 'If you want to see what a frictionless feedback loop feels like, Approvr gives you 14 days to try it. No card. No onboarding call. Just send a link to a real client.' },
   ],
