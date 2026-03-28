@@ -197,7 +197,7 @@ const Pricing = () => {
                           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                           exit={{ opacity: 0, y: -12, filter: 'blur(8px)' }}
                           transition={{ duration: DURATION.structural, ease: EASING.standard as unknown as number[] }}
-                          className="text-5xl font-bold tracking-tighter"
+                          className="text-4xl md:text-5xl font-bold tracking-tighter"
                         >
                           ${price}
                         </motion.span>
