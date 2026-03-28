@@ -45,7 +45,7 @@ const Hero = () => (
           Founder Beta — 380 spots gone
         </motion.div>
 
-        <h1 className="text-4xl md:text-[3.5rem] lg:text-[4.25rem] font-bold tracking-tighter leading-[1.05] mb-6">
+        <h1 className="text-3xl sm:text-4xl md:text-[3.5rem] lg:text-[4.25rem] font-bold tracking-tighter leading-[1.05] mb-5 md:mb-6">
           Your clients owe you an answer. <br className="hidden md:block" />
           <span className="gradient-text italic">Stop waiting for it in email.</span>
         </h1>
