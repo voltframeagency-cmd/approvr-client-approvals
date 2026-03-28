@@ -354,7 +354,7 @@ const Settings = () => {
                         <p className="text-[11px] text-muted-foreground text-center mt-3">Live mockup of your client-facing portal aesthetic.</p>
                       </div>
 
-                      <div className="card-elevated p-5 space-y-4">
+                      <div className="card-elevated p-4 sm:p-5 space-y-3 sm:space-y-4">
                         <h3 className="text-[13px] font-medium flex items-center gap-2">
                           <CheckCircle2 className="h-4 w-4 text-success" /> Success Sentiment
                         </h3>
