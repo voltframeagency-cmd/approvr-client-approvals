@@ -450,8 +450,8 @@ const Settings = () => {
                       </div>
                     </div>
 
-                    <div className="pt-6 border-t flex justify-end">
-                      <Button onClick={() => handleSave('Review Flow')} className="h-9 px-6 text-[13px]">Save Flow Patterns</Button>
+                    <div className="pt-4 sm:pt-6 border-t flex justify-end">
+                      <Button onClick={() => handleSave('Review Flow')} className="h-9 px-6 text-[13px] w-full sm:w-auto">Save Flow Patterns</Button>
                     </div>
                   </div>
                 </div>
