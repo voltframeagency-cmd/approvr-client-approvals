@@ -372,7 +372,7 @@ const Settings = () => {
                   </div>
                   
                   {/* Usage meters */}
-                  {usageData && wsPlanConfig && (
+                  {effectiveUsage && wsPlanConfig && (
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
                       <div className="p-4 rounded-xl border space-y-2">
                         <div className="flex items-center justify-between">
@@ -380,11 +380,11 @@ const Settings = () => {
                             <FolderOpen className="h-3 w-3" /> Projects
                           </span>
                           <span className="text-[11px] font-bold text-foreground">
-                            {usageData.projectCount}/{wsPlanConfig.limits.maxProjects ?? '∞'}
+                            {effectiveUsage.projectCount}/{wsPlanConfig.limits.maxProjects ?? '∞'}
                           </span>
                         </div>
                         <Progress 
-                          value={wsPlanConfig.limits.maxProjects ? (usageData.projectCount / wsPlanConfig.limits.maxProjects) * 100 : 15} 
+                          value={wsPlanConfig.limits.maxProjects ? (effectiveUsage.projectCount / wsPlanConfig.limits.maxProjects) * 100 : 15} 
                           className="h-1.5"
                         />
                       </div>
@@ -394,11 +394,11 @@ const Settings = () => {
                             <HardDrive className="h-3 w-3" /> Storage
                           </span>
                           <span className="text-[11px] font-bold text-foreground">
-                            {usageData.storageGB} GB / {wsPlanConfig.limits.maxStorageGB} GB
+                            {effectiveUsage.storageGB} GB / {wsPlanConfig.limits.maxStorageGB} GB
                           </span>
                         </div>
                         <Progress 
-                          value={(usageData.storageGB / wsPlanConfig.limits.maxStorageGB) * 100} 
+                          value={(effectiveUsage.storageGB / wsPlanConfig.limits.maxStorageGB) * 100} 
                           className="h-1.5"
                         />
                       </div>
@@ -408,11 +408,11 @@ const Settings = () => {
                             <Users className="h-3 w-3" /> Team Seats
                           </span>
                           <span className="text-[11px] font-bold text-foreground">
-                            {usageData.teamMemberCount}/{wsPlanConfig.limits.maxTeamMembers}
+                            {effectiveUsage.teamMemberCount}/{wsPlanConfig.limits.maxTeamMembers}
                           </span>
                         </div>
                         <Progress 
-                          value={(usageData.teamMemberCount / wsPlanConfig.limits.maxTeamMembers) * 100} 
+                          value={(effectiveUsage.teamMemberCount / wsPlanConfig.limits.maxTeamMembers) * 100} 
                           className="h-1.5"
                         />
                       </div>
