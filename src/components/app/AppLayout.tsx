@@ -106,7 +106,8 @@ const AppLayout = () => {
         <Link to="/dashboard">
           <Logo variant="small" />
         </Link>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-0.5">
+          <ThemeToggle className="h-9 w-9 rounded-xl text-muted-foreground" />
           {navItems.map(item => {
             const active = item.to === '/dashboard' ? location.pathname === '/dashboard' : location.pathname.startsWith(item.to);
             return (
