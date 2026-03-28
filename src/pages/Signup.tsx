@@ -55,7 +55,7 @@ const Signup = () => {
               <h2 className="text-4xl lg:text-[2.75rem] font-bold tracking-tighter leading-tight mb-6 font-display">
                 Join the <span className="gradient-text italic">Founder Beta.</span>
               </h2>
-              <p className="text-lg text-slate-600 leading-relaxed mb-8">
+              <p className="text-lg text-muted-foreground leading-relaxed mb-8">
                 Get early access, help shape the product, and lock in founding-member pricing when we launch.
               </p>
 
