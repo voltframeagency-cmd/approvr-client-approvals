@@ -648,7 +648,7 @@ const ProjectDetail = () => {
                                     "flex flex-col items-center justify-center p-2 sm:p-3 rounded-xl sm:rounded-2xl border transition-all gap-1 sm:gap-2 min-w-0 sm:min-w-[80px]",
                                     isSelected 
                                       ? "border-primary bg-primary/[0.04] text-primary ring-1 ring-primary" 
-                                      : "border-border/40 hover:border-border hover:bg-slate-50 dark:hover:bg-white/5 text-muted-foreground/60"
+                                      : "border-border/40 hover:border-border hover:bg-muted/50 text-muted-foreground/60"
                                   )}
                                 >
                                   <Icon className={cn("h-4 w-4 sm:h-6 sm:w-6", isSelected ? "text-primary" : "text-muted-foreground/40")} />
