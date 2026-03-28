@@ -22,12 +22,29 @@ const AppLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { user, signOut } = useAuth();
+  const { isDemoMode, demoPlan, demoUserName, demoAgencyName, exitDemo } = useDemo();
   const { data: workspace } = useWorkspace();
   const { data: notifications } = useNotifications();
 
-  const unreadCount = notifications?.filter(n => !n.read).length || 0;
-  const displayName = user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'User';
+  const unreadCount = isDemoMode 
+    ? mockNotifications.filter(n => !n.read).length
+    : (notifications?.filter(n => !n.read).length || 0);
+  const displayName = isDemoMode 
+    ? demoUserName 
+    : (user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'User');
   const initials = displayName.split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2);
+  const workspaceName = isDemoMode ? demoAgencyName : workspace?.name;
+  const planLabel = demoPlan === 'studio' ? 'The Studio' : 'The Scaler';
+
+  const handleSignOut = async () => {
+    if (isDemoMode) {
+      exitDemo();
+      navigate('/login');
+      return;
+    }
+    await signOut();
+    navigate('/login');
+  };
 
   const handleSignOut = async () => {
     await signOut();
