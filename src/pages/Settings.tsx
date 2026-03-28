@@ -13,6 +13,7 @@ import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 import { useAuth } from '@/contexts/AuthContext';
+import { useDemo } from '@/contexts/DemoContext';
 import { useWorkspace, useWorkspaceMembers, useInviteMember, useUpdateMemberRole, useRemoveMember, usePendingInvitations } from '@/hooks/use-workspace';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -21,14 +22,24 @@ import { useWorkspaceUsage, getWorkspacePlanConfig } from '@/hooks/use-workspace
 
 const Settings = () => {
   const { user } = useAuth();
+  const { isDemoMode, demoPlan, demoUserName, demoAgencyName, planConfig: demoPlanConfig, demoData, usage: demoUsage } = useDemo();
   const { data: workspace, refetch: refetchWorkspace } = useWorkspace();
   const { data: usageData } = useWorkspaceUsage(workspace?.id);
-  const wsPlanConfig = workspace ? getWorkspacePlanConfig(workspace.plan) : null;
+  const wsPlanConfig = isDemoMode ? demoPlanConfig : (workspace ? getWorkspacePlanConfig(workspace.plan) : null);
   const { data: members, refetch: refetchMembers } = useWorkspaceMembers(workspace?.id);
   const { data: pendingInvitations } = usePendingInvitations(workspace?.id);
   const inviteMember = useInviteMember();
   const updateRole = useUpdateMemberRole();
   const removeMember = useRemoveMember();
+
+  // In demo mode, use demo data for usage and members
+  const effectiveUsage = isDemoMode && demoUsage ? {
+    projectCount: demoUsage.projectsUsed,
+    storageGB: demoUsage.storageUsedGB,
+    teamMemberCount: demoUsage.teamMembersUsed,
+    storageBytes: demoUsage.storageUsedGB * 1024 * 1024 * 1024,
+  } : usageData;
+  const effectiveMembers = isDemoMode ? (demoData?.members ?? []) : members;
 
   const [activeTab, setActiveTab] = useState<'general' | 'branding' | 'notifications' | 'team' | 'usage'>('general');
   
@@ -43,10 +54,9 @@ const Settings = () => {
   const [inviteRole, setInviteRole] = useState<'admin' | 'member'>('member');
 
   // Sync form state with workspace data
-  const ws = workspace;
-  const displayName = ws?.name || '';
-  const displayAgency = ws?.agency_name || '';
-  const displaySupportEmail = ws?.support_email || '';
+  const displayName = isDemoMode ? (demoAgencyName || '') : (workspace?.name || '');
+  const displayAgency = isDemoMode ? (demoAgencyName || '') : (workspace?.agency_name || '');
+  const displaySupportEmail = isDemoMode ? `support@${demoAgencyName.toLowerCase().replace(/\s+/g, '')}.com` : (workspace?.support_email || '');
 
   const handleSave = async (section: string) => {
     if (!workspace) return;
