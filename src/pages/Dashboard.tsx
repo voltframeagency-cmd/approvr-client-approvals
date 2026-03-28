@@ -141,6 +141,14 @@ const Dashboard = () => {
         ))}
       </StaggerContainer>
 
+      {/* Onboarding Checklist */}
+      {onboarding.isVisible && (
+        <OnboardingChecklist />
+      )}
+
+      {/* Client Activity Tracker */}
+      <ClientActivityTracker />
+
       {/* Main Grid */}
       <div className="grid lg:grid-cols-5 gap-6 lg:gap-12">
         {/* Left Column: Projects & Attention */}
