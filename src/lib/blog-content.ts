@@ -128,6 +128,14 @@ export const blogContent: Record<string, BlogSection[]> = {
     { type: 'p', content: 'Credit where it\'s due. If you need sequential review stages, regulatory compliance tracking, 50+ reviewers across departments — Filestage earns every dollar of that $199.' },
     { type: 'p', content: 'If your approval process is "send → feedback → approve," you\'re paying enterprise prices for a freelancer\'s workflow.' },
 
+    // FAQ (AEO/GEO)
+    { type: 'faq', faqs: [
+      { question: 'Is Filestage worth it for small agencies?', answer: 'For most agencies under 10 people, Filestage is overkill. Its core strength — multi-step sequential reviews with conditional routing — isn\'t needed when your workflow is send-feedback-approve.' },
+      { question: 'What is the cheapest Filestage alternative?', answer: 'Approvr starts at $39/mo with zero-client-login approvals, full white-label branding. Filestage\'s cheapest plan is $199/mo.' },
+      { question: 'Does Filestage require clients to create accounts?', answer: 'Yes. Filestage requires all reviewers to create accounts to access review content. This adds friction for external clients.' },
+      { question: 'What is the best approval tool for freelancers?', answer: 'For freelancers, Approvr\'s Starter plan offers the simplest workflow — upload, share a magic link, get a timestamped approval. No client accounts needed.' },
+    ]},
+
     // SOFT CTA (BYAF)
     { type: 'cta', content: 'Curious whether something simpler would work? Approvr gives you 14 days to find out. No card. No pitch call. Just try it.' },
   ],
