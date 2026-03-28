@@ -18,7 +18,7 @@ const testimonials = [
     initials: 'MC',
   },
   {
-    quote: "Our branding clients told us the portal feels more professional than anything they've used. It's like having a white-label review tool built just for our studio.",
+    quote: "Our clients actually said it looks like we built it. That's the point — it's our brand, not some third-party tool.",
     author: 'Priya Sharma',
     role: 'Founder',
     company: 'Luma Design Co',
