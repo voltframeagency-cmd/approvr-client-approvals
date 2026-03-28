@@ -113,8 +113,8 @@ export const Features = () => {
                       : 'hover:bg-muted/50 border-transparent border'
                   }`}
                 >
-                  <div className="relative z-10 flex items-start gap-4">
-                    <div className={`mt-1 font-mono text-xs tabular-nums transition-colors duration-150 ${
+                  <div className="relative z-10 flex items-start gap-3 md:gap-4">
+                    <div className={`mt-0.5 font-mono text-xs tabular-nums transition-colors duration-150 ${
                       isActive ? 'text-primary' : 'text-muted-foreground'
                     }`}>
                       {String(i + 1).padStart(2, '0')}
