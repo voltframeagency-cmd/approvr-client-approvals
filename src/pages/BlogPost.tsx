@@ -5,12 +5,37 @@ import Footer from '@/components/landing/Footer';
 import { getBlogPost } from '@/lib/blog-posts';
 import { blogContent, BlogSection } from '@/lib/blog-content';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Calendar, Clock } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Calendar, Clock, ChevronDown } from 'lucide-react';
 import { ShinyButton } from '@/components/ui/shiny-button';
 import { EASING, DURATION } from '@/components/motion/Animations';
+import { useState } from 'react';
+
+const FAQItem = ({ question, answer }: { question: string; answer: string }) => {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="border-b border-border/30 last:border-b-0">
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-center justify-between py-4 text-left gap-4 group"
+      >
+        <span className="font-semibold text-foreground/90 text-sm md:text-base leading-snug">{question}</span>
+        <ChevronDown className={`h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
+      </button>
+      {open && (
+        <p className="pb-4 text-foreground/70 text-sm leading-relaxed pr-8">{answer}</p>
+      )}
+    </div>
+  );
+};
 
 const SectionRenderer = ({ section }: { section: BlogSection }) => {
   switch (section.type) {
+    case 'definition':
+      return (
+        <div className="mb-8 rounded-xl bg-muted/20 border border-border/30 p-5">
+          <p className="text-foreground/70 text-sm leading-relaxed italic">{section.content}</p>
+        </div>
+      );
     case 'h2':
       return <h2 className="text-2xl md:text-3xl font-bold tracking-tight mt-12 mb-4">{section.content}</h2>;
     case 'h3':
@@ -59,6 +84,17 @@ const SectionRenderer = ({ section }: { section: BlogSection }) => {
           </p>
         </div>
       );
+    case 'faq':
+      return (
+        <div className="mt-12 mb-8">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-6">Frequently asked questions</h2>
+          <div className="rounded-xl border border-border/40 bg-card/30 px-5">
+            {section.faqs?.map((faq, i) => (
+              <FAQItem key={i} question={faq.question} answer={faq.answer} />
+            ))}
+          </div>
+        </div>
+      );
     case 'cta':
       return (
         <div className="mt-12 mb-8 rounded-2xl border border-primary/20 bg-card/40 backdrop-blur-sm p-8 text-center">
@@ -82,15 +118,47 @@ const BlogPost = () => {
 
   if (!post || !content) return <Navigate to="/blog" replace />;
 
-  const jsonLd = {
+  // Extract FAQs for JSON-LD
+  const faqSections = content.filter(s => s.type === 'faq');
+  const allFaqs = faqSections.flatMap(s => s.faqs || []);
+
+  // Enhanced Article JSON-LD (SEO + AIO)
+  const articleJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
     headline: post.title,
     description: post.metaDescription,
     datePublished: post.publishedAt,
-    author: { '@type': 'Organization', name: 'Approvr' },
-    publisher: { '@type': 'Organization', name: 'Approvr' },
+    dateModified: post.publishedAt,
+    author: { '@type': 'Organization', name: 'Approvr', url: 'https://approvr.io' },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Approvr',
+      url: 'https://approvr.io',
+      logo: { '@type': 'ImageObject', url: 'https://approvr.io/logo.png' },
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `https://approvr.io/blog/${post.slug}`,
+    },
+    wordCount: content.reduce((acc, s) => acc + (s.content?.split(' ').length || 0), 0),
+    articleSection: post.category,
+    inLanguage: 'en-US',
   };
+
+  // FAQPage JSON-LD (AEO/GEO — triggers FAQ rich snippets + AI extraction)
+  const faqJsonLd = allFaqs.length > 0 ? {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: allFaqs.map(faq => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  } : null;
 
   return (
     <>
@@ -101,7 +169,15 @@ const BlogPost = () => {
         <meta property="og:title" content={post.ogTitle || post.title} />
         <meta property="og:description" content={post.metaDescription} />
         <meta property="og:type" content="article" />
-        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+        <meta property="og:url" content={`https://approvr.io/blog/${post.slug}`} />
+        <meta property="article:published_time" content={post.publishedAt} />
+        <meta property="article:section" content={post.category} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={post.ogTitle || post.title} />
+        <meta name="twitter:description" content={post.metaDescription} />
+        <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+        <script type="application/ld+json">{JSON.stringify(articleJsonLd)}</script>
+        {faqJsonLd && <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>}
       </Helmet>
       <div className="min-h-screen">
         <Navbar />
