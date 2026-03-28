@@ -749,22 +749,22 @@ const ProjectDetail = () => {
 
                     {workspaceActions.length > 0 && (
                       <div>
-                        <p className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em] mb-4 ml-1 flex items-center gap-2">
-                          <Building2 className="h-3.5 w-3.5" /> Inherited from workspace
+                        <p className="text-[10px] sm:text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em] mb-3 sm:mb-4 ml-1 flex items-center gap-1.5 sm:gap-2">
+                          <Building2 className="h-3 w-3 sm:h-3.5 sm:w-3.5" /> Inherited from workspace
                         </p>
-                        <div className="grid gap-3 opacity-80">
+                        <div className="grid gap-2 sm:gap-3 opacity-80">
                           {workspaceActions.map(action => {
                             const Icon = providerIcons[action.providerType];
                             return (
-                              <div key={action.id} className="flex items-center gap-5 rounded-[24px] border border-dashed border-slate-200 dark:border-white/10 p-5 bg-slate-50/20 dark:bg-transparent transition-all">
-                                <div className="h-14 w-14 rounded-2xl bg-white dark:bg-white/5 flex items-center justify-center flex-shrink-0 shadow-sm ring-1 ring-border/20">
-                                  <Icon className="h-6 w-6 text-slate-400 dark:text-slate-500" />
+                              <div key={action.id} className="flex items-center gap-2.5 sm:gap-5 rounded-xl sm:rounded-[24px] border border-dashed border-slate-200 dark:border-white/10 p-3 sm:p-5 bg-slate-50/20 dark:bg-transparent transition-all">
+                                <div className="h-9 w-9 sm:h-14 sm:w-14 rounded-lg sm:rounded-2xl bg-white dark:bg-white/5 flex items-center justify-center flex-shrink-0 shadow-sm ring-1 ring-border/20">
+                                  <Icon className="h-4 w-4 sm:h-6 sm:w-6 text-slate-400 dark:text-slate-500" />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                  <p className="text-[15px] font-bold text-slate-400 dark:text-slate-500 mb-0.5">{action.label}</p>
-                                  <p className="text-[11px] text-muted-foreground font-medium truncate opacity-40">{action.url}</p>
+                                  <p className="text-[12px] sm:text-[15px] font-bold text-slate-400 dark:text-slate-500 mb-0.5 truncate">{action.label}</p>
+                                  <p className="text-[10px] sm:text-[11px] text-muted-foreground font-medium truncate opacity-40">{action.url}</p>
                                 </div>
-                                <Badge variant="outline" className="text-[10px] font-black uppercase tracking-widest px-2.5 py-1 border-slate-200 dark:border-white/5 text-slate-400">
+                                <Badge variant="outline" className="text-[8px] sm:text-[10px] font-black uppercase tracking-widest px-1.5 sm:px-2.5 py-0.5 sm:py-1 border-slate-200 dark:border-white/5 text-slate-400 hidden sm:inline-flex">
                                   {providerTypeLabels[action.providerType]}
                                 </Badge>
                               </div>
