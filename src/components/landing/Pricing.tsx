@@ -38,7 +38,7 @@ const plans = [
       'Custom accent colors',
       '25 GB storage',
     ],
-    cta: 'Start 14-day free trial',
+    cta: 'Get 14 days free',
     popular: true,
     icon: Sparkles,
     badge: 'Growth choice',
