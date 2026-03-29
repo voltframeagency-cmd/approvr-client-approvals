@@ -18,7 +18,7 @@ const founderMembers = [
 
 const Hero = () => (
   <section className="relative pt-36 pb-24 md:pt-48 md:pb-32 overflow-hidden">
-    <div className="absolute inset-0 surface-sunken" />
+    <div className="absolute inset-0 bg-white dark:bg-background" />
     <HeroBackground />
 
     {/* Gradient orbs */}
