@@ -191,7 +191,7 @@ const Dashboard = () => {
                   </span>
                 </div>
                 <Progress 
-                  value={activePlanConfig.limits.maxProjects ? (usageStats.projectsUsed / activePlanConfig.limits.maxProjects) * 100 : 15} 
+                  value={activePlanConfig.limits.maxProjects ? (usageStats.projectsUsed / activePlanConfig.limits.maxProjects) * 100 : 0} 
                   className="h-1.5"
                 />
               </div>
@@ -475,12 +475,22 @@ const Dashboard = () => {
                     <h3 className="font-bold text-sm tracking-tight">Version History & Change Logs</h3>
                   </div>
                   <div className="space-y-2">
-                    {[1,2,3].map(i => (
-                      <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-muted/30">
-                        <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center text-[10px] font-bold text-primary">v{i}</div>
-                        <div className="flex-1">
-                          <div className="h-2 w-3/4 bg-muted-foreground/10 rounded" />
-                          <div className="h-2 w-1/2 bg-muted-foreground/10 rounded mt-1" />
+                    {[
+                      { version: 'v3', title: 'Primary Logo Concept', desc: 'Final export and SVG path optimization.', date: 'Approved' },
+                      { version: 'v2', title: 'Color Palette Refinement', desc: 'Added secondary and accessibility-tested tones.', date: 'Approved' },
+                      { version: 'v2', title: 'Typography Guide', desc: 'Adjusted weights for mobile readability.', date: 'In Review' },
+                    ].map((item, idx) => (
+                      <div key={idx} className="flex items-start gap-3 p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors duration-150">
+                        <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center text-[10px] font-extrabold text-primary mt-0.5">{item.version}</div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center justify-between gap-2">
+                            <p className="text-xs font-bold text-foreground truncate">{item.title}</p>
+                            <span className={cn(
+                              "text-[8px] font-bold tracking-wide uppercase px-1.5 py-0.5 rounded",
+                              item.date === 'Approved' ? 'text-emerald-500 bg-emerald-500/5' : 'text-primary bg-primary/5'
+                            )}>{item.date}</span>
+                          </div>
+                          <p className="text-[11px] text-muted-foreground font-medium mt-0.5 leading-snug">{item.desc}</p>
                         </div>
                       </div>
                     ))}
@@ -499,13 +509,28 @@ const Dashboard = () => {
                 </div>
                 <h3 className="font-bold text-sm tracking-tight">Portal Preview</h3>
               </div>
-              <div className="aspect-video rounded-xl bg-muted border border-border/50 flex flex-col items-center justify-center p-4 text-center group-hover:bg-muted/80 transition-colors">
-                <div className="w-12 h-1 bg-primary/20 rounded-full mb-3" />
-                <div className="space-y-1.5 w-full">
-                  <div className="h-2 w-3/4 bg-muted-foreground/20 rounded mx-auto" />
-                  <div className="h-2 w-1/2 bg-muted-foreground/20 rounded mx-auto" />
+              <div className="aspect-video rounded-xl bg-muted border border-border/50 flex flex-col items-center justify-center p-4 text-center group-hover:bg-muted/80 transition-colors relative overflow-hidden">
+                {/* Mock Portal Header */}
+                <div className="absolute top-2 left-3 right-3 flex items-center justify-between border-b border-border/40 pb-1.5 w-[calc(100%-24px)]">
+                  <div className="flex items-center gap-1">
+                    <div className="h-3.5 w-3.5 rounded-md bg-primary/20 flex items-center justify-center">
+                      <div className="h-1.5 w-1.5 rounded-full bg-primary" />
+                    </div>
+                    <span className="text-[8px] font-extrabold tracking-tight text-foreground">Approvr</span>
+                  </div>
+                  <div className="h-3 px-1.5 rounded-full bg-primary/10 flex items-center justify-center text-[6px] font-bold text-primary">IN REVIEW</div>
                 </div>
-                <Button variant="ghost" size="sm" className="mt-4 h-8 text-[11px] font-bold uppercase tracking-wider text-primary hover:text-primary hover:bg-primary/5" onClick={() => navigate('/portal')}>
+                {/* Mock Portal Content */}
+                <div className="mt-3 space-y-1.5 w-full px-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[9px] font-bold text-foreground truncate">Primary Logo Concept</span>
+                    <span className="text-[8px] text-muted-foreground font-mono">v3</span>
+                  </div>
+                  <div className="h-9 w-full rounded-lg bg-card border border-border/40 flex items-center justify-center text-[7px] font-bold text-muted-foreground/50 tracking-wider uppercase">
+                    [ Brand Logo Concept ]
+                  </div>
+                </div>
+                <Button variant="ghost" size="sm" className="absolute bottom-2 h-7 px-3 text-[10px] font-bold uppercase tracking-wider text-primary hover:text-primary hover:bg-primary/5" onClick={() => navigate('/portal')}>
                   Launch Preview
                 </Button>
               </div>

@@ -168,20 +168,44 @@ html.lenis, html.lenis body {
     background-color: hsl(var(--surface-sunken));
   }
   .card-elevated {
-    @apply bg-card border rounded-2xl;
-    box-shadow: 0 1px 3px -1px hsla(var(--shadow-color), 0.05), 0 4px 16px -4px hsla(var(--shadow-color), 0.03);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    @apply border rounded-2xl;
+    background: linear-gradient(135deg, hsl(var(--card)), hsl(var(--surface-sunken)/0.55));
+    border-color: hsla(var(--shadow-color), 0.08);
+    box-shadow: 
+      inset 0 1.5px 0 0 rgba(255, 255, 255, 1),
+      inset 0 -2.5px 0 0 rgba(0, 0, 0, 0.035),
+      0 2px 8px -2px hsla(var(--shadow-color), 0.14), 
+      0 12px 32px -8px hsla(var(--shadow-color), 0.09);
+    transition: background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
+  
+  .dark .card-elevated {
+    background: hsl(var(--card));
+    box-shadow: 
+      inset 0 1.5px 0 0 rgba(255, 255, 255, 0.05),
+      inset 0 -1.5px 0 0 rgba(0, 0, 0, 0.2),
+      0 1px 3px -1px hsla(var(--shadow-color), 0.25), 
+      0 4px 16px -4px hsla(var(--shadow-color), 0.18);
+  }
+  
   .card-elevated:hover {
-    @apply border-primary/20;
-    box-shadow: 0 4px 12px -2px hsla(var(--shadow-color), 0.08), 0 12px 40px -8px hsla(var(--shadow-color), 0.06);
-    transform: translateY(-2px);
+    border-color: hsla(var(--shadow-color), 0.16);
+    box-shadow: 
+      inset 0 1.5px 0 0 rgba(255, 255, 255, 1),
+      inset 0 -2.5px 0 0 rgba(0, 0, 0, 0.035),
+      0 6px 16px -4px hsla(var(--shadow-color), 0.18), 
+      0 20px 48px -12px hsla(var(--shadow-color), 0.12);
+  }
+  
+  .dark .card-elevated:hover {
+    box-shadow: 
+      inset 0 1.5px 0 0 rgba(255, 255, 255, 0.1),
+      inset 0 -1.5px 0 0 rgba(0, 0, 0, 0.2),
+      0 4px 12px -2px hsla(var(--shadow-color), 0.35), 
+      0 12px 40px -8px hsla(var(--shadow-color), 0.25);
   }
   .card-interactive {
     @apply card-elevated cursor-pointer;
-  }
-  .card-interactive:hover {
-    transform: translateY(-1px);
   }
   .glow-primary {
     box-shadow: 0 0 20px -4px hsl(169 76% 48% / 0.15), 0 0 60px -12px hsl(169 76% 48% / 0.1);
@@ -199,6 +223,167 @@ html.lenis, html.lenis body {
     height: 50%;
     background: radial-gradient(ellipse, hsl(169 76% 48% / 0.04), transparent 70%);
     pointer-events: none;
+  }
+
+  /* 3D Pricing Card Styles */
+  .pricing-card-scaler {
+    background: linear-gradient(135deg, hsl(var(--card)), hsl(var(--surface-sunken)/0.55));
+    border: 1px solid hsla(var(--shadow-color), 0.08);
+    box-shadow: 
+      inset 0 1.5px 0 0 rgba(255, 255, 255, 1),
+      inset 0 -2.5px 0 0 rgba(0, 0, 0, 0.035),
+      0 4px 12px -2px hsla(var(--shadow-color), 0.06), 
+      0 16px 40px -10px hsla(var(--shadow-color), 0.08);
+    transition: background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .dark .pricing-card-scaler {
+    background: linear-gradient(135deg, hsl(var(--card)), hsl(var(--surface-sunken)/0.3));
+    border: 1px solid hsla(var(--shadow-color), 0.15);
+    box-shadow: 
+      inset 0 1.5px 0 0 rgba(255, 255, 255, 0.05),
+      inset 0 -1.5px 0 0 rgba(0, 0, 0, 0.3),
+      0 2px 6px -1px hsla(var(--shadow-color), 0.25), 
+      0 8px 24px -6px hsla(var(--shadow-color), 0.2);
+  }
+  .pricing-card-scaler:hover {
+    border-color: hsla(var(--shadow-color), 0.18);
+    transform: translateY(-4px);
+    box-shadow: 
+      inset 0 1.5px 0 0 rgba(255, 255, 255, 1),
+      inset 0 -2.5px 0 0 rgba(0, 0, 0, 0.035),
+      0 8px 24px -4px hsla(var(--shadow-color), 0.12), 
+      0 24px 56px -12px hsla(var(--shadow-color), 0.14);
+  }
+  .dark .pricing-card-scaler:hover {
+    box-shadow: 
+      inset 0 1.5px 0 0 rgba(255, 255, 255, 0.08),
+      inset 0 -1.5px 0 0 rgba(0, 0, 0, 0.3),
+      0 6px 16px -2px hsla(var(--shadow-color), 0.35), 
+      0 16px 48px -8px hsla(var(--shadow-color), 0.3);
+  }
+
+  .pricing-card-studio {
+    background: linear-gradient(135deg, hsl(var(--card)), hsl(169, 76%, 98.5%));
+    border: 1px solid hsl(var(--primary)/0.25);
+    box-shadow: 
+      inset 0 2px 0 0 rgba(255, 255, 255, 1),
+      inset 0 -3px 0 0 rgba(0, 0, 0, 0.02),
+      0 10px 30px -10px hsl(var(--primary)/0.12), 
+      0 25px 60px -15px hsl(var(--primary)/0.08);
+    transition: background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .dark .pricing-card-studio {
+    background: linear-gradient(135deg, hsl(var(--card)), hsl(169, 76%, 4%));
+    border: 1px solid hsl(var(--primary)/0.4);
+    box-shadow: 
+      inset 0 1.5px 0 0 rgba(255, 255, 255, 0.08),
+      inset 0 -1.5px 0 0 rgba(0, 0, 0, 0.4),
+      0 10px 30px -10px hsl(var(--primary)/0.25), 
+      0 25px 60px -15px hsl(var(--primary)/0.15);
+  }
+  .pricing-card-studio:hover {
+    border-color: hsl(var(--primary)/0.4);
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 
+      inset 0 2px 0 0 rgba(255, 255, 255, 1),
+      inset 0 -3px 0 0 rgba(0, 0, 0, 0.02),
+      0 15px 40px -8px hsl(var(--primary)/0.18), 
+      0 35px 80px -12px hsl(var(--primary)/0.12);
+  }
+  .dark .pricing-card-studio:hover {
+    box-shadow: 
+      inset 0 1.5px 0 0 rgba(255, 255, 255, 0.12),
+      inset 0 -1.5px 0 0 rgba(0, 0, 0, 0.4),
+      0 15px 40px -8px hsl(var(--primary)/0.35), 
+      0 35px 80px -12px hsl(var(--primary)/0.22);
+  }
+
+  /* Skeuomorphic Glass Icon Containers */
+  .pricing-icon-container-scaler {
+    background: linear-gradient(180deg, hsl(var(--card)), hsl(var(--surface-sunken)));
+    border: 1px solid hsla(var(--shadow-color), 0.12);
+    box-shadow: 
+      inset 0 1.5px 0 0 rgba(255, 255, 255, 1),
+      inset 0 -1.5px 0 0 rgba(0, 0, 0, 0.02),
+      0 2px 6px -1px rgba(0, 0, 0, 0.05),
+      0 6px 16px -2px rgba(0, 0, 0, 0.03);
+    color: hsl(var(--muted-foreground));
+    transition: box-shadow 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  }
+  .dark .pricing-icon-container-scaler {
+    background: linear-gradient(180deg, hsl(var(--secondary)), hsl(var(--surface-sunken)));
+    border: 1px solid hsla(var(--shadow-color), 0.25);
+    box-shadow: 
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.08),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.3),
+      0 2px 6px -1px rgba(0, 0, 0, 0.3),
+      0 6px 16px -2px rgba(0, 0, 0, 0.2);
+    color: hsl(var(--foreground)/0.8);
+  }
+  .pricing-icon-container-scaler:hover {
+    color: hsl(var(--primary));
+    border-color: hsl(var(--primary)/0.3);
+    box-shadow: 
+      inset 0 1.5px 0 0 rgba(255, 255, 255, 1),
+      inset 0 -1.5px 0 0 rgba(0, 0, 0, 0.02),
+      0 4px 10px -2px hsl(var(--primary)/0.15),
+      0 10px 24px -4px hsl(var(--primary)/0.1);
+  }
+  .dark .pricing-icon-container-scaler:hover {
+    box-shadow: 
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.12),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.3),
+      0 4px 10px -2px hsl(var(--primary)/0.3),
+      0 10px 24px -4px hsl(var(--primary)/0.2);
+  }
+
+  .pricing-icon-container-studio {
+    background: linear-gradient(180deg, hsl(var(--primary)/0.18), hsl(var(--primary)/0.04));
+    border: 1px solid hsl(var(--primary)/0.3);
+    box-shadow: 
+      inset 0 1.5px 0 0 rgba(255, 255, 255, 0.8),
+      inset 0 -1.5px 0 0 rgba(0, 0, 0, 0.01),
+      0 4px 12px -2px hsl(var(--primary)/0.15),
+      0 10px 24px -4px hsl(var(--primary)/0.1);
+    color: hsl(var(--primary));
+    transition: box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+  }
+  .dark .pricing-icon-container-studio {
+    background: linear-gradient(180deg, hsl(var(--primary)/0.25), hsl(var(--primary)/0.06));
+    border: 1px solid hsl(var(--primary)/0.45);
+    box-shadow: 
+      inset 0 1.5px 0 0 rgba(255, 255, 255, 0.25),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.2),
+      0 4px 12px -2px hsl(var(--primary)/0.3),
+      0 10px 24px -4px hsl(var(--primary)/0.2);
+  }
+  .pricing-icon-container-studio:hover {
+    background: linear-gradient(180deg, hsl(var(--primary)/0.25), hsl(var(--primary)/0.08));
+    border-color: hsl(var(--primary)/0.5);
+    box-shadow: 
+      inset 0 1.5px 0 0 rgba(255, 255, 255, 0.9),
+      inset 0 -1.5px 0 0 rgba(0, 0, 0, 0.01),
+      0 6px 16px -2px hsl(var(--primary)/0.25),
+      0 16px 36px -4px hsl(var(--primary)/0.18);
+  }
+  .dark .pricing-icon-container-studio:hover {
+    background: linear-gradient(180deg, hsl(var(--primary)/0.35), hsl(var(--primary)/0.12));
+    border-color: hsl(var(--primary)/0.65);
+    box-shadow: 
+      inset 0 1.5px 0 0 rgba(255, 255, 255, 0.35),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.2),
+      0 6px 16px -2px hsl(var(--primary)/0.45),
+      0 16px 36px -4px hsl(var(--primary)/0.3);
+  }
+
+  /* Connected Card-Hover Animations */
+  .pricing-card-scaler:hover .pricing-icon-container-scaler {
+    color: hsl(var(--primary));
+    border-color: hsl(var(--primary)/0.25);
+  }
+  .pricing-card-studio:hover .pricing-icon-container-studio {
+    background: linear-gradient(180deg, hsl(var(--primary)/0.22), hsl(var(--primary)/0.06));
+    border-color: hsl(var(--primary)/0.4);
   }
 }
 

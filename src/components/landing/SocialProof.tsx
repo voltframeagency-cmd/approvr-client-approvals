@@ -74,7 +74,7 @@ const SocialProof = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20"
+          className="grid grid-cols-2 md:grid-cols-4 gap-8"
         >
           {stats.map((stat) => (
             <motion.div key={stat.label} variants={itemVariants} className="text-center group">
@@ -85,36 +85,39 @@ const SocialProof = () => {
             </motion.div>
           ))}
         </motion.div>
-
-        {/* Logo marquee */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: DURATION.large, delay: 0.4, ease: EASING.standard as unknown as number[] }}
-          className="relative pt-10 border-t border-border/20"
-        >
-          <div className="absolute left-0 top-0 bottom-0 w-40 bg-gradient-to-r from-muted/30 via-muted/20 to-transparent z-10" />
-          <div className="absolute right-0 top-0 bottom-0 w-40 bg-gradient-to-l from-muted/30 via-muted/20 to-transparent z-10" />
-          
-          <p className="text-center text-[10px] font-black text-muted-foreground/50 uppercase tracking-[0.3em] mb-12">
-            Works with what you already use
-          </p>
-          
-          <div className="flex gap-16 items-center justify-center overflow-hidden">
-            <div className="flex gap-20 items-center animate-marquee whitespace-nowrap">
-              {[...logos, ...logos].map((logo, i) => (
-                <div key={`${logo.name}-${i}`} className="flex items-center gap-3 opacity-30 hover:opacity-100 transition-all duration-150 cursor-default grayscale hover:grayscale-0 scale-90 hover:scale-100">
-                  <svg viewBox="0 0 24 24" className="h-7 w-7 fill-current">
-                    <path d={logo.svg} />
-                  </svg>
-                  <span className="text-sm font-bold tracking-tight">{logo.name}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
       </div>
+
+      {/* Logo marquee - placed outside container for full-width scroll */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: DURATION.large, delay: 0.4, ease: EASING.standard as unknown as number[] }}
+        className="relative pt-10 border-t border-border/20 mt-20 w-full"
+      >
+        <p className="text-center text-[10px] font-black text-muted-foreground/50 uppercase tracking-[0.3em] mb-12">
+          Works with what you already use
+        </p>
+        
+        <div 
+          className="flex gap-16 items-center justify-center overflow-hidden w-full"
+          style={{
+            maskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)',
+            WebkitMaskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)'
+          }}
+        >
+          <div className="flex gap-20 items-center animate-marquee whitespace-nowrap">
+            {[...logos, ...logos].map((logo, i) => (
+              <div key={`${logo.name}-${i}`} className="flex items-center gap-3 opacity-30 hover:opacity-100 transition-all duration-150 cursor-default grayscale hover:grayscale-0 scale-90 hover:scale-100">
+                <svg viewBox="0 0 24 24" className="h-7 w-7 fill-current">
+                  <path d={logo.svg} />
+                </svg>
+                <span className="text-sm font-bold tracking-tight">{logo.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </motion.div>
     </section>
   );
 };

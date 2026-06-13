@@ -153,11 +153,10 @@ const Pricing = () => {
                 className="flex flex-col h-full"
               >
                 <div className={cn(
-                  "relative rounded-2xl md:rounded-[2.5rem] p-6 md:p-8 flex flex-col h-full transition-colors duration-150",
-                  "bg-card/40 backdrop-blur-2xl border border-primary/10 shadow-sm",
+                  "relative rounded-2xl md:rounded-[2.5rem] p-6 md:p-8 flex flex-col h-full group",
                   plan.popular 
-                    ? "ring-1 ring-primary border-primary/20 shadow-[0_20px_50px_-12px_rgba(var(--primary),0.15)] scale-[1.02] z-10" 
-                    : "hover:border-primary/20 hover:bg-card/60"
+                    ? "pricing-card-studio scale-[1.02] z-10 ring-1 ring-primary/20" 
+                    : "pricing-card-scaler"
                 )}>
                   {plan.popular && (
                     <div className="absolute -top-4 left-1/2 -translate-x-1/2 text-primary-foreground text-[10px] font-black tracking-widest px-5 py-2 rounded-full flex items-center gap-1.5 whitespace-nowrap uppercase border border-white/20"
@@ -172,10 +171,10 @@ const Pricing = () => {
 
                   <div className="mb-5 md:mb-8 pt-2">
                     <div className={cn(
-                      "inline-flex p-3 md:p-4 rounded-xl md:rounded-2xl mb-5 md:mb-8 transition-colors duration-150",
-                      plan.popular ? "bg-primary/10 text-primary" : "bg-muted/50 text-muted-foreground"
+                      "inline-flex p-3 md:p-4 rounded-xl md:rounded-2xl mb-5 md:mb-8",
+                      plan.popular ? "pricing-icon-container-studio" : "pricing-icon-container-scaler"
                     )}>
-                      <Icon size={28} strokeWidth={1.5} />
+                      <Icon size={28} strokeWidth={1.5} className="transition-transform duration-300" />
                     </div>
                     <div className="flex items-center gap-2 mb-3">
                       <h3 className="text-2xl font-bold tracking-tight">{plan.name}</h3>

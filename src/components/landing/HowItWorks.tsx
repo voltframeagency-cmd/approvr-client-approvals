@@ -87,12 +87,26 @@ export const HowItWorks = () => {
 
                   {/* Image/Visual Area */}
                   <div className="w-full md:w-1/2 group">
-                    <div className="aspect-video rounded-[3rem] border border-primary/20 bg-muted/20 backdrop-blur-md overflow-hidden p-6 md:p-10 flex items-center justify-center relative shadow-inner">
-                      <div className="absolute inset-0 bg-gradient-to-tr from-primary/[0.05] via-transparent to-transparent opacity-50" />
+                    <div className="aspect-video rounded-[3rem] border border-primary/25 bg-slate-100/50 dark:bg-muted/20 backdrop-blur-md overflow-hidden p-6 md:p-10 flex items-center justify-center relative shadow-[inset_0_4px_12px_rgba(0,0,0,0.05)] dark:shadow-inner">
+                      <div className="absolute inset-0 bg-gradient-to-tr from-primary/[0.08] via-transparent to-transparent opacity-60 pointer-events-none" />
+                      
+                      {/* 3D Curved Glass Bezel Glare & Shadow */}
+                      <div className="absolute inset-0 pointer-events-none rounded-[3rem] overflow-hidden">
+                        {/* Glossy bezel reflection */}
+                        <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-white/60 via-white/5 to-transparent dark:from-white/10 dark:via-transparent dark:to-transparent" />
+                        {/* Left bezel shadow representing depth recursion */}
+                        <div className="absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-black/[0.12] to-transparent dark:from-black/60 dark:to-transparent" />
+                        {/* Right bezel shadow */}
+                        <div className="absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-black/[0.05] to-transparent dark:from-black/30 dark:to-transparent" />
+                        {/* Top reflection glare */}
+                        <div className="absolute inset-x-0 top-0 h-8 bg-gradient-to-b from-white/45 to-transparent dark:from-white/10" />
+                        {/* Screen diagonal glare sheen */}
+                        <div className="absolute -inset-[100%] bg-gradient-to-tr from-transparent via-white/[0.08] dark:via-white/[0.03] to-transparent rotate-12 translate-x-1/3" />
+                      </div>
                       
                       {/* Premium Mockup Window Frame */}
                       <motion.div 
-                        className="w-full max-w-[90%] bg-card/90 backdrop-blur-3xl border border-primary/10 rounded-[2rem] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.2)] dark:shadow-[0_25px_50px_-12px_hsl(169_76%_48%/0.15)] relative overflow-hidden will-change-transform"
+                        className="w-full max-w-[90%] bg-white/95 dark:bg-card/90 backdrop-blur-3xl border border-primary/15 rounded-[2rem] shadow-[0_20px_40px_-8px_rgba(0,0,0,0.08),inset_0_1.5px_0_rgba(255,255,255,0.9)] dark:shadow-[0_25px_50px_-12px_hsl(169_76%_48%/0.15),inset_0_1.5px_0_rgba(255,255,255,0.08)] relative overflow-hidden will-change-transform z-10"
                       >
                         {/* Chrome / Window Header */}
                         <div className="h-10 border-b border-primary/5 px-6 flex items-center justify-between bg-muted/40">
@@ -144,28 +158,48 @@ const StepVisual = ({ step }: { step: number }) => {
   return <ApproveVisual />;
 };
 
+const uploadFiles = [
+  { 
+    type: 'SVG', 
+    name: 'logo-primary-v3.svg', 
+    badgeClass: 'bg-gradient-to-b from-teal-50 to-teal-100/60 dark:from-slate-800/80 dark:to-slate-950 text-teal-600 dark:text-teal-400 border border-teal-200/50 dark:border-teal-500/20 shadow-[0_2px_6px_rgba(20,184,166,0.12),inset_0_1.5px_0_rgba(255,255,255,0.7),inset_0_-1px_1px_rgba(0,0,0,0.03)] dark:shadow-[0_4px_12px_rgba(0,0,0,0.35),inset_0_1.5px_0_rgba(255,255,255,0.15)]'
+  },
+  { 
+    type: 'PDF', 
+    name: 'color-palette-v2.pdf', 
+    badgeClass: 'bg-gradient-to-b from-rose-50 to-rose-100/60 dark:from-slate-800/80 dark:to-slate-950 text-rose-600 dark:text-rose-400 border border-rose-200/50 dark:border-rose-500/20 shadow-[0_2px_6px_rgba(239,68,68,0.12),inset_0_1.5px_0_rgba(255,255,255,0.7),inset_0_-1px_1px_rgba(0,0,0,0.03)] dark:shadow-[0_4px_12px_rgba(0,0,0,0.35),inset_0_1.5px_0_rgba(255,255,255,0.15)]'
+  },
+  { 
+    type: 'PNG', 
+    name: 'homepage-mockup.png', 
+    badgeClass: 'bg-gradient-to-b from-blue-50 to-blue-100/60 dark:from-slate-800/80 dark:to-slate-950 text-blue-600 dark:text-blue-400 border border-blue-200/50 dark:border-blue-500/20 shadow-[0_2px_6px_rgba(59,130,246,0.12),inset_0_1.5px_0_rgba(255,255,255,0.7),inset_0_-1px_1px_rgba(0,0,0,0.03)] dark:shadow-[0_4px_12px_rgba(0,0,0,0.35),inset_0_1.5px_0_rgba(255,255,255,0.15)]'
+  },
+];
+
 const UploadVisual = () => (
   <div className="flex flex-col items-center gap-4 w-full max-w-xs">
-    {[1, 2, 3].map((i) => (
+    {uploadFiles.map((file, i) => (
       <motion.div
-        key={i}
+        key={file.name}
         initial={{ opacity: 0, x: -20 }}
         whileInView={{ opacity: 1, x: 0 }}
         transition={{ delay: i * 0.05, duration: DURATION.structural, ease: EASING.enter as unknown as number[] }}
-        className="w-full bg-card/60 backdrop-blur-md border rounded-xl p-4 flex items-center gap-4 shadow-md shadow-black/5 dark:shadow-black/20"
+        className="w-full bg-card/75 backdrop-blur-md border border-border/50 rounded-2xl p-4 flex items-center gap-4 shadow-[0_8px_20px_-4px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,0.8)] dark:shadow-[0_20px_40px_-8px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.05)]"
       >
-        <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center relative overflow-hidden">
-          <span className="font-black text-[10px] bg-gradient-to-b from-primary via-primary to-primary/60 bg-clip-text text-transparent">SVG</span>
-          <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-transparent to-transparent rounded-lg pointer-events-none" />
+        <div className={`h-10 w-10 rounded-xl flex items-center justify-center relative flex-shrink-0 ${file.badgeClass}`}>
+          <span className="font-black text-[10px] tracking-wider">{file.type}</span>
+          <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-transparent to-transparent rounded-xl pointer-events-none" />
         </div>
-        <div className="flex-1">
-          <div className="h-1.5 w-24 bg-primary/20 rounded-full mb-2" />
-          <motion.div 
-            className="h-1 bg-primary rounded-full"
-            initial={{ width: "0%" }}
-            whileInView={{ width: "100%" }}
-            transition={{ duration: DURATION.large, delay: 0.3 + i * 0.05, ease: EASING.standard as unknown as number[] }}
-          />
+        <div className="flex-1 min-w-0">
+          <p className="text-[12px] font-bold text-foreground truncate mb-1.5">{file.name}</p>
+          <div className="h-1 bg-primary/10 w-full rounded-full overflow-hidden">
+            <motion.div 
+              className="h-full bg-primary rounded-full"
+              initial={{ width: "0%" }}
+              whileInView={{ width: "100%" }}
+              transition={{ duration: DURATION.large, delay: 0.3 + i * 0.05, ease: EASING.standard as unknown as number[] }}
+            />
+          </div>
         </div>
       </motion.div>
     ))}

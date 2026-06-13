@@ -3,13 +3,13 @@ import { StatusBadge } from '@/components/app/StatusBadge';
 import { 
   CheckCircle2, FileText, MessageSquare, Send, Clock, ThumbsUp, 
   ArrowRight, ExternalLink, Sparkles, Check, ShieldCheck, Download,
-  Maximize2, Share2, Info, ArrowUpRight
+  Maximize2, Share2, Info, ArrowUpRight, Image as ImageIcon, Palette
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { cn } from '@/lib/utils';
+import { cn, getFileIcon } from '@/lib/utils';
 import { providerIcons } from '@/lib/provider-icons';
 import { Logo } from '@/components/brand/Logo';
 import { Badge } from '@/components/ui/badge';
@@ -21,6 +21,10 @@ const fileTypeColors: Record<string, string> = {
   svg: 'bg-primary/10 text-primary',
   pdf: 'bg-destructive/10 text-destructive',
   fig: 'bg-info/10 text-info',
+  png: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400',
+  jpg: 'bg-amber-500/10 text-amber-600 dark:text-amber-400',
+  jpeg: 'bg-amber-500/10 text-amber-600 dark:text-amber-400',
+  webp: 'bg-teal-500/10 text-teal-600 dark:text-teal-400',
 };
 
 const providerTypeLabels: Record<string, string> = {
@@ -60,7 +64,7 @@ const ClientPortal = () => {
     if (currentDel) {
       setActiveVersion(currentDel.version);
     }
-  }, [selectedDel]);
+  }, [selectedDel, currentDel]);
 
   const approvedCount = deliverables.filter(d => d.status === 'approved').length;
   const allApproved = approvedCount === deliverables.length;
@@ -345,9 +349,15 @@ const ClientPortal = () => {
                       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-0 mb-6 sm:mb-10">
                         <div className="space-y-1">
                           <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
-                            <Badge variant="outline" className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.15em] sm:tracking-[0.2em] border-primary/20 text-primary bg-primary/5 px-2 py-0.5 sm:py-1">
-                              Action Required
-                            </Badge>
+                            {currentDel.status === 'approved' ? (
+                              <Badge variant="outline" className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.15em] sm:tracking-[0.2em] border-emerald-500/20 text-emerald-500 bg-emerald-500/5 px-2 py-0.5 sm:py-1">
+                                Approved & Locked
+                              </Badge>
+                            ) : (
+                              <Badge variant="outline" className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.15em] sm:tracking-[0.2em] border-primary/20 text-primary bg-primary/5 px-2 py-0.5 sm:py-1">
+                                Action Required
+                              </Badge>
+                            )}
                             <div className="h-1 w-1 rounded-full bg-slate-200" />
                             <span className="text-[10px] sm:text-[11px] font-bold text-muted-foreground uppercase tracking-widest">Version {isComparing ? currentDel.version - 1 : currentDel.version}</span>
                           </div>
@@ -414,7 +424,10 @@ const ClientPortal = () => {
                             "h-20 w-16 sm:h-32 sm:w-24 rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-8 mx-auto shadow-2xl ring-1 ring-white/10 group-hover/preview:scale-110 transition-transform duration-700",
                             isComparing ? "bg-slate-300 dark:bg-slate-700 text-slate-500 grayscale opacity-80" : (fileTypeColors[currentDel.fileType] || 'bg-slate-100 text-slate-400')
                           )}>
-                            <FileText className="h-8 w-8 sm:h-12 sm:w-12" />
+                            {(() => {
+                              const Icon = getFileIcon(currentDel.fileType);
+                              return <Icon className="h-8 w-8 sm:h-12 sm:w-12" />;
+                            })()}
                             {isComparing && (
                               <div className="absolute inset-x-0 -bottom-8 sm:-bottom-10 flex justify-center">
                                 <Badge className="bg-slate-900 text-white border-none font-black text-[8px] sm:text-[9px] uppercase tracking-widest px-2 py-0.5">Comparing v{activeVersion - 1}</Badge>

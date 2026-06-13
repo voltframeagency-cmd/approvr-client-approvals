@@ -171,11 +171,27 @@ export const Features = () => {
                   transition={{ duration: DURATION.structural, ease: EASING.standard as unknown as number[] }}
                   className="w-full h-full flex items-center justify-center p-4 md:p-8 lg:p-12"
                 >
-                  <div className="w-full max-w-2xl aspect-video bg-muted/20 rounded-xl border border-border/40 flex items-center justify-center relative shadow-inner overflow-hidden">
-                    {(() => {
-                      const Demo = features[activeIndex].demo;
-                      return <Demo />;
-                    })()}
+                  <div className="w-full max-w-2xl aspect-video bg-slate-100/50 dark:bg-muted/20 rounded-[2rem] border border-primary/25 flex items-center justify-center relative shadow-[inset_0_4px_12px_rgba(0,0,0,0.05)] dark:shadow-inner overflow-hidden">
+                    {/* 3D Curved Glass Bezel Glare & Shadow */}
+                    <div className="absolute inset-0 pointer-events-none rounded-[2rem] overflow-hidden z-20">
+                      {/* Glossy bezel reflection */}
+                      <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-white/60 via-white/5 to-transparent dark:from-white/10 dark:via-transparent dark:to-transparent" />
+                      {/* Left bezel shadow representing depth recursion */}
+                      <div className="absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-black/[0.12] to-transparent dark:from-black/60 dark:to-transparent" />
+                      {/* Right bezel shadow */}
+                      <div className="absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-black/[0.05] to-transparent dark:from-black/30 dark:to-transparent" />
+                      {/* Top reflection glare */}
+                      <div className="absolute inset-x-0 top-0 h-8 bg-gradient-to-b from-white/45 to-transparent dark:from-white/10" />
+                      {/* Screen diagonal glare sheen */}
+                      <div className="absolute -inset-[100%] bg-gradient-to-tr from-transparent via-white/[0.08] dark:via-white/[0.03] to-transparent rotate-12 translate-x-1/3" />
+                    </div>
+
+                    <div className="relative z-10 w-full h-full flex items-center justify-center p-4">
+                      {(() => {
+                        const Demo = features[activeIndex].demo;
+                        return <Demo />;
+                      })()}
+                    </div>
                   </div>
                 </motion.div>
               </AnimatePresence>

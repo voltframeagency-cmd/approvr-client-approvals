@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, Upload, MessageSquare, Shield, Palette, Clock, FileText, Image as ImageIcon, Eye, Download } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 // ─── Upload Demo ───────────────────────────────────────────
 export const UploadDemo = () => {
@@ -42,7 +43,12 @@ export const UploadDemo = () => {
               exit={{ opacity: 0, scale: 0.95 }}
               className="flex items-center gap-3 bg-muted/30 rounded-lg px-4 py-2.5"
             >
-              <FileText className="h-5 w-5 text-muted-foreground/50 flex-shrink-0" />
+              {(() => {
+                const ext = f.name.split('.').pop()?.toLowerCase();
+                if (ext === 'svg') return <ImageIcon className="h-5 w-5 text-teal-500/80 flex-shrink-0" />;
+                if (ext === 'pdf') return <FileText className="h-5 w-5 text-destructive/80 flex-shrink-0" />;
+                return <FileText className="h-5 w-5 text-muted-foreground/50 flex-shrink-0" />;
+              })()}
               <span className="text-sm flex-1 truncate">{f.name}</span>
               {f.done ? (
                 <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
@@ -143,113 +149,87 @@ export const ApprovalDemo = () => {
   useEffect(() => {
     const t: ReturnType<typeof setTimeout>[] = [];
     setPhase('idle');
-    t.push(setTimeout(() => setPhase('hover'), 800));
-    t.push(setTimeout(() => setPhase('approved'), 1800));
-    t.push(setTimeout(() => setPhase('fading'), 4200));
-    t.push(setTimeout(() => setCycle(c => c + 1), 5000));
+    t.push(setTimeout(() => setPhase('hover'), 1000));
+    t.push(setTimeout(() => setPhase('approved'), 2200));
+    t.push(setTimeout(() => setPhase('fading'), 4600));
+    t.push(setTimeout(() => setCycle(c => c + 1), 5400));
     return () => t.forEach(clearTimeout);
   }, [cycle]);
 
   return (
     <motion.div
-      className="w-full h-full flex flex-col items-center justify-center gap-4 px-8"
+      className="w-full h-full flex flex-col items-center justify-center px-4"
       animate={{ opacity: phase === 'fading' ? 0 : 1 }}
-      transition={{ duration: 0.6, ease: [0.2, 0, 0, 1] }}
+      transition={{ duration: 0.5 }}
     >
-      {phase !== 'approved' && phase !== 'fading' ? (
-        <motion.div
-          initial={{ opacity: 0, y: 8, filter: 'blur(6px)' }}
-          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-          transition={{ duration: 0.45, ease: [0.05, 0.7, 0.1, 1] }}
-          className="flex flex-col items-center gap-5 w-full max-w-xs"
-        >
-          {/* File preview hint */}
-          <motion.div 
-            className="flex items-center gap-2 text-muted-foreground/50"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.4 }}
-          >
-            <FileText className="h-4 w-4" />
-            <span className="text-xs font-medium">Brand_Guidelines_v3.pdf</span>
-          </motion.div>
-          
-          <div className="flex gap-3 w-full">
-            <div className="flex-1 h-12 rounded-lg border border-border/60 flex items-center justify-center text-base text-muted-foreground">
-              Request changes
-            </div>
-            <motion.div
-              className="flex-1 h-12 rounded-lg bg-primary flex items-center justify-center text-base text-primary-foreground gap-1.5 cursor-default relative overflow-hidden"
-              animate={{ 
-                scale: phase === 'hover' ? 1.04 : 1,
-                boxShadow: phase === 'hover' 
-                  ? '0 8px 24px -4px hsl(169 76% 48% / 0.3)' 
-                  : '0 0 0 0px transparent'
-              }}
-              transition={{ type: 'spring', damping: 20, stiffness: 300 }}
-            >
-              {/* Shimmer on hover */}
-              {phase === 'hover' && (
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                  initial={{ x: '-100%' }}
-                  animate={{ x: '100%' }}
-                  transition={{ duration: 0.8, ease: [0.2, 0, 0, 1] }}
-                />
-              )}
-              <Check className="h-5 w-5" />
-              Approve
-            </motion.div>
+      <div className="w-full max-w-[280px] bg-card rounded-2xl border border-border/60 shadow-[0_12px_24px_rgba(0,0,0,0.03)] dark:shadow-[0_20px_40px_rgba(0,0,0,0.3)] overflow-hidden relative">
+        {/* Document Header */}
+        <div className="border-b border-border/50 bg-muted/20 px-4 py-2.5 flex items-center justify-between">
+          <div className="flex items-center gap-1.5 min-w-0">
+            <FileText className="h-3.5 w-3.5 text-primary flex-shrink-0" />
+            <span className="text-[10px] font-bold text-foreground truncate max-w-[130px]">Brand_Guidelines_v3.pdf</span>
           </div>
-        </motion.div>
-      ) : (
-        <motion.div
-          className="flex flex-col items-center gap-3"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
-        >
-          <motion.div
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ type: 'spring', damping: 15, stiffness: 200, mass: 0.8 }}
-            className="h-18 w-18 rounded-full bg-success/10 flex items-center justify-center relative"
-          >
-            <motion.div
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
+          <span className="text-[9px] font-black uppercase text-muted-foreground/60 tracking-wider">v3</span>
+        </div>
+
+        {/* Document Body Mockup */}
+        <div className="p-4 space-y-3 relative min-h-[90px] flex flex-col justify-center">
+          {phase === 'approved' ? (
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="absolute inset-0 bg-success/[0.02] flex flex-col items-center justify-center z-10"
             >
-              <Check className="h-9 w-9 text-success" />
-            </motion.div>
-            {/* Ripple rings */}
-            {[0, 0.3].map((delay, ri) => (
               <motion.div
-                key={ri}
-                className="absolute inset-0 rounded-full border-2 border-success/15"
-                initial={{ scale: 1, opacity: 0.5 }}
-                animate={{ scale: 2.5, opacity: 0 }}
-                transition={{ duration: 1.2, delay, ease: [0.2, 0, 0, 1] }}
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: 'spring', damping: 12 }}
+                className="h-10 w-10 rounded-full bg-success/10 flex items-center justify-center border border-success/20 mb-1"
+              >
+                <Check className="h-5 w-5 text-success" />
+              </motion.div>
+              <span className="text-[10px] font-black uppercase tracking-widest text-success">Approved & Locked</span>
+            </motion.div>
+          ) : null}
+
+          {/* Dummy text lines representing content */}
+          <div className={cn("space-y-2 transition-all duration-300", phase === 'approved' && "opacity-20 blur-[0.5px]")}>
+            <div className="h-2 bg-primary/20 w-3/4 rounded-full" />
+            <div className="h-1.5 bg-muted-foreground/10 w-full rounded-full" />
+            <div className="h-1.5 bg-muted-foreground/10 w-5/6 rounded-full" />
+            <div className="flex gap-2 pt-1">
+              <div className="h-4 w-12 rounded bg-primary/10 border border-primary/20" />
+              <div className="h-4 w-12 rounded bg-muted/40 border border-border" />
+            </div>
+          </div>
+        </div>
+
+        {/* Action Panel */}
+        <div className="border-t border-border/50 p-2.5 bg-muted/10 flex gap-2">
+          <div className="flex-1 h-8 rounded-lg border border-border/80 flex items-center justify-center text-[10px] font-bold text-muted-foreground bg-card">
+            Request changes
+          </div>
+          <motion.div
+            className="flex-1 h-8 rounded-lg bg-primary flex items-center justify-center text-[10px] font-bold text-primary-foreground gap-1 cursor-default relative overflow-hidden shadow-sm"
+            animate={{ 
+              scale: phase === 'hover' ? 1.03 : 1,
+              backgroundColor: phase === 'approved' ? 'rgb(16, 185, 129)' : 'rgb(13, 148, 136)'
+            }}
+            transition={{ duration: 0.2 }}
+          >
+            {phase === 'hover' && (
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                initial={{ x: '-100%' }}
+                animate={{ x: '100%' }}
+                transition={{ duration: 0.6 }}
               />
-            ))}
+            )}
+            <Check className="h-3 w-3" />
+            Approve
           </motion.div>
-          <motion.span
-            className="text-base text-success font-medium"
-            initial={{ opacity: 0, y: 4 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.2, ease: [0.05, 0.7, 0.1, 1] }}
-          >
-            Approved
-          </motion.span>
-          <motion.span
-            className="text-xs text-muted-foreground/40"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3, delay: 0.5 }}
-          >
-            Signed off by Sarah C. · just now
-          </motion.span>
-        </motion.div>
-      )}
+        </div>
+      </div>
     </motion.div>
   );
 };

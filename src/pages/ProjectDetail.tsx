@@ -10,7 +10,7 @@ import { ApprovalReceipt } from '@/components/app/ApprovalReceipt';
 import {
   ArrowLeft, FileText, MessageSquare, Upload, Clock, Send, CheckCircle2,
   Eye, History, ExternalLink, AlertCircle, Zap, Plus, Trash2, Building2,
-  Sparkles
+  Sparkles, Image as ImageIcon, Palette
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -19,7 +19,7 @@ import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { cn } from '@/lib/utils';
+import { cn, getFileIcon } from '@/lib/utils';
 import { providerIcons } from '@/lib/provider-icons';
 import { useFounderBeta } from '@/hooks/use-founder-beta';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
@@ -31,6 +31,10 @@ const fileTypeColors: Record<string, string> = {
   svg: 'bg-primary/10 text-primary',
   pdf: 'bg-destructive/10 text-destructive',
   fig: 'bg-info/10 text-info',
+  png: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400',
+  jpg: 'bg-amber-500/10 text-amber-600 dark:text-amber-400',
+  jpeg: 'bg-amber-500/10 text-amber-600 dark:text-amber-400',
+  webp: 'bg-teal-500/10 text-teal-600 dark:text-teal-400',
 };
 
 function timeAgo(dateStr: string) {
@@ -140,7 +144,7 @@ const ProjectDetail = () => {
     if (selectedDel) {
       setActiveVersion(selectedDel.version);
     }
-  }, [selectedDeliverableId]);
+  }, [selectedDeliverableId, selectedDel]);
 
   const comments = allComments.filter(c => 
     c.deliverableId === selectedDeliverableId && 
@@ -441,7 +445,10 @@ const ProjectDetail = () => {
 
                       <div className="p-4 md:p-6 space-y-4 md:space-y-6">
                         <div className="h-48 md:h-64 rounded-xl md:rounded-2xl bg-muted/30 border border-dashed flex flex-col items-center justify-center text-sm text-muted-foreground transition-colors hover:bg-muted/50">
-                          <FileText className="h-8 w-8 md:h-10 md:w-10 mb-2 md:mb-3 text-muted-foreground/20" />
+                          {(() => {
+                            const Icon = getFileIcon(selectedDel.fileType);
+                            return <Icon className="h-8 w-8 md:h-10 md:w-10 mb-2 md:mb-3 text-muted-foreground/20" />;
+                          })()}
                           <p className="font-bold text-foreground text-sm">{selectedDel.fileName}</p>
                           <p className="text-[11px] md:text-[12px] mt-1 uppercase tracking-widest font-black opacity-40">{selectedDel.fileType} Deliverable</p>
                         </div>

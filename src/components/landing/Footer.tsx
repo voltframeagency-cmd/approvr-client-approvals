@@ -1,4 +1,4 @@
-import { ArrowRight, Globe, Github, Twitter, Linkedin } from 'lucide-react';
+import { ArrowRight, Twitter, Linkedin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Logo } from '@/components/brand/Logo';
@@ -40,9 +40,7 @@ const Footer = () => (
           </p>
           <div className="flex items-center gap-6 text-muted-foreground/60">
             <a href="#" className="hover:text-primary transition-colors"><Twitter className="h-5 w-5" /></a>
-            <a href="#" className="hover:text-primary transition-colors"><Github className="h-5 w-5" /></a>
             <a href="#" className="hover:text-primary transition-colors"><Linkedin className="h-5 w-5" /></a>
-            <a href="#" className="hover:text-primary transition-colors"><Globe className="h-5 w-5" /></a>
           </div>
         </div>
 

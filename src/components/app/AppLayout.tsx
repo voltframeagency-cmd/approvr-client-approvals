@@ -146,7 +146,14 @@ const AppLayout = () => {
       </div>
 
       {/* Main content */}
-      <main className="flex-1 md:ml-[240px] min-h-screen bg-muted/30 overflow-x-hidden">
+      <main className="flex-1 md:ml-[240px] min-h-screen bg-muted/30 overflow-x-hidden relative">
+        {/* Ambient background glows */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/[0.02] dark:bg-primary/[0.05] rounded-full blur-[120px] pointer-events-none z-0" />
+        <div className="absolute bottom-1/4 left-1/4 w-[600px] h-[600px] bg-emerald-500/[0.01] dark:bg-emerald-500/[0.03] rounded-full blur-[150px] pointer-events-none z-0" />
+        
+        {/* Grid pattern overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.015)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.015)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.008)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.008)_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none z-0" style={{ maskImage: 'radial-gradient(ellipse at center, black, transparent 80%)', WebkitMaskImage: 'radial-gradient(ellipse at center, black, transparent 80%)' }} />
+
         {isDemoMode && (
           <div className="bg-primary/10 border-b border-primary/20 px-4 py-2 flex items-center justify-center gap-3 text-sm">
             <Play className="h-3.5 w-3.5 text-primary" />

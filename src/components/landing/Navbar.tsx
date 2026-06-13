@@ -18,6 +18,7 @@ const Navbar = () => {
   const bgOpacity = useTransform(scrollY, [0, 30], [0, 0.85]);
   const borderOpacity = useTransform(scrollY, [0, 40], [0, 1]);
   const shadowOpacity = useTransform(scrollY, [40, 100], [0, 0.12]);
+  const backdropBlur = useTransform(scrollY, [0, 30], ['blur(0px)', 'blur(24px)']);
 
   const location = useLocation();
 
@@ -47,12 +48,14 @@ const Navbar = () => {
           backgroundColor: `hsl(var(--card) / var(--tw-bg-opacity))`,
           borderColor: `hsl(var(--border) / var(--tw-border-opacity))`,
           boxShadow: `0 10px 40px -10px rgb(0 0 0 / ${shadowOpacity}), 0 0 20px 0px hsl(var(--primary) / calc(${shadowOpacity} * 0.2))`,
+          backdropFilter: backdropBlur,
+          WebkitBackdropFilter: backdropBlur,
           // @ts-ignore
           '--tw-bg-opacity': bgOpacity,
           // @ts-ignore
           '--tw-border-opacity': borderOpacity,
         } as any}
-        className="relative pointer-events-auto backdrop-blur-xl border flex items-center h-[52px] md:h-16 transition-all duration-500 ease-out"
+        className="relative pointer-events-auto border flex items-center h-[52px] md:h-16 transition-all duration-500 ease-out"
       >
         <div className="flex items-center w-full h-full max-w-7xl mx-auto px-3 md:px-10">
           <div className="flex-1 flex items-center">

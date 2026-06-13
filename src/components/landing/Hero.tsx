@@ -18,7 +18,7 @@ const founderMembers = [
 
 const Hero = () => (
   <section className="relative pt-36 pb-24 md:pt-48 md:pb-32 overflow-hidden">
-    <div className="absolute inset-0 bg-white dark:bg-background" />
+    <div className="absolute inset-0 bg-background" />
     <HeroBackground />
 
     {/* Gradient orbs */}
@@ -32,18 +32,7 @@ const Hero = () => (
         transition={{ duration: DURATION.large, ease: EASING.enter }}
         className="max-w-4xl mx-auto text-center"
       >
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: DURATION.structural, delay: 0.1, ease: EASING.enter }}
-          className="inline-flex items-center gap-2 rounded-full border border-border/40 bg-card/50 backdrop-blur-md px-4 py-1.5 text-[13px] font-medium text-muted-foreground mb-8 shadow-sm"
-        >
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" style={{ animationDuration: '2s' }} />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
-          </span>
-          Now in early access — 14-day free trial
-        </motion.div>
+
 
         <h1 className="text-4xl md:text-6xl lg:text-[4.75rem] font-bold tracking-tight leading-[1.02] mb-8">
           Your clients aren't ignoring you. <br className="hidden md:block" />
