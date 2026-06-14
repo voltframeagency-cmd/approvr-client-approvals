@@ -15,16 +15,21 @@ The core promise of Approvr is to simplify the path from **Deliverable Sent** to
 
 ---
 
-## 📈 Integration & Product Roadmap Strategy
+## 🔗 Integration & Extension Strategy
 
-Approvr positions itself as a **lightweight, specialized overlay** rather than an all-in-one suite. To preserve this focus and avoid feature bloat, our development roadmap is structured sequentially to prioritize client-friction reduction first, followed by native agency workflow integrations, and finally enterprise automation:
+To remain a **"lightweight, specialized overlay"** that avoids the "Compliance Swamp" and "Consolidation Bloat," Approvr connects to existing client workflows rather than forcing teams to migrate their workspaces. Integrations are prioritized in three phases:
 
-1. **Phase 1: Client SSO & Zero-Friction Authentication (SSO First)**:
-   - *Strategy*: Build client SSO authentication (such as Google Client Auth) first. This ensures that the client experience is instantly frictionless, eliminating the need for client registrations, password memorization, or registration barriers.
-2. **Phase 2: Direct Project Trackers (Sync Second)**:
-   - *Strategy*: Build integrations with the project management tools agencies already love (Asana, Linear). This allows agencies to plug Approvr directly into their daily creative workflows without abandoning their existing workspaces. When a client approves a file, Approvr automatically updates the task state on Asana or Linear.
-3. **Phase 3: Automation Hub (Zapier Third)**:
-   - *Strategy*: Integrate with Zapier to capture all complex, heavy enterprise CRM and invoicing needs (Salesforce, HubSpot, QuickBooks, Google Sheets) without wasting engineering resources or licensing fees on custom native integrations. This keeps the core app lightweight and isolated from messy third-party APIs.
+1. **Priority 1: Third-Party Authentication (SSO)**
+   - **Why**: Eliminates client sign-up friction, maintaining our strict **"Low Interface Energy"** priority.
+   - **The "Lite" Benefit**: Outsources security, password-storing, and data-compliance risks to trusted, multi-billion-dollar authentication infrastructures (like Google OAuth) for free.
+   
+2. **Priority 2: Existing Project Trackers (Asana, Linear, Notion, ClickUp)**
+   - **Why**: Creative teams already have project structures they love. Approvr overlays their workflow instead of forcing platform migrations.
+   - **The "Lite" Benefit**: When a client clicks "Approve" inside Approvr's portal, we simply ping their active project board. We deliver workflow automation without building complex internal task-management boards natively.
+
+3. **Priority 3: Automation Hubs (Zapier)**
+   - **Why**: Connects enterprise CRMs (Salesforce, HubSpot) or accounting tools (QuickBooks, Google Sheets) without writing hundreds of custom APIs.
+   - **The "Lite" Benefit**: Leverages a **"User-Paid Integration Model."** Instead of paying for expensive enterprise API keys, agencies hook up their own premium Zapier accounts. Maintenance and subscription costs are shifted to the end-users, keeping Approvr highly profitable.
 
 ---
 

@@ -239,7 +239,7 @@ const Settings = () => {
 
               {/* Integrations Tab */}
               {activeTab === 'integrations' && (
-                <div className="card-elevated p-4 sm:p-6 space-y-5 sm:space-y-6">
+                <div className="card-elevated p-4 sm:p-6 space-y-6 sm:space-y-8">
                   <div>
                     <h2 className="font-semibold text-[15px] sm:text-base">Connected Applications</h2>
                     <p className="text-[12px] sm:text-[13px] text-muted-foreground mt-0.5">
@@ -247,140 +247,216 @@ const Settings = () => {
                     </p>
                   </div>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {/* Zapier Card */}
-                    <div className="p-4 rounded-xl border bg-card/50 hover:bg-card/85 transition-colors flex flex-col justify-between gap-4">
-                      <div className="space-y-2">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2.5">
-                            <div className="h-9 w-9 rounded-lg bg-orange-500/10 flex items-center justify-center text-orange-600">
-                              <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 0c-.55 0-1 .45-1 1v7.66l-5.42-5.42c-.39-.39-1.02-.39-1.41 0s-.39 1.02 0 1.41L9.59 10H1.93c-.55 0-1 .45-1 1s.45 1 1 1h7.66l-5.42 5.42c-.39.39-.39 1.02 0 1.41.2.2.45.3.71.3s.51-.1.71-.3L11 13.34V21c0 .55.45 1 1 1s1-.45 1-1v-7.66l5.42 5.42c.2.2.45.3.71.3s.51-.1.71-.3c.39-.39.39-1.02 0-1.41L14.41 12h7.66c.55 0 1-.45 1-1s-.45-1-1-1h-7.66l-5.42-5.42c.39-.39.39-1.02 0-1.41s-1.02-.39-1.41 0L13 8.66V1c0-.55-.45-1-1-1z" />
-                              </svg>
+                  <div className="space-y-6 sm:space-y-8">
+                    {/* Priority 1: Third-Party Authentication (SSO) */}
+                    <div className="space-y-3">
+                      <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/70 flex items-center gap-2">
+                        <ShieldCheck className="h-3.5 w-3.5 text-emerald-500" /> Priority 1: Third-Party Authentication (SSO)
+                      </h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {/* Google SSO Card */}
+                        <div className="p-4 rounded-xl border bg-card/50 hover:bg-card/85 transition-colors flex flex-col justify-between gap-4">
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2.5">
+                                <div className="h-9 w-9 rounded-lg bg-slate-100 dark:bg-slate-900 border flex items-center justify-center">
+                                  <svg className="h-5 w-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
+                                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
+                                  </svg>
+                                </div>
+                                <div>
+                                  <h3 className="text-[13px] font-bold">Google Client Auth</h3>
+                                  <p className="text-[10px] text-muted-foreground">Single Sign-On (SSO)</p>
+                                </div>
+                              </div>
+                              <span className="text-[9px] bg-emerald-500/10 text-emerald-600 font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Active</span>
                             </div>
-                            <div>
-                              <h3 className="text-[13px] font-bold">Zapier Automation</h3>
-                              <p className="text-[10px] text-muted-foreground">Webhooks & Triggers</p>
-                            </div>
+                            <p className="text-[12px] text-muted-foreground leading-relaxed pt-1">
+                              Eliminate client registration friction. Clients can access their deliverables and request changes instantly using their Google account.
+                            </p>
                           </div>
-                          <span className="text-[9px] bg-primary/10 text-primary font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Connected</span>
+                          <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold w-full text-muted-foreground" disabled>
+                            Google Auth Enabled
+                          </Button>
                         </div>
-                        <p className="text-[12px] text-muted-foreground leading-relaxed pt-1">
-                          Trigger custom flows in 5,000+ apps. Automatically create QuickBooks invoices, notify Slack channels, or log approvals in Google Sheets.
-                        </p>
                       </div>
-                      <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold w-full gap-1.5" onClick={() => toast.info("Zapier webhook settings configured")}>
-                        Configure Zapier <ExternalLink className="h-3 w-3" />
-                      </Button>
                     </div>
 
-                    {/* Google SSO Card */}
-                    <div className="p-4 rounded-xl border bg-card/50 hover:bg-card/85 transition-colors flex flex-col justify-between gap-4">
-                      <div className="space-y-2">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2.5">
-                            <div className="h-9 w-9 rounded-lg bg-slate-100 dark:bg-slate-900 border flex items-center justify-center">
-                              <svg className="h-5 w-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-                                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-                                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
-                                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
-                              </svg>
+                    {/* Priority 2: Existing Project Trackers */}
+                    <div className="space-y-3">
+                      <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/70 flex items-center gap-2">
+                        <FolderOpen className="h-3.5 w-3.5 text-primary" /> Priority 2: Project Trackers (Asana, Linear, Notion, ClickUp)
+                      </h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {/* Asana Card */}
+                        <div className="p-4 rounded-xl border bg-card/50 hover:bg-card/85 transition-colors flex flex-col justify-between gap-4">
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2.5">
+                                <div className="h-9 w-9 rounded-lg bg-rose-500/10 flex items-center justify-center text-rose-600">
+                                  <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="12" cy="6" r="3.2" />
+                                    <circle cx="6.5" cy="15.5" r="3.2" />
+                                    <circle cx="17.5" cy="15.5" r="3.2" />
+                                  </svg>
+                                </div>
+                                <div>
+                                  <h3 className="text-[13px] font-bold">Asana Projects</h3>
+                                  <p className="text-[10px] text-muted-foreground">Task Sync</p>
+                                </div>
+                              </div>
+                              <span className="text-[9px] bg-muted text-muted-foreground font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Not Connected</span>
                             </div>
-                            <div>
-                              <h3 className="text-[13px] font-bold">Google Client Auth</h3>
-                              <p className="text-[10px] text-muted-foreground">Single Sign-On (SSO)</p>
-                            </div>
+                            <p className="text-[12px] text-muted-foreground leading-relaxed pt-1">
+                              Link deliverables directly to Asana tasks. Automatically advance tasks or move them to 'Approved' columns as soon as clients sign off.
+                            </p>
                           </div>
-                          <span className="text-[9px] bg-emerald-500/10 text-emerald-600 font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Active</span>
+                          <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold w-full" onClick={() => toast.success("Connecting Asana...")}>
+                            Connect Asana
+                          </Button>
                         </div>
-                        <p className="text-[12px] text-muted-foreground leading-relaxed pt-1">
-                          Eliminate client registration friction. Clients can access their deliverables and request changes instantly using their Google account.
-                        </p>
+
+                        {/* Linear Card */}
+                        <div className="p-4 rounded-xl border bg-card/50 hover:bg-card/85 transition-colors flex flex-col justify-between gap-4">
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2.5">
+                                <div className="h-9 w-9 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-600">
+                                  <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2c5.522 0 10 4.477 10 10 0 5.522-4.478 10-10 10S2 17.522 2 12C2 6.477 6.478 2 12 2zm3.327 5.753l-6.143 6.143-.377-.376 4.636-4.637-.886-.885-4.636 4.636-.377-.377 3.136-3.136-.885-.885-3.136 3.136-.376-.376 1.636-1.637-.885-.885-2.012 2.012 5.064 5.064 8.163-8.163-.884-.884z"/>
+                                  </svg>
+                                </div>
+                                <div>
+                                  <h3 className="text-[13px] font-bold">Linear Issues</h3>
+                                  <p className="text-[10px] text-muted-foreground">Issue Tracking</p>
+                                </div>
+                              </div>
+                              <span className="text-[9px] bg-muted text-muted-foreground font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Not Connected</span>
+                            </div>
+                            <p className="text-[12px] text-muted-foreground leading-relaxed pt-1">
+                              Sync project cycles. Update issue states, close bug tickets, or notify design owners as soon as revision cycles are completed.
+                            </p>
+                          </div>
+                          <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold w-full" onClick={() => toast.success("Connecting Linear...")}>
+                            Connect Linear
+                          </Button>
+                        </div>
+
+                        {/* Notion Card */}
+                        <div className="p-4 rounded-xl border bg-card/50 hover:bg-card/85 transition-colors flex flex-col justify-between gap-4">
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2.5">
+                                <div className="h-9 w-9 rounded-lg bg-slate-500/10 dark:bg-slate-400/10 flex items-center justify-center text-foreground">
+                                  <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4.459 4.208c.746.606 1.026.56 2.428.466l13.215-.793c.28 0 .047-.28-.046-.326L17.86 1.968c-.42-.326-.981-.7-2.055-.607L3.01 2.295c-.466.046-.56.28-.374.466zm.793 3.08v13.904c0 .747.373 1.027 1.214.98l14.523-.84c.841-.046.935-.56.935-1.167V6.354c0-.606-.233-.933-.748-.887l-15.177.887c-.56.047-.747.327-.747.933zm14.337.745c.093.42 0 .84-.42.888l-.7.14v10.264c-.608.327-1.168.514-1.635.514-.748 0-.935-.234-1.495-.933l-4.577-7.186v6.952L12.21 19s0 .84-1.168.84l-3.222.186c-.093-.186 0-.653.327-.746l.84-.233V9.854L7.822 9.76c-.094-.42.14-1.026.793-1.073l3.456-.233 4.764 7.279v-6.44l-1.215-.139c-.093-.514.28-.887.747-.933zM1.936 1.035l13.31-.98c1.634-.14 2.055-.047 3.082.7l4.249 2.986c.7.513.934.653.934 1.213v16.378c0 1.026-.373 1.634-1.68 1.726l-15.458.934c-.98.047-1.448-.093-1.962-.747l-3.129-4.06c-.56-.747-.793-1.306-.793-1.96V2.667c0-.839.374-1.54 1.447-1.632z"/>
+                                  </svg>
+                                </div>
+                                <div>
+                                  <h3 className="text-[13px] font-bold">Notion Workspace</h3>
+                                  <p className="text-[10px] text-muted-foreground">Database Sync</p>
+                                </div>
+                              </div>
+                              <span className="text-[9px] bg-muted text-muted-foreground font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Not Connected</span>
+                            </div>
+                            <p className="text-[12px] text-muted-foreground leading-relaxed pt-1">
+                              Sync approvals to your custom internal databases. Write feedback directly to Notion pages, link client contacts, and keep your workspace structured.
+                            </p>
+                          </div>
+                          <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold w-full" onClick={() => toast.success("Connecting Notion...")}>
+                            Connect Notion
+                          </Button>
+                        </div>
+
+                        {/* ClickUp Card */}
+                        <div className="p-4 rounded-xl border bg-card/50 hover:bg-card/85 transition-colors flex flex-col justify-between gap-4">
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2.5">
+                                <div className="h-9 w-9 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-500">
+                                  <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2 18.439l3.69-2.828c1.961 2.56 4.044 3.739 6.363 3.739 2.307 0 4.33-1.166 6.203-3.704L22 18.405C19.298 22.065 15.941 24 12.053 24 8.178 24 4.788 22.078 2 18.439zM12.04 6.15l-6.568 5.66-3.036-3.52L12.055 0l9.543 8.296-3.05 3.509z"/>
+                                  </svg>
+                                </div>
+                                <div>
+                                  <h3 className="text-[13px] font-bold">ClickUp Tasks</h3>
+                                  <p className="text-[10px] text-muted-foreground">Status Updates</p>
+                                </div>
+                              </div>
+                              <span className="text-[9px] bg-muted text-muted-foreground font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Not Connected</span>
+                            </div>
+                            <p className="text-[12px] text-muted-foreground leading-relaxed pt-1">
+                              Bring client feedback directly into ClickUp. Update custom fields, track completion times, and synchronize approvals with your team's sprint board.
+                            </p>
+                          </div>
+                          <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold w-full" onClick={() => toast.success("Connecting ClickUp...")}>
+                            Connect ClickUp
+                          </Button>
+                        </div>
                       </div>
-                      <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold w-full text-muted-foreground" disabled>
-                        Google Auth Enabled
-                      </Button>
                     </div>
 
-                    {/* Asana Card */}
-                    <div className="p-4 rounded-xl border bg-card/50 hover:bg-card/85 transition-colors flex flex-col justify-between gap-4">
-                      <div className="space-y-2">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2.5">
-                            <div className="h-9 w-9 rounded-lg bg-rose-500/10 flex items-center justify-center text-rose-600">
-                              <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="12" cy="6" r="3.2" />
-                                <circle cx="6.5" cy="15.5" r="3.2" />
-                                <circle cx="17.5" cy="15.5" r="3.2" />
-                              </svg>
+                    {/* Priority 3: Automation Hubs & Payments */}
+                    <div className="space-y-3">
+                      <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/70 flex items-center gap-2">
+                        <Zap className="h-3.5 w-3.5 text-orange-500" /> Priority 3: Automation & Payments (Zapier, Stripe)
+                      </h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {/* Zapier Card */}
+                        <div className="p-4 rounded-xl border bg-card/50 hover:bg-card/85 transition-colors flex flex-col justify-between gap-4">
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2.5">
+                                <div className="h-9 w-9 rounded-lg bg-orange-500/10 flex items-center justify-center text-orange-600">
+                                  <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 0c-.55 0-1 .45-1 1v7.66l-5.42-5.42c-.39-.39-1.02-.39-1.41 0s-.39 1.02 0 1.41L9.59 10H1.93c-.55 0-1 .45-1 1s.45 1 1 1h7.66l-5.42 5.42c-.39.39-.39 1.02 0 1.41.2.2.45.3.71.3s.51-.1.71-.3L11 13.34V21c0 .55.45 1 1 1s1-.45 1-1v-7.66l5.42 5.42c.2.2.45.3.71.3s.51-.1.71-.3c.39-.39.39-1.02 0-1.41L14.41 12h7.66c.55 0 1-.45 1-1s-.45-1-1-1h-7.66l-5.42-5.42c.39-.39.39-1.02 0-1.41s-1.02-.39-1.41 0L13 8.66V1c0-.55-.45-1-1-1z" />
+                                  </svg>
+                                </div>
+                                <div>
+                                  <h3 className="text-[13px] font-bold">Zapier Automation</h3>
+                                  <p className="text-[10px] text-muted-foreground">Webhooks & Triggers</p>
+                                </div>
+                              </div>
+                              <span className="text-[9px] bg-primary/10 text-primary font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Connected</span>
                             </div>
-                            <div>
-                              <h3 className="text-[13px] font-bold">Asana Projects</h3>
-                              <p className="text-[10px] text-muted-foreground">Task Sync</p>
-                            </div>
+                            <p className="text-[12px] text-muted-foreground leading-relaxed pt-1">
+                              Trigger custom flows in 5,000+ apps. Automatically create QuickBooks invoices, notify Slack channels, or log approvals in Google Sheets.
+                            </p>
                           </div>
-                          <span className="text-[9px] bg-muted text-muted-foreground font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Not Connected</span>
+                          <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold w-full gap-1.5" onClick={() => toast.info("Zapier webhook settings configured")}>
+                            Configure Zapier <ExternalLink className="h-3 w-3" />
+                          </Button>
                         </div>
-                        <p className="text-[12px] text-muted-foreground leading-relaxed pt-1">
-                          Link deliverables directly to Asana tasks. Automatically advance tasks or move them to 'Approved' columns as soon as clients sign off.
-                        </p>
-                      </div>
-                      <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold w-full" onClick={() => toast.success("Connecting Asana...")}>
-                        Connect Asana
-                      </Button>
-                    </div>
 
-                    {/* Linear Card */}
-                    <div className="p-4 rounded-xl border bg-card/50 hover:bg-card/85 transition-colors flex flex-col justify-between gap-4">
-                      <div className="space-y-2">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2.5">
-                            <div className="h-9 w-9 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-600">
-                              <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 2c5.522 0 10 4.477 10 10 0 5.522-4.478 10-10 10S2 17.522 2 12C2 6.477 6.478 2 12 2zm3.327 5.753l-6.143 6.143-.377-.376 4.636-4.637-.886-.885-4.636 4.636-.377-.377 3.136-3.136-.885-.885-3.136 3.136-.376-.376 1.636-1.637-.885-.885-2.012 2.012 5.064 5.064 8.163-8.163-.884-.884z"/>
-                              </svg>
+                        {/* Stripe Card */}
+                        <div className="p-4 rounded-xl border bg-card/50 hover:bg-card/85 transition-colors flex flex-col justify-between gap-4">
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2.5">
+                                <div className="h-9 w-9 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-600">
+                                  <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M13.96 2c-2.43 0-4.06 1.24-4.06 3.71 0 3.66 5.02 3.08 5.02 4.67 0 .54-.45.79-1.23.79-1.58 0-3.35-.68-3.35-.68l-.9 3.96s1.96.81 4.14.81c2.59 0 5.38-1.15 5.38-3.94 0-3.87-5.02-3.2-5.02-4.64 0-.47.4-.72 1.13-.72.99 0 2.52.36 2.52.36l.88-3.98s-1.82-.38-3.53-.38z"/>
+                                  </svg>
+                                </div>
+                                <div>
+                                  <h3 className="text-[13px] font-bold">Stripe Checkout</h3>
+                                  <p className="text-[10px] text-muted-foreground">Payment Collections</p>
+                                </div>
+                              </div>
+                              <span className="text-[9px] bg-primary/10 text-primary font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Connected</span>
                             </div>
-                            <div>
-                              <h3 className="text-[13px] font-bold">Linear Issues</h3>
-                              <p className="text-[10px] text-muted-foreground">Issue Tracking</p>
-                            </div>
+                            <p className="text-[12px] text-muted-foreground leading-relaxed pt-1">
+                              Collect payments directly from client sign-off pages. Paste your Stripe payment links to collect deposits or final balances. Approvr takes 0% cuts.
+                            </p>
                           </div>
-                          <span className="text-[9px] bg-muted text-muted-foreground font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Not Connected</span>
+                          <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold w-full gap-1.5" onClick={() => toast.info("Stripe payment webhook is active")}>
+                            Configure Stripe <ExternalLink className="h-3 w-3" />
+                          </Button>
                         </div>
-                        <p className="text-[12px] text-muted-foreground leading-relaxed pt-1">
-                          Sync project cycles. Update issue states, close bug tickets, or notify design owners as soon as revision cycles are completed.
-                        </p>
                       </div>
-                      <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold w-full" onClick={() => toast.success("Connecting Linear...")}>
-                        Connect Linear
-                      </Button>
-                    </div>
-
-                    {/* Stripe Card */}
-                    <div className="p-4 rounded-xl border bg-card/50 hover:bg-card/85 transition-colors flex flex-col justify-between gap-4">
-                      <div className="space-y-2">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2.5">
-                            <div className="h-9 w-9 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-600">
-                              <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M13.96 2c-2.43 0-4.06 1.24-4.06 3.71 0 3.66 5.02 3.08 5.02 4.67 0 .54-.45.79-1.23.79-1.58 0-3.35-.68-3.35-.68l-.9 3.96s1.96.81 4.14.81c2.59 0 5.38-1.15 5.38-3.94 0-3.87-5.02-3.2-5.02-4.64 0-.47.4-.72 1.13-.72.99 0 2.52.36 2.52.36l.88-3.98s-1.82-.38-3.53-.38z"/>
-                              </svg>
-                            </div>
-                            <div>
-                              <h3 className="text-[13px] font-bold">Stripe Checkout</h3>
-                              <p className="text-[10px] text-muted-foreground">Payment Collections</p>
-                            </div>
-                          </div>
-                          <span className="text-[9px] bg-primary/10 text-primary font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Connected</span>
-                        </div>
-                        <p className="text-[12px] text-muted-foreground leading-relaxed pt-1">
-                          Collect payments directly from client sign-off pages. Paste your Stripe payment links to collect deposits or final balances. Approvr takes 0% cuts.
-                        </p>
-                      </div>
-                      <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold w-full gap-1.5" onClick={() => toast.info("Stripe payment webhook is active")}>
-                        Configure Stripe <ExternalLink className="h-3 w-3" />
-                      </Button>
                     </div>
                   </div>
                 </div>
