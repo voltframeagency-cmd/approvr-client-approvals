@@ -289,11 +289,11 @@ const Settings = () => {
                             <div className="flex items-center justify-between">
                               <div className="flex items-center gap-2.5">
                                 <div className="h-9 w-9 rounded-lg bg-slate-100 dark:bg-slate-900 border flex items-center justify-center">
-                                  <svg className="h-4 w-4" viewBox="0 0 23 23" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="0" y="0" width="10.5" height="10.5" fill="#f25022" />
-                                    <rect x="11.5" y="0" width="10.5" height="10.5" fill="#7fba00" />
-                                    <rect x="0" y="11.5" width="10.5" height="10.5" fill="#00a4ef" />
-                                    <rect x="11.5" y="11.5" width="10.5" height="10.5" fill="#ffb900" />
+                                  <svg className="h-4 w-4" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="#F1511B" d="M121.666 121.666H0V0h121.666z"/>
+                                    <path fill="#80CC28" d="M256 121.666H134.335V0H256z"/>
+                                    <path fill="#00ADEF" d="M121.663 256.002H0V134.336h121.663z"/>
+                                    <path fill="#FBBC09" d="M256 256.002H134.335V134.336H256z"/>
                                   </svg>
                                 </div>
                                 <div>
@@ -325,9 +325,14 @@ const Settings = () => {
                           <div className="space-y-2">
                             <div className="flex items-center justify-between">
                               <div className="flex items-center gap-2.5">
-                                <div className="h-9 w-9 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-600">
-                                  <svg className="h-5 w-5" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M3.362 10.11c0 .926-.756 1.68-1.681 1.68S0 11.036 0 10.11s.756-1.681 1.681-1.681h1.681v1.681zm.84 0c0-.926.755-1.681 1.681-1.681s1.681.755 1.681 1.681v4.202c0 .926-.755 1.681-1.681 1.681s-1.681-.755-1.681-1.681V10.11zM5.884 5.657c-.926 0-1.681-.756-1.681-1.681s.755-1.681 1.681-1.681 1.681.755 1.681 1.681v1.681H5.884zm0 .84c.926 0 1.681.756 1.681 1.681s-.755 1.681-1.681 1.681H1.681c-.926 0-1.681-.756-1.681-1.681S.756 6.497 1.681 6.497h4.202zm4.202 0c0-.926.756-1.681 1.681-1.681s1.681.756 1.681 1.681-.756 1.681-1.681 1.681h-1.681V6.497zm0 .84c0 .926-.756 1.681-1.681 1.681s-1.681-.756-1.681-1.681V3.155c0-.926.756-1.681 1.681-1.681s1.681.756 1.681 1.681v4.182zm-.84 4.202c.926 0 1.681.756 1.681 1.681s-.756 1.681-1.681 1.681-1.681-.756-1.681-1.681v-1.681h1.681zm0-1.681c-.926 0-1.681-.756-1.681-1.681s.756-1.681 1.681-1.681h4.202c.926 0 1.681.756 1.681 1.681s-.756 1.681-1.681 1.681H9.244z"/>
+                                <div className="h-9 w-9 rounded-lg bg-slate-100 dark:bg-slate-900 border flex items-center justify-center">
+                                  <svg className="h-5 w-5" viewBox="0 0 2447.6 2452.5" xmlns="http://www.w3.org/2000/svg">
+                                    <g clipRule="evenodd" fillRule="evenodd">
+                                      <path d="m897.4 0c-135.3.1-244.8 109.9-244.7 245.2-.1 135.3 109.5 245.1 244.8 245.2h244.8v-245.1c.1-135.3-109.5-245.1-244.9-245.3.1 0 .1 0 0 0m0 654h-652.6c-135.3.1-244.9 109.9-244.8 245.2-.2 135.3 109.4 245.1 244.7 245.3h652.7c135.3-.1 244.9-109.9 244.8-245.2.1-135.4-109.5-245.2-244.8-245.3z" fill="#36c5f0"/>
+                                      <path d="m2447.6 899.2c.1-135.3-109.5-245.1-244.8-245.2-135.3.1-244.9 109.9-244.8 245.2v245.3h244.8c135.3-.1 244.9-109.9 244.8-245.3zm-652.7 0v-654c.1-135.2-109.4-245-244.7-245.2-135.3.1-244.9 109.9-244.8 245.2v654c-.2 135.3 109.4 245.1 244.7 245.3 135.3-.1 244.9-109.9 244.8-245.3z" fill="#2eb67d"/>
+                                      <path d="m1550.1 2452.5c135.3-.1 244.9-109.9 244.8-245.2.1-135.3-109.5-245.1-244.8-245.2h-244.8v245.2c-.1 135.2 109.5 245 244.8 245.2zm0-654.1h652.7c135.3-.1 244.9-109.9 244.8-245.2.2-135.3-109.4-245.1-244.7-245.3h-652.7c-135.3.1-244.9 109.9-244.8 245.2-.1 135.4 109.4 245.2 244.7 245.3z" fill="#ecb22e"/>
+                                      <path d="m0 1553.2c-.1 135.3 109.5 245.1 244.8 245.2 135.3-.1 244.9-109.9 244.8-245.2v-245.2h-244.8c-135.3.1-244.9 109.9-244.8 245.2zm652.7 0v654c-.2 135.3 109.4 245.1 244.7 245.3 135.3-.1 244.9-109.9 244.8-245.2v-653.9c.2-135.3-109.4-245.1-244.7-245.3-135.4 0-244.9 109.8-244.8 245.1 0 0 0 .1 0 0" fill="#e01e5a"/>
+                                    </g>
                                   </svg>
                                 </div>
                                 <div>
@@ -351,10 +356,59 @@ const Settings = () => {
                           <div className="space-y-2">
                             <div className="flex items-center justify-between">
                               <div className="flex items-center gap-2.5">
-                                <div className="h-9 w-9 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-600">
-                                  <svg className="h-5 w-5" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M9.186 4.797a2.42 2.42 0 1 0-2.86-2.448h1.178c.929 0 1.682.753 1.682 1.682zm-4.295 7.738h2.613c.929 0 1.682-.753 1.682-1.682V5.58h2.783a.7.7 0 0 1 .682.716v4.294a4.197 4.197 0 0 1-4.093 4.293c-1.618-.04-3-.99-3.667-2.35Zm10.737-9.372a1.674 1.674 0 1 1-3.349 0 1.674 1.674 0 0 1 3.349 0m-2.238 9.488-.12-.002a5.2 5.2 0 0 0 .381-2.07V6.306a1.7 1.7 0 0 0-.15-.725h1.792c.39 0 .707.317.707.707v3.765a2.6 2.6 0 0 1-2.598 2.598z"/>
-                                    <path d="M.682 3.349h6.822c.377 0 .682.305.682.682v6.822a.68.68 0 0 1-.682.682H.682A.68.68 0 0 1 0 10.853V4.03c0-.377.305-.682.682-.682Zm5.206 2.596v-.72h-3.59v.72h1.357V9.66h.87V5.945z"/>
+                                <div className="h-9 w-9 rounded-lg bg-slate-100 dark:bg-slate-900 border flex items-center justify-center">
+                                  <svg className="h-5 w-5" viewBox="4 4 36 38" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="url(#teams-a)" d="M22 20h12a6 6 0 0 1 6 6v10a6 6 0 0 1-12 0V26a6 6 0 0 0-6-6Z"/>
+                                    <path fill="url(#teams-b)" d="M8 24a6 6 0 0 1 6-6h8a6 6 0 0 1 6 6v12a6 6 0 0 0 6 6H18c-5.523 0-10-4.477-10-10v-8Z"/>
+                                    <path fill="url(#teams-c)" fillOpacity={0.7} d="M8 24a6 6 0 0 1 6-6h8a6 6 0 0 1 6 6v12a6 6 0 0 0 6 6H18c-5.523 0-10-4.477-10-10v-8Z"/>
+                                    <path fill="url(#teams-d)" fillOpacity={0.7} d="M8 24a6 6 0 0 1 6-6h8a6 6 0 0 1 6 6v12a6 6 0 0 0 6 6H18c-5.523 0-10-4.477-10-10v-8Z"/>
+                                    <path fill="url(#teams-e)" d="M33 18a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z"/>
+                                    <path fill="url(#teams-f)" fillOpacity={0.46} d="M33 18a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z"/>
+                                    <path fill="url(#teams-g)" fillOpacity={0.4} d="M33 18a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z"/>
+                                    <path fill="url(#teams-h)" d="M18 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z"/>
+                                    <path fill="url(#teams-i)" fillOpacity={0.6} d="M18 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z"/>
+                                    <path fill="url(#teams-j)" fillOpacity={0.5} d="M18 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z"/>
+                                    <rect width="16" height="16" x="4" y="23" fill="url(#teams-k)" rx="3.25"/>
+                                    <rect width="16" height="16" x="4" y="23" fill="url(#teams-l)" fillOpacity={0.7} rx="3.25"/>
+                                    <path fill="#fff" d="M15.48 28.105h-2.448v7.466h-2.065v-7.466H8.52V26.43h6.96v1.676Z"/>
+                                    <defs>
+                                      <radialGradient id="teams-a" cx="0" cy="0" r="1" gradientTransform="matrix(13.4784 0 0 33.2694 39.797 22.174)" gradientUnits="userSpaceOnUse">
+                                        <stop stopColor="#A98AFF"/><stop offset={0.14} stopColor="#8C75FF"/><stop offset={0.565} stopColor="#5F50E2"/><stop offset={0.9} stopColor="#3C2CB8"/>
+                                      </radialGradient>
+                                      <radialGradient id="teams-b" cx="0" cy="0" r="1" gradientTransform="matrix(12.1875 30.39997 -30.74442 12.3256 8.812 16.4)" gradientUnits="userSpaceOnUse">
+                                        <stop stopColor="#85C2FF"/><stop offset={0.69} stopColor="#7588FF"/><stop offset={1} stopColor="#6459FE"/>
+                                      </radialGradient>
+                                      <radialGradient id="teams-d" cx="0" cy="0" r="1" gradientTransform="rotate(113.326 8.093 17.645) scale(19.2186 15.4273)" gradientUnits="userSpaceOnUse">
+                                        <stop stopColor="#BD96FF"/><stop offset={0.687} stopColor="#BD96FF" stopOpacity={0}/>
+                                      </radialGradient>
+                                      <radialGradient id="teams-e" cx="0" cy="0" r="1" gradientTransform="matrix(0 -10 12.6216 0 33 11.571)" gradientUnits="userSpaceOnUse">
+                                        <stop offset={0.268} stopColor="#6868F7"/><stop offset={1} stopColor="#3923B1"/>
+                                      </radialGradient>
+                                      <radialGradient id="teams-f" cx="0" cy="0" r="1" gradientTransform="matrix(5.47024 4.59847 -6.65117 7.91208 28.867 10.544)" gradientUnits="userSpaceOnUse">
+                                        <stop offset={0.271} stopColor="#A1D3FF"/><stop offset={0.813} stopColor="#A1D3FF" stopOpacity={0}/>
+                                      </radialGradient>
+                                      <radialGradient id="teams-g" cx="0" cy="0" r="1" gradientTransform="rotate(-41.658 32.118 -43.42) scale(8.51275 20.8824)" gradientUnits="userSpaceOnUse">
+                                        <stop stopColor="#E3ACFD"/><stop offset={0.816} stopColor="#9FA2FF" stopOpacity={0}/>
+                                      </radialGradient>
+                                      <radialGradient id="teams-h" cx="0" cy="0" r="1" gradientTransform="matrix(0 -12 15.146 0 18 8.286)" gradientUnits="userSpaceOnUse">
+                                        <stop offset={0.268} stopColor="#8282FF"/><stop offset={1} stopColor="#3923B1"/>
+                                      </radialGradient>
+                                      <radialGradient id="teams-i" cx="0" cy="0" r="1" gradientTransform="rotate(40.052 -3.155 21.416) scale(8.57554 12.4035)" gradientUnits="userSpaceOnUse">
+                                        <stop offset={0.271} stopColor="#A1D3FF"/><stop offset={0.813} stopColor="#A1D3FF" stopOpacity={0}/>
+                                      </radialGradient>
+                                      <radialGradient id="teams-j" cx="0" cy="0" r="1" gradientTransform="rotate(-41.658 20.382 -26.516) scale(10.2153 25.0589)" gradientUnits="userSpaceOnUse">
+                                        <stop stopColor="#E3ACFD"/><stop offset={0.816} stopColor="#9FA2FF" stopOpacity={0}/>
+                                      </radialGradient>
+                                      <radialGradient id="teams-k" cx="0" cy="0" r="1" gradientTransform="rotate(45 -25.763 16.328) scale(22.6274)" gradientUnits="userSpaceOnUse">
+                                        <stop offset={0.047} stopColor="#688EFF"/><stop offset={0.947} stopColor="#230F94"/>
+                                      </radialGradient>
+                                      <radialGradient id="teams-l" cx="0" cy="0" r="1" gradientTransform="matrix(0 11.2 -13.0702 0 12 32.6)" gradientUnits="userSpaceOnUse">
+                                        <stop offset={0.571} stopColor="#6965F6" stopOpacity={0}/><stop offset={1} stopColor="#8F8FFF"/>
+                                      </radialGradient>
+                                      <linearGradient id="teams-c" x1="20.594" x2="20.594" y1="18" y2="42" gradientUnits="userSpaceOnUse">
+                                        <stop offset={0.801} stopColor="#6864F6" stopOpacity={0}/><stop offset={1} stopColor="#5149DE"/>
+                                      </linearGradient>
+                                    </defs>
                                   </svg>
                                 </div>
                                 <div>
@@ -386,11 +440,9 @@ const Settings = () => {
                           <div className="space-y-2">
                             <div className="flex items-center justify-between">
                               <div className="flex items-center gap-2.5">
-                                <div className="h-9 w-9 rounded-lg bg-rose-500/10 flex items-center justify-center text-rose-600">
-                                  <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="12" cy="6" r="3.2" />
-                                    <circle cx="6.5" cy="15.5" r="3.2" />
-                                    <circle cx="17.5" cy="15.5" r="3.2" />
+                                <div className="h-9 w-9 rounded-lg bg-slate-100 dark:bg-slate-900 border flex items-center justify-center">
+                                  <svg className="h-5 w-5" viewBox="0 0 251 232" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="#F06A6A" d="M179.383 54.3733c0 30.0166-24.337 54.3737-54.354 54.3737-30.0355 0-54.3733-24.3382-54.3733-54.3737S94.9935 0 125.029 0c30.017 0 54.354 24.3378 54.354 54.3733ZM54.3928 122.33c-30.0166 0-54.373269 24.338-54.373269 54.355 0 30.017 24.337769 54.373 54.373269 54.373 30.0354 0 54.3732-24.338 54.3732-54.373 0-30.017-24.3378-54.355-54.3732-54.355Zm141.2532 0c-30.035 0-54.373 24.338-54.373 54.374 0 30.035 24.338 54.373 54.373 54.373 30.017 0 54.374-24.338 54.374-54.373 0-30.036-24.338-54.374-54.374-54.374Z"/>
                                   </svg>
                                 </div>
                                 <div>
@@ -414,9 +466,9 @@ const Settings = () => {
                           <div className="space-y-2">
                             <div className="flex items-center justify-between">
                               <div className="flex items-center gap-2.5">
-                                <div className="h-9 w-9 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-600">
-                                  <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12 2c5.522 0 10 4.477 10 10 0 5.522-4.478 10-10 10S2 17.522 2 12C2 6.477 6.478 2 12 2zm3.327 5.753l-6.143 6.143-.377-.376 4.636-4.637-.886-.885-4.636 4.636-.377-.377 3.136-3.136-.885-.885-3.136 3.136-.376-.376 1.636-1.637-.885-.885-2.012 2.012 5.064 5.064 8.163-8.163-.884-.884z"/>
+                                <div className="h-9 w-9 rounded-lg bg-slate-100 dark:bg-slate-900 border flex items-center justify-center">
+                                  <svg className="h-5 w-5" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="#5E6AD2" d="M1.225 61.523c-.222-.949.908-1.546 1.597-.857l36.512 36.512c.69.69.092 1.82-.857 1.597-18.425-4.323-32.93-18.827-37.252-37.252ZM.002 46.889a.99.99 0 0 0 .29.76L52.35 99.71c.201.2.478.307.76.29 2.37-.149 4.695-.46 6.963-.927.765-.157 1.03-1.096.478-1.648L2.576 39.448c-.552-.551-1.491-.286-1.648.479a50.067 50.067 0 0 0-.926 6.962ZM4.21 29.705a.988.988 0 0 0 .208 1.1l64.776 64.776c.289.29.726.375 1.1.208a49.908 49.908 0 0 0 5.185-2.684.981.981 0 0 0 .183-1.54L8.436 24.336a.981.981 0 0 0-1.541.183 49.896 49.896 0 0 0-2.684 5.185Zm8.448-11.631a.986.986 0 0 1-.045-1.354C21.78 6.46 35.111 0 49.952 0 77.592 0 100 22.407 100 50.048c0 14.84-6.46 28.172-16.72 37.338a.986.986 0 0 1-1.354-.045L12.659 18.074Z"/>
                                   </svg>
                                 </div>
                                 <div>
@@ -440,9 +492,10 @@ const Settings = () => {
                           <div className="space-y-2">
                             <div className="flex items-center justify-between">
                               <div className="flex items-center gap-2.5">
-                                <div className="h-9 w-9 rounded-lg bg-slate-500/10 dark:bg-slate-400/10 flex items-center justify-center text-foreground">
-                                  <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M4.459 4.208c.746.606 1.026.56 2.428.466l13.215-.793c.28 0 .047-.28-.046-.326L17.86 1.968c-.42-.326-.981-.7-2.055-.607L3.01 2.295c-.466.046-.56.28-.374.466zm.793 3.08v13.904c0 .747.373 1.027 1.214.98l14.523-.84c.841-.046.935-.56.935-1.167V6.354c0-.606-.233-.933-.748-.887l-15.177.887c-.56.047-.747.327-.747.933zm14.337.745c.093.42 0 .84-.42.888l-.7.14v10.264c-.608.327-1.168.514-1.635.514-.748 0-.935-.234-1.495-.933l-4.577-7.186v6.952L12.21 19s0 .84-1.168.84l-3.222.186c-.093-.186 0-.653.327-.746l.84-.233V9.854L7.822 9.76c-.094-.42.14-1.026.793-1.073l3.456-.233 4.764 7.279v-6.44l-1.215-.139c-.093-.514.28-.887.747-.933zM1.936 1.035l13.31-.98c1.634-.14 2.055-.047 3.082.7l4.249 2.986c.7.513.934.653.934 1.213v16.378c0 1.026-.373 1.634-1.68 1.726l-15.458.934c-.98.047-1.448-.093-1.962-.747l-3.129-4.06c-.56-.747-.793-1.306-.793-1.96V2.667c0-.839.374-1.54 1.447-1.632z"/>
+                                <div className="h-9 w-9 rounded-lg bg-slate-100 dark:bg-slate-900 border flex items-center justify-center text-foreground">
+                                  <svg className="h-5 w-5" viewBox="0 0 256 268" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="currentColor" d="M16.092 11.538 164.09.608c18.179-1.56 22.85-.508 34.28 7.801l47.243 33.282C253.406 47.414 256 48.975 256 55.207v182.527c0 11.439-4.155 18.205-18.696 19.24L65.44 267.378c-10.913.517-16.11-1.043-21.825-8.327L8.826 213.814C2.586 205.487 0 199.254 0 191.97V29.726c0-9.352 4.155-17.153 16.092-18.188Z" opacity={0.15}/>
+                                    <path fill="currentColor" d="M164.09.608 16.092 11.538C4.155 12.573 0 20.374 0 29.726v162.245c0 7.284 2.585 13.516 8.826 21.843l34.789 45.237c5.715 7.284 10.912 8.844 21.825 8.327l171.864-10.404c14.532-1.035 18.696-7.801 18.696-19.24V55.207c0-5.911-2.336-7.614-9.21-12.66l-1.185-.856L198.37 8.409C186.94.1 182.27-.952 164.09.608ZM69.327 52.22c-14.033.945-17.216 1.159-25.186-5.323L23.876 30.778c-2.06-2.086-1.026-4.69 4.163-5.207l142.274-10.395c11.947-1.043 18.17 3.12 22.842 6.758l24.401 17.68c1.043.525 3.638 3.637.517 3.637L71.146 52.095l-1.819.125Zm-16.36 183.954V81.222c0-6.767 2.077-9.887 8.3-10.413L230.02 60.93c5.724-.517 8.31 3.12 8.31 9.879v153.917c0 6.767-1.044 12.49-10.387 13.008l-161.487 9.361c-9.343.517-13.489-2.594-13.489-10.921ZM212.377 89.53c1.034 4.681 0 9.362-4.155 9.879l-11.946 1.043V203.95l7.792-.516.516.516c0 .524-1.044 1.56-2.084 1.56l-34.8.52c-.523 0-1.558-.52-1.558-1.56l.52-.516 7.79-.516V103.056l-21.3 27.534-.516.52c-.524 0-.524-.52-1.033-.52l-21.824-27.534v100.9l7.79.516.52.516c0 .524-1.044 1.56-2.084 1.56l-34.28.52c-.524 0-1.559-.52-1.559-1.56l.52-.516 7.278-.516V92.65l-8.31-.52c-.524 0-1.036-.526-.524-1.56l16.108-1.043 31.171 39.51 30.655-39.51 28.053-1.559c.523 0 .523.517.523 1.043Z" />
                                   </svg>
                                 </div>
                                 <div>
@@ -466,9 +519,12 @@ const Settings = () => {
                           <div className="space-y-2">
                             <div className="flex items-center justify-between">
                               <div className="flex items-center gap-2.5">
-                                <div className="h-9 w-9 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-600">
-                                  <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M21.147 0H2.853A2.86 2.86 0 000 2.853v18.294A2.86 2.86 0 002.853 24h18.294A2.86 2.86 0 0024 21.147V2.853A2.86 2.86 0 0021.147 0zM10.34 17.287a.953.953 0 01-.953.953h-4a.954.954 0 01-.954-.953V5.38a.953.953 0 01.954-.953h4a.954.954 0 01.953.953zm9.233-5.467a.944.944 0 01-.953.947h-4a.947.947 0 01-.953-.947V5.38a.953.953 0 01.953-.953h4a.954.954 0 01.953.953z"/>
+                                <div className="h-9 w-9 rounded-lg bg-slate-100 dark:bg-slate-900 border flex items-center justify-center">
+                                  <svg className="h-5 w-5" viewBox="0 0 63 63" xmlns="http://www.w3.org/2000/svg">
+                                    <linearGradient id="trello-a" x1="50.048061%" x2="50.048061%" y1="100%" y2="0%">
+                                      <stop stopColor="#0052cc"/><stop offset={1} stopColor="#2684ff"/>
+                                    </linearGradient>
+                                    <path d="m55.59.07h-47.59c-4.09405078 0-7.41448241 3.31595294-7.42006073 7.41v47.52c-.00791682 1.9730991.77030774 3.8681213 2.16269326 5.2661365 1.39238553 1.3980151 3.28425224 2.1838635 5.25736747 2.1838635h47.59c1.9713817-.0026407 3.8606757-.7896772 5.250897-2.1874031s2.1670753-3.2912295 2.1591638-5.2625969v-47.52c-.0055694-4.09014608-3.3199147-7.40449138-7.4100608-7.41zm-28.09 44.93c-.0026377.6594819-.2678382 1.2907542-.7369724 1.7542587-.4691341.4635046-1.1035619.721065-1.7630276.7158222h-10.4c-1.3602365-.005588-2.46-1.1098333-2.46-2.4700809v-30.95c0-1.3602476 1.0997635-2.4644929 2.46-2.47h10.4c1.3618668.0054804 2.4645196 1.1081332 2.47 2.47zm24-14.21c0 .6603158-.2642968 1.2931595-.7340204 1.7572465-.4697237.464087-1.1057125.7207735-1.7659796.7129359h-10.4c-1.3618668-.0056628-2.4645196-1.1083156-2.47-2.4701824v-16.74c.0054804-1.3618668 1.1081332-2.4645196 2.47-2.47h10.4c1.3602365.0055071 2.4600111 1.1097524 2.46 2.47z" fill="url(#trello-a)"/>
                                   </svg>
                                 </div>
                                 <div>
@@ -500,9 +556,14 @@ const Settings = () => {
                           <div className="space-y-2">
                             <div className="flex items-center justify-between">
                               <div className="flex items-center gap-2.5">
-                                <div className="h-9 w-9 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-600">
-                                  <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12.01 1.485c-2.082 0-3.754.02-3.743.047.01.02 1.708 3.001 3.774 6.62l3.76 6.574h3.76c2.081 0 3.753-.02 3.742-.047-.005-.02-1.708-3.001-3.775-6.62l-3.76-6.574zm-4.76 1.73a789.828 789.861 0 0 0-3.63 6.319L0 15.868l1.89 3.298 1.885 3.297 3.62-6.335 3.618-6.33-1.88-3.287C8.1 4.704 7.255 3.22 7.25 3.214zm2.259 12.653-.203.348c-.114.198-.96 1.672-1.88 3.287a423.93 423.948 0 0 1-1.698 2.97c-.01.026 3.24.042 7.222.042h7.244l1.796-3.157c.992-1.734 1.85-3.23 1.906-3.323l.104-.167h-7.249z"/>
+                                <div className="h-9 w-9 rounded-lg bg-slate-100 dark:bg-slate-900 border flex items-center justify-center">
+                                  <svg className="h-5 w-5" viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="#0066da" d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3L27.5 53H0c0 1.55.4 3.1 1.2 4.5z"/>
+                                    <path fill="#00ac47" d="M43.65 25 29.9 1.2c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44A9.06 9.06 0 0 0 0 53h27.5z"/>
+                                    <path fill="#ea4335" d="M73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75L86.1 57.5c.8-1.4 1.2-2.95 1.2-4.5H59.798l5.852 11.5z"/>
+                                    <path fill="#00832d" d="M43.65 25 57.4 1.2C56.05.4 54.5 0 52.9 0H34.4c-1.6 0-3.15.45-4.5 1.2z"/>
+                                    <path fill="#2684fc" d="M59.8 53H27.5L13.75 76.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z"/>
+                                    <path fill="#ffba00" d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3L43.65 25 59.8 53h27.45c0-1.55-.4-3.1-1.2-4.5z"/>
                                   </svg>
                                 </div>
                                 <div>
@@ -526,9 +587,20 @@ const Settings = () => {
                           <div className="space-y-2">
                             <div className="flex items-center justify-between">
                               <div className="flex items-center gap-2.5">
-                                <div className="h-9 w-9 rounded-lg bg-orange-500/10 flex items-center justify-center text-orange-600">
-                                  <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M15.852 8.981h-4.588V0h4.588c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.491-4.49 4.491zM12.735 7.51h3.117c1.665 0 3.019-1.355 3.019-3.019s-1.355-3.019-3.019-3.019h-3.117V7.51zm0 1.471H8.148c-2.476 0-4.49-2.014-4.49-4.49S5.672 0 8.148 0h4.588v8.981zm-4.587-7.51c-1.665 0-3.019 1.355-3.019 3.019s1.354 3.02 3.019 3.02h3.117V1.471H8.148zm4.587 15.019H8.148c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h4.588v8.98zM8.148 8.981c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h3.117V8.981H8.148zM8.172 24c-2.489 0-4.515-2.014-4.515-4.49s2.014-4.49 4.49-4.49h4.588v4.441c0 2.503-2.047 4.539-4.563 4.539zm-.024-7.51a3.023 3.023 0 0 0-3.019 3.019c0 1.665 1.365 3.019 3.044 3.019 1.705 0 3.093-1.376 3.093-3.068v-2.97H8.148zm7.704 0h-.098c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h.098c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.49-4.49 4.49zm-.097-7.509c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h.098c1.665 0 3.019-1.355 3.019-3.019s-1.355-3.019-3.019-3.019h-.098z"/>
+                                <div className="h-9 w-9 rounded-lg bg-slate-100 dark:bg-slate-900 border flex items-center justify-center">
+                                  <svg className="h-5 w-5" viewBox="0 0 54 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g clipPath="url(#figma-clip)">
+                                      <path d="M13.3333 80.0002C20.6933 80.0002 26.6667 74.0268 26.6667 66.6668V53.3335H13.3333C5.97333 53.3335 0 59.3068 0 66.6668C0 74.0268 5.97333 80.0002 13.3333 80.0002Z" fill="#0ACF83"/>
+                                      <path d="M0 39.9998C0 32.6398 5.97333 26.6665 13.3333 26.6665H26.6667V53.3332H13.3333C5.97333 53.3332 0 47.3598 0 39.9998Z" fill="#A259FF"/>
+                                      <path d="M0 13.3333C0 5.97333 5.97333 0 13.3333 0H26.6667V26.6667H13.3333C5.97333 26.6667 0 20.6933 0 13.3333Z" fill="#F24E1E"/>
+                                      <path d="M26.6667 0H40.0001C47.3601 0 53.3334 5.97333 53.3334 13.3333C53.3334 20.6933 47.3601 26.6667 40.0001 26.6667H26.6667V0Z" fill="#FF7262"/>
+                                      <path d="M53.3334 39.9998C53.3334 47.3598 47.3601 53.3332 40.0001 53.3332C32.6401 53.3332 26.6667 47.3598 26.6667 39.9998C26.6667 32.6398 32.6401 26.6665 40.0001 26.6665C47.3601 26.6665 53.3334 32.6398 53.3334 39.9998Z" fill="#1ABCFE"/>
+                                    </g>
+                                    <defs>
+                                      <clipPath id="figma-clip">
+                                        <rect width="53.3333" height="80" fill="white"/>
+                                      </clipPath>
+                                    </defs>
                                   </svg>
                                 </div>
                                 <div>
@@ -552,9 +624,9 @@ const Settings = () => {
                           <div className="space-y-2">
                             <div className="flex items-center justify-between">
                               <div className="flex items-center gap-2.5">
-                                <div className="h-9 w-9 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-600">
-                                  <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M6 1.807L0 5.629l6 3.822 6.001-3.822L6 1.807zM18 1.807l-6 3.822 6 3.822 6-3.822-6-3.822zM0 13.274l6 3.822 6.001-3.822L6 9.452l-6 3.822zM18 9.452l-6 3.822 6 3.822 6-3.822-6-3.822zM6 18.371l6.001 3.822 6-3.822-6-3.822L6 18.371z"/>
+                                <div className="h-9 w-9 rounded-lg bg-slate-100 dark:bg-slate-900 border flex items-center justify-center">
+                                  <svg className="h-5 w-5" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="#0061FE" d="M43.7 32 23.404 44.75 43.701 57.5 64 44.75 84.3 57.5l20.298-12.75L84.299 32 64.002 44.75 43.7 32Zm0 51L23.404 70.25 43.701 57.5 64 70.25 43.702 83Zm20.302-12.75L84.299 57.5l20.298 12.75L84.299 83 64.002 70.25Zm0 29.75L43.7 87.25 64 74.5l20.3 12.75L64.002 100Z"/>
                                   </svg>
                                 </div>
                                 <div>
@@ -586,14 +658,14 @@ const Settings = () => {
                           <div className="space-y-2">
                             <div className="flex items-center justify-between">
                               <div className="flex items-center gap-2.5">
-                                <div className="h-9 w-9 rounded-lg bg-orange-500/10 flex items-center justify-center text-orange-600">
-                                  <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12 0c-.55 0-1 .45-1 1v7.66l-5.42-5.42c-.39-.39-1.02-.39-1.41 0s-.39 1.02 0 1.41L9.59 10H1.93c-.55 0-1 .45-1 1s.45 1 1 1h7.66l-5.42 5.42c-.39.39-.39 1.02 0 1.41.2.2.45.3.71.3s.51-.1.71-.3L11 13.34V21c0 .55.45 1 1 1s1-.45 1-1v-7.66l5.42 5.42c.2.2.45.3.71.3s.51-.1.71-.3c.39-.39.39-1.02 0-1.41L14.41 12h7.66c.55 0 1-.45 1-1s-.45-1-1-1h-7.66l-5.42-5.42c.39-.39.39-1.02 0-1.41s-1.02-.39-1.41 0L13 8.66V1c0-.55-.45-1-1-1z" />
+                                <div className="h-9 w-9 rounded-lg bg-slate-100 dark:bg-slate-900 border flex items-center justify-center">
+                                  <svg className="h-5 w-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 0c-.55 0-1 .45-1 1v7.66l-5.42-5.42c-.39-.39-1.02-.39-1.41 0s-.39 1.02 0 1.41L9.59 10H1.93c-.55 0-1 .45-1 1s.45 1 1 1h7.66l-5.42 5.42c-.39.39-.39 1.02 0 1.41.2.2.45.3.71.3s.51-.1.71-.3L11 13.34V21c0 .55.45 1 1 1s1-.45 1-1v-7.66l5.42 5.42c.2.2.45.3.71.3s.51-.1.71-.3c.39-.39.39-1.02 0-1.41L14.41 12h7.66c.55 0 1-.45 1-1s-.45-1-1-1h-7.66l-5.42-5.42c.39-.39.39-1.02 0-1.41s-1.02-.39-1.41 0L13 8.66V1c0-.55-.45-1-1-1z" fill="#ff4f00"/>
                                   </svg>
                                 </div>
                                 <div>
                                   <h3 className="text-[13px] font-bold">Zapier Automation</h3>
-                                  <p className="text-[10px] text-muted-foreground">Webhooks & Triggers</p>
+                                  <p className="text-[10px] text-muted-foreground">Triggers & Webhooks</p>
                                 </div>
                               </div>
                               <span className="text-[9px] bg-primary/10 text-primary font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Connected</span>
@@ -612,9 +684,9 @@ const Settings = () => {
                           <div className="space-y-2">
                             <div className="flex items-center justify-between">
                               <div className="flex items-center gap-2.5">
-                                <div className="h-9 w-9 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-600">
-                                  <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M13.96 2c-2.43 0-4.06 1.24-4.06 3.71 0 3.66 5.02 3.08 5.02 4.67 0 .54-.45.79-1.23.79-1.58 0-3.35-.68-3.35-.68l-.9 3.96s1.96.81 4.14.81c2.59 0 5.38-1.15 5.38-3.94 0-3.87-5.02-3.2-5.02-4.64 0-.47.4-.72 1.13-.72.99 0 2.52.36 2.52.36l.88-3.98s-1.82-.38-3.53-.38z"/>
+                                <div className="h-9 w-9 rounded-lg bg-slate-100 dark:bg-slate-900 border flex items-center justify-center">
+                                  <svg className="h-5 w-5" viewBox="100 100 312 312" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="#635bff" fillRule="evenodd" d="m120 392 272-57.683V120l-272 58.357z" clipRule="evenodd"/>
                                   </svg>
                                 </div>
                                 <div>
