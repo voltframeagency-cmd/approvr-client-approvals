@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
@@ -25,8 +25,44 @@ import NotFound from "./pages/NotFound";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import Trust from "./pages/Trust";
+import { AnimatePresence } from "framer-motion";
+import { PageTransition } from "./components/motion/PageTransition";
 
 const queryClient = new QueryClient();
+
+const AnimatedRoutes = () => {
+  const location = useLocation();
+  
+  // Dashboard navigation should be instant and preserve layout state.
+  // We use a constant key for dashboard routes to prevent AnimatePresence unmounting the parent AppLayout.
+  const isDashboard = location.pathname.startsWith('/dashboard');
+  const transitionKey = isDashboard ? '/dashboard' : location.pathname;
+
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={transitionKey}>
+        <Route path="/" element={<PageTransition><Index /></PageTransition>} />
+        <Route path="/pricing" element={<PageTransition><PricingPage /></PageTransition>} />
+        <Route path="/blog" element={<PageTransition><Blog /></PageTransition>} />
+        <Route path="/blog/:slug" element={<PageTransition><BlogPost /></PageTransition>} />
+        <Route path="/login" element={<PageTransition><Login /></PageTransition>} />
+        <Route path="/signup" element={<PageTransition><Signup /></PageTransition>} />
+        <Route path="/privacy" element={<PageTransition><Privacy /></PageTransition>} />
+        <Route path="/terms" element={<PageTransition><Terms /></PageTransition>} />
+        <Route path="/trust" element={<PageTransition><Trust /></PageTransition>} />
+        <Route path="/portal" element={<PageTransition><ClientPortal /></PageTransition>} />
+        <Route path="/dashboard" element={<ProtectedRoute><AppLayout /></ProtectedRoute>}>
+          <Route index element={<Dashboard />} />
+          <Route path="projects" element={<Projects />} />
+          <Route path="projects/:id" element={<ProjectDetail />} />
+          <Route path="notifications" element={<Notifications />} />
+          <Route path="settings" element={<Settings />} />
+        </Route>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </AnimatePresence>
+  );
+};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -38,26 +74,7 @@ const App = () => (
             <Toaster />
             <Sonner />
             <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/pricing" element={<PricingPage />} />
-                <Route path="/blog" element={<Blog />} />
-                <Route path="/blog/:slug" element={<BlogPost />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<Signup />} />
-                <Route path="/privacy" element={<Privacy />} />
-                <Route path="/terms" element={<Terms />} />
-                <Route path="/trust" element={<Trust />} />
-                <Route path="/portal" element={<ClientPortal />} />
-                <Route path="/dashboard" element={<ProtectedRoute><AppLayout /></ProtectedRoute>}>
-                  <Route index element={<Dashboard />} />
-                  <Route path="projects" element={<Projects />} />
-                  <Route path="projects/:id" element={<ProjectDetail />} />
-                  <Route path="notifications" element={<Notifications />} />
-                  <Route path="settings" element={<Settings />} />
-                </Route>
-                <Route path="*" element={<NotFound />} />
-              </Routes>
+              <AnimatedRoutes />
             </BrowserRouter>
           </TooltipProvider>
           </DemoProvider>
