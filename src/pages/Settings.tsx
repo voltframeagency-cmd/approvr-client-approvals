@@ -41,7 +41,7 @@ const Settings = () => {
   } : usageData;
   const effectiveMembers = isDemoMode ? (demoData?.members ?? []) : members;
 
-  const [activeTab, setActiveTab] = useState<'general' | 'branding' | 'notifications' | 'team' | 'usage'>('general');
+  const [activeTab, setActiveTab] = useState<'general' | 'branding' | 'notifications' | 'integrations' | 'team' | 'usage'>('general');
   
   // Form state
   const [workspaceName, setWorkspaceName] = useState('');
@@ -131,6 +131,7 @@ const Settings = () => {
   const tabs = [
     { id: 'general', label: 'General', icon: Building2 },
     { id: 'notifications', label: 'Notifications', icon: Bell },
+    { id: 'integrations', label: 'Integrations', icon: Zap },
     { id: 'team', label: 'Team', icon: Users },
     { id: 'usage', label: 'Plan & Usage', icon: CreditCard },
   ];
@@ -231,6 +232,140 @@ const Settings = () => {
                             className="accent-primary h-4 w-4" />
                         </div>
                       ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Integrations Tab */}
+              {activeTab === 'integrations' && (
+                <div className="card-elevated p-4 sm:p-6 space-y-5 sm:space-y-6">
+                  <div>
+                    <h2 className="font-semibold text-[15px] sm:text-base">Connected Applications</h2>
+                    <p className="text-[12px] sm:text-[13px] text-muted-foreground mt-0.5">
+                      Keep your existing tools. Approvr handles the client-facing portals, updating your internal databases automatically.
+                    </p>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* Zapier Card */}
+                    <div className="p-4 rounded-xl border bg-card/50 hover:bg-card/85 transition-colors flex flex-col justify-between gap-4">
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2.5">
+                            <div className="h-9 w-9 rounded-lg bg-orange-500/10 flex items-center justify-center font-bold text-orange-600 text-sm">
+                              Z
+                            </div>
+                            <div>
+                              <h3 className="text-[13px] font-bold">Zapier Automation</h3>
+                              <p className="text-[10px] text-muted-foreground">Webhooks & Triggers</p>
+                            </div>
+                          </div>
+                          <span className="text-[9px] bg-primary/10 text-primary font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Connected</span>
+                        </div>
+                        <p className="text-[12px] text-muted-foreground leading-relaxed pt-1">
+                          Trigger custom flows in 5,000+ apps. Automatically create QuickBooks invoices, notify Slack channels, or log approvals in Google Sheets.
+                        </p>
+                      </div>
+                      <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold w-full gap-1.5" onClick={() => toast.info("Zapier webhook settings configured")}>
+                        Configure Zapier <ExternalLink className="h-3 w-3" />
+                      </Button>
+                    </div>
+
+                    {/* Google SSO Card */}
+                    <div className="p-4 rounded-xl border bg-card/50 hover:bg-card/85 transition-colors flex flex-col justify-between gap-4">
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2.5">
+                            <div className="h-9 w-9 rounded-lg bg-blue-500/10 flex items-center justify-center font-bold text-blue-600 text-sm">
+                              G
+                            </div>
+                            <div>
+                              <h3 className="text-[13px] font-bold">Google Client Auth</h3>
+                              <p className="text-[10px] text-muted-foreground">Single Sign-On (SSO)</p>
+                            </div>
+                          </div>
+                          <span className="text-[9px] bg-emerald-500/10 text-emerald-600 font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Active</span>
+                        </div>
+                        <p className="text-[12px] text-muted-foreground leading-relaxed pt-1">
+                          Eliminate client registration friction. Clients can access their deliverables and request changes instantly using their Google account.
+                        </p>
+                      </div>
+                      <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold w-full text-muted-foreground" disabled>
+                        Google Auth Enabled
+                      </Button>
+                    </div>
+
+                    {/* Asana Card */}
+                    <div className="p-4 rounded-xl border bg-card/50 hover:bg-card/85 transition-colors flex flex-col justify-between gap-4">
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2.5">
+                            <div className="h-9 w-9 rounded-lg bg-rose-500/10 flex items-center justify-center font-bold text-rose-600 text-sm">
+                              A
+                            </div>
+                            <div>
+                              <h3 className="text-[13px] font-bold">Asana Projects</h3>
+                              <p className="text-[10px] text-muted-foreground">Task Sync</p>
+                            </div>
+                          </div>
+                          <span className="text-[9px] bg-muted text-muted-foreground font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Not Connected</span>
+                        </div>
+                        <p className="text-[12px] text-muted-foreground leading-relaxed pt-1">
+                          Link deliverables directly to Asana tasks. Automatically advance tasks or move them to 'Approved' columns as soon as clients sign off.
+                        </p>
+                      </div>
+                      <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold w-full" onClick={() => toast.success("Connecting Asana...")}>
+                        Connect Asana
+                      </Button>
+                    </div>
+
+                    {/* Linear Card */}
+                    <div className="p-4 rounded-xl border bg-card/50 hover:bg-card/85 transition-colors flex flex-col justify-between gap-4">
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2.5">
+                            <div className="h-9 w-9 rounded-lg bg-indigo-500/10 flex items-center justify-center font-bold text-indigo-600 text-sm">
+                              L
+                            </div>
+                            <div>
+                              <h3 className="text-[13px] font-bold">Linear Issues</h3>
+                              <p className="text-[10px] text-muted-foreground">Issue Tracking</p>
+                            </div>
+                          </div>
+                          <span className="text-[9px] bg-muted text-muted-foreground font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Not Connected</span>
+                        </div>
+                        <p className="text-[12px] text-muted-foreground leading-relaxed pt-1">
+                          Sync project cycles. Update issue states, close bug tickets, or notify design owners as soon as revision cycles are completed.
+                        </p>
+                      </div>
+                      <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold w-full" onClick={() => toast.success("Connecting Linear...")}>
+                        Connect Linear
+                      </Button>
+                    </div>
+
+                    {/* Stripe Card */}
+                    <div className="p-4 rounded-xl border bg-card/50 hover:bg-card/85 transition-colors flex flex-col justify-between gap-4">
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2.5">
+                            <div className="h-9 w-9 rounded-lg bg-purple-500/10 flex items-center justify-center font-bold text-purple-600 text-sm">
+                              S
+                            </div>
+                            <div>
+                              <h3 className="text-[13px] font-bold">Stripe Checkout</h3>
+                              <p className="text-[10px] text-muted-foreground">Payment Collections</p>
+                            </div>
+                          </div>
+                          <span className="text-[9px] bg-primary/10 text-primary font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Connected</span>
+                        </div>
+                        <p className="text-[12px] text-muted-foreground leading-relaxed pt-1">
+                          Collect payments directly from client sign-off pages. Paste your Stripe payment links to collect deposits or final balances. Approvr takes 0% cuts.
+                        </p>
+                      </div>
+                      <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold w-full gap-1.5" onClick={() => toast.info("Stripe payment webhook is active")}>
+                        Configure Stripe <ExternalLink className="h-3 w-3" />
+                      </Button>
                     </div>
                   </div>
                 </div>
