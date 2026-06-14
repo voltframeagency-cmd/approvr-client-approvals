@@ -475,9 +475,11 @@ export default function HeroBackground({
       container.addEventListener('pointerleave', handlePointerLeave);
     }
 
+    let isIntersecting = false;
     let raf = 0;
+    
     const renderLoop = () => {
-      if (!active) return;
+      if (!active || !isIntersecting) return;
 
       uniforms.iTime.value = clock.getElapsedTime();
 
@@ -497,11 +499,25 @@ export default function HeroBackground({
       renderer.render(scene, camera);
       raf = requestAnimationFrame(renderLoop);
     };
-    renderLoop();
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const wasIntersecting = isIntersecting;
+        isIntersecting = entry.isIntersecting;
+        if (isIntersecting && !wasIntersecting) {
+          raf = requestAnimationFrame(renderLoop);
+        } else if (!isIntersecting && wasIntersecting) {
+          cancelAnimationFrame(raf);
+        }
+      },
+      { threshold: 0.01 }
+    );
+    observer.observe(container);
 
     return () => {
       active = false;
-
+      isIntersecting = false;
+      observer.disconnect();
       cancelAnimationFrame(raf);
 
       if (ro) ro.disconnect();

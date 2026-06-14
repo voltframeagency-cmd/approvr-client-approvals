@@ -52,7 +52,7 @@ export const Testimonials = () => {
   return (
     <section id="testimonials" className="py-16 md:py-32 relative overflow-hidden bg-muted/20">
       {/* Background Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, hsl(var(--primary) / 0.03) 0%, transparent 65%)' }} />
 
       <div className="container px-4 mx-auto relative">
         <motion.div 
@@ -73,7 +73,7 @@ export const Testimonials = () => {
         </motion.div>
 
         <div className="max-w-5xl mx-auto relative px-2 md:px-12">
-          <div className="relative overflow-hidden rounded-2xl md:rounded-[3rem] border border-primary/10 bg-card/40 backdrop-blur-2xl p-6 md:p-16 shadow-2xl">
+          <div className="relative overflow-hidden rounded-2xl md:rounded-[3rem] border border-primary/10 bg-card/75 backdrop-blur-md p-6 md:p-16 shadow-2xl will-change-transform">
             <Quote className="absolute top-4 left-4 md:top-8 md:left-8 h-8 w-8 md:h-12 md:w-12 text-primary/10" />
             
             <AnimatePresence mode="wait">

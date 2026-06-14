@@ -69,8 +69,8 @@ export const Features = () => {
   return (
     <section id="features" className="py-16 md:py-32 relative overflow-hidden">
       {/* Background ambient glow */}
-      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, hsl(var(--primary) / 0.03) 0%, transparent 65%)' }} />
+      <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, hsl(var(--primary) / 0.03) 0%, transparent 65%)' }} />
 
       <div className="container px-4 mx-auto relative">
         <motion.div 
@@ -159,42 +159,39 @@ export const Features = () => {
             className="relative"
           >
             {/* Glossy Mockup Container */}
-            <div className="relative rounded-xl md:rounded-[2rem] border border-primary/10 bg-card/40 backdrop-blur-3xl overflow-hidden min-h-[280px] md:min-h-[460px] shadow-[0_32px_120px_-20px_rgba(0,0,0,0.3)] ring-1 ring-white/10 group">
+            <div className="relative rounded-xl md:rounded-[2rem] border border-primary/10 bg-card/75 backdrop-blur-md overflow-hidden min-h-[280px] md:min-h-[460px] shadow-[0_32px_120px_-20px_rgba(0,0,0,0.3)] ring-1 ring-white/10 group">
               <div className="absolute inset-0 bg-gradient-to-tr from-primary/[0.02] via-transparent to-primary/[0.05]" />
               
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeIndex}
-                  initial={{ opacity: 0, scale: 0.98, filter: 'blur(10px)' }}
-                  animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-                  exit={{ opacity: 0, scale: 1.02, filter: 'blur(10px)' }}
-                  transition={{ duration: DURATION.structural, ease: EASING.standard as unknown as number[] }}
-                  className="w-full h-full flex items-center justify-center p-4 md:p-8 lg:p-12"
-                >
-                  <div className="w-full max-w-2xl aspect-video bg-slate-100/50 dark:bg-muted/20 rounded-[2rem] border border-primary/25 flex items-center justify-center relative shadow-[inset_0_4px_12px_rgba(0,0,0,0.05)] dark:shadow-inner overflow-hidden">
-                    {/* 3D Curved Glass Bezel Glare & Shadow */}
-                    <div className="absolute inset-0 pointer-events-none rounded-[2rem] overflow-hidden z-20">
-                      {/* Glossy bezel reflection */}
-                      <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-white/60 via-white/5 to-transparent dark:from-white/10 dark:via-transparent dark:to-transparent" />
-                      {/* Left bezel shadow representing depth recursion */}
-                      <div className="absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-black/[0.12] to-transparent dark:from-black/60 dark:to-transparent" />
-                      {/* Right bezel shadow */}
-                      <div className="absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-black/[0.05] to-transparent dark:from-black/30 dark:to-transparent" />
-                      {/* Top reflection glare */}
-                      <div className="absolute inset-x-0 top-0 h-8 bg-gradient-to-b from-white/45 to-transparent dark:from-white/10" />
-                      {/* Screen diagonal glare sheen */}
-                      <div className="absolute -inset-[100%] bg-gradient-to-tr from-transparent via-white/[0.08] dark:via-white/[0.03] to-transparent rotate-12 translate-x-1/3" />
-                    </div>
-
-                    <div className="relative z-10 w-full h-full flex items-center justify-center p-4">
-                      {(() => {
-                        const Demo = features[activeIndex].demo;
-                        return <Demo />;
-                      })()}
-                    </div>
+              <motion.div
+                key={activeIndex}
+                initial={{ opacity: 0, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: DURATION.structural, ease: "easeOut" }}
+                className="w-full h-full flex items-center justify-center p-4 md:p-8 lg:p-12"
+              >
+                <div className="w-full max-w-2xl aspect-video mockup-mesh-bg rounded-[2rem] border border-primary/25 flex items-center justify-center relative shadow-[inset_0_4px_12px_rgba(0,0,0,0.05)] dark:shadow-inner overflow-hidden">
+                  {/* 3D Curved Glass Bezel Glare & Shadow */}
+                  <div className="absolute inset-0 pointer-events-none rounded-[2rem] overflow-hidden z-20">
+                    {/* Glossy bezel reflection */}
+                    <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-white/60 via-white/5 to-transparent dark:from-white/10 dark:via-transparent dark:to-transparent" />
+                    {/* Left bezel shadow representing depth recursion */}
+                    <div className="absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-black/[0.12] to-transparent dark:from-black/60 dark:to-transparent" />
+                    {/* Right bezel shadow */}
+                    <div className="absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-black/[0.05] to-transparent dark:from-black/30 dark:to-transparent" />
+                    {/* Top reflection glare */}
+                    <div className="absolute inset-x-0 top-0 h-8 bg-gradient-to-b from-white/45 to-transparent dark:from-white/10" />
+                    {/* Screen diagonal glare sheen */}
+                    <div className="absolute -inset-[100%] bg-gradient-to-tr from-transparent via-white/[0.08] dark:via-white/[0.03] to-transparent rotate-12 translate-x-1/3" />
                   </div>
-                </motion.div>
-              </AnimatePresence>
+
+                  <div className="relative z-10 w-full h-full flex items-center justify-center p-4">
+                    {(() => {
+                      const Demo = features[activeIndex].demo;
+                      return <Demo />;
+                    })()}
+                  </div>
+                </div>
+              </motion.div>
 
               {/* Decorative elements */}
               <div className="absolute bottom-6 left-6 flex gap-2">
@@ -205,8 +202,8 @@ export const Features = () => {
             </div>
 
             {/* Glowing accent dots */}
-            <div className="absolute -top-12 -right-12 w-64 h-64 bg-primary/10 rounded-full blur-[80px] pointer-events-none group-hover:bg-primary/20 transition-colors duration-150" />
-            <div className="absolute -bottom-12 -left-12 w-64 h-64 bg-primary/5 rounded-full blur-[80px] pointer-events-none group-hover:bg-primary/10 transition-colors duration-150" />
+            <div className="absolute -top-12 -right-12 w-64 h-64 rounded-full pointer-events-none group-hover:bg-primary/20 transition-colors duration-150" style={{ background: 'radial-gradient(circle, hsl(var(--primary) / 0.1) 0%, transparent 65%)' }} />
+            <div className="absolute -bottom-12 -left-12 w-64 h-64 rounded-full pointer-events-none group-hover:bg-primary/10 transition-colors duration-150" style={{ background: 'radial-gradient(circle, hsl(var(--primary) / 0.05) 0%, transparent 65%)' }} />
           </motion.div>
         </div>
       </div>

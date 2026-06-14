@@ -82,7 +82,7 @@ const Pricing = () => {
   return (
     <section id="pricing" className="py-16 md:py-32 relative overflow-hidden">
       {/* Background decoration */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, hsl(var(--primary) / 0.03) 0%, transparent 65%)' }} />
 
       <div className="container relative mx-auto px-4">
         <motion.div 

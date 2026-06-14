@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { Upload, MessageSquare, CheckCircle2, ArrowRight, Sparkles } from 'lucide-react';
 import { EASING, DURATION } from '@/components/motion/Animations';
+import { FileIcon } from './FileIcon';
 
 const steps = [
   {
@@ -87,7 +88,7 @@ export const HowItWorks = () => {
 
                   {/* Image/Visual Area */}
                   <div className="w-full md:w-1/2 group">
-                    <div className="aspect-video rounded-[3rem] border border-primary/25 bg-slate-100/50 dark:bg-muted/20 backdrop-blur-md overflow-hidden p-6 md:p-10 flex items-center justify-center relative shadow-[inset_0_4px_12px_rgba(0,0,0,0.05)] dark:shadow-inner">
+                    <div className="aspect-video rounded-[3rem] border border-primary/25 mockup-mesh-bg backdrop-blur-md overflow-hidden p-6 md:p-10 flex items-center justify-center relative shadow-[inset_0_4px_12px_rgba(0,0,0,0.05)] dark:shadow-inner">
                       <div className="absolute inset-0 bg-gradient-to-tr from-primary/[0.08] via-transparent to-transparent opacity-60 pointer-events-none" />
                       
                       {/* 3D Curved Glass Bezel Glare & Shadow */}
@@ -186,10 +187,7 @@ const UploadVisual = () => (
         transition={{ delay: i * 0.05, duration: DURATION.structural, ease: EASING.enter as unknown as number[] }}
         className="w-full bg-card/75 backdrop-blur-md border border-border/50 rounded-2xl p-4 flex items-center gap-4 shadow-[0_8px_20px_-4px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,0.8)] dark:shadow-[0_20px_40px_-8px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.05)]"
       >
-        <div className={`h-10 w-10 rounded-xl flex items-center justify-center relative flex-shrink-0 ${file.badgeClass}`}>
-          <span className="font-black text-[10px] tracking-wider">{file.type}</span>
-          <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-transparent to-transparent rounded-xl pointer-events-none" />
-        </div>
+        <FileIcon ext={file.type.toLowerCase()} className="h-10 w-10 flex-shrink-0" />
         <div className="flex-1 min-w-0">
           <p className="text-[12px] font-bold text-foreground truncate mb-1.5">{file.name}</p>
           <div className="h-1 bg-primary/10 w-full rounded-full overflow-hidden">

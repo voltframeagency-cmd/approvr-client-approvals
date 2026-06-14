@@ -33,8 +33,8 @@ const CTA = () => {
   return (
     <section id="cta" className="py-16 md:py-32 relative overflow-hidden">
       {/* Background Decorative Elements */}
-      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] pointer-events-none animate-pulse" />
-      <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full pointer-events-none animate-pulse" style={{ background: 'radial-gradient(circle, hsl(var(--primary) / 0.06) 0%, transparent 65%)' }} />
+      <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, hsl(var(--primary) / 0.03) 0%, transparent 65%)' }} />
 
       <div className="container px-4 mx-auto relative">
         <motion.div
@@ -42,10 +42,10 @@ const CTA = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="max-w-5xl mx-auto relative rounded-2xl md:rounded-[3rem] border border-primary/20 bg-card/40 backdrop-blur-3xl p-8 md:p-24 overflow-hidden shadow-2xl"
+          className="max-w-5xl mx-auto relative rounded-2xl md:rounded-[3rem] border border-primary/20 bg-card/75 backdrop-blur-md p-8 md:p-24 overflow-hidden shadow-2xl will-change-transform"
         >
           {/* Internal Glow */}
-          <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/20 rounded-full blur-[80px]" />
+          <div className="absolute -top-24 -right-24 w-64 h-64 rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, hsl(var(--primary) / 0.12) 0%, transparent 65%)' }} />
           
           <div className="relative z-10 text-center max-w-3xl mx-auto">
             <motion.h2 variants={itemVariants} className="text-3xl md:text-6xl lg:text-[4.25rem] font-bold mb-6 md:mb-8 tracking-tighter leading-[1.05] drop-shadow-md">

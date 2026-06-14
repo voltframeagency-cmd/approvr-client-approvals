@@ -235,6 +235,7 @@ html.lenis, html.lenis body {
       0 4px 12px -2px hsla(var(--shadow-color), 0.06), 
       0 16px 40px -10px hsla(var(--shadow-color), 0.08);
     transition: background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
   }
   .dark .pricing-card-scaler {
     background: linear-gradient(135deg, hsl(var(--card)), hsl(var(--surface-sunken)/0.3));
@@ -271,6 +272,7 @@ html.lenis, html.lenis body {
       0 10px 30px -10px hsl(var(--primary)/0.12), 
       0 25px 60px -15px hsl(var(--primary)/0.08);
     transition: background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
   }
   .dark .pricing-card-studio {
     background: linear-gradient(135deg, hsl(var(--card)), hsl(169, 76%, 4%));
@@ -385,6 +387,100 @@ html.lenis, html.lenis body {
     background: linear-gradient(180deg, hsl(var(--primary)/0.22), hsl(var(--primary)/0.06));
     border-color: hsl(var(--primary)/0.4);
   }
+
+  /* Mesh gradient with noise background for mockups (liquid motion) */
+  .mockup-mesh-bg {
+    position: relative;
+    overflow: hidden;
+    background-color: #f8fafc;
+    z-index: 1;
+  }
+
+  .dark .mockup-mesh-bg {
+    background-color: #0b0f19;
+  }
+
+  /* Swirling liquid gradient mesh layer */
+  .mockup-mesh-bg::before {
+    content: "";
+    position: absolute;
+    top: -40%;
+    left: -40%;
+    width: 180%;
+    height: 180%;
+    z-index: 0;
+    pointer-events: none;
+    background-image: 
+      radial-gradient(at 15% 85%, rgba(13, 148, 136, 0.55) 0px, transparent 55%), /* Primary teal */
+      radial-gradient(at 85% 15%, rgba(45, 212, 191, 0.55) 0px, transparent 55%), /* Turquoise */
+      radial-gradient(at 5% 25%, rgba(10, 25, 47, 0.45) 0px, transparent 50%), /* Deep navy */
+      radial-gradient(at 95% 75%, rgba(204, 251, 241, 0.6) 0px, transparent 55%), /* Soft teal */
+      radial-gradient(at 50% 50%, rgba(255, 255, 255, 0.4) 0px, transparent 60%);
+    filter: blur(40px);
+    animation: liquid-flow 24s ease-in-out infinite alternate;
+    opacity: 0.85;
+    will-change: transform;
+  }
+
+  .dark .mockup-mesh-bg::before {
+    background-image: 
+      radial-gradient(at 20% 80%, rgba(13, 148, 136, 0.35) 0px, transparent 55%), /* Dark teal */
+      radial-gradient(at 80% 20%, rgba(6, 182, 212, 0.35) 0px, transparent 55%), /* Cyan */
+      radial-gradient(at 50% 50%, rgba(15, 23, 42, 0.9) 0px, transparent 60%);
+    opacity: 0.9;
+  }
+
+  /* Noise texture and glare sheet overlay */
+  .mockup-mesh-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background-image: 
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.06'/%3E%3C/svg%3E"),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.15) 50%, transparent 100%);
+  }
+
+  .dark .mockup-mesh-bg::after {
+    background-image: 
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.12'/%3E%3C/svg%3E"),
+      linear-gradient(to bottom, rgba(11, 15, 25, 0.6) 0%, transparent 100%);
+  }
+
+  /* Liquid motion background for glass mockup cards */
+  .liquid-card-bg {
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background-image: 
+      radial-gradient(at var(--card-mesh-x1) var(--card-mesh-y1), rgba(13, 148, 136, 0.12) 0px, transparent 65%),
+      radial-gradient(at var(--card-mesh-x2) var(--card-mesh-y2), rgba(45, 212, 191, 0.12) 0px, transparent 65%);
+    animation: liquid-card-flow 16s ease-in-out infinite alternate;
+  }
+
+  .dark .liquid-card-bg {
+    background-color: rgba(15, 23, 42, 0.45);
+    background-image: 
+      radial-gradient(at var(--card-mesh-x1) var(--card-mesh-y1), rgba(13, 148, 136, 0.08) 0px, transparent 65%),
+      radial-gradient(at var(--card-mesh-x2) var(--card-mesh-y2), rgba(6, 182, 212, 0.08) 0px, transparent 65%);
+  }
+}
+
+@keyframes liquid-flow {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  33% {
+    transform: translate(5%, -7%) rotate(6deg) scale(1.08);
+  }
+  66% {
+    transform: translate(-6%, 5%) rotate(-5deg) scale(0.92);
+  }
+  100% {
+    transform: translate(3%, 4%) rotate(4deg) scale(1.04);
+  }
 }
 
 @keyframes marquee {
@@ -414,6 +510,57 @@ html.lenis, html.lenis body {
   syntax: "<color>";
   initial-value: white;
   inherits: false;
+}
+
+@property --card-mesh-x1 {
+  syntax: "<percentage>";
+  initial-value: 10%;
+  inherits: false;
+}
+
+@property --card-mesh-y1 {
+  syntax: "<percentage>";
+  initial-value: 90%;
+  inherits: false;
+}
+
+@property --card-mesh-x2 {
+  syntax: "<percentage>";
+  initial-value: 90%;
+  inherits: false;
+}
+
+@property --card-mesh-y2 {
+  syntax: "<percentage>";
+  initial-value: 10%;
+  inherits: false;
+}
+
+@keyframes liquid-card-flow {
+  0% {
+    --card-mesh-x1: 10%;
+    --card-mesh-y1: 90%;
+    --card-mesh-x2: 90%;
+    --card-mesh-y2: 10%;
+  }
+  33% {
+    --card-mesh-x1: 40%;
+    --card-mesh-y1: 70%;
+    --card-mesh-x2: 60%;
+    --card-mesh-y2: 30%;
+  }
+  66% {
+    --card-mesh-x1: -10%;
+    --card-mesh-y1: 110%;
+    --card-mesh-x2: 110%;
+    --card-mesh-y2: -10%;
+  }
+  100% {
+    --card-mesh-x1: 20%;
+    --card-mesh-y1: 80%;
+    --card-mesh-x2: 80%;
+    --card-mesh-y2: 20%;
+  }
 }
 
 .shiny-cta {
