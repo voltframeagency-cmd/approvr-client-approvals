@@ -243,15 +243,15 @@ const Settings = () => {
                   <div>
                     <h2 className="font-semibold text-[15px] sm:text-base">Connected Applications</h2>
                     <p className="text-[12px] sm:text-[13px] text-muted-foreground mt-0.5">
-                      Keep your existing tools. Approvr handles the client-facing portals, updating your internal databases automatically.
+                      Configure backend plumbing integrations for your agency. Client-facing portals remain clean, lightweight, and zero-friction.
                     </p>
                   </div>
                   
                   <div className="space-y-6 sm:space-y-8">
-                    {/* Priority 1: Third-Party Authentication (SSO) */}
+                    {/* Section 1: Identity & Authentication (SSO) */}
                     <div className="space-y-3">
                       <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/70 flex items-center gap-2">
-                        <ShieldCheck className="h-3.5 w-3.5 text-emerald-500" /> Priority 1: Third-Party Authentication (SSO)
+                        <ShieldCheck className="h-3.5 w-3.5 text-emerald-500" /> Identity & Authentication (SSO)
                       </h3>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {/* Google SSO Card */}
@@ -282,13 +282,103 @@ const Settings = () => {
                             Google Auth Enabled
                           </Button>
                         </div>
+
+                        {/* Microsoft SSO Card */}
+                        <div className="p-4 rounded-xl border bg-card/50 hover:bg-card/85 transition-colors flex flex-col justify-between gap-4">
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2.5">
+                                <div className="h-9 w-9 rounded-lg bg-slate-100 dark:bg-slate-900 border flex items-center justify-center">
+                                  <svg className="h-4 w-4" viewBox="0 0 23 23" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="0" y="0" width="10.5" height="10.5" fill="#f25022" />
+                                    <rect x="11.5" y="0" width="10.5" height="10.5" fill="#7fba00" />
+                                    <rect x="0" y="11.5" width="10.5" height="10.5" fill="#00a4ef" />
+                                    <rect x="11.5" y="11.5" width="10.5" height="10.5" fill="#ffb900" />
+                                  </svg>
+                                </div>
+                                <div>
+                                  <h3 className="text-[13px] font-bold">Microsoft SSO</h3>
+                                  <p className="text-[10px] text-muted-foreground">Single Sign-On (SSO)</p>
+                                </div>
+                              </div>
+                              <span className="text-[9px] bg-muted text-muted-foreground font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Not Connected</span>
+                            </div>
+                            <p className="text-[12px] text-muted-foreground leading-relaxed pt-1">
+                              Provide enterprise-grade single sign-on. Allow corporate clients to access projects securely using Microsoft Workspace profiles.
+                            </p>
+                          </div>
+                          <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold w-full" onClick={() => toast.success("Connecting Microsoft SSO...")}>
+                            Connect Microsoft SSO
+                          </Button>
+                        </div>
                       </div>
                     </div>
 
-                    {/* Priority 2: Existing Project Trackers */}
+                    {/* Section 2: Notification Systems */}
                     <div className="space-y-3">
                       <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/70 flex items-center gap-2">
-                        <FolderOpen className="h-3.5 w-3.5 text-primary" /> Priority 2: Project Trackers (Asana, Linear, Notion, ClickUp)
+                        <Bell className="h-3.5 w-3.5 text-indigo-500" /> Notification Systems
+                      </h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {/* Slack Card */}
+                        <div className="p-4 rounded-xl border bg-card/50 hover:bg-card/85 transition-colors flex flex-col justify-between gap-4">
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2.5">
+                                <div className="h-9 w-9 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-600">
+                                  <svg className="h-5 w-5" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3.362 10.11c0 .926-.756 1.68-1.681 1.68S0 11.036 0 10.11s.756-1.681 1.681-1.681h1.681v1.681zm.84 0c0-.926.755-1.681 1.681-1.681s1.681.755 1.681 1.681v4.202c0 .926-.755 1.681-1.681 1.681s-1.681-.755-1.681-1.681V10.11zM5.884 5.657c-.926 0-1.681-.756-1.681-1.681s.755-1.681 1.681-1.681 1.681.755 1.681 1.681v1.681H5.884zm0 .84c.926 0 1.681.756 1.681 1.681s-.755 1.681-1.681 1.681H1.681c-.926 0-1.681-.756-1.681-1.681S.756 6.497 1.681 6.497h4.202zm4.202 0c0-.926.756-1.681 1.681-1.681s1.681.756 1.681 1.681-.756 1.681-1.681 1.681h-1.681V6.497zm0 .84c0 .926-.756 1.681-1.681 1.681s-1.681-.756-1.681-1.681V3.155c0-.926.756-1.681 1.681-1.681s1.681.756 1.681 1.681v4.182zm-.84 4.202c.926 0 1.681.756 1.681 1.681s-.756 1.681-1.681 1.681-1.681-.756-1.681-1.681v-1.681h1.681zm0-1.681c-.926 0-1.681-.756-1.681-1.681s.756-1.681 1.681-1.681h4.202c.926 0 1.681.756 1.681 1.681s-.756 1.681-1.681 1.681H9.244z"/>
+                                  </svg>
+                                </div>
+                                <div>
+                                  <h3 className="text-[13px] font-bold">Slack Notifications</h3>
+                                  <p className="text-[10px] text-muted-foreground">Internal Channel Sync</p>
+                                </div>
+                              </div>
+                              <span className="text-[9px] bg-muted text-muted-foreground font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Not Connected</span>
+                            </div>
+                            <p className="text-[12px] text-muted-foreground leading-relaxed pt-1">
+                              Receive instant notifications when clients view files, add comments, or sign off. Approvr pings your internal Slack channels automatically.
+                            </p>
+                          </div>
+                          <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold w-full" onClick={() => toast.success("Connecting Slack Notifications...")}>
+                            Connect Slack
+                          </Button>
+                        </div>
+
+                        {/* Microsoft Teams Card */}
+                        <div className="p-4 rounded-xl border bg-card/50 hover:bg-card/85 transition-colors flex flex-col justify-between gap-4">
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2.5">
+                                <div className="h-9 w-9 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-600">
+                                  <svg className="h-5 w-5" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.186 4.797a2.42 2.42 0 1 0-2.86-2.448h1.178c.929 0 1.682.753 1.682 1.682zm-4.295 7.738h2.613c.929 0 1.682-.753 1.682-1.682V5.58h2.783a.7.7 0 0 1 .682.716v4.294a4.197 4.197 0 0 1-4.093 4.293c-1.618-.04-3-.99-3.667-2.35Zm10.737-9.372a1.674 1.674 0 1 1-3.349 0 1.674 1.674 0 0 1 3.349 0m-2.238 9.488-.12-.002a5.2 5.2 0 0 0 .381-2.07V6.306a1.7 1.7 0 0 0-.15-.725h1.792c.39 0 .707.317.707.707v3.765a2.6 2.6 0 0 1-2.598 2.598z"/>
+                                    <path d="M.682 3.349h6.822c.377 0 .682.305.682.682v6.822a.68.68 0 0 1-.682.682H.682A.68.68 0 0 1 0 10.853V4.03c0-.377.305-.682.682-.682Zm5.206 2.596v-.72h-3.59v.72h1.357V9.66h.87V5.945z"/>
+                                  </svg>
+                                </div>
+                                <div>
+                                  <h3 className="text-[13px] font-bold">Microsoft Teams</h3>
+                                  <p className="text-[10px] text-muted-foreground">Team Alerts</p>
+                                </div>
+                              </div>
+                              <span className="text-[9px] bg-muted text-muted-foreground font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Not Connected</span>
+                            </div>
+                            <p className="text-[12px] text-muted-foreground leading-relaxed pt-1">
+                              Sync real-time approval logs directly to Microsoft Teams channels. Keep your creative department in the loop automatically.
+                            </p>
+                          </div>
+                          <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold w-full" onClick={() => toast.success("Connecting Microsoft Teams...")}>
+                            Connect Teams
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Section 3: Project Trackers (One-Way Status Updates) */}
+                    <div className="space-y-3">
+                      <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/70 flex items-center gap-2">
+                        <FolderOpen className="h-3.5 w-3.5 text-primary" /> Project Trackers (One-Way Status Updates)
                       </h3>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {/* Asana Card */}
@@ -337,7 +427,7 @@ const Settings = () => {
                               <span className="text-[9px] bg-muted text-muted-foreground font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Not Connected</span>
                             </div>
                             <p className="text-[12px] text-muted-foreground leading-relaxed pt-1">
-                              Sync project cycles. Update issue states, close bug tickets, or notify design owners as soon as revision cycles are completed.
+                              Sync project cycles. Update issue states, close bug tickets, or notify design owners as soon as client revision cycles are completed.
                             </p>
                           </div>
                           <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold w-full" onClick={() => toast.success("Connecting Linear...")}>
@@ -371,38 +461,124 @@ const Settings = () => {
                           </Button>
                         </div>
 
-                        {/* ClickUp Card */}
+                        {/* Trello Card */}
                         <div className="p-4 rounded-xl border bg-card/50 hover:bg-card/85 transition-colors flex flex-col justify-between gap-4">
                           <div className="space-y-2">
                             <div className="flex items-center justify-between">
                               <div className="flex items-center gap-2.5">
-                                <div className="h-9 w-9 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-500">
+                                <div className="h-9 w-9 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-600">
                                   <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M2 18.439l3.69-2.828c1.961 2.56 4.044 3.739 6.363 3.739 2.307 0 4.33-1.166 6.203-3.704L22 18.405C19.298 22.065 15.941 24 12.053 24 8.178 24 4.788 22.078 2 18.439zM12.04 6.15l-6.568 5.66-3.036-3.52L12.055 0l9.543 8.296-3.05 3.509z"/>
+                                    <path d="M21.147 0H2.853A2.86 2.86 0 000 2.853v18.294A2.86 2.86 0 002.853 24h18.294A2.86 2.86 0 0024 21.147V2.853A2.86 2.86 0 0021.147 0zM10.34 17.287a.953.953 0 01-.953.953h-4a.954.954 0 01-.954-.953V5.38a.953.953 0 01.954-.953h4a.954.954 0 01.953.953zm9.233-5.467a.944.944 0 01-.953.947h-4a.947.947 0 01-.953-.947V5.38a.953.953 0 01.953-.953h4a.954.954 0 01.953.953z"/>
                                   </svg>
                                 </div>
                                 <div>
-                                  <h3 className="text-[13px] font-bold">ClickUp Tasks</h3>
-                                  <p className="text-[10px] text-muted-foreground">Status Updates</p>
+                                  <h3 className="text-[13px] font-bold">Trello Boards</h3>
+                                  <p className="text-[10px] text-muted-foreground">List Status Sync</p>
                                 </div>
                               </div>
                               <span className="text-[9px] bg-muted text-muted-foreground font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Not Connected</span>
                             </div>
                             <p className="text-[12px] text-muted-foreground leading-relaxed pt-1">
-                              Bring client feedback directly into ClickUp. Update custom fields, track completion times, and synchronize approvals with your team's sprint board.
+                              Keep your boards clean. Move Trello cards from 'Pending Approval' to 'Completed' columns automatically when clients sign off.
                             </p>
                           </div>
-                          <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold w-full" onClick={() => toast.success("Connecting ClickUp...")}>
-                            Connect ClickUp
+                          <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold w-full" onClick={() => toast.success("Connecting Trello...")}>
+                            Connect Trello
                           </Button>
                         </div>
                       </div>
                     </div>
 
-                    {/* Priority 3: Automation Hubs & Payments */}
+                    {/* Section 4: File & Design Hosting */}
                     <div className="space-y-3">
                       <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/70 flex items-center gap-2">
-                        <Zap className="h-3.5 w-3.5 text-orange-500" /> Priority 3: Automation & Payments (Zapier, Stripe)
+                        <HardDrive className="h-3.5 w-3.5 text-primary" /> File & Design Hosting
+                      </h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {/* Google Drive Card */}
+                        <div className="p-4 rounded-xl border bg-card/50 hover:bg-card/85 transition-colors flex flex-col justify-between gap-4">
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2.5">
+                                <div className="h-9 w-9 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-600">
+                                  <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.01 1.485c-2.082 0-3.754.02-3.743.047.01.02 1.708 3.001 3.774 6.62l3.76 6.574h3.76c2.081 0 3.753-.02 3.742-.047-.005-.02-1.708-3.001-3.775-6.62l-3.76-6.574zm-4.76 1.73a789.828 789.861 0 0 0-3.63 6.319L0 15.868l1.89 3.298 1.885 3.297 3.62-6.335 3.618-6.33-1.88-3.287C8.1 4.704 7.255 3.22 7.25 3.214zm2.259 12.653-.203.348c-.114.198-.96 1.672-1.88 3.287a423.93 423.948 0 0 1-1.698 2.97c-.01.026 3.24.042 7.222.042h7.244l1.796-3.157c.992-1.734 1.85-3.23 1.906-3.323l.104-.167h-7.249z"/>
+                                  </svg>
+                                </div>
+                                <div>
+                                  <h3 className="text-[13px] font-bold">Google Drive</h3>
+                                  <p className="text-[10px] text-muted-foreground">Source Asset Linking</p>
+                                </div>
+                              </div>
+                              <span className="text-[9px] bg-muted text-muted-foreground font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Not Connected</span>
+                            </div>
+                            <p className="text-[12px] text-muted-foreground leading-relaxed pt-1">
+                              Link heavy deliverables directly from Google Drive. Offload hosting limits and share high-res source files safely and automatically.
+                            </p>
+                          </div>
+                          <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold w-full" onClick={() => toast.success("Connecting Google Drive...")}>
+                            Connect Google Drive
+                          </Button>
+                        </div>
+
+                        {/* Figma Card */}
+                        <div className="p-4 rounded-xl border bg-card/50 hover:bg-card/85 transition-colors flex flex-col justify-between gap-4">
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2.5">
+                                <div className="h-9 w-9 rounded-lg bg-orange-500/10 flex items-center justify-center text-orange-600">
+                                  <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M15.852 8.981h-4.588V0h4.588c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.491-4.49 4.491zM12.735 7.51h3.117c1.665 0 3.019-1.355 3.019-3.019s-1.355-3.019-3.019-3.019h-3.117V7.51zm0 1.471H8.148c-2.476 0-4.49-2.014-4.49-4.49S5.672 0 8.148 0h4.588v8.981zm-4.587-7.51c-1.665 0-3.019 1.355-3.019 3.019s1.354 3.02 3.019 3.02h3.117V1.471H8.148zm4.587 15.019H8.148c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h4.588v8.98zM8.148 8.981c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h3.117V8.981H8.148zM8.172 24c-2.489 0-4.515-2.014-4.515-4.49s2.014-4.49 4.49-4.49h4.588v4.441c0 2.503-2.047 4.539-4.563 4.539zm-.024-7.51a3.023 3.023 0 0 0-3.019 3.019c0 1.665 1.365 3.019 3.044 3.019 1.705 0 3.093-1.376 3.093-3.068v-2.97H8.148zm7.704 0h-.098c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h.098c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.49-4.49 4.49zm-.097-7.509c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h.098c1.665 0 3.019-1.355 3.019-3.019s-1.355-3.019-3.019-3.019h-.098z"/>
+                                  </svg>
+                                </div>
+                                <div>
+                                  <h3 className="text-[13px] font-bold">Figma Embeds</h3>
+                                  <p className="text-[10px] text-muted-foreground">Live Canvas Reviews</p>
+                                </div>
+                              </div>
+                              <span className="text-[9px] bg-muted text-muted-foreground font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Not Connected</span>
+                            </div>
+                            <p className="text-[12px] text-muted-foreground leading-relaxed pt-1">
+                              Embed live Figma files directly inside the client portal. Clients review and approve live canvases without needing Figma accounts.
+                            </p>
+                          </div>
+                          <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold w-full" onClick={() => toast.success("Connecting Figma...")}>
+                            Connect Figma
+                          </Button>
+                        </div>
+
+                        {/* Dropbox Card */}
+                        <div className="p-4 rounded-xl border bg-card/50 hover:bg-card/85 transition-colors flex flex-col justify-between gap-4">
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2.5">
+                                <div className="h-9 w-9 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-600">
+                                  <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6 1.807L0 5.629l6 3.822 6.001-3.822L6 1.807zM18 1.807l-6 3.822 6 3.822 6-3.822-6-3.822zM0 13.274l6 3.822 6.001-3.822L6 9.452l-6 3.822zM18 9.452l-6 3.822 6 3.822 6-3.822-6-3.822zM6 18.371l6.001 3.822 6-3.822-6-3.822L6 18.371z"/>
+                                  </svg>
+                                </div>
+                                <div>
+                                  <h3 className="text-[13px] font-bold">Dropbox Storage</h3>
+                                  <p className="text-[10px] text-muted-foreground">Deliverable Sync</p>
+                                </div>
+                              </div>
+                              <span className="text-[9px] bg-muted text-muted-foreground font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Not Connected</span>
+                            </div>
+                            <p className="text-[12px] text-muted-foreground leading-relaxed pt-1">
+                              Link your Dropbox team folders. Access revision assets and render packages directly through Approvr client frames.
+                            </p>
+                          </div>
+                          <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold w-full" onClick={() => toast.success("Connecting Dropbox...")}>
+                            Connect Dropbox
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Section 5: Automation & Payments */}
+                    <div className="space-y-3">
+                      <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/70 flex items-center gap-2">
+                        <Zap className="h-3.5 w-3.5 text-orange-500" /> Automation & Finance (Zapier, Stripe)
                       </h3>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {/* Zapier Card */}
@@ -461,6 +637,7 @@ const Settings = () => {
                   </div>
                 </div>
               )}
+
 
               {/* Team Tab */}
               {activeTab === 'team' && (
