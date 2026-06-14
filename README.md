@@ -15,6 +15,19 @@ The core promise of Approvr is to simplify the path from **Deliverable Sent** to
 
 ---
 
+## 📈 Integration & Product Roadmap Strategy
+
+Approvr positions itself as a **lightweight, specialized overlay** rather than an all-in-one suite. To preserve this focus and avoid feature bloat, our development roadmap is structured sequentially to prioritize client-friction reduction first, followed by native agency workflow integrations, and finally enterprise automation:
+
+1. **Phase 1: Client SSO & Zero-Friction Authentication (SSO First)**:
+   - *Strategy*: Build client SSO authentication (such as Google Client Auth) first. This ensures that the client experience is instantly frictionless, eliminating the need for client registrations, password memorization, or registration barriers.
+2. **Phase 2: Direct Project Trackers (Sync Second)**:
+   - *Strategy*: Build integrations with the project management tools agencies already love (Asana, Linear). This allows agencies to plug Approvr directly into their daily creative workflows without abandoning their existing workspaces. When a client approves a file, Approvr automatically updates the task state on Asana or Linear.
+3. **Phase 3: Automation Hub (Zapier Third)**:
+   - *Strategy*: Integrate with Zapier to capture all complex, heavy enterprise CRM and invoicing needs (Salesforce, HubSpot, QuickBooks, Google Sheets) without wasting engineering resources or licensing fees on custom native integrations. This keeps the core app lightweight and isolated from messy third-party APIs.
+
+---
+
 ## 💎 Tech Stack
 
 Approvr is built on a modern, high-performance web development stack:
