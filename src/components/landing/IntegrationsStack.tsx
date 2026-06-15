@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { Info, Sparkles } from 'lucide-react';
 import { DURATION, EASING } from '@/components/motion/Animations';
 import CreativeMaskedBackground from './CreativeMaskedBackground';
+import { Logo } from '@/components/brand/Logo';
 
 const integrationsList = [
   // Inner Ring
