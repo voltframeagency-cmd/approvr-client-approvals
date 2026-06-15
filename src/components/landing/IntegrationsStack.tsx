@@ -246,14 +246,8 @@ export const IntegrationsStack = () => {
                   className="px-5 py-3.5 rounded-3xl border border-primary/25 bg-card/90 backdrop-blur-xl flex flex-col items-center justify-center gap-1.5 shadow-2xl relative overflow-hidden text-center min-w-[130px]"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-primary/5 pointer-events-none" />
-                  <div className="h-9 w-9 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center shadow-inner relative z-10">
-                    <svg className="h-5 w-5 text-primary animate-pulse" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M3 12l4 4L13 6" className="opacity-50" />
-                      <path d="M8 12l4 4L18 6" />
-                    </svg>
-                  </div>
-                  <div className="relative z-10 mt-1">
-                    <h3 className="text-[12px] font-black text-foreground tracking-tight">Approvr</h3>
+                  <div className="relative z-10 flex flex-col items-center gap-2">
+                    <Logo className="h-5 w-auto" />
                     <p className="text-[8px] uppercase tracking-widest text-primary font-bold">Sync Hub</p>
                   </div>
                 </motion.div>
