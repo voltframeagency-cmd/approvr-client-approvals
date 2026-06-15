@@ -21,10 +21,6 @@ const Hero = () => (
     <div className="absolute inset-0 bg-background" />
     <HeroBackground />
 
-    {/* Gradient orbs */}
-    <div data-speed="0.3" className="absolute top-[20%] left-[10%] w-[500px] h-[500px] rounded-full opacity-[0.05] blur-3xl" style={{ background: 'radial-gradient(circle, hsl(169, 76%, 48%), transparent 60%)' }} />
-    <div data-speed="0.6" className="absolute bottom-[10%] right-[10%] w-[400px] h-[400px] rounded-full opacity-[0.04] blur-3xl" style={{ background: 'radial-gradient(circle, hsl(190, 80%, 42%), transparent 60%)' }} />
-
     <div className="container relative">
       <motion.div
         initial={{ opacity: 0, y: 24 }}

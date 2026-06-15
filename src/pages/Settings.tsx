@@ -5,7 +5,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { 
   Palette, Zap, Plus, Trash2, ExternalLink, Building2, ShieldCheck, Bell, Users, CreditCard,
   Settings as SettingsIcon, CheckCircle2, Clock, History, Mail, Eye, MailWarning,
-  HardDrive, FolderOpen
+  HardDrive, FolderOpen, Info
 } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -43,6 +43,73 @@ const Settings = () => {
 
   const [activeTab, setActiveTab] = useState<'general' | 'branding' | 'notifications' | 'integrations' | 'team' | 'usage'>('general');
   
+  // Integration connection states (mocked with local storage or state)
+  const [connections, setConnections] = useState<Record<string, boolean>>(() => {
+    const saved = localStorage.getItem('approvr_connections');
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) {}
+    }
+    return {
+      google_auth: true,
+      microsoft_sso: false,
+      slack: false,
+      teams: false,
+      asana: false,
+      linear: false,
+      notion: false,
+      trello: false,
+      google_drive: false,
+      figma: false,
+      dropbox: false,
+      zapier: true,
+      stripe: true,
+    };
+  });
+
+  const toggleConnection = (key: string, name: string) => {
+    setConnections(prev => {
+      const updated = { ...prev, [key]: !prev[key] };
+      localStorage.setItem('approvr_connections', JSON.stringify(updated));
+      if (updated[key]) {
+        toast.success(`Successfully connected to ${name}!`);
+      } else {
+        toast.info(`Disconnected from ${name}.`);
+      }
+      return updated;
+    });
+  };
+
+  const [configState, setConfigState] = useState<Record<string, any>>(() => {
+    const saved = localStorage.getItem('approvr_integration_configs');
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) {}
+    }
+    return {
+      slack: { channel: '#design-approvals', notifyOnView: true, notifyOnComment: true, notifyOnApproval: true },
+      teams: { channel: 'Design Department Channel', notifyOnApproval: true, notifyOnComment: false },
+      asana: { workspace: 'Creative Team Workspace', project: 'Website Rebranding', state: "Move task to 'Approved / Done'", certificate: true },
+      linear: { team: 'Design Team [DES]', project: 'Client Portal Launch', state: 'Done', assignee: 'alex@agency.com', syncComments: true },
+      notion: { database: 'Client Deliverables Registry', column: 'Sign-off Status', syncComments: true },
+      trello: { board: 'Active Projects Hub', list: 'Approved / Done', certificate: true },
+      google_drive: { activeDir: '/Projects/Active', archiveDir: '/Archives/Signed-Off', autoCopy: true },
+      figma: { workspace: 'Creative Space', liveSnapshots: true, autoUpdate: true },
+      dropbox: { syncFolder: '/Client Deliverables', guestLinks: true }
+    };
+  });
+
+  const saveIntegrationConfig = (key: string, name: string, config: any) => {
+    setConfigState(prev => {
+      const updated = { ...prev, [key]: config };
+      localStorage.setItem('approvr_integration_configs', JSON.stringify(updated));
+      toast.success(`${name} configuration saved!`);
+      return updated;
+    });
+  };
+
   // Form state
   const [workspaceName, setWorkspaceName] = useState('');
   const [agencyName, setAgencyName] = useState('');
@@ -246,6 +313,19 @@ const Settings = () => {
                       Configure backend plumbing integrations for your agency. Client-facing portals remain clean, lightweight, and zero-friction.
                     </p>
                   </div>
+
+                  <div className="bg-primary/[0.03] border border-primary/10 rounded-xl p-4 flex gap-3 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 p-2 opacity-5"><Zap className="h-20 w-20 text-primary" /></div>
+                    <div className="h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <Info className="h-4.5 w-4.5 text-primary" />
+                    </div>
+                    <div className="space-y-1 relative z-10">
+                      <h4 className="text-[13px] font-semibold text-primary">The Invisible Pipeline Philosophy</h4>
+                      <p className="text-[12px] text-muted-foreground leading-relaxed">
+                        Unlike complex platforms that force clients to register, remember passwords, or navigate dashboards, Approvr integrations operate strictly as **backend plumbing for your agency**. Clients receive a clean, lightweight URL with zero-friction sign-off, while Approvr automatically triggers notifications in Slack, updates statuses in your trackers, and archives files in your storage.
+                      </p>
+                    </div>
+                  </div>
                   
                   <div className="space-y-6 sm:space-y-8">
                     {/* Section 1: Identity & Authentication (SSO) */}
@@ -301,14 +381,24 @@ const Settings = () => {
                                   <p className="text-[10px] text-muted-foreground">Single Sign-On (SSO)</p>
                                 </div>
                               </div>
-                              <span className="text-[9px] bg-muted text-muted-foreground font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Not Connected</span>
+                              <span className={cn(
+                                "text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider",
+                                connections.microsoft_sso ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" : "bg-muted text-muted-foreground"
+                              )}>
+                                {connections.microsoft_sso ? "Connected" : "Not Connected"}
+                              </span>
                             </div>
                             <p className="text-[12px] text-muted-foreground leading-relaxed pt-1">
                               Provide enterprise-grade single sign-on. Allow corporate clients to access projects securely using Microsoft Workspace profiles.
                             </p>
                           </div>
-                          <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold w-full" onClick={() => toast.success("Connecting Microsoft SSO...")}>
-                            Connect Microsoft SSO
+                          <Button 
+                            variant={connections.microsoft_sso ? "ghost" : "outline"} 
+                            size="sm" 
+                            className={cn("h-8 text-[11px] font-bold w-full", connections.microsoft_sso && "text-destructive hover:bg-destructive/10")} 
+                            onClick={() => toggleConnection('microsoft_sso', 'Microsoft SSO')}
+                          >
+                            {connections.microsoft_sso ? "Disconnect Microsoft SSO" : "Connect Microsoft SSO"}
                           </Button>
                         </div>
                       </div>
@@ -340,15 +430,100 @@ const Settings = () => {
                                   <p className="text-[10px] text-muted-foreground">Internal Channel Sync</p>
                                 </div>
                               </div>
-                              <span className="text-[9px] bg-muted text-muted-foreground font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Not Connected</span>
+                              <span className={cn(
+                                "text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider",
+                                connections.slack ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" : "bg-muted text-muted-foreground"
+                              )}>
+                                {connections.slack ? "Active" : "Not Connected"}
+                              </span>
                             </div>
                             <p className="text-[12px] text-muted-foreground leading-relaxed pt-1">
                               Receive instant notifications when clients view files, add comments, or sign off. Approvr pings your internal Slack channels automatically.
                             </p>
                           </div>
-                          <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold w-full" onClick={() => toast.success("Connecting Slack Notifications...")}>
-                            Connect Slack
-                          </Button>
+                          {connections.slack ? (
+                            <div className="border-t pt-4 space-y-3">
+                              <div className="space-y-1">
+                                <Label className="text-[10px] uppercase tracking-wider text-muted-foreground">Slack Channel</Label>
+                                <select 
+                                  value={configState.slack.channel}
+                                  onChange={(e) => setConfigState(prev => ({ ...prev, slack: { ...prev.slack, channel: e.target.value } }))}
+                                  className="w-full h-8 text-[12px] bg-background border rounded px-2 focus:ring-1 focus:ring-primary focus:outline-none"
+                                >
+                                  <option>#design-approvals</option>
+                                  <option>#client-feedback</option>
+                                  <option>#general</option>
+                                </select>
+                              </div>
+                              <div className="space-y-2">
+                                <Label className="text-[10px] uppercase tracking-wider text-muted-foreground block">Trigger Notifications</Label>
+                                <div className="space-y-1.5 pt-0.5">
+                                  <div className="flex items-center gap-2">
+                                    <input 
+                                      type="checkbox"
+                                      checked={configState.slack.notifyOnView}
+                                      onChange={(e) => setConfigState(prev => ({ ...prev, slack: { ...prev.slack, notifyOnView: e.target.checked } }))}
+                                      className="accent-primary h-3.5 w-3.5"
+                                      id="slack-view"
+                                    />
+                                    <label htmlFor="slack-view" className="text-[11px] text-muted-foreground cursor-pointer">
+                                      When client views deliverable
+                                    </label>
+                                  </div>
+                                  <div className="flex items-center gap-2">
+                                    <input 
+                                      type="checkbox"
+                                      checked={configState.slack.notifyOnComment}
+                                      onChange={(e) => setConfigState(prev => ({ ...prev, slack: { ...prev.slack, notifyOnComment: e.target.checked } }))}
+                                      className="accent-primary h-3.5 w-3.5"
+                                      id="slack-comment"
+                                    />
+                                    <label htmlFor="slack-comment" className="text-[11px] text-muted-foreground cursor-pointer">
+                                      When client adds comments
+                                    </label>
+                                  </div>
+                                  <div className="flex items-center gap-2">
+                                    <input 
+                                      type="checkbox"
+                                      checked={configState.slack.notifyOnApproval}
+                                      onChange={(e) => setConfigState(prev => ({ ...prev, slack: { ...prev.slack, notifyOnApproval: e.target.checked } }))}
+                                      className="accent-primary h-3.5 w-3.5"
+                                      id="slack-approve"
+                                    />
+                                    <label htmlFor="slack-approve" className="text-[11px] text-muted-foreground cursor-pointer">
+                                      When deliverable is approved
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="flex justify-between items-center pt-2">
+                                <Button 
+                                  variant="ghost" 
+                                  size="sm" 
+                                  className="h-7 text-[10px] font-bold text-destructive hover:bg-destructive/10 px-2"
+                                  onClick={() => toggleConnection('slack', 'Slack')}
+                                >
+                                  Disconnect
+                                </Button>
+                                <Button 
+                                  size="sm" 
+                                  className="h-7 text-[10px] font-bold px-3"
+                                  onClick={() => saveIntegrationConfig('slack', 'Slack', configState.slack)}
+                                >
+                                  Save Settings
+                                </Button>
+                              </div>
+                            </div>
+                          ) : (
+                            <Button 
+                              variant="outline" 
+                              size="sm" 
+                              className="h-8 text-[11px] font-bold w-full"
+                              onClick={() => toggleConnection('slack', 'Slack')}
+                            >
+                              Connect Slack
+                            </Button>
+                          )}
                         </div>
 
                         {/* Microsoft Teams Card */}
@@ -416,15 +591,87 @@ const Settings = () => {
                                   <p className="text-[10px] text-muted-foreground">Team Alerts</p>
                                 </div>
                               </div>
-                              <span className="text-[9px] bg-muted text-muted-foreground font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Not Connected</span>
+                              <span className={cn(
+                                "text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider",
+                                connections.teams ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" : "bg-muted text-muted-foreground"
+                              )}>
+                                {connections.teams ? "Active" : "Not Connected"}
+                              </span>
                             </div>
                             <p className="text-[12px] text-muted-foreground leading-relaxed pt-1">
                               Sync real-time approval logs directly to Microsoft Teams channels. Keep your creative department in the loop automatically.
                             </p>
                           </div>
-                          <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold w-full" onClick={() => toast.success("Connecting Microsoft Teams...")}>
-                            Connect Teams
-                          </Button>
+                          {connections.teams ? (
+                            <div className="border-t pt-4 space-y-3">
+                              <div className="space-y-1">
+                                <Label className="text-[10px] uppercase tracking-wider text-muted-foreground">Teams Channel</Label>
+                                <select 
+                                  value={configState.teams.channel}
+                                  onChange={(e) => setConfigState(prev => ({ ...prev, teams: { ...prev.teams, channel: e.target.value } }))}
+                                  className="w-full h-8 text-[12px] bg-background border rounded px-2 focus:ring-1 focus:ring-primary focus:outline-none"
+                                >
+                                  <option>Design Department Channel</option>
+                                  <option>General Alerts Channel</option>
+                                </select>
+                              </div>
+                              <div className="space-y-2">
+                                <Label className="text-[10px] uppercase tracking-wider text-muted-foreground block">Trigger Notifications</Label>
+                                <div className="space-y-1.5 pt-0.5">
+                                  <div className="flex items-center gap-2">
+                                    <input 
+                                      type="checkbox"
+                                      checked={configState.teams.notifyOnApproval}
+                                      onChange={(e) => setConfigState(prev => ({ ...prev, teams: { ...prev.teams, notifyOnApproval: e.target.checked } }))}
+                                      className="accent-primary h-3.5 w-3.5"
+                                      id="teams-approve"
+                                    />
+                                    <label htmlFor="teams-approve" className="text-[11px] text-muted-foreground cursor-pointer">
+                                      When a deliverable is approved
+                                    </label>
+                                  </div>
+                                  <div className="flex items-center gap-2">
+                                    <input 
+                                      type="checkbox"
+                                      checked={configState.teams.notifyOnComment}
+                                      onChange={(e) => setConfigState(prev => ({ ...prev, teams: { ...prev.teams, notifyOnComment: e.target.checked } }))}
+                                      className="accent-primary h-3.5 w-3.5"
+                                      id="teams-comment"
+                                    />
+                                    <label htmlFor="teams-comment" className="text-[11px] text-muted-foreground cursor-pointer">
+                                      When client adds feedback
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="flex justify-between items-center pt-2">
+                                <Button 
+                                  variant="ghost" 
+                                  size="sm" 
+                                  className="h-7 text-[10px] font-bold text-destructive hover:bg-destructive/10 px-2"
+                                  onClick={() => toggleConnection('teams', 'Microsoft Teams')}
+                                >
+                                  Disconnect
+                                </Button>
+                                <Button 
+                                  size="sm" 
+                                  className="h-7 text-[10px] font-bold px-3"
+                                  onClick={() => saveIntegrationConfig('teams', 'Microsoft Teams', configState.teams)}
+                                >
+                                  Save Settings
+                                </Button>
+                              </div>
+                            </div>
+                          ) : (
+                            <Button 
+                              variant="outline" 
+                              size="sm" 
+                              className="h-8 text-[11px] font-bold w-full"
+                              onClick={() => toggleConnection('teams', 'Microsoft Teams')}
+                            >
+                              Connect Teams
+                            </Button>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -450,15 +697,96 @@ const Settings = () => {
                                   <p className="text-[10px] text-muted-foreground">Task Sync</p>
                                 </div>
                               </div>
-                              <span className="text-[9px] bg-muted text-muted-foreground font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Not Connected</span>
+                              <span className={cn(
+                                "text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider",
+                                connections.asana ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" : "bg-muted text-muted-foreground"
+                              )}>
+                                {connections.asana ? "Active" : "Not Connected"}
+                              </span>
                             </div>
                             <p className="text-[12px] text-muted-foreground leading-relaxed pt-1">
                               Link deliverables directly to Asana tasks. Automatically advance tasks or move them to 'Approved' columns as soon as clients sign off.
                             </p>
                           </div>
-                          <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold w-full" onClick={() => toast.success("Connecting Asana...")}>
-                            Connect Asana
-                          </Button>
+                          {connections.asana ? (
+                            <div className="border-t pt-4 space-y-3">
+                              <div className="grid grid-cols-2 gap-3">
+                                <div className="space-y-1">
+                                  <Label className="text-[10px] uppercase tracking-wider text-muted-foreground">Workspace</Label>
+                                  <select 
+                                    value={configState.asana.workspace}
+                                    onChange={(e) => setConfigState(prev => ({ ...prev, asana: { ...prev.asana, workspace: e.target.value } }))}
+                                    className="w-full h-8 text-[12px] bg-background border rounded px-2 focus:ring-1 focus:ring-primary focus:outline-none"
+                                  >
+                                    <option>Creative Team Workspace</option>
+                                    <option>Marketing Studio Workspace</option>
+                                  </select>
+                                </div>
+                                <div className="space-y-1">
+                                  <Label className="text-[10px] uppercase tracking-wider text-muted-foreground">Target Project</Label>
+                                  <select 
+                                    value={configState.asana.project}
+                                    onChange={(e) => setConfigState(prev => ({ ...prev, asana: { ...prev.asana, project: e.target.value } }))}
+                                    className="w-full h-8 text-[12px] bg-background border rounded px-2 focus:ring-1 focus:ring-primary focus:outline-none"
+                                  >
+                                    <option>Website Rebranding</option>
+                                    <option>Social Assets Q3</option>
+                                    <option>UI/UX Redesign</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div className="space-y-1">
+                                <Label className="text-[10px] uppercase tracking-wider text-muted-foreground">Approval Action</Label>
+                                <select 
+                                  value={configState.asana.state}
+                                  onChange={(e) => setConfigState(prev => ({ ...prev, asana: { ...prev.asana, state: e.target.value } }))}
+                                  className="w-full h-8 text-[12px] bg-background border rounded px-2 focus:ring-1 focus:ring-primary focus:outline-none"
+                                >
+                                  <option>Move task to 'Approved / Done'</option>
+                                  <option>Move task to 'Client Approved'</option>
+                                  <option>Create a follow-up task for Dev</option>
+                                </select>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input 
+                                  type="checkbox"
+                                  checked={configState.asana.certificate}
+                                  onChange={(e) => setConfigState(prev => ({ ...prev, asana: { ...prev.asana, certificate: e.target.checked } }))}
+                                  className="accent-primary h-3.5 w-3.5"
+                                  id="asana-cert"
+                                />
+                                <label htmlFor="asana-cert" className="text-[11px] text-muted-foreground cursor-pointer">
+                                  Append client sign-off link in comments
+                                </label>
+                              </div>
+                              <div className="flex justify-between items-center pt-2">
+                                <Button 
+                                  variant="ghost" 
+                                  size="sm" 
+                                  className="h-7 text-[10px] font-bold text-destructive hover:bg-destructive/10 px-2"
+                                  onClick={() => toggleConnection('asana', 'Asana')}
+                                >
+                                  Disconnect
+                                </Button>
+                                <Button 
+                                  size="sm" 
+                                  className="h-7 text-[10px] font-bold px-3"
+                                  onClick={() => saveIntegrationConfig('asana', 'Asana', configState.asana)}
+                                >
+                                  Save Settings
+                                </Button>
+                              </div>
+                            </div>
+                          ) : (
+                            <Button 
+                              variant="outline" 
+                              size="sm" 
+                              className="h-8 text-[11px] font-bold w-full" 
+                              onClick={() => toggleConnection('asana', 'Asana')}
+                            >
+                              Connect Asana
+                            </Button>
+                          )}
                         </div>
 
                         {/* Linear Card */}
@@ -476,15 +804,103 @@ const Settings = () => {
                                   <p className="text-[10px] text-muted-foreground">Issue Tracking</p>
                                 </div>
                               </div>
-                              <span className="text-[9px] bg-muted text-muted-foreground font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Not Connected</span>
+                              <span className={cn(
+                                "text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider",
+                                connections.linear ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" : "bg-muted text-muted-foreground"
+                              )}>
+                                {connections.linear ? "Active" : "Not Connected"}
+                              </span>
                             </div>
                             <p className="text-[12px] text-muted-foreground leading-relaxed pt-1">
                               Sync project cycles. Update issue states, close bug tickets, or notify design owners as soon as client revision cycles are completed.
                             </p>
                           </div>
-                          <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold w-full" onClick={() => toast.success("Connecting Linear...")}>
-                            Connect Linear
-                          </Button>
+                          {connections.linear ? (
+                            <div className="border-t pt-4 space-y-3">
+                              <div className="grid grid-cols-2 gap-3">
+                                <div className="space-y-1">
+                                  <Label className="text-[10px] uppercase tracking-wider text-muted-foreground">Linear Team</Label>
+                                  <select 
+                                    value={configState.linear.team}
+                                    onChange={(e) => setConfigState(prev => ({ ...prev, linear: { ...prev.linear, team: e.target.value } }))}
+                                    className="w-full h-8 text-[12px] bg-background border rounded px-2 focus:ring-1 focus:ring-primary focus:outline-none"
+                                  >
+                                    <option>Design Team [DES]</option>
+                                    <option>Marketing Studio [MKT]</option>
+                                  </select>
+                                </div>
+                                <div className="space-y-1">
+                                  <Label className="text-[10px] uppercase tracking-wider text-muted-foreground">Target Project</Label>
+                                  <select 
+                                    value={configState.linear.project}
+                                    onChange={(e) => setConfigState(prev => ({ ...prev, linear: { ...prev.linear, project: e.target.value } }))}
+                                    className="w-full h-8 text-[12px] bg-background border rounded px-2 focus:ring-1 focus:ring-primary focus:outline-none"
+                                  >
+                                    <option>Client Portal Launch</option>
+                                    <option>Figma Design System</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div className="space-y-1">
+                                <Label className="text-[10px] uppercase tracking-wider text-muted-foreground">Automated State</Label>
+                                <select 
+                                  value={configState.linear.state}
+                                  onChange={(e) => setConfigState(prev => ({ ...prev, linear: { ...prev.linear, state: e.target.value } }))}
+                                  className="w-full h-8 text-[12px] bg-background border rounded px-2 focus:ring-1 focus:ring-primary focus:outline-none"
+                                >
+                                  <option>Mark issue as 'Done'</option>
+                                  <option>Mark issue as 'Approved'</option>
+                                  <option>Create a review sub-issue</option>
+                                </select>
+                              </div>
+                              <div className="space-y-1">
+                                <Label className="text-[10px] uppercase tracking-wider text-muted-foreground">Handoff Assignee Email</Label>
+                                <Input 
+                                  value={configState.linear.assignee} 
+                                  onChange={(e) => setConfigState(prev => ({ ...prev, linear: { ...prev.linear, assignee: e.target.value } }))}
+                                  className="h-8 text-[12px]"
+                                />
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input 
+                                  type="checkbox"
+                                  checked={configState.linear.syncComments}
+                                  onChange={(e) => setConfigState(prev => ({ ...prev, linear: { ...prev.linear, syncComments: e.target.checked } }))}
+                                  className="accent-primary h-3.5 w-3.5"
+                                  id="linear-comments"
+                                />
+                                <label htmlFor="linear-comments" className="text-[11px] text-muted-foreground cursor-pointer">
+                                  Sync client comments to Linear issue thread
+                                </label>
+                              </div>
+                              <div className="flex justify-between items-center pt-2">
+                                <Button 
+                                  variant="ghost" 
+                                  size="sm" 
+                                  className="h-7 text-[10px] font-bold text-destructive hover:bg-destructive/10 px-2"
+                                  onClick={() => toggleConnection('linear', 'Linear')}
+                                >
+                                  Disconnect
+                                </Button>
+                                <Button 
+                                  size="sm" 
+                                  className="h-7 text-[10px] font-bold px-3"
+                                  onClick={() => saveIntegrationConfig('linear', 'Linear', configState.linear)}
+                                >
+                                  Save Settings
+                                </Button>
+                              </div>
+                            </div>
+                          ) : (
+                            <Button 
+                              variant="outline" 
+                              size="sm" 
+                              className="h-8 text-[11px] font-bold w-full" 
+                              onClick={() => toggleConnection('linear', 'Linear')}
+                            >
+                              Connect Linear
+                            </Button>
+                          )}
                         </div>
 
                         {/* Notion Card */}
@@ -503,15 +919,84 @@ const Settings = () => {
                                   <p className="text-[10px] text-muted-foreground">Database Sync</p>
                                 </div>
                               </div>
-                              <span className="text-[9px] bg-muted text-muted-foreground font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Not Connected</span>
+                              <span className={cn(
+                                "text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider",
+                                connections.notion ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" : "bg-muted text-muted-foreground"
+                              )}>
+                                {connections.notion ? "Active" : "Not Connected"}
+                              </span>
                             </div>
                             <p className="text-[12px] text-muted-foreground leading-relaxed pt-1">
                               Sync approvals to your custom internal databases. Write feedback directly to Notion pages, link client contacts, and keep your workspace structured.
                             </p>
                           </div>
-                          <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold w-full" onClick={() => toast.success("Connecting Notion...")}>
-                            Connect Notion
-                          </Button>
+                          {connections.notion ? (
+                            <div className="border-t pt-4 space-y-3">
+                              <div className="grid grid-cols-2 gap-3">
+                                <div className="space-y-1">
+                                  <Label className="text-[10px] uppercase tracking-wider text-muted-foreground">Target Database</Label>
+                                  <select 
+                                    value={configState.notion.database}
+                                    onChange={(e) => setConfigState(prev => ({ ...prev, notion: { ...prev.notion, database: e.target.value } }))}
+                                    className="w-full h-8 text-[12px] bg-background border rounded px-2 focus:ring-1 focus:ring-primary focus:outline-none"
+                                  >
+                                    <option>Client Deliverables Registry</option>
+                                    <option>Design Feedback Logs</option>
+                                  </select>
+                                </div>
+                                <div className="space-y-1">
+                                  <Label className="text-[10px] uppercase tracking-wider text-muted-foreground">Status Property</Label>
+                                  <select 
+                                    value={configState.notion.column}
+                                    onChange={(e) => setConfigState(prev => ({ ...prev, notion: { ...prev.notion, column: e.target.value } }))}
+                                    className="w-full h-8 text-[12px] bg-background border rounded px-2 focus:ring-1 focus:ring-primary focus:outline-none"
+                                  >
+                                    <option>Sign-off Status</option>
+                                    <option>Approval Stage</option>
+                                    <option>Status</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input 
+                                  type="checkbox"
+                                  checked={configState.notion.syncComments}
+                                  onChange={(e) => setConfigState(prev => ({ ...prev, notion: { ...prev.notion, syncComments: e.target.checked } }))}
+                                  className="accent-primary h-3.5 w-3.5"
+                                  id="notion-comments"
+                                />
+                                <label htmlFor="notion-comments" className="text-[11px] text-muted-foreground cursor-pointer">
+                                  Create new Notion page for client comments
+                                </label>
+                              </div>
+                              <div className="flex justify-between items-center pt-2">
+                                <Button 
+                                  variant="ghost" 
+                                  size="sm" 
+                                  className="h-7 text-[10px] font-bold text-destructive hover:bg-destructive/10 px-2"
+                                  onClick={() => toggleConnection('notion', 'Notion')}
+                                >
+                                  Disconnect
+                                </Button>
+                                <Button 
+                                  size="sm" 
+                                  className="h-7 text-[10px] font-bold px-3"
+                                  onClick={() => saveIntegrationConfig('notion', 'Notion', configState.notion)}
+                                >
+                                  Save Settings
+                                </Button>
+                              </div>
+                            </div>
+                          ) : (
+                            <Button 
+                              variant="outline" 
+                              size="sm" 
+                              className="h-8 text-[11px] font-bold w-full" 
+                              onClick={() => toggleConnection('notion', 'Notion')}
+                            >
+                              Connect Notion
+                            </Button>
+                          )}
                         </div>
 
                         {/* Trello Card */}
@@ -532,15 +1017,84 @@ const Settings = () => {
                                   <p className="text-[10px] text-muted-foreground">List Status Sync</p>
                                 </div>
                               </div>
-                              <span className="text-[9px] bg-muted text-muted-foreground font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Not Connected</span>
+                              <span className={cn(
+                                "text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider",
+                                connections.trello ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" : "bg-muted text-muted-foreground"
+                              )}>
+                                {connections.trello ? "Active" : "Not Connected"}
+                              </span>
                             </div>
                             <p className="text-[12px] text-muted-foreground leading-relaxed pt-1">
                               Keep your boards clean. Move Trello cards from 'Pending Approval' to 'Completed' columns automatically when clients sign off.
                             </p>
                           </div>
-                          <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold w-full" onClick={() => toast.success("Connecting Trello...")}>
-                            Connect Trello
-                          </Button>
+                          {connections.trello ? (
+                            <div className="border-t pt-4 space-y-3">
+                              <div className="grid grid-cols-2 gap-3">
+                                <div className="space-y-1">
+                                  <Label className="text-[10px] uppercase tracking-wider text-muted-foreground">Trello Board</Label>
+                                  <select 
+                                    value={configState.trello.board}
+                                    onChange={(e) => setConfigState(prev => ({ ...prev, trello: { ...prev.trello, board: e.target.value } }))}
+                                    className="w-full h-8 text-[12px] bg-background border rounded px-2 focus:ring-1 focus:ring-primary focus:outline-none"
+                                  >
+                                    <option>Active Projects Hub</option>
+                                    <option>Client Review Board</option>
+                                  </select>
+                                </div>
+                                <div className="space-y-1">
+                                  <Label className="text-[10px] uppercase tracking-wider text-muted-foreground">Move to List</Label>
+                                  <select 
+                                    value={configState.trello.list}
+                                    onChange={(e) => setConfigState(prev => ({ ...prev, trello: { ...prev.trello, list: e.target.value } }))}
+                                    className="w-full h-8 text-[12px] bg-background border rounded px-2 focus:ring-1 focus:ring-primary focus:outline-none"
+                                  >
+                                    <option>Approved / Done</option>
+                                    <option>Client Sign-Off</option>
+                                    <option>Handoff to Dev</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input 
+                                  type="checkbox"
+                                  checked={configState.trello.certificate}
+                                  onChange={(e) => setConfigState(prev => ({ ...prev, trello: { ...prev.trello, certificate: e.target.checked } }))}
+                                  className="accent-primary h-3.5 w-3.5"
+                                  id="trello-cert"
+                                />
+                                <label htmlFor="trello-cert" className="text-[11px] text-muted-foreground cursor-pointer">
+                                  Attach PDF approval certificate to the card
+                                </label>
+                              </div>
+                              <div className="flex justify-between items-center pt-2">
+                                <Button 
+                                  variant="ghost" 
+                                  size="sm" 
+                                  className="h-7 text-[10px] font-bold text-destructive hover:bg-destructive/10 px-2"
+                                  onClick={() => toggleConnection('trello', 'Trello')}
+                                >
+                                  Disconnect
+                                </Button>
+                                <Button 
+                                  size="sm" 
+                                  className="h-7 text-[10px] font-bold px-3"
+                                  onClick={() => saveIntegrationConfig('trello', 'Trello', configState.trello)}
+                                >
+                                  Save Settings
+                                </Button>
+                              </div>
+                            </div>
+                          ) : (
+                            <Button 
+                              variant="outline" 
+                              size="sm" 
+                              className="h-8 text-[11px] font-bold w-full" 
+                              onClick={() => toggleConnection('trello', 'Trello')}
+                            >
+                              Connect Trello
+                            </Button>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -571,15 +1125,75 @@ const Settings = () => {
                                   <p className="text-[10px] text-muted-foreground">Source Asset Linking</p>
                                 </div>
                               </div>
-                              <span className="text-[9px] bg-muted text-muted-foreground font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Not Connected</span>
+                              <span className={cn(
+                                "text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider",
+                                connections.google_drive ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" : "bg-muted text-muted-foreground"
+                              )}>
+                                {connections.google_drive ? "Connected" : "Not Connected"}
+                              </span>
                             </div>
                             <p className="text-[12px] text-muted-foreground leading-relaxed pt-1">
                               Link heavy deliverables directly from Google Drive. Offload hosting limits and share high-res source files safely and automatically.
                             </p>
                           </div>
-                          <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold w-full" onClick={() => toast.success("Connecting Google Drive...")}>
-                            Connect Google Drive
-                          </Button>
+                          {connections.google_drive ? (
+                            <div className="border-t pt-4 space-y-3">
+                              <div className="space-y-1">
+                                <Label className="text-[10px] uppercase tracking-wider text-muted-foreground">Active Projects Folder</Label>
+                                <Input 
+                                  value={configState.google_drive.activeDir} 
+                                  onChange={(e) => setConfigState(prev => ({ ...prev, google_drive: { ...prev.google_drive, activeDir: e.target.value } }))}
+                                  className="h-8 text-[12px]"
+                                />
+                              </div>
+                              <div className="space-y-1">
+                                <Label className="text-[10px] uppercase tracking-wider text-muted-foreground">Deliverables Archive Folder</Label>
+                                <Input 
+                                  value={configState.google_drive.archiveDir} 
+                                  onChange={(e) => setConfigState(prev => ({ ...prev, google_drive: { ...prev.google_drive, archiveDir: e.target.value } }))}
+                                  className="h-8 text-[12px]"
+                                />
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input 
+                                  type="checkbox"
+                                  checked={configState.google_drive.autoCopy}
+                                  onChange={(e) => setConfigState(prev => ({ ...prev, google_drive: { ...prev.google_drive, autoCopy: e.target.checked } }))}
+                                  className="accent-primary h-3.5 w-3.5"
+                                  id="drive-copy"
+                                />
+                                <label htmlFor="drive-copy" className="text-[11px] text-muted-foreground cursor-pointer">
+                                  Auto-copy finalized deliverables to Drive
+                                </label>
+                              </div>
+                              <div className="flex justify-between items-center pt-2">
+                                <Button 
+                                  variant="ghost" 
+                                  size="sm" 
+                                  className="h-7 text-[10px] font-bold text-destructive hover:bg-destructive/10 px-2"
+                                  onClick={() => toggleConnection('google_drive', 'Google Drive')}
+                                >
+                                  Disconnect
+                                </Button>
+                                <Button 
+                                  size="sm" 
+                                  className="h-7 text-[10px] font-bold px-3"
+                                  onClick={() => saveIntegrationConfig('google_drive', 'Google Drive', configState.google_drive)}
+                                >
+                                  Save Settings
+                                </Button>
+                              </div>
+                            </div>
+                          ) : (
+                            <Button 
+                              variant="outline" 
+                              size="sm" 
+                              className="h-8 text-[11px] font-bold w-full" 
+                              onClick={() => toggleConnection('google_drive', 'Google Drive')}
+                            >
+                              Connect Google Drive
+                            </Button>
+                          )}
                         </div>
 
                         {/* Figma Card */}
@@ -608,15 +1222,85 @@ const Settings = () => {
                                   <p className="text-[10px] text-muted-foreground">Live Canvas Reviews</p>
                                 </div>
                               </div>
-                              <span className="text-[9px] bg-muted text-muted-foreground font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Not Connected</span>
+                              <span className={cn(
+                                "text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider",
+                                connections.figma ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" : "bg-muted text-muted-foreground"
+                              )}>
+                                {connections.figma ? "Connected" : "Not Connected"}
+                              </span>
                             </div>
                             <p className="text-[12px] text-muted-foreground leading-relaxed pt-1">
                               Embed live Figma files directly inside the client portal. Clients review and approve live canvases without needing Figma accounts.
                             </p>
                           </div>
-                          <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold w-full" onClick={() => toast.success("Connecting Figma...")}>
-                            Connect Figma
-                          </Button>
+                          {connections.figma ? (
+                            <div className="border-t pt-4 space-y-3">
+                              <div className="space-y-1">
+                                <Label className="text-[10px] uppercase tracking-wider text-muted-foreground">Default Team Workspace</Label>
+                                <select 
+                                  value={configState.figma.workspace}
+                                  onChange={(e) => setConfigState(prev => ({ ...prev, figma: { ...prev.figma, workspace: e.target.value } }))}
+                                  className="w-full h-8 text-[12px] bg-background border rounded px-2 focus:ring-1 focus:ring-primary focus:outline-none"
+                                >
+                                  <option>Creative Space</option>
+                                  <option>Product Design Team</option>
+                                  <option>Marketing Studio</option>
+                                </select>
+                              </div>
+                              <div className="space-y-1.5 pt-0.5">
+                                <div className="flex items-center gap-2">
+                                  <input 
+                                    type="checkbox"
+                                    checked={configState.figma.liveSnapshots}
+                                    onChange={(e) => setConfigState(prev => ({ ...prev, figma: { ...prev.figma, liveSnapshots: e.target.checked } }))}
+                                    className="accent-primary h-3.5 w-3.5"
+                                    id="figma-snap"
+                                  />
+                                  <label htmlFor="figma-snap" className="text-[11px] text-muted-foreground cursor-pointer">
+                                    Render Figma frame snapshots in client portals
+                                  </label>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                  <input 
+                                    type="checkbox"
+                                    checked={configState.figma.autoUpdate}
+                                    onChange={(e) => setConfigState(prev => ({ ...prev, figma: { ...prev.figma, autoUpdate: e.target.checked } }))}
+                                    className="accent-primary h-3.5 w-3.5"
+                                    id="figma-update"
+                                  />
+                                  <label htmlFor="figma-update" className="text-[11px] text-muted-foreground cursor-pointer">
+                                    Auto-update embeds when canvas changes
+                                  </label>
+                                </div>
+                              </div>
+                              <div className="flex justify-between items-center pt-2">
+                                <Button 
+                                  variant="ghost" 
+                                  size="sm" 
+                                  className="h-7 text-[10px] font-bold text-destructive hover:bg-destructive/10 px-2"
+                                  onClick={() => toggleConnection('figma', 'Figma')}
+                                >
+                                  Disconnect
+                                </Button>
+                                <Button 
+                                  size="sm" 
+                                  className="h-7 text-[10px] font-bold px-3"
+                                  onClick={() => saveIntegrationConfig('figma', 'Figma', configState.figma)}
+                                >
+                                  Save Settings
+                                </Button>
+                              </div>
+                            </div>
+                          ) : (
+                            <Button 
+                              variant="outline" 
+                              size="sm" 
+                              className="h-8 text-[11px] font-bold w-full" 
+                              onClick={() => toggleConnection('figma', 'Figma')}
+                            >
+                              Connect Figma
+                            </Button>
+                          )}
                         </div>
 
                         {/* Dropbox Card */}
@@ -634,15 +1318,67 @@ const Settings = () => {
                                   <p className="text-[10px] text-muted-foreground">Deliverable Sync</p>
                                 </div>
                               </div>
-                              <span className="text-[9px] bg-muted text-muted-foreground font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Not Connected</span>
+                              <span className={cn(
+                                "text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider",
+                                connections.dropbox ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" : "bg-muted text-muted-foreground"
+                              )}>
+                                {connections.dropbox ? "Connected" : "Not Connected"}
+                              </span>
                             </div>
                             <p className="text-[12px] text-muted-foreground leading-relaxed pt-1">
                               Link your Dropbox team folders. Access revision assets and render packages directly through Approvr client frames.
                             </p>
                           </div>
-                          <Button variant="outline" size="sm" className="h-8 text-[11px] font-bold w-full" onClick={() => toast.success("Connecting Dropbox...")}>
-                            Connect Dropbox
-                          </Button>
+                          {connections.dropbox ? (
+                            <div className="border-t pt-4 space-y-3">
+                              <div className="space-y-1">
+                                <Label className="text-[10px] uppercase tracking-wider text-muted-foreground">Dropbox Primary Sync Folder</Label>
+                                <Input 
+                                  value={configState.dropbox.syncFolder} 
+                                  onChange={(e) => setConfigState(prev => ({ ...prev, dropbox: { ...prev.dropbox, syncFolder: e.target.value } }))}
+                                  className="h-8 text-[12px]"
+                                />
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input 
+                                  type="checkbox"
+                                  checked={configState.dropbox.guestLinks}
+                                  onChange={(e) => setConfigState(prev => ({ ...prev, dropbox: { ...prev.dropbox, guestLinks: e.target.checked } }))}
+                                  className="accent-primary h-3.5 w-3.5"
+                                  id="dropbox-guest"
+                                />
+                                <label htmlFor="dropbox-guest" className="text-[11px] text-muted-foreground cursor-pointer">
+                                  Generate secure guest view URLs automatically
+                                </label>
+                              </div>
+                              <div className="flex justify-between items-center pt-2">
+                                <Button 
+                                  variant="ghost" 
+                                  size="sm" 
+                                  className="h-7 text-[10px] font-bold text-destructive hover:bg-destructive/10 px-2"
+                                  onClick={() => toggleConnection('dropbox', 'Dropbox')}
+                                >
+                                  Disconnect
+                                </Button>
+                                <Button 
+                                  size="sm" 
+                                  className="h-7 text-[10px] font-bold px-3"
+                                  onClick={() => saveIntegrationConfig('dropbox', 'Dropbox', configState.dropbox)}
+                                >
+                                  Save Settings
+                                </Button>
+                              </div>
+                            </div>
+                          ) : (
+                            <Button 
+                              variant="outline" 
+                              size="sm" 
+                              className="h-8 text-[11px] font-bold w-full" 
+                              onClick={() => toggleConnection('dropbox', 'Dropbox')}
+                            >
+                              Connect Dropbox
+                            </Button>
+                          )}
                         </div>
                       </div>
                     </div>
